@@ -5,5 +5,6 @@ final appThemeProvider = Provider<ThemeData>((ref) {
   return ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: 'IBMPlexSans',
   );
 });
