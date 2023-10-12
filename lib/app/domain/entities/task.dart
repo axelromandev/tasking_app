@@ -5,14 +5,12 @@ part 'task.g.dart';
 @collection
 class Task {
   Id id = Isar.autoIncrement;
-  final String title;
-  final String description;
-  final DateTime dueDate;
-  final bool isCompleted;
+  final String message;
+  final DateTime? dueDate;
+  bool isCompleted;
 
   Task({
-    required this.title,
-    required this.description,
+    required this.message,
     required this.dueDate,
     required this.isCompleted,
   });

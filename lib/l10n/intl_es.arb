@@ -1,3 +1,6 @@
 {
-  "home.title": "Tus tareas"
+  "home_title": "Tus tareas",
+  "home_button_add": "Agregar una tarea",
+  "home_empty_tasks": "Todo claro aquí",
+  "home_completed": "Completados"
 }

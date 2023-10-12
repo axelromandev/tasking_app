@@ -17,8 +17,13 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
         TargetPlatform.android: ZoomPageTransitionsBuilder(),
-        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
       },
+    ),
+
+    // IconTheme
+    iconTheme: const IconThemeData(
+      color: Colors.white,
     ),
 
     // AppBar
@@ -38,6 +43,33 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       style: FilledButton.styleFrom(
         backgroundColor: cardBackgroundColor,
         foregroundColor: Colors.white,
+      ),
+    ),
+
+    // DialogTheme
+    dialogTheme: DialogTheme(
+      elevation: 0,
+      backgroundColor: scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultPadding),
+      ),
+    ),
+    bottomSheetTheme: BottomSheetThemeData(
+      elevation: 0,
+      backgroundColor: scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultPadding),
+      ),
+    ),
+
+    // inputDecorationTheme
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: cardBackgroundColor,
+      contentPadding: const EdgeInsets.all(defaultPadding),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(defaultPadding),
+        borderSide: BorderSide.none,
       ),
     ),
   );
