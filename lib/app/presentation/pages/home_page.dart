@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                       icon: const Icon(HeroIcons.plus),
                       label: Text('Add',
                           style: style.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           )),
                     ),
                   ],

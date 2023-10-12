@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/presentation.dart';
+import '../app/app.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final initialLocation = HomePage.routePath;

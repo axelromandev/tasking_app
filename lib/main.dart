@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/config/app_router.dart';
-import 'package:tasking/config/app_theme.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/services/isar_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await IsarService.initialize();
+
   runApp(const ProviderScope(
     child: MainApp(),
   ));
@@ -21,6 +25,13 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       theme: appTheme,
+      // localizationsDelegates: [
+      //   S.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      // ],
+      // supportedLocales: S.delegate.supportedLocales,
     );
   }
 }

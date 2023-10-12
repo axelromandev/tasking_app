@@ -21,6 +21,8 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 .fvm/flutter_sdk
+generated
+pubspec.lock
 
 # Flutter/Dart/Pub related
 **/doc/api/

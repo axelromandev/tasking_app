@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasking/presentation/widgets/logo.dart';
+
+import '../widgets/widgets.dart';
 
 class SplashPage extends StatelessWidget {
   static String routePath = '/splash';
