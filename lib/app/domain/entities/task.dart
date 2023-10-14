@@ -5,8 +5,8 @@ part 'task.g.dart';
 @collection
 class Task {
   Id id = Isar.autoIncrement;
-  final String message;
-  final DateTime? dueDate;
+  String message;
+  DateTime? dueDate;
   bool isCompleted;
 
   Task({

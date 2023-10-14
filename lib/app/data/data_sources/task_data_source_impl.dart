@@ -6,20 +6,40 @@ import '../../domain/domain.dart';
 abstract class TaskDataSource {
   Future<List<Task>> getAll();
   Future<void> write(Task task);
+  Future<void> delete(int id);
 }
 
 class TaskDataSourceImpl extends TaskDataSource {
+  final Isar _isar = IsarService.isar;
+
   @override
   Future<List<Task>> getAll() async {
-    final tasks = IsarService.isar.tasks;
-    final list = await tasks.where().findAll();
-    return list;
+    try {
+      return await _isar.tasks.where().findAll();
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override
   Future<void> write(Task task) async {
-    await IsarService.isar.writeTxn(() async {
-      await IsarService.isar.tasks.put(task);
-    });
+    try {
+      await _isar.writeTxn(() async {
+        await _isar.tasks.put(task);
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    try {
+      await _isar.writeTxn(() async {
+        await _isar.tasks.delete(id);
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

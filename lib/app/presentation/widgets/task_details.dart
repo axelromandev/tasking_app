@@ -1,71 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/config.dart';
 
 import '../../../generated/l10n.dart';
 
-class TaskDetails extends StatefulWidget {
+class TaskDetails extends ConsumerStatefulWidget {
   final Task task;
   const TaskDetails(this.task, {super.key});
 
   @override
-  State<TaskDetails> createState() => _TaskDetailsState();
+  ConsumerState<TaskDetails> createState() => _TaskDetailsState();
 }
 
-class _TaskDetailsState extends State<TaskDetails> {
-  Task get task => widget.task;
+class _TaskDetailsState extends ConsumerState<TaskDetails> {
   late TextEditingController controller;
   FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController(text: task.message);
+    initialize();
+  }
+
+  void initialize() {
+    ref.read(taskDetailsProvider.notifier).initialize(widget.task);
+    controller = TextEditingController(text: widget.task.message);
     focusNode.addListener(() {
       setState(() {});
     });
   }
 
-  void onDelete() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          S.of(context).dialog_delete_title,
-          textAlign: TextAlign.center,
-        ),
-        content: Text(
-          S.of(context).dialog_delete_subtitle,
-          textAlign: TextAlign.center,
-        ),
-        actions: [
-          Row(
-            children: [
-              Expanded(
-                child: CustomFilledButton(
-                  onPressed: () => context.pop(false),
-                  child: Text(S.of(context).button_cancel),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: CustomFilledButton(
-                  onPressed: () => context.pop(true),
-                  backgroundColor: Colors.red.shade800,
-                  child: Text(S.of(context).button_delete_task),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final task = ref.watch(taskDetailsProvider);
+
+    if (task == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     return SingleChildScrollView(
       child: SafeArea(
         child: Container(
@@ -101,7 +75,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(left: 4),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //TODO: save changes to task
+                        },
                         icon: task.isCompleted
                             ? const Icon(BoxIcons.bx_check_circle,
                                 color: Colors.white)
@@ -111,12 +87,14 @@ class _TaskDetailsState extends State<TaskDetails> {
                     ),
                     suffixIcon: focusNode.hasFocus
                         ? IconButton(
-                            onPressed: () {
-                              controller.clear();
-                            },
+                            onPressed: () => controller.clear(),
                             icon: const Icon(HeroIcons.x_mark),
                           )
-                        : null,
+                        : const Icon(
+                            BoxIcons.bx_pencil,
+                            size: 18,
+                            color: Colors.white,
+                          ),
                     hintText: S.of(context).home_button_add,
                     hintStyle: const TextStyle(color: Colors.white),
                   ),
@@ -124,7 +102,12 @@ class _TaskDetailsState extends State<TaskDetails> {
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      //TODO: add due date to task
+                      ref
+                          .read(taskDetailsProvider.notifier)
+                          .onAddDueDate(context);
+                    },
                     leading: const Icon(HeroIcons.calendar),
                     title: Text(
                       task.dueDate != null
@@ -137,7 +120,13 @@ class _TaskDetailsState extends State<TaskDetails> {
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      //TODO: add reminder to task
+
+                      ref
+                          .read(taskDetailsProvider.notifier)
+                          .onAddReminder(context);
+                    },
                     leading:
                         const Icon(HeroIcons.bell_alert, color: Colors.white),
                     title: Text(
@@ -150,7 +139,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                 ),
                 CustomFilledButton(
                   margin: const EdgeInsets.only(top: 16),
-                  onPressed: onDelete,
+                  onPressed: ref.read(taskDetailsProvider.notifier).onDelete,
                   foregroundColor: Colors.red,
                   backgroundColor: Colors.red.shade900.withOpacity(.1),
                   icon: const Icon(HeroIcons.trash, size: 16),

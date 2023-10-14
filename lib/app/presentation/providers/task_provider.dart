@@ -45,13 +45,23 @@ class TaskNotifier extends StateNotifier<List<Task>> {
     getAll();
   }
 
-  void onShowDetails(BuildContext context, Task task) {
+  void onShowDetails(BuildContext context, Task task) async {
     FocusScope.of(context).unfocus();
-    showModalBottomSheet(
+    await showModalBottomSheet(
       context: context,
       elevation: 0,
       builder: (_) => TaskDetails(task),
     );
+  }
+
+  Future<void> deleteTask(Task task) async {
+    await _taskRepository.delete(task.id);
+    getAll();
+  }
+
+  Future<void> updateTask(Task task) async {
+    await _taskRepository.write(task);
+    getAll();
   }
 }
 

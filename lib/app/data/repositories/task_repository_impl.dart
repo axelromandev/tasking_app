@@ -4,6 +4,7 @@ import '../data_sources/data_sources.dart';
 abstract class TaskRepository {
   Future<List<Task>> getAll();
   Future<void> write(Task task);
+  Future<void> delete(int id);
 }
 
 class TaskRepositoryImpl extends TaskRepository {
@@ -17,5 +18,10 @@ class TaskRepositoryImpl extends TaskRepository {
   @override
   Future<void> write(Task task) {
     return _dataSource.write(task);
+  }
+
+  @override
+  Future<void> delete(int id) {
+    return _dataSource.delete(id);
   }
 }
