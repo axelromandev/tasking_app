@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
+import '../../domain/domain.dart';
 import '../presentation.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,30 +22,28 @@ class HomePage extends StatelessWidget {
       body: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
-          title: SvgPicture.asset('assets/svg/logo_icon.svg', height: 24),
-          centerTitle: true,
-        ),
-        body: Container(
-          margin: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          title: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  children: [
-                    Text(S.of(context).home_title,
-                        style: style.headlineLarge?.copyWith(
-                          color: Colors.white,
-                        )),
-                  ],
-                ),
+                padding: const EdgeInsets.only(left: 8, bottom: 2),
+                child: SvgPicture.asset('assets/svg/logo_icon.svg', width: 24),
               ),
-              const SizedBox(height: 8),
-              _BuildTasks(),
+              const SizedBox(width: defaultPadding / 2),
+              Text(S.of(context).app_name,
+                  style: style.headlineSmall?.copyWith(
+                    color: Colors.white,
+                  )),
             ],
           ),
+          centerTitle: false,
+          actions: [
+            IconButton(
+              onPressed: () => context.push(SettingsPage.routePath),
+              icon: const Icon(BoxIcons.bx_cog),
+            ),
+          ],
         ),
+        body: _BuildTasks(),
         bottomNavigationBar: _ButtonAddTask(),
       ),
     );
@@ -91,55 +91,94 @@ class _BuildTasks extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tasks = ref.watch(taskProvider);
 
+    final listCompleted = tasks.where((task) => task.isCompleted).toList();
+    final listPending = tasks.where((task) => !task.isCompleted).toList();
+
     final style = Theme.of(context).textTheme;
 
     if (tasks.isEmpty) {
-      return Expanded(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(HeroIcons.clipboard_document_check,
-                  size: 32, color: Colors.white),
-              Text(S.of(context).home_empty_tasks,
-                  style: style.headlineSmall?.copyWith(
-                    color: Colors.white,
-                  )),
-            ],
-          ),
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(HeroIcons.clipboard_document_check,
+                size: 32, color: Colors.white),
+            Text(S.of(context).home_empty_tasks,
+                style: style.headlineSmall?.copyWith(
+                  color: Colors.white,
+                )),
+          ],
         ),
       );
     }
 
-    return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        children: [
-          ...tasks
-              .where((task) => !task.isCompleted)
-              .map((task) => CardTask(
-                    onTap: () =>
-                        ref.read(taskProvider.notifier).onToggleCheck(task),
-                    task: task,
-                  ))
-              .toList(),
-          const SizedBox(height: defaultPadding),
-          Text(S.of(context).home_completed,
-              style: style.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
-              )),
-          const SizedBox(height: 8),
-          ...tasks
-              .where((task) => task.isCompleted)
-              .map((task) => CardTask(
-                    onTap: () =>
-                        ref.read(taskProvider.notifier).onToggleCheck(task),
-                    task: task,
-                  ))
-              .toList(),
-        ],
-      ),
+    return ListView(
+      padding: const EdgeInsets.all(defaultPadding),
+      children: [
+        if (listPending.isNotEmpty)
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    HeroIcons.clipboard_document_check,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(S.of(context).home_pending,
+                      style: style.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                      )),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ...listPending.map((task) => _BuildTask(task)).toList(),
+        if (listCompleted.isNotEmpty)
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (listPending.isNotEmpty)
+                const SizedBox(height: defaultPadding),
+              Row(
+                children: [
+                  const Icon(
+                    BoxIcons.bx_check_circle,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(S.of(context).home_completed,
+                      style: style.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                      )),
+                ],
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ...listCompleted.map((task) => _BuildTask(task)).toList(),
+      ],
+    );
+  }
+}
+
+class _BuildTask extends ConsumerWidget {
+  final Task task;
+  const _BuildTask(this.task);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return CardTask(
+      onShowDetails: () =>
+          ref.read(taskProvider.notifier).onShowDetails(context, task),
+      onCheckTask: () => ref.read(taskProvider.notifier).onToggleCheck(task),
+      task: task,
     );
   }
 }

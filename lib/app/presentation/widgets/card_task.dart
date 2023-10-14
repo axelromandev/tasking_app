@@ -4,11 +4,13 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback onShowDetails;
+  final VoidCallback onCheckTask;
   final Task task;
 
   const CardTask({
-    required this.onTap,
+    required this.onShowDetails,
+    required this.onCheckTask,
     required this.task,
     super.key,
   });
@@ -20,14 +22,19 @@ class CardTask extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
-        onTap: onTap,
+        onTap: onShowDetails,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
         minLeadingWidth: 0,
-        leading: task.isCompleted
-            ? const Icon(BoxIcons.bx_check_circle, color: Colors.white70)
-            : const Icon(BoxIcons.bx_circle, color: Colors.white),
+        leading: IconButton(
+          padding: EdgeInsets.zero,
+          visualDensity: VisualDensity.compact,
+          onPressed: onCheckTask,
+          icon: task.isCompleted
+              ? const Icon(BoxIcons.bx_check_circle, color: Colors.white70)
+              : const Icon(BoxIcons.bx_circle, color: Colors.white),
+        ),
         title: Text(
           task.message,
           style: style.titleMedium?.copyWith(

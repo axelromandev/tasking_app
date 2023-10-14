@@ -1,6 +1,14 @@
 {
+  "app_name": "Tasking",
   "home_title": "Your tasks",
   "home_button_add": "Add a task",
   "home_empty_tasks": "All clear here",
-  "home_completed": "Completed"
+  "home_pending": "Pending",
+  "home_completed": "Completed",
+  "button_delete_task": "Delete Task",
+  "button_cancel": "Cancel",
+  "button_reminder": "Remind Me",
+  "button_add_due_date": "Add Due Date",
+  "dialog_delete_subtitle": "You won't be able to undo this action.",
+  "dialog_delete_title": "Will be permanently deleted."
 }

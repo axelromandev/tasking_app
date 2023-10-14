@@ -1,6 +1,14 @@
 {
+  "app_name": "Tasking",
   "home_title": "Tus tareas",
   "home_button_add": "Agregar una tarea",
   "home_empty_tasks": "Todo claro aquí",
-  "home_completed": "Completados"
+  "home_pending": "Pendiente",
+  "home_completed": "Completado",
+  "button_delete_task": "Eliminar tarea",
+  "button_cancel": "Cancelar",
+  "button_reminder": "Recuerdame",
+  "button_add_due_date": "Agregar fecha de vencimiento",
+  "dialog_delete_subtitle": "No podrás deshacer esta acción.",
+  "dialog_delete_title": "Se eliminará permanentemente."
 }

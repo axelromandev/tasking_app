@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets/widgets.dart';
 
-class SplashPage extends StatelessWidget {
-  static String routePath = '/splash';
+class IntroPage extends StatelessWidget {
+  static String routePath = '/intro';
 
-  const SplashPage({super.key});
+  const IntroPage({super.key});
 
   @override
   Widget build(BuildContext context) {

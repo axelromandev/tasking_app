@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/data.dart';
 import '../../domain/domain.dart';
+import '../widgets/widgets.dart';
 
 final taskProvider = StateNotifierProvider<TaskNotifier, List<Task>>((ref) {
   return TaskNotifier(ref);
@@ -42,6 +43,15 @@ class TaskNotifier extends StateNotifier<List<Task>> {
     task.isCompleted = !task.isCompleted;
     await _taskRepository.write(task);
     getAll();
+  }
+
+  void onShowDetails(BuildContext context, Task task) {
+    FocusScope.of(context).unfocus();
+    showModalBottomSheet(
+      context: context,
+      elevation: 0,
+      builder: (_) => TaskDetails(task),
+    );
   }
 }
 

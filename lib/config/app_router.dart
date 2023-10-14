@@ -11,16 +11,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: SplashPage.routePath,
-        builder: (_, __) => const SplashPage(),
+        path: IntroPage.routePath,
+        builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
         path: HomePage.routePath,
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
-        path: TaskPage.routePath,
-        builder: (_, __) => const TaskPage(),
+        path: SettingsPage.routePath,
+        builder: (_, __) => const SettingsPage(),
       )
     ],
   );

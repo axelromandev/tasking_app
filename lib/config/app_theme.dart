@@ -16,14 +16,16 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // PageTransitions
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
-        TargetPlatform.android: ZoomPageTransitionsBuilder(),
-        TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+        TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+        TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
       },
     ),
 
     // IconTheme
-    iconTheme: const IconThemeData(
-      color: Colors.white,
+    iconTheme: const IconThemeData(color: Colors.white),
+    primaryIconTheme: const IconThemeData(color: Colors.white),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(foregroundColor: Colors.white),
     ),
 
     // AppBar
@@ -33,14 +35,20 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
 
     // Card
-    cardTheme: const CardTheme(
+    cardTheme: CardTheme(
       color: cardBackgroundColor,
       elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultRadius),
+      ),
     ),
 
     // FilledButton
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(defaultRadius),
+        ),
         backgroundColor: cardBackgroundColor,
         foregroundColor: Colors.white,
       ),
@@ -51,14 +59,14 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       elevation: 0,
       backgroundColor: scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultPadding),
+        borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
       backgroundColor: scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultPadding),
+        borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
 
@@ -68,8 +76,16 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       fillColor: cardBackgroundColor,
       contentPadding: const EdgeInsets.all(defaultPadding),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(defaultPadding),
+        borderRadius: BorderRadius.circular(defaultRadius),
         borderSide: BorderSide.none,
+      ),
+    ),
+
+    // listTileTheme
+    listTileTheme: ListTileThemeData(
+      iconColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
   );
