@@ -23,15 +23,19 @@ class HomePage extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 8, bottom: 2),
-                child: Icon(BoxIcons.bxs_crown, color: Colors.yellow),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, bottom: 2),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: cardDarkColor,
+                    borderRadius: BorderRadius.circular(defaultRadius),
+                  ),
+                  child: const Icon(BoxIcons.bxs_crown, color: Colors.yellow),
+                ),
               ),
               const SizedBox(width: defaultPadding / 2),
-              Text(S.of(context).app_name,
-                  style: style.headlineSmall?.copyWith(
-                    color: Colors.white,
-                  )),
+              Text(S.of(context).app_name, style: style.headlineSmall),
             ],
           ),
           centerTitle: false,
@@ -70,14 +74,13 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
             ref.read(homeProvider.notifier).onSubmit(value);
             setState(() {});
           },
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(fontSize: 16),
           maxLines: null,
           decoration: InputDecoration(
             prefixIcon: controller.text.isEmpty
-                ? const Icon(HeroIcons.plus, color: Colors.white)
-                : const Icon(BoxIcons.bx_circle, color: Colors.white),
+                ? const Icon(HeroIcons.plus)
+                : const Icon(BoxIcons.bx_circle),
             hintText: S.of(context).home_button_add,
-            hintStyle: const TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -105,12 +108,8 @@ class _BuildTasks extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(HeroIcons.clipboard_document_check,
-                size: 32, color: Colors.white),
-            Text(S.of(context).home_empty_tasks,
-                style: style.headlineSmall?.copyWith(
-                  color: Colors.white,
-                )),
+            const Icon(HeroIcons.clipboard_document_check, size: 32),
+            Text(S.of(context).home_empty_tasks, style: style.headlineSmall),
           ],
         ),
       );
@@ -131,13 +130,11 @@ class _BuildTasks extends ConsumerWidget {
                   const Icon(
                     BoxIcons.bx_check_circle,
                     size: 16,
-                    color: Colors.white,
                   ),
                   const SizedBox(width: 8),
                   Text(S.of(context).home_completed,
                       style: style.titleMedium?.copyWith(
                         fontWeight: FontWeight.w300,
-                        color: Colors.white,
                       )),
                 ],
               ),

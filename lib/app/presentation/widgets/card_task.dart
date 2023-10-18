@@ -20,6 +20,8 @@ class CardTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
@@ -37,7 +39,9 @@ class CardTask extends StatelessWidget {
                 ? BoxIcons.bx_check_circle
                 : BoxIcons.bx_circle,
             color: task.isCompleted != null
-                ? Colors.white70
+                ? isDarkMode
+                    ? Colors.white70
+                    : Colors.black54
                 : dueDateColor(task.dueDate),
           ),
         ),
@@ -48,7 +52,9 @@ class CardTask extends StatelessWidget {
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
             color: task.isCompleted != null
-                ? Colors.white70
+                ? isDarkMode
+                    ? Colors.white70
+                    : Colors.black54
                 : dueDateColor(task.dueDate),
           ),
         ),

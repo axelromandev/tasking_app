@@ -54,7 +54,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
         actions: [
           CustomFilledButton(
             onPressed: () => context.pop(true),
-            backgroundColor: Colors.red.shade800,
+            foregroundColor: Colors.red,
+            backgroundColor: Colors.red.shade900.withOpacity(.1),
             child: Text(S.of(context).button_delete_task),
           ),
           const SizedBox(height: defaultPadding),
@@ -75,8 +76,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
 
   void onAddDueDate() {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
     final language = S.of(context).language;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     late picker.LocaleType localeType = picker.LocaleType.en;
     if (language == 'es') {
@@ -86,10 +87,12 @@ class TaskNotifier extends StateNotifier<TaskState> {
     picker.DatePicker.showDatePicker(
       context,
       theme: picker.DatePickerTheme(
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
         cancelStyle: style.bodyLarge!,
-        doneStyle: style.bodyLarge!.copyWith(color: colors.primary),
-        itemStyle: style.bodyLarge!.copyWith(color: colors.onBackground),
+        doneStyle: style.bodyLarge!,
+        itemStyle: style.bodyLarge!.copyWith(
+          color: isDarkMode ? Colors.white : Colors.black,
+        ),
       ),
       currentTime: state.task?.dueDate ?? DateTime.now(),
       locale: localeType,
@@ -113,8 +116,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
 
   void onAddReminder() {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
     final language = S.of(context).language;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     late picker.LocaleType localeType = picker.LocaleType.en;
 
@@ -125,10 +128,12 @@ class TaskNotifier extends StateNotifier<TaskState> {
     picker.DatePicker.showDateTimePicker(
       context,
       theme: picker.DatePickerTheme(
-        backgroundColor: cardBackgroundColor,
+        backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
         cancelStyle: style.bodyLarge!,
-        doneStyle: style.bodyLarge!.copyWith(color: colors.primary),
-        itemStyle: style.bodyLarge!.copyWith(color: colors.onBackground),
+        doneStyle: style.bodyLarge!,
+        itemStyle: style.bodyLarge!.copyWith(
+          color: isDarkMode ? Colors.white : Colors.black,
+        ),
       ),
       maxTime: DateTime.now(),
       currentTime: state.task!.reminder ?? DateTime.now(),

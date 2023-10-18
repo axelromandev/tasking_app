@@ -29,9 +29,7 @@ class TaskPage extends ConsumerWidget {
               ? S.of(context).home_completed
               : S.of(context).home_pending,
           style: TextStyle(
-            color: task.isCompleted != null
-                ? Colors.white
-                : dueDateColor(task.dueDate),
+            color: task.isCompleted != null ? null : dueDateColor(task.dueDate),
           ),
         ),
         actions: [
@@ -64,7 +62,6 @@ class TaskPage extends ConsumerWidget {
                           .format(task.dueDate!)
                           .toString()
                       : S.of(context).button_add_due_date,
-                  style: const TextStyle(color: Colors.white),
                 ),
                 trailing: Visibility(
                   visible: task.dueDate != null,
@@ -80,12 +77,11 @@ class TaskPage extends ConsumerWidget {
               child: ListTile(
                 contentPadding: const EdgeInsets.only(left: 16),
                 onTap: ref.read(taskProvider.notifier).onAddReminder,
-                leading: const Icon(HeroIcons.bell_alert, color: Colors.white),
+                leading: const Icon(HeroIcons.bell_alert),
                 title: Text(
                   task.reminder != null
                       ? DateFormat().format(task.reminder!).toString()
                       : S.of(context).button_reminder,
-                  style: const TextStyle(color: Colors.white),
                 ),
                 trailing: Visibility(
                   visible: task.reminder != null,
@@ -177,7 +173,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
         }
         ref.read(taskProvider.notifier).onChangeMessage(value);
       },
-      style: const TextStyle(color: Colors.white, fontSize: 16),
+      style: const TextStyle(fontSize: 16),
       maxLines: null,
       decoration: InputDecoration(
         filled: focusNode.hasFocus,
@@ -186,12 +182,11 @@ class _TextFieldState extends ConsumerState<_TextField> {
           child: IconButton(
             onPressed: ref.read(taskProvider.notifier).onToggleComplete,
             icon: task.isCompleted != null
-                ? const Icon(BoxIcons.bx_check_circle, color: Colors.white)
-                : const Icon(BoxIcons.bx_circle, color: Colors.white),
+                ? const Icon(BoxIcons.bx_check_circle)
+                : const Icon(BoxIcons.bx_circle),
           ),
         ),
         hintText: S.of(context).home_button_add,
-        hintStyle: const TextStyle(color: Colors.white),
       ),
     );
   }
