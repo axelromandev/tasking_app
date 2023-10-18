@@ -11,5 +11,8 @@
   "button_reminder": "Remind Me",
   "button_add_due_date": "Add Due Date",
   "dialog_delete_subtitle": "You won't be able to undo this action.",
-  "dialog_delete_title": "Will be permanently deleted."
+  "dialog_delete_title": "Will be permanently deleted.",
+  "task_empty_title": "Ups! Task not found",
+  "task_empty_subtitle": "Go back to home and add a new task",
+  "settings_title": "Settings"
 }

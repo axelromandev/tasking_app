@@ -16,8 +16,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // PageTransitions
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {
-        TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
-        TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
       },
     ),
 

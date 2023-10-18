@@ -23,6 +23,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
+        path: TaskPage.routePath,
+        builder: (_, state) {
+          String str = state.pathParameters['id'] ?? '999';
+          final id = int.parse(str);
+          ref.read(taskProvider.notifier).initialize(id);
+          return const TaskPage();
+        },
+      ),
+      GoRoute(
         path: SettingsPage.routePath,
         builder: (_, __) => const SettingsPage(),
       )

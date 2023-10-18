@@ -7,11 +7,15 @@ class Task {
   Id id = Isar.autoIncrement;
   String message;
   DateTime? dueDate;
-  bool isCompleted;
+  DateTime? reminder;
+  DateTime? isCompleted;
+  DateTime? createAt;
 
   Task({
     required this.message,
-    required this.dueDate,
-    required this.isCompleted,
+    this.dueDate,
+    this.reminder,
+    this.isCompleted,
+    required this.createAt,
   });
 }

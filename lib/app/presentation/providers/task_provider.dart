@@ -1,70 +1,183 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+    as picker;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
 import '../../data/data.dart';
 import '../../domain/domain.dart';
-import '../widgets/widgets.dart';
+import '../presentation.dart';
 
-final taskProvider = StateNotifierProvider<TaskNotifier, List<Task>>((ref) {
-  return TaskNotifier(ref);
+final taskProvider =
+    StateNotifierProvider.autoDispose<TaskNotifier, TaskState>((ref) {
+  final refresh = ref.watch(homeProvider.notifier).getAll;
+  return TaskNotifier(refresh: refresh);
 });
 
-class TaskNotifier extends StateNotifier<List<Task>> {
-  final Ref ref;
+class TaskNotifier extends StateNotifier<TaskState> {
+  final Future<void> Function() refresh;
 
-  TaskNotifier(this.ref) : super([]) {
-    getAll();
-  }
+  TaskNotifier({required this.refresh}) : super(TaskState());
 
   final _taskRepository = TaskRepositoryImpl();
 
-  Future<void> getAll() async {
-    final tasks = await _taskRepository.getAll();
-    state = tasks;
+  BuildContext context = navigatorKey.currentContext!;
+
+  void initialize(int id) async {
+    final task = await _taskRepository.get(id);
+    state = state.copyWith(task: task);
   }
 
-  void onSubmit(String value) async {
-    ref.read(controllerProvider).clear();
-
-    if (value.trim().isEmpty) return;
-
-    final task = Task(
-      message: value,
-      dueDate: null,
-      isCompleted: false,
+  void showSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+      ),
     );
-
-    await _taskRepository.write(task);
-
-    getAll();
   }
 
-  void onToggleCheck(Task task) async {
-    task.isCompleted = !task.isCompleted;
-    await _taskRepository.write(task);
-    getAll();
-  }
-
-  void onShowDetails(BuildContext context, Task task) async {
-    FocusScope.of(context).unfocus();
-    await showModalBottomSheet(
+  void onDelete() async {
+    await showDialog<bool?>(
       context: context,
-      elevation: 0,
-      builder: (_) => TaskDetails(task),
+      builder: (_) => AlertDialog(
+        title: Text(
+          S.of(context).dialog_delete_title,
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          S.of(context).dialog_delete_subtitle,
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          CustomFilledButton(
+            onPressed: () => context.pop(true),
+            backgroundColor: Colors.red.shade800,
+            child: Text(S.of(context).button_delete_task),
+          ),
+          const SizedBox(height: defaultPadding),
+          CustomFilledButton(
+            onPressed: () => context.pop(),
+            child: Text(S.of(context).button_cancel),
+          ),
+        ],
+      ),
+    ).then((value) async {
+      if (value == null) return;
+      await _taskRepository.delete(state.task!.id).then((value) {
+        refresh();
+        navigatorKey.currentContext!.pop();
+      });
+    });
+  }
+
+  void onAddDueDate() {
+    final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+    final language = S.of(context).language;
+
+    late picker.LocaleType localeType = picker.LocaleType.en;
+    if (language == 'es') {
+      localeType = picker.LocaleType.es;
+    }
+
+    picker.DatePicker.showDatePicker(
+      context,
+      theme: picker.DatePickerTheme(
+        backgroundColor: cardBackgroundColor,
+        cancelStyle: style.bodyLarge!,
+        doneStyle: style.bodyLarge!.copyWith(color: colors.primary),
+        itemStyle: style.bodyLarge!.copyWith(color: colors.onBackground),
+      ),
+      currentTime: state.task?.dueDate ?? DateTime.now(),
+      locale: localeType,
+      onConfirm: (date) async {
+        final task = state.task!;
+        task.dueDate = date;
+        state = state.copyWith(task: task);
+        await _taskRepository.write(task);
+        await refresh();
+      },
     );
   }
 
-  Future<void> deleteTask(Task task) async {
-    await _taskRepository.delete(task.id);
-    getAll();
+  void onRemoveDueDate() async {
+    final task = state.task!;
+    task.dueDate = null;
+    state = state.copyWith(task: task);
+    await _taskRepository.write(task);
+    refresh();
   }
 
-  Future<void> updateTask(Task task) async {
+  void onAddReminder() {
+    final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+    final language = S.of(context).language;
+
+    late picker.LocaleType localeType = picker.LocaleType.en;
+
+    if (language == 'es') {
+      localeType = picker.LocaleType.es;
+    }
+
+    picker.DatePicker.showDateTimePicker(
+      context,
+      theme: picker.DatePickerTheme(
+        backgroundColor: cardBackgroundColor,
+        cancelStyle: style.bodyLarge!,
+        doneStyle: style.bodyLarge!.copyWith(color: colors.primary),
+        itemStyle: style.bodyLarge!.copyWith(color: colors.onBackground),
+      ),
+      maxTime: DateTime.now(),
+      currentTime: state.task!.reminder ?? DateTime.now(),
+      locale: localeType,
+      onConfirm: (date) async {
+        final task = state.task!;
+        task.reminder = date;
+        state = state.copyWith(task: task);
+        await _taskRepository.write(task);
+        await refresh();
+
+        //TODO: add local notification here
+      },
+    );
+  }
+
+  void onRemoveReminder() async {
+    final task = state.task!;
+    task.reminder = null;
+    state = state.copyWith(task: task);
     await _taskRepository.write(task);
-    getAll();
+    refresh();
+  }
+
+  void onChangeMessage(String value) async {
+    if (value.trim().isEmpty) return;
+    final task = state.task!;
+    task.message = value;
+    state = state.copyWith(task: task);
+    await _taskRepository.write(task);
+    refresh();
+  }
+
+  void onToggleComplete() async {
+    final task = state.task!;
+    final result = task.isCompleted == null ? DateTime.now() : null;
+    task.isCompleted = result;
+    state = state.copyWith(task: task);
+    await _taskRepository.write(task);
+    refresh();
   }
 }
 
-final controllerProvider = Provider<TextEditingController>((ref) {
-  return TextEditingController();
-});
+class TaskState {
+  final Task? task;
+
+  TaskState({this.task});
+
+  TaskState copyWith({Task? task}) {
+    return TaskState(task: task ?? this.task);
+  }
+}

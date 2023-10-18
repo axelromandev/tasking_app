@@ -2,6 +2,7 @@ import '../../domain/domain.dart';
 import '../data_sources/data_sources.dart';
 
 abstract class TaskRepository {
+  Future<Task?> get(int id);
   Future<List<Task>> getAll();
   Future<void> write(Task task);
   Future<void> delete(int id);
@@ -9,6 +10,11 @@ abstract class TaskRepository {
 
 class TaskRepositoryImpl extends TaskRepository {
   final TaskDataSource _dataSource = TaskDataSourceImpl();
+
+  @override
+  Future<Task?> get(int id) {
+    return _dataSource.get(id);
+  }
 
   @override
   Future<List<Task>> getAll() {

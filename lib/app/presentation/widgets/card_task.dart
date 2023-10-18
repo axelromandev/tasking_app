@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
@@ -31,16 +32,29 @@ class CardTask extends StatelessWidget {
           padding: EdgeInsets.zero,
           visualDensity: VisualDensity.compact,
           onPressed: onCheckTask,
-          icon: task.isCompleted
-              ? const Icon(BoxIcons.bx_check_circle, color: Colors.white70)
-              : const Icon(BoxIcons.bx_circle, color: Colors.white),
+          icon: Icon(
+            task.isCompleted != null
+                ? BoxIcons.bx_check_circle
+                : BoxIcons.bx_circle,
+            color: task.isCompleted != null
+                ? Colors.white70
+                : dueDateColor(task.dueDate),
+          ),
         ),
         title: Text(
           task.message,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
-            color: task.isCompleted ? Colors.white70 : Colors.white,
+            color: task.isCompleted != null
+                ? Colors.white70
+                : dueDateColor(task.dueDate),
           ),
+        ),
+        trailing: Icon(
+          dueDateIcon(task.dueDate),
+          color: dueDateColor(task.dueDate),
         ),
       ),
     );

@@ -10,7 +10,7 @@ import '../../domain/domain.dart';
 import '../presentation.dart';
 
 class HomePage extends StatelessWidget {
-  static String routePath = '/home';
+  static String routePath = '/';
 
   const HomePage({super.key});
 
@@ -68,7 +68,7 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
           controller: controller,
           textInputAction: TextInputAction.done,
           onFieldSubmitted: (value) {
-            ref.read(taskProvider.notifier).onSubmit(value);
+            ref.read(homeProvider.notifier).onSubmit(value);
             setState(() {});
           },
           style: const TextStyle(color: Colors.white, fontSize: 16),
@@ -89,10 +89,15 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
 class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(taskProvider);
+    final tasks = ref.watch(homeProvider);
 
-    final listCompleted = tasks.where((task) => task.isCompleted).toList();
-    final listPending = tasks.where((task) => !task.isCompleted).toList();
+    final listCompleted =
+        tasks.where((task) => task.isCompleted != null).toList();
+    listCompleted.sort((a, b) => b.isCompleted!.compareTo(a.isCompleted!));
+
+    final listPending =
+        tasks.where((task) => task.isCompleted == null).toList();
+    listPending.sort((a, b) => b.createAt!.compareTo(a.createAt!));
 
     final style = Theme.of(context).textTheme;
 
@@ -115,45 +120,23 @@ class _BuildTasks extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(defaultPadding),
       children: [
-        if (listPending.isNotEmpty)
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    HeroIcons.clipboard_document_check,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(S.of(context).home_pending,
-                      style: style.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
-                      )),
-                ],
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
         ...listPending.map((task) => _BuildTask(task)).toList(),
         if (listCompleted.isNotEmpty)
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (listPending.isNotEmpty)
-                const SizedBox(height: defaultPadding),
+                const SizedBox(height: defaultPadding * 2),
               Row(
                 children: [
                   const Icon(
                     BoxIcons.bx_check_circle,
-                    size: 18,
+                    size: 16,
                     color: Colors.white,
                   ),
                   const SizedBox(width: 8),
                   Text(S.of(context).home_completed,
-                      style: style.headlineSmall?.copyWith(
+                      style: style.titleMedium?.copyWith(
                         fontWeight: FontWeight.w300,
                         color: Colors.white,
                       )),
@@ -175,9 +158,10 @@ class _BuildTask extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CardTask(
-      onShowDetails: () =>
-          ref.read(taskProvider.notifier).onShowDetails(context, task),
-      onCheckTask: () => ref.read(taskProvider.notifier).onToggleCheck(task),
+      onShowDetails: () => context.push(
+        TaskPage.routePath.replaceAll(':id', '${task.id}'),
+      ),
+      onCheckTask: () => ref.read(homeProvider.notifier).onToggleCheck(task),
       task: task,
     );
   }
