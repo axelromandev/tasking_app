@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -24,9 +23,9 @@ class HomePage extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, bottom: 2),
-                child: SvgPicture.asset('assets/svg/logo_icon.svg', width: 24),
+              const Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 2),
+                child: Icon(BoxIcons.bxs_crown, color: Colors.yellow),
               ),
               const SizedBox(width: defaultPadding / 2),
               Text(S.of(context).app_name,
