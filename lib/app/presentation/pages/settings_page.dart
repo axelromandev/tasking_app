@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/config.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,11 +18,15 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
+        surfaceTintColor: Colors.white,
         title: Text(S.of(context).settings_title),
+        backgroundColor: isDarkMode ? null : Colors.grey[100],
       ),
+      backgroundColor: isDarkMode ? null : Colors.grey[100],
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -36,6 +41,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               Card(
+                color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
                     _BuildLanguageButton(),
@@ -67,6 +73,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               Card(
+                color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
                     _BuildListTile(
@@ -82,12 +89,7 @@ class SettingsPage extends ConsumerWidget {
                       ),
                     ),
                     const Divider(height: 0),
-                    _BuildListTile(
-                      iconData: BoxIcons.bx_info_circle,
-                      iconColor: Colors.orange,
-                      title: S.of(context).about_version,
-                      trailing: '1.0.0',
-                    ),
+                    _BuildVersionLabel(),
                   ],
                 ),
               ),
@@ -99,6 +101,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               Card(
+                color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
                     _BuildListTile(
@@ -141,6 +144,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               Card(
+                color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
                     _BuildListTile(
@@ -183,6 +187,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               Card(
+                color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
                     _BuildListTile(
@@ -221,6 +226,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               CustomFilledButton(
+                backgroundColor: isDarkMode ? null : Colors.white,
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 onPressed: () {
                   //TODO: add restore application
@@ -239,6 +245,36 @@ class SettingsPage extends ConsumerWidget {
   }
 }
 
+class _BuildVersionLabel extends StatefulWidget {
+  @override
+  State<_BuildVersionLabel> createState() => _BuildVersionLabelState();
+}
+
+class _BuildVersionLabelState extends State<_BuildVersionLabel> {
+  String version = '-';
+
+  @override
+  void initState() {
+    super.initState();
+    getVersion();
+  }
+
+  void getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() => version = packageInfo.version);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _BuildListTile(
+      iconData: BoxIcons.bx_info_circle,
+      iconColor: Colors.orange,
+      title: S.of(context).about_version,
+      trailing: version,
+    );
+  }
+}
+
 class _BuildLanguageButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -250,14 +286,13 @@ class _BuildLanguageButton extends ConsumerWidget {
         builder: (context) => AlertDialog(
           title: Text(S.of(context).settings_general_language),
           content: Text(
-            'El lenguaje de la aplicación se cambiará de '
-            'acuerdo con el idioma del dispositivo.',
+            S.of(context).language_description,
             style: style.bodyLarge,
           ),
           actions: [
             CustomFilledButton(
               onPressed: () => context.pop(),
-              child: const Text('Continuar'),
+              child: Text(S.of(context).button_continue),
             ),
           ],
         ),
