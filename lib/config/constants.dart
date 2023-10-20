@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color primaryColorCode = Color(0xFFFBF338);
+const Color primaryColor = Color(0xFF9747FF);
 
 const Color cardDarkColor = Color(0xFF21222D);
 const Color backgroundDarkColor = Color(0xFF171821);
@@ -13,3 +13,5 @@ const double defaultPadding = 16.0;
 const double defaultRadius = 16.0;
 
 const String kofiProfileUrl = 'https://ko-fi.com/ingedevs';
+
+const String isFirstTimeKey = 'isFirstTime';

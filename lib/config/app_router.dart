@@ -3,11 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../app/app.dart';
+import '../core/core.dart';
+import 'config.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final initialLocation = HomePage.routePath;
+
+  final pref = SharedPrefsService();
 
   return GoRouter(
     initialLocation: initialLocation,
@@ -40,5 +44,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const AboutPage(),
       )
     ],
+    redirect: (context, state) {
+      if (pref.getValue<bool>(isFirstTimeKey) == null) {
+        return IntroPage.routePath;
+      }
+      return null;
+    },
   );
 });
