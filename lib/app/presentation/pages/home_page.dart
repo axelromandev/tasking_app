@@ -23,16 +23,9 @@ class HomePage extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, bottom: 2),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(.1),
-                    borderRadius: BorderRadius.circular(defaultRadius),
-                  ),
-                  child: const Icon(BoxIcons.bxs_crown, color: primaryColor),
-                ),
+              const Padding(
+                padding: EdgeInsets.only(left: 8, bottom: 2),
+                child: Icon(BoxIcons.bxs_crown),
               ),
               const SizedBox(width: defaultPadding / 2),
               Text(S.of(context).app_name, style: style.headlineSmall),
@@ -63,6 +56,8 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
   Widget build(BuildContext context) {
     final controller = ref.watch(controllerProvider);
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(defaultPadding),
@@ -76,6 +71,7 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
           },
           style: const TextStyle(fontSize: 16),
           maxLines: null,
+          cursorColor: isDarkMode ? Colors.white : Colors.black,
           decoration: InputDecoration(
             prefixIcon: controller.text.isEmpty
                 ? const Icon(HeroIcons.plus)
@@ -108,10 +104,8 @@ class _BuildTasks extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(HeroIcons.clipboard_document_check,
-                size: 32, color: Colors.grey),
-            Text(S.of(context).home_empty_tasks,
-                style: style.headlineSmall?.copyWith(color: Colors.grey)),
+            const Icon(HeroIcons.clipboard_document_check, size: 32),
+            Text(S.of(context).home_empty_tasks, style: style.headlineSmall),
           ],
         ),
       );

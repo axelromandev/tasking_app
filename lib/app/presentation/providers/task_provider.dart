@@ -40,6 +40,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onDelete() async {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     await showDialog<bool?>(
       context: context,
       builder: (_) => AlertDialog(
@@ -61,6 +63,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
           const SizedBox(height: defaultPadding),
           CustomFilledButton(
             onPressed: () => context.pop(),
+            backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
+            foregroundColor: isDarkMode ? Colors.white : Colors.black,
             child: Text(S.of(context).button_cancel),
           ),
         ],

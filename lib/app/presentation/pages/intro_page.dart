@@ -36,7 +36,7 @@ class _IntroPageState extends State<IntroPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomTitle('Tasking', color: primaryColor),
+              const CustomTitle('Tasking'),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
@@ -69,11 +69,8 @@ class _IntroPageState extends State<IntroPage> {
               CustomFilledButton(
                 margin: const EdgeInsets.only(top: defaultPadding),
                 onPressed: onNext,
-                backgroundColor: primaryColor,
-                child: Text(
-                  S.of(context).intro_button,
-                  style: style.titleLarge?.copyWith(color: Colors.white),
-                ),
+                textStyle: style.titleLarge,
+                child: Text(S.of(context).intro_button),
               ),
             ],
           ),
@@ -90,13 +87,17 @@ class _Leading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final color = isDarkMode ? Colors.white : Colors.black;
+
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: primaryColor.withOpacity(.1),
+        color: color.withOpacity(.1),
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
-      child: Icon(icon, color: primaryColor),
+      child: Icon(icon, color: color),
     );
   }
 }

@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tasking/app/app.dart';
-import 'package:tasking/config/config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
+import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
   static String routePath = '/settings';
@@ -226,15 +226,15 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               CustomFilledButton(
-                backgroundColor: isDarkMode ? null : Colors.white,
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 onPressed: () {
                   //TODO: add restore application
                 },
-                child: Text(S.of(context).settings_button_restore_app,
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.redAccent,
-                    )),
+                backgroundColor: Colors.red.withOpacity(.1),
+                child: Text(
+                  S.of(context).settings_button_restore_app,
+                  style: style.bodyLarge?.copyWith(color: Colors.red),
+                ),
               ),
               const SizedBox(height: defaultPadding * 3),
             ],
@@ -280,6 +280,8 @@ class _BuildLanguageButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    const color = Colors.cyan;
+
     return ListTile(
       onTap: () => showDialog(
         context: context,
@@ -306,10 +308,10 @@ class _BuildLanguageButton extends ConsumerWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.cyan,
+          color: color.withOpacity(.1),
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        child: const Icon(Icons.language, color: Colors.white),
+        child: const Icon(Icons.language, color: color),
       ),
       trailing: Text(
         S.of(context).language == 'en'
@@ -329,17 +331,21 @@ class _BuildThemeButton extends ConsumerWidget {
 
     final isDarkMode = ref.watch(changeThemeProvider);
 
+    const color = Colors.cyan;
+
     return ListTile(
       shape: const RoundedRectangleBorder(),
       onTap: ref.read(changeThemeProvider.notifier).toggle,
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.cyan,
+          color: color.withOpacity(.1),
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        child: Icon(isDarkMode ? BoxIcons.bxs_moon : BoxIcons.bxs_sun,
-            color: Colors.white),
+        child: Icon(
+          isDarkMode ? BoxIcons.bxs_moon : BoxIcons.bxs_sun,
+          color: color,
+        ),
       ),
       trailing: Text(
         isDarkMode
@@ -373,19 +379,24 @@ class _BuildListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final color = iconColor == Colors.white
+        ? isDarkMode
+            ? Colors.white
+            : Colors.black
+        : iconColor;
+
     return ListTile(
       onTap: onTap,
       shape: shape ?? const RoundedRectangleBorder(),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: iconColor,
+          color: color.withOpacity(.1),
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        child: Icon(
-          iconData,
-          color: iconColor == Colors.white ? Colors.black : Colors.white,
-        ),
+        child: Icon(iconData, color: color),
       ),
       title: Text(title),
       trailing: onTap != null

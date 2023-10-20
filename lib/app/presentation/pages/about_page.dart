@@ -13,6 +13,10 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final color = isDarkMode ? Colors.white : Colors.black;
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -22,14 +26,14 @@ class AboutPage extends StatelessWidget {
             children: [
               const SizedBox(height: defaultPadding * 2),
               Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: primaryColor.withOpacity(.1),
+                  color: color.withOpacity(.1),
                   borderRadius: BorderRadius.circular(defaultRadius),
                 ),
-                child: const Icon(
+                child: Icon(
                   BoxIcons.bxs_crown,
-                  color: primaryColor,
+                  color: color,
                   size: 60,
                 ),
               ),

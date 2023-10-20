@@ -7,6 +7,7 @@ class CustomFilledButton extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? margin, padding;
   final double? elevation;
+  final TextStyle? textStyle;
 
   const CustomFilledButton({
     required this.onPressed,
@@ -17,15 +18,22 @@ class CustomFilledButton extends StatelessWidget {
     this.margin,
     this.padding,
     this.elevation,
+    this.textStyle,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor = isDarkMode ? Colors.white : Colors.black;
+    final foregroundColor = isDarkMode ? Colors.black : Colors.white;
+
     final style = FilledButton.styleFrom(
       elevation: elevation ?? 0,
-      backgroundColor: backgroundColor,
-      foregroundColor: foregroundColor,
+      textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
+      backgroundColor: this.backgroundColor ?? backgroundColor,
+      foregroundColor: this.foregroundColor ?? foregroundColor,
     );
 
     if (icon != null) {

@@ -157,6 +157,8 @@ class _TextFieldState extends ConsumerState<_TextField> {
   Widget build(BuildContext context) {
     final task = ref.watch(taskProvider).task!;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
@@ -175,6 +177,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
       },
       style: const TextStyle(fontSize: 16),
       maxLines: null,
+      cursorColor: isDarkMode ? Colors.white : Colors.black,
       decoration: InputDecoration(
         filled: focusNode.hasFocus,
         prefixIcon: Padding(
