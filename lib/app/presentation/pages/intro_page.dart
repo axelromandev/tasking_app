@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/constants.dart';
+import 'package:tasking/generated/l10n.dart';
 
 import '../../../core/core.dart';
 
@@ -28,8 +29,6 @@ class _IntroPageState extends State<IntroPage> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    //TODO: make strings .arg intl
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -41,42 +40,40 @@ class _IntroPageState extends State<IntroPage> {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
-                  'A simple way to control your digital life',
+                  S.of(context).intro_subtitle,
                   style: style.titleLarge,
                 ),
               ),
-              const ListTile(
+              ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: _Leading(icon: BoxIcons.bx_time),
-                title: Text('Manage your time with our app'),
+                leading: const _Leading(icon: BoxIcons.bx_time),
+                title: Text(S.of(context).intro_option1),
               ),
-              const ListTile(
+              ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: _Leading(icon: BoxIcons.bx_bell),
-                title: Text('Task monitoring with daily reminders'),
+                leading: const _Leading(icon: BoxIcons.bx_bell),
+                title: Text(S.of(context).intro_option2),
               ),
-              const ListTile(
+              ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: _Leading(icon: BoxIcons.bx_devices),
-                title: Text('Wherever you want, at any time, anywhere'),
+                leading: const _Leading(icon: BoxIcons.bx_devices),
+                title: Text(S.of(context).intro_option3),
               ),
-              const ListTile(
+              ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: _Leading(icon: BoxIcons.bx_shield),
-                title: Text('Your data is safe with us'),
+                leading: const _Leading(icon: BoxIcons.bx_shield),
+                title: Text(S.of(context).intro_option4),
               ),
               const Spacer(),
-              const Text(
-                '*This app still in beta, expect the unexpected behavior and UI changes',
-              ),
+              Text(S.of(context).intro_disclaimer),
               CustomFilledButton(
                 margin: const EdgeInsets.only(top: defaultPadding),
                 onPressed: onNext,
                 backgroundColor: primaryColor,
-                child: Text('Get started',
-                    style: style.titleLarge?.copyWith(
-                      color: Colors.white,
-                    )),
+                child: Text(
+                  S.of(context).intro_button,
+                  style: style.titleLarge?.copyWith(color: Colors.white),
+                ),
               ),
             ],
           ),

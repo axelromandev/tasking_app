@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/config/config.dart';
 
+import 'config/config.dart';
 import 'core/core.dart';
 import 'generated/l10n.dart';
 

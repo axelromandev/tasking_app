@@ -21,7 +21,19 @@ class AboutPage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: defaultPadding * 2),
-              const Icon(BoxIcons.bxs_crown, color: Colors.yellow, size: 60),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: primaryColor.withOpacity(.1),
+                  borderRadius: BorderRadius.circular(defaultRadius),
+                ),
+                child: const Icon(
+                  BoxIcons.bxs_crown,
+                  color: primaryColor,
+                  size: 60,
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
               Text('Tasking', style: style.displayMedium),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),

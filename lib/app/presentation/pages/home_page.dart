@@ -28,10 +28,10 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: cardDarkColor,
+                    color: primaryColor.withOpacity(.1),
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
-                  child: const Icon(BoxIcons.bxs_crown, color: Colors.yellow),
+                  child: const Icon(BoxIcons.bxs_crown, color: primaryColor),
                 ),
               ),
               const SizedBox(width: defaultPadding / 2),
@@ -108,8 +108,10 @@ class _BuildTasks extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(HeroIcons.clipboard_document_check, size: 32),
-            Text(S.of(context).home_empty_tasks, style: style.headlineSmall),
+            const Icon(HeroIcons.clipboard_document_check,
+                size: 32, color: Colors.grey),
+            Text(S.of(context).home_empty_tasks,
+                style: style.headlineSmall?.copyWith(color: Colors.grey)),
           ],
         ),
       );

@@ -2,4 +2,6 @@
 
 A new Flutter project.
 
-dart run build_runner build
+fvm dart run build_runner build
+
+fvm dart run icons_launcher:create --path
