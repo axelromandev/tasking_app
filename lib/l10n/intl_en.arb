@@ -18,6 +18,7 @@
   "home_completed": "Completed",
   "button_delete_task": "Delete Task",
   "button_cancel": "Cancel",
+  "button_restore": "Restore",
   "button_continue": "Continue",
   "button_reminder": "Remind Me",
   "button_add_due_date": "Add Due Date",
@@ -47,5 +48,7 @@
   "about_author": "Dev: Axel Román",
   "about_author_description": "I'm a software developer from México. I love to create apps and learn new things.",
   "about_description": "Tasking is a simple task manager app. It's free and open source.",
-  "about_version": "Version"
+  "about_version": "Version",
+  "dialog_restore_title": "Restore App",
+  "dialog_restore_subtitle": "Are you sure you want to restore the data app? This action cannot be undone."
 }

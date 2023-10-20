@@ -18,6 +18,7 @@
   "home_completed": "Completado",
   "button_delete_task": "Eliminar tarea",
   "button_cancel": "Cancelar",
+  "button_restore": "Restaurar",
   "button_continue": "Continuar",
   "button_reminder": "Recuerdame",
   "button_add_due_date": "Agregar fecha de vencimiento",
@@ -47,5 +48,7 @@
   "about_author": "Dev: Axel Román",
   "about_author_description": "Soy un desarrollador de software de México. Me encanta crear aplicaciones y aprender cosas nuevas.",
   "about_description": "Tasking es una aplicación simple del administrador de tareas. Es gratis y de código abierto.",
-  "about_version": "Version"
+  "about_version": "Version",
+  "dialog_restore_title": "Restaurar la aplicación",
+  "dialog_restore_subtitle": "¿Estás seguro de que quieres restaurar la aplicación de datos?Esta acción no se puede deshacer."
 }

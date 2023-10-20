@@ -52,7 +52,7 @@ class SettingsPage extends ConsumerWidget {
                       onTap: () {
                         //TODO: manage reminders
                       },
-                      iconData: Icons.notifications,
+                      iconData: BoxIcons.bx_bell,
                       iconColor: Colors.cyan,
                       title: S.of(context).settings_general_reminders,
                       shape: const RoundedRectangleBorder(
@@ -227,9 +227,7 @@ class SettingsPage extends ConsumerWidget {
               ),
               CustomFilledButton(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-                onPressed: () {
-                  //TODO: add restore application
-                },
+                onPressed: ref.read(homeProvider.notifier).onRestoreDataApp,
                 backgroundColor: Colors.red.withOpacity(.1),
                 child: Text(
                   S.of(context).settings_button_restore_app,
@@ -311,7 +309,7 @@ class _BuildLanguageButton extends ConsumerWidget {
           color: color.withOpacity(.1),
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        child: const Icon(Icons.language, color: color),
+        child: const Icon(Icons.language_outlined, color: color),
       ),
       trailing: Text(
         S.of(context).language == 'en'
@@ -343,7 +341,7 @@ class _BuildThemeButton extends ConsumerWidget {
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
         child: Icon(
-          isDarkMode ? BoxIcons.bxs_moon : BoxIcons.bxs_sun,
+          isDarkMode ? BoxIcons.bx_moon : BoxIcons.bx_sun,
           color: color,
         ),
       ),

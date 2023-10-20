@@ -8,6 +8,7 @@ abstract class TaskDataSource {
   Future<Task?> get(int id);
   Future<void> write(Task task);
   Future<void> delete(int id);
+  Future<void> restore();
 }
 
 class TaskDataSourceImpl extends TaskDataSource {
@@ -47,6 +48,17 @@ class TaskDataSourceImpl extends TaskDataSource {
     try {
       await _isar.writeTxn(() async {
         await _isar.tasks.delete(id);
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> restore() async {
+    try {
+      await _isar.writeTxn(() async {
+        await _isar.tasks.where().deleteAll();
       });
     } catch (e) {
       throw Exception(e);

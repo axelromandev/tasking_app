@@ -13,7 +13,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     useMaterial3: true,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
     fontFamily: GoogleFonts.jua().fontFamily,
-    colorSchemeSeed: primaryColor,
+    colorSchemeSeed: isDarkMode ? Colors.white : Colors.black,
     scaffoldBackgroundColor:
         isDarkMode ? backgroundDarkColor : backgroundLightColor,
 
