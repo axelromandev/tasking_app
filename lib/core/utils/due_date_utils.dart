@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasking/config/config.dart';
+
+import '../../config/config.dart';
 
 Color dueDateColor(DateTime? dueDate) {
   final context = navigatorKey.currentContext!;

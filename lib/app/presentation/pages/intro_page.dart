@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/app.dart';
-import 'package:tasking/config/constants.dart';
-import 'package:tasking/generated/l10n.dart';
 
+import '../../../config/config.dart';
 import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
+import '../presentation.dart';
 
 class IntroPage extends StatefulWidget {
   static String routePath = '/intro';

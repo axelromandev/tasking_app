@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasking/config/config.dart';
 
+import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../data/data.dart';
 import '../../domain/domain.dart';
@@ -73,7 +73,7 @@ class HomeNotifier extends StateNotifier<List<Task>> {
                   onPressed: () => context.pop(true),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.red,
-                  child: const Text('Restaurar'),
+                  child: Text(S.of(context).button_restore),
                 ),
               ),
             ],
