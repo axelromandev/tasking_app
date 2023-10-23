@@ -40,6 +40,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const SettingsPage(),
       ),
       GoRoute(
+        path: RemindersPage.routePath,
+        builder: (_, __) => const RemindersPage(),
+      ),
+      GoRoute(
         path: AboutPage.routePath,
         builder: (_, __) => const AboutPage(),
       )

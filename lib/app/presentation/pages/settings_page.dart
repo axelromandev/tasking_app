@@ -49,9 +49,7 @@ class SettingsPage extends ConsumerWidget {
                     _BuildThemeButton(),
                     const Divider(height: 0),
                     _BuildListTile(
-                      onTap: () {
-                        //TODO: manage reminders
-                      },
+                      onTap: () => context.push(RemindersPage.routePath),
                       iconData: BoxIcons.bx_bell,
                       iconColor: Colors.cyan,
                       title: S.of(context).settings_general_reminders,
