@@ -10,6 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await IsarService.initialize();
   await SharedPrefsService.initialize();
+  await NotificationService.initialize();
   runApp(const ProviderScope(
     child: MainApp(),
   ));
