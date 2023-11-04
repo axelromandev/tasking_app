@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../presentation.dart';
 
@@ -173,15 +174,16 @@ class SettingsPage extends ConsumerWidget {
                 color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
-                    // _BuildListTile(
-                    //   iconData: BoxIcons.bx_world,
-                    //   iconColor: Colors.white,
-                    //   title: 'Problema de traducción',
-                    // ),
-                    // const Divider(height: 0),
                     _BuildListTile(
-                      onTap: () {
-                        //TODO: write email to support
+                      onTap: () async {
+                        bool isEnglish = S.of(context).language == 'en';
+                        Uri uri = isEnglish
+                            ? Uri.parse(enFeedbackUrl)
+                            : Uri.parse(esFeedbackUrl);
+                        if (!await launchUrl(uri)) {
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
+                        }
                       },
                       iconData: BoxIcons.bx_envelope,
                       iconColor: Colors.white,
@@ -198,7 +200,8 @@ class SettingsPage extends ConsumerWidget {
                       onTap: () async {
                         final uri = Uri.parse(kofiProfileUrl);
                         if (!await launchUrl(uri)) {
-                          throw Exception('Could not launch $uri');
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
                         }
                       },
                       iconData: BoxIcons.bx_coffee,
@@ -267,13 +270,17 @@ class _BuildLanguageButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor = isDarkMode ? cardDarkColor : cardLightColor;
+
     const color = Colors.cyan;
 
     return ListTile(
       onTap: () => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          backgroundColor: cardDarkColor,
+          backgroundColor: backgroundColor,
           title: Text(S.of(context).settings_general_language),
           content: Text(
             S.of(context).language_description,
