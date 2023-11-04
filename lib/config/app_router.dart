@@ -28,11 +28,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RoutesPath.task,
-        builder: (_, state) {
-          String str = state.pathParameters['id'] ?? '999';
-          final id = int.parse(str);
+        pageBuilder: (context, state) {
+          int id = int.parse(state.pathParameters['id'] ?? '999');
           ref.read(taskProvider.notifier).initialize(id);
-          return const TaskPage();
+          return MaterialPage<void>(
+            key: state.pageKey,
+            fullscreenDialog: true,
+            child: const TaskPage(),
+          );
         },
       ),
       GoRoute(
