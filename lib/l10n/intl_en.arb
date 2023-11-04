@@ -50,5 +50,6 @@
   "about_description": "Tasking is a simple task manager app. It's free and open source.",
   "about_version": "Version",
   "dialog_restore_title": "Restore App",
-  "dialog_restore_subtitle": "Are you sure you want to restore the data app? This action cannot be undone."
+  "dialog_restore_subtitle": "Are you sure you want to restore the data app? This action cannot be undone.",
+  "reminder_notification_title": "You have a pending task"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
@@ -9,8 +10,6 @@ import '../../domain/domain.dart';
 import '../presentation.dart';
 
 class HomePage extends StatelessWidget {
-  static String routePath = '/';
-
   const HomePage({super.key});
 
   @override
@@ -28,58 +27,45 @@ class HomePage extends StatelessWidget {
                 child: Icon(BoxIcons.bxs_crown),
               ),
               const SizedBox(width: defaultPadding / 2),
-              Text(S.of(context).app_name, style: style.headlineSmall),
+              Text(S.of(context).app_name, style: style.titleLarge),
             ],
           ),
           centerTitle: false,
           actions: [
+            _ButtonCalendar(),
             IconButton(
-              onPressed: () => context.push(SettingsPage.routePath),
+              onPressed: () => context.push(RoutesPath.settings),
               icon: const Icon(BoxIcons.bx_cog),
             ),
           ],
         ),
         body: _BuildTasks(),
-        bottomNavigationBar: _ButtonAddTask(),
+        bottomNavigationBar: const AddTaskField(),
       ),
     );
   }
 }
 
-class _ButtonAddTask extends ConsumerStatefulWidget {
+class _ButtonCalendar extends ConsumerWidget {
   @override
-  ConsumerState<_ButtonAddTask> createState() => _ButtonAddTaskState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(homeProvider).date;
 
-class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
-  @override
-  Widget build(BuildContext context) {
-    final controller = ref.watch(controllerProvider);
+    if (date == null) {
+      return IconButton(
+        onPressed: ref.read(homeProvider.notifier).onSelectDate,
+        icon: const Icon(BoxIcons.bx_calendar_check),
+      );
+    }
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: TextFormField(
-          onChanged: (_) => setState(() {}),
-          controller: controller,
-          textInputAction: TextInputAction.done,
-          onFieldSubmitted: (value) {
-            ref.read(homeProvider.notifier).onSubmit(value);
-            setState(() {});
-          },
-          style: const TextStyle(fontSize: 16),
-          maxLines: null,
-          cursorColor: isDarkMode ? Colors.white : Colors.black,
-          decoration: InputDecoration(
-            prefixIcon: controller.text.isEmpty
-                ? const Icon(HeroIcons.plus)
-                : const Icon(BoxIcons.bx_circle),
-            hintText: S.of(context).home_button_add,
-          ),
-        ),
+    return TextButton(
+      onPressed: ref.read(homeProvider.notifier).onSelectDate,
+      style: TextButton.styleFrom(
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
       ),
+      child: Text(DateFormat('dd MMMM').format(date)),
     );
   }
 }
@@ -87,7 +73,7 @@ class _ButtonAddTaskState extends ConsumerState<_ButtonAddTask> {
 class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(homeProvider);
+    final tasks = ref.watch(homeProvider).tasks;
 
     final listCompleted =
         tasks.where((task) => task.isCompleted != null).toList();
@@ -104,8 +90,8 @@ class _BuildTasks extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(HeroIcons.clipboard_document_check, size: 32),
-            Text(S.of(context).home_empty_tasks, style: style.headlineSmall),
+            const Icon(HeroIcons.check),
+            Text(S.of(context).home_empty_tasks, style: style.bodyLarge),
           ],
         ),
       );
@@ -150,9 +136,10 @@ class _BuildTask extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CardTask(
-      onShowDetails: () => context.push(
-        TaskPage.routePath.replaceAll(':id', '${task.id}'),
-      ),
+      onShowDetails: () {
+        final routePath = RoutesPath.task.replaceAll(':id', '${task.id}');
+        context.push(routePath);
+      },
       onCheckTask: () => ref.read(homeProvider.notifier).onToggleCheck(task),
       task: task,
     );

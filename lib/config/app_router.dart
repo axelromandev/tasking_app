@@ -9,7 +9,7 @@ import 'config.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final initialLocation = HomePage.routePath;
+  final initialLocation = RoutesPath.home;
 
   final pref = SharedPrefsService();
 
@@ -19,15 +19,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
-        path: IntroPage.routePath,
+        path: RoutesPath.intro,
         builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
-        path: HomePage.routePath,
+        path: RoutesPath.home,
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
-        path: TaskPage.routePath,
+        path: RoutesPath.task,
         builder: (_, state) {
           String str = state.pathParameters['id'] ?? '999';
           final id = int.parse(str);
@@ -36,21 +36,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-        path: SettingsPage.routePath,
+        path: RoutesPath.settings,
         builder: (_, __) => const SettingsPage(),
       ),
       GoRoute(
-        path: RemindersPage.routePath,
-        builder: (_, __) => const RemindersPage(),
-      ),
-      GoRoute(
-        path: AboutPage.routePath,
+        path: RoutesPath.about,
         builder: (_, __) => const AboutPage(),
       )
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(isFirstTimeKey) == null) {
-        return IntroPage.routePath;
+        return RoutesPath.intro;
       }
       return null;
     },

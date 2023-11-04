@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
-    as picker;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
@@ -72,42 +71,27 @@ class TaskNotifier extends StateNotifier<TaskState> {
     ).then((value) async {
       if (value == null) return;
       await _taskRepository.delete(state.task!.id).then((value) {
+        if (state.task?.reminder != null) {
+          NotificationService.cancel(state.task!.id);
+        }
         refresh();
         navigatorKey.currentContext!.pop();
       });
     });
   }
 
-  void onAddDueDate() {
-    final style = Theme.of(context).textTheme;
-    final language = S.of(context).language;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    late picker.LocaleType localeType = picker.LocaleType.en;
-    if (language == 'es') {
-      localeType = picker.LocaleType.es;
-    }
-
-    picker.DatePicker.showDatePicker(
-      context,
-      theme: picker.DatePickerTheme(
-        backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
-        cancelStyle: style.bodyLarge!,
-        doneStyle: style.bodyLarge!,
-        itemStyle: style.bodyLarge!.copyWith(
-          color: isDarkMode ? Colors.white : Colors.black,
-        ),
-      ),
-      currentTime: state.task?.dueDate ?? DateTime.now(),
-      locale: localeType,
-      onConfirm: (date) async {
-        final task = state.task!;
-        task.dueDate = date;
-        state = state.copyWith(task: task);
-        await _taskRepository.write(task);
-        await refresh();
-      },
-    );
+  void onAddDueDate() async {
+    showDateTimePicker(
+      minTime: DateTime.now().add(const Duration(days: 1)),
+      currentTime: state.task?.dueDate,
+    ).then((date) async {
+      if (date == null) return;
+      final task = state.task!;
+      task.dueDate = date;
+      state = state.copyWith(task: task);
+      await _taskRepository.write(task);
+      await refresh();
+    });
   }
 
   void onRemoveDueDate() async {
@@ -118,47 +102,34 @@ class TaskNotifier extends StateNotifier<TaskState> {
     refresh();
   }
 
-  void onAddReminder() {
-    final style = Theme.of(context).textTheme;
-    final language = S.of(context).language;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    late picker.LocaleType localeType = picker.LocaleType.en;
-
-    if (language == 'es') {
-      localeType = picker.LocaleType.es;
-    }
-
-    picker.DatePicker.showDateTimePicker(
-      context,
-      theme: picker.DatePickerTheme(
-        backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
-        cancelStyle: style.bodyLarge!,
-        doneStyle: style.bodyLarge!,
-        itemStyle: style.bodyLarge!.copyWith(
-          color: isDarkMode ? Colors.white : Colors.black,
-        ),
-      ),
-      maxTime: DateTime.now(),
-      currentTime: state.task!.reminder ?? DateTime.now(),
-      locale: localeType,
-      onConfirm: (date) async {
-        final task = state.task!;
-        task.reminder = date;
-        state = state.copyWith(task: task);
-        await _taskRepository.write(task);
-        await refresh();
-
-        //TODO: add local notification here
-      },
-    );
+  void onAddReminder() async {
+    showDateTimePicker(
+      minTime: DateTime.now().add(const Duration(days: 1)),
+      currentTime: state.task?.reminder,
+    ).then((date) async {
+      if (date == null) return;
+      final task = state.task!;
+      task.reminder = date;
+      state = state.copyWith(task: task);
+      await _taskRepository.write(task).then((_) {
+        NotificationService.showSchedule(
+          id: state.task!.id,
+          title: S.of(context).reminder_notification_title,
+          body: state.task!.message,
+          scheduledDate: date,
+        );
+      });
+      await refresh();
+    });
   }
 
   void onRemoveReminder() async {
     final task = state.task!;
     task.reminder = null;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task);
+    await _taskRepository.write(task).then((_) {
+      NotificationService.cancel(state.task!.id);
+    });
     refresh();
   }
 
@@ -167,7 +138,16 @@ class TaskNotifier extends StateNotifier<TaskState> {
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task);
+    await _taskRepository.write(task).then((_) {
+      if (state.task?.reminder != null) {
+        NotificationService.showSchedule(
+          id: state.task!.id,
+          title: S.of(context).reminder_notification_title,
+          body: state.task!.message,
+          scheduledDate: state.task!.reminder!,
+        );
+      }
+    });
     refresh();
   }
 

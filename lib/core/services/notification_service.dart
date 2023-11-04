@@ -23,6 +23,10 @@ class NotificationService {
     );
   }
 
+  static Future<List<ActiveNotification>> getActive() async {
+    return await _localNotification.getActiveNotifications();
+  }
+
   static void onNotificationClick(NotificationResponse response) {
     onClickNotification.add(response.payload ?? 'no payload');
   }
@@ -39,7 +43,7 @@ class NotificationService {
     int id = 0,
     required String title,
     required String body,
-    required String payload,
+    String? payload,
   }) async {
     final details = NotificationDetails(
       android: AndroidNotificationDetails(

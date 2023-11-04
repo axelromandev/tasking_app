@@ -50,5 +50,6 @@
   "about_description": "Tasking es una aplicación simple del administrador de tareas. Es gratis y de código abierto.",
   "about_version": "Version",
   "dialog_restore_title": "Restaurar la aplicación",
-  "dialog_restore_subtitle": "¿Estás seguro de que quieres restaurar la aplicación de datos?Esta acción no se puede deshacer."
+  "dialog_restore_subtitle": "¿Estás seguro de que quieres restaurar la aplicación de datos?Esta acción no se puede deshacer.",
+  "reminder_notification_title": "Tienes una tarea pendiente"
 }

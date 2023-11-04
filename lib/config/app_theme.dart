@@ -12,7 +12,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // General
     useMaterial3: true,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
-    fontFamily: GoogleFonts.jua().fontFamily,
+    fontFamily: GoogleFonts.lexend().fontFamily,
     colorSchemeSeed: isDarkMode ? Colors.white : Colors.black,
     scaffoldBackgroundColor:
         isDarkMode ? backgroundDarkColor : backgroundLightColor,
@@ -61,6 +61,13 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         ),
         backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
         foregroundColor: isDarkMode ? Colors.white : Colors.black,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(defaultRadius),
+        ),
       ),
     ),
 

@@ -58,9 +58,12 @@ class CardTask extends StatelessWidget {
                 : dueDateColor(task.dueDate),
           ),
         ),
-        trailing: Icon(
-          dueDateIcon(task.dueDate),
-          color: dueDateColor(task.dueDate),
+        trailing: Visibility(
+          visible: task.reminder != null,
+          child: Icon(
+            BoxIcons.bx_bell,
+            color: dueDateColor(task.dueDate),
+          ),
         ),
       ),
     );

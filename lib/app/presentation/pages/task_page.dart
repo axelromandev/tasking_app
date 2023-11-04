@@ -10,8 +10,6 @@ import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
 class TaskPage extends ConsumerWidget {
-  static String routePath = '/task/:id';
-
   const TaskPage({super.key});
 
   @override

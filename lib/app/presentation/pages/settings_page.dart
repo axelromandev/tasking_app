@@ -10,8 +10,6 @@ import '../../../generated/l10n.dart';
 import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
-  static String routePath = '/settings';
-
   const SettingsPage({super.key});
 
   @override
@@ -47,19 +45,6 @@ class SettingsPage extends ConsumerWidget {
                     _BuildLanguageButton(),
                     const Divider(height: 0),
                     _BuildThemeButton(),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () => context.push(RemindersPage.routePath),
-                      iconData: BoxIcons.bx_bell,
-                      iconColor: Colors.cyan,
-                      title: S.of(context).settings_general_reminders,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -188,6 +173,12 @@ class SettingsPage extends ConsumerWidget {
                 color: isDarkMode ? null : Colors.white,
                 child: Column(
                   children: [
+                    // _BuildListTile(
+                    //   iconData: BoxIcons.bx_world,
+                    //   iconColor: Colors.white,
+                    //   title: 'Problema de traducción',
+                    // ),
+                    // const Divider(height: 0),
                     _BuildListTile(
                       onTap: () {
                         //TODO: write email to support
@@ -282,13 +273,14 @@ class _BuildLanguageButton extends ConsumerWidget {
       onTap: () => showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          backgroundColor: cardDarkColor,
           title: Text(S.of(context).settings_general_language),
           content: Text(
             S.of(context).language_description,
             style: style.bodyLarge,
           ),
           actions: [
-            CustomFilledButton(
+            CustomOutlinedButton(
               onPressed: () => context.pop(),
               child: Text(S.of(context).button_continue),
             ),
