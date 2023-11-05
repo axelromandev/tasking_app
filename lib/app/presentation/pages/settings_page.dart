@@ -61,7 +61,7 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildListTile(
-                      onTap: () => context.push(AboutPage.routePath),
+                      onTap: () => context.push(RoutesPath.about),
                       iconData: BoxIcons.bx_crown,
                       iconColor: Colors.orange,
                       title: S.of(context).settings_about_app,
