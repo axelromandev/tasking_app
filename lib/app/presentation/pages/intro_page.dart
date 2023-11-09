@@ -8,8 +8,6 @@ import '../../../generated/l10n.dart';
 import '../presentation.dart';
 
 class IntroPage extends StatefulWidget {
-  static String routePath = '/intro';
-
   const IntroPage({super.key});
 
   @override
@@ -21,7 +19,7 @@ class _IntroPageState extends State<IntroPage> {
 
   void onNext() async {
     await _pref.setKeyValue<bool>(isFirstTimeKey, false).then((value) {
-      context.go(HomePage.routePath);
+      context.go(RoutesPath.home);
     });
   }
 

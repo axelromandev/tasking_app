@@ -51,6 +51,9 @@ class CardTask extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
+            decoration: task.isCompleted != null
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
             color: task.isCompleted != null
                 ? isDarkMode
                     ? Colors.white70
@@ -58,9 +61,12 @@ class CardTask extends StatelessWidget {
                 : dueDateColor(task.dueDate),
           ),
         ),
-        trailing: Icon(
-          dueDateIcon(task.dueDate),
-          color: dueDateColor(task.dueDate),
+        trailing: Visibility(
+          visible: task.reminder != null,
+          child: Icon(
+            BoxIcons.bx_bell,
+            color: dueDateColor(task.dueDate),
+          ),
         ),
       ),
     );

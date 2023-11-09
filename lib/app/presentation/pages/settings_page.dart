@@ -6,12 +6,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
-  static String routePath = '/settings';
-
   const SettingsPage({super.key});
 
   @override
@@ -37,7 +36,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_general,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -47,19 +46,6 @@ class SettingsPage extends ConsumerWidget {
                     _BuildLanguageButton(),
                     const Divider(height: 0),
                     _BuildThemeButton(),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () => context.push(RemindersPage.routePath),
-                      iconData: BoxIcons.bx_bell,
-                      iconColor: Colors.cyan,
-                      title: S.of(context).settings_general_reminders,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -67,7 +53,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_about,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -75,7 +61,7 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildListTile(
-                      onTap: () => context.push(AboutPage.routePath),
+                      onTap: () => context.push(RoutesPath.about),
                       iconData: BoxIcons.bx_crown,
                       iconColor: Colors.orange,
                       title: S.of(context).settings_about_app,
@@ -95,7 +81,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_legal,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -103,32 +89,21 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildListTile(
-                      onTap: () {
-                        //TODO: open privacy policy url
+                      onTap: () async {
+                        bool isEnglish = S.of(context).language == 'en';
+                        Uri uri = isEnglish
+                            ? Uri.parse(enPrivacyPolicyUrl)
+                            : Uri.parse(esPrivacyPolicyUrl);
+                        if (!await launchUrl(uri)) {
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
+                        }
                       },
                       iconData: BoxIcons.bx_shield,
                       iconColor: Colors.green,
                       title: S.of(context).settings_legal_privacy_policy,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: open terms of use url
-                      },
-                      iconData: BoxIcons.bx_book_alt,
-                      iconColor: Colors.green,
-                      title: S.of(context).settings_legal_terms_of_use,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
                   ],
@@ -138,7 +113,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_social,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -181,7 +156,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_support,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -189,8 +164,15 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildListTile(
-                      onTap: () {
-                        //TODO: write email to support
+                      onTap: () async {
+                        bool isEnglish = S.of(context).language == 'en';
+                        Uri uri = isEnglish
+                            ? Uri.parse(enFeedbackUrl)
+                            : Uri.parse(esFeedbackUrl);
+                        if (!await launchUrl(uri)) {
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
+                        }
                       },
                       iconData: BoxIcons.bx_envelope,
                       iconColor: Colors.white,
@@ -207,7 +189,8 @@ class SettingsPage extends ConsumerWidget {
                       onTap: () async {
                         final uri = Uri.parse(kofiProfileUrl);
                         if (!await launchUrl(uri)) {
-                          throw Exception('Could not launch $uri');
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
                         }
                       },
                       iconData: BoxIcons.bx_coffee,
@@ -276,19 +259,24 @@ class _BuildLanguageButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor = isDarkMode ? cardDarkColor : cardLightColor;
+
     const color = Colors.cyan;
 
     return ListTile(
       onTap: () => showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          backgroundColor: backgroundColor,
           title: Text(S.of(context).settings_general_language),
           content: Text(
             S.of(context).language_description,
             style: style.bodyLarge,
           ),
           actions: [
-            CustomFilledButton(
+            CustomOutlinedButton(
               onPressed: () => context.pop(),
               child: Text(S.of(context).button_continue),
             ),

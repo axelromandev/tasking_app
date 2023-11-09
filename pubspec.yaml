@@ -16,6 +16,7 @@ dependencies:
   flutter_riverpod: ^2.4.2
   flutter_svg: ^2.0.7
   flutter_timezone: ^1.0.8
+  gap: ^3.0.1
   go_router: ^11.1.2
   google_fonts: ^6.1.0
   icons_launcher: ^2.1.4
@@ -44,5 +45,6 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+
 flutter_intl:
   enabled: true

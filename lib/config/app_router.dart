@@ -9,48 +9,46 @@ import 'config.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final initialLocation = HomePage.routePath;
+  final initialLocation = RoutesPath.home;
 
   final pref = SharedPrefsService();
 
   return GoRouter(
     initialLocation: initialLocation,
-    debugLogDiagnostics: true,
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
-        path: IntroPage.routePath,
+        path: RoutesPath.intro,
         builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
-        path: HomePage.routePath,
+        path: RoutesPath.home,
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
-        path: TaskPage.routePath,
-        builder: (_, state) {
-          String str = state.pathParameters['id'] ?? '999';
-          final id = int.parse(str);
+        path: RoutesPath.task,
+        pageBuilder: (context, state) {
+          int id = int.parse(state.pathParameters['id'] ?? '999');
           ref.read(taskProvider.notifier).initialize(id);
-          return const TaskPage();
+          return MaterialPage<void>(
+            key: state.pageKey,
+            fullscreenDialog: true,
+            child: const TaskPage(),
+          );
         },
       ),
       GoRoute(
-        path: SettingsPage.routePath,
+        path: RoutesPath.settings,
         builder: (_, __) => const SettingsPage(),
       ),
       GoRoute(
-        path: RemindersPage.routePath,
-        builder: (_, __) => const RemindersPage(),
-      ),
-      GoRoute(
-        path: AboutPage.routePath,
+        path: RoutesPath.about,
         builder: (_, __) => const AboutPage(),
       )
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(isFirstTimeKey) == null) {
-        return IntroPage.routePath;
+        return RoutesPath.intro;
       }
       return null;
     },
