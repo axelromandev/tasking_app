@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
@@ -93,50 +92,6 @@ class HomeNotifier extends StateNotifier<HomeState> {
     await NotificationService.cancelAll();
     await _taskRepository.restore();
     getAll();
-  }
-
-  void onSelectDate() async {
-    if (state.date != null) {
-      BuildContext context = navigatorKey.currentContext!;
-      showModalBottomSheet(
-        context: context,
-        builder: (_) => SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(BoxIcons.bx_calendar_check),
-                title: const Text('Change filter'),
-                onTap: () {
-                  context.pop();
-                  _setDateTime();
-                },
-              ),
-              ListTile(
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Remove filter'),
-                onTap: () {
-                  context.pop();
-                  state = state.copyWith(date: null);
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-      return;
-    }
-
-    _setDateTime();
-  }
-
-  void _setDateTime() {
-    showDateTimePicker(
-      currentTime: state.date,
-    ).then((value) {
-      if (value == null) return;
-      state = state.copyWith(date: value);
-    });
   }
 }
 

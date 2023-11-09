@@ -112,49 +112,6 @@ class SettingsPage extends ConsumerWidget {
               Container(
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
-                  S.of(context).settings_label_social,
-                  style: style.bodyLarge,
-                ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: open app store url
-                      },
-                      iconData: BoxIcons.bx_star,
-                      iconColor: Colors.purpleAccent,
-                      title: S.of(context).settings_social_rate_app,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: share app
-                      },
-                      iconData: BoxIcons.bx_share_alt,
-                      iconColor: Colors.purpleAccent,
-                      title: S.of(context).settings_social_share_app,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
                   S.of(context).settings_label_support,
                   style: style.bodyLarge,
                 ),

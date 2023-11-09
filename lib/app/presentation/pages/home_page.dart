@@ -1,8 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:intl/intl.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
@@ -22,9 +24,13 @@ class HomePage extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 8, bottom: 2),
-                child: Icon(BoxIcons.bxs_crown),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SvgPicture.asset(
+                  'assets/svg/logo.svg',
+                  height: 20,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(width: defaultPadding / 2),
               Text(S.of(context).app_name, style: style.titleLarge),
@@ -32,7 +38,6 @@ class HomePage extends StatelessWidget {
           ),
           centerTitle: false,
           actions: [
-            _ButtonCalendar(),
             IconButton(
               onPressed: () => context.push(RoutesPath.settings),
               icon: const Icon(BoxIcons.bx_cog),
@@ -42,30 +47,6 @@ class HomePage extends StatelessWidget {
         body: _BuildTasks(),
         bottomNavigationBar: const AddTaskField(),
       ),
-    );
-  }
-}
-
-class _ButtonCalendar extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final date = ref.watch(homeProvider).date;
-
-    if (date == null) {
-      return IconButton(
-        onPressed: ref.read(homeProvider.notifier).onSelectDate,
-        icon: const Icon(BoxIcons.bx_calendar_check),
-      );
-    }
-
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    return TextButton(
-      onPressed: ref.read(homeProvider.notifier).onSelectDate,
-      style: TextButton.styleFrom(
-        foregroundColor: isDarkMode ? Colors.white : Colors.black,
-      ),
-      child: Text(DateFormat('dd MMMM').format(date)),
     );
   }
 }
