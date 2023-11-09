@@ -29,7 +29,9 @@ class HomePage extends StatelessWidget {
                 child: SvgPicture.asset(
                   'assets/svg/logo.svg',
                   height: 20,
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                 ),
               ),
               const SizedBox(width: defaultPadding / 2),
