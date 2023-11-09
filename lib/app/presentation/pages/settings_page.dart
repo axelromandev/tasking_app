@@ -36,7 +36,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_general,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -53,7 +53,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_about,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -81,7 +81,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_legal,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -89,32 +89,21 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildListTile(
-                      onTap: () {
-                        //TODO: open privacy policy url
+                      onTap: () async {
+                        bool isEnglish = S.of(context).language == 'en';
+                        Uri uri = isEnglish
+                            ? Uri.parse(enPrivacyPolicyUrl)
+                            : Uri.parse(esPrivacyPolicyUrl);
+                        if (!await launchUrl(uri)) {
+                          Snackbar.show('Could not launch $uri',
+                              type: SnackBarType.error);
+                        }
                       },
                       iconData: BoxIcons.bx_shield,
                       iconColor: Colors.green,
                       title: S.of(context).settings_legal_privacy_policy,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: open terms of use url
-                      },
-                      iconData: BoxIcons.bx_book_alt,
-                      iconColor: Colors.green,
-                      title: S.of(context).settings_legal_terms_of_use,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
                   ],
@@ -124,7 +113,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_social,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(
@@ -167,7 +156,7 @@ class SettingsPage extends ConsumerWidget {
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
                   S.of(context).settings_label_support,
-                  style: style.headlineSmall,
+                  style: style.bodyLarge,
                 ),
               ),
               Card(

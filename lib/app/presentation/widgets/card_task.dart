@@ -51,6 +51,9 @@ class CardTask extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
+            decoration: task.isCompleted != null
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
             color: task.isCompleted != null
                 ? isDarkMode
                     ? Colors.white70
