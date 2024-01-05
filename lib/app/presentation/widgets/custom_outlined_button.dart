@@ -27,16 +27,16 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final foregroundColor = isDarkMode ? Colors.white : Colors.black;
+    final color = isDarkMode ? Colors.white : Colors.black;
 
     final style = OutlinedButton.styleFrom(
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
-        side: BorderSide(color: this.foregroundColor ?? foregroundColor),
+        side: BorderSide(color: foregroundColor ?? color, width: 2),
       ),
-      foregroundColor: this.foregroundColor ?? foregroundColor,
+      foregroundColor: foregroundColor ?? color,
     );
 
     if (icon != null) {

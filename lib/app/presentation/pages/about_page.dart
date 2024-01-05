@@ -37,7 +37,7 @@ class AboutPage extends StatelessWidget {
               const Divider(height: defaultPadding * 3),
               const CircleAvatar(
                 radius: 40,
-                backgroundImage: AssetImage('assets/images/dev.jpg'),
+                backgroundImage: AssetImage('assets/images/dev.png'),
               ),
               const Gap(defaultPadding),
               Text(S.of(context).about_author,

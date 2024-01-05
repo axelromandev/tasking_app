@@ -163,16 +163,32 @@ class SettingsPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              CustomFilledButton(
-                margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-                onPressed: ref.read(homeProvider.notifier).onRestoreDataApp,
-                backgroundColor: Colors.red.withOpacity(.1),
-                child: Text(
-                  S.of(context).settings_button_restore_app,
-                  style: style.bodyLarge?.copyWith(color: Colors.red),
+              Container(
+                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                child: Text('Danger Zone',
+                    style: style.bodyLarge?.copyWith(
+                      color: Colors.redAccent,
+                    )),
+              ),
+              Card(
+                color: isDarkMode ? null : Colors.white,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                      textColor: Colors.redAccent,
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.redAccent,
+                      ),
+                      title: Text(S.of(context).settings_button_restore_app),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: defaultPadding * 3),
             ],
           ),
         ),
@@ -330,6 +346,7 @@ class _BuildListTile extends StatelessWidget {
 
     return ListTile(
       onTap: onTap,
+      splashColor: color.withOpacity(.1),
       shape: shape ?? const RoundedRectangleBorder(),
       leading: Container(
         padding: const EdgeInsets.all(8),
