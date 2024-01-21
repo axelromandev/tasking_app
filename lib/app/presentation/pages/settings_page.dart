@@ -44,7 +44,10 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildLanguageButton(),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildThemeButton(),
                   ],
                 ),
@@ -72,7 +75,10 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildVersionLabel(),
                   ],
                 ),
@@ -112,49 +118,6 @@ class SettingsPage extends ConsumerWidget {
               Container(
                 margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                 child: Text(
-                  S.of(context).settings_label_social,
-                  style: style.bodyLarge,
-                ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: open app store url
-                      },
-                      iconData: BoxIcons.bx_star,
-                      iconColor: Colors.purpleAccent,
-                      title: S.of(context).settings_social_rate_app,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    const Divider(height: 0),
-                    _BuildListTile(
-                      onTap: () {
-                        //TODO: share app
-                      },
-                      iconData: BoxIcons.bx_share_alt,
-                      iconColor: Colors.purpleAccent,
-                      title: S.of(context).settings_social_share_app,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
                   S.of(context).settings_label_support,
                   style: style.bodyLarge,
                 ),
@@ -184,7 +147,10 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildListTile(
                       onTap: () async {
                         final uri = Uri.parse(kofiProfileUrl);
@@ -206,16 +172,32 @@ class SettingsPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              CustomFilledButton(
-                margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-                onPressed: ref.read(homeProvider.notifier).onRestoreDataApp,
-                backgroundColor: Colors.red.withOpacity(.1),
-                child: Text(
-                  S.of(context).settings_button_restore_app,
-                  style: style.bodyLarge?.copyWith(color: Colors.red),
+              Container(
+                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                child: Text('Danger Zone',
+                    style: style.bodyLarge?.copyWith(
+                      color: Colors.redAccent,
+                    )),
+              ),
+              Card(
+                color: isDarkMode ? null : Colors.white,
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                      textColor: Colors.redAccent,
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.redAccent,
+                      ),
+                      title: Text(S.of(context).settings_button_restore_app),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: defaultPadding * 3),
             ],
           ),
         ),
@@ -259,28 +241,33 @@ class _BuildLanguageButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final backgroundColor = isDarkMode ? cardDarkColor : cardLightColor;
-
     const color = Colors.cyan;
 
     return ListTile(
-      onTap: () => showDialog(
+      onTap: () => showModalBottomSheet(
         context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: backgroundColor,
-          title: Text(S.of(context).settings_general_language),
-          content: Text(
-            S.of(context).language_description,
-            style: style.bodyLarge,
-          ),
-          actions: [
-            CustomOutlinedButton(
-              onPressed: () => context.pop(),
-              child: Text(S.of(context).button_continue),
+        builder: (_) => Container(
+          padding: const EdgeInsets.all(24),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(S.of(context).settings_general_language,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    S.of(context).language_description,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       shape: const RoundedRectangleBorder(
@@ -319,7 +306,6 @@ class _BuildThemeButton extends ConsumerWidget {
 
     return ListTile(
       shape: const RoundedRectangleBorder(),
-      onTap: ref.read(changeThemeProvider.notifier).toggle,
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -373,6 +359,7 @@ class _BuildListTile extends StatelessWidget {
 
     return ListTile(
       onTap: onTap,
+      splashColor: color.withOpacity(.1),
       shape: shape ?? const RoundedRectangleBorder(),
       leading: Container(
         padding: const EdgeInsets.all(8),
