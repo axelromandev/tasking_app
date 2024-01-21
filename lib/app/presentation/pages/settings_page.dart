@@ -44,7 +44,10 @@ class SettingsPage extends ConsumerWidget {
                 child: Column(
                   children: [
                     _BuildLanguageButton(),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildThemeButton(),
                   ],
                 ),
@@ -72,7 +75,10 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildVersionLabel(),
                   ],
                 ),
@@ -141,7 +147,10 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    const Divider(height: 0),
+                    Divider(
+                      height: 0,
+                      color: isDarkMode ? Colors.white12 : Colors.black12,
+                    ),
                     _BuildListTile(
                       onTap: () async {
                         final uri = Uri.parse(kofiProfileUrl);
@@ -232,28 +241,33 @@ class _BuildLanguageButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final backgroundColor = isDarkMode ? cardDarkColor : cardLightColor;
-
     const color = Colors.cyan;
 
     return ListTile(
-      onTap: () => showDialog(
+      onTap: () => showModalBottomSheet(
         context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: backgroundColor,
-          title: Text(S.of(context).settings_general_language),
-          content: Text(
-            S.of(context).language_description,
-            style: style.bodyLarge,
-          ),
-          actions: [
-            CustomOutlinedButton(
-              onPressed: () => context.pop(),
-              child: Text(S.of(context).button_continue),
+        builder: (_) => Container(
+          padding: const EdgeInsets.all(24),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(S.of(context).settings_general_language,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    S.of(context).language_description,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       shape: const RoundedRectangleBorder(
@@ -292,7 +306,6 @@ class _BuildThemeButton extends ConsumerWidget {
 
     return ListTile(
       shape: const RoundedRectangleBorder(),
-      onTap: ref.read(changeThemeProvider.notifier).toggle,
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
