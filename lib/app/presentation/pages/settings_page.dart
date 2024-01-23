@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -27,153 +28,170 @@ class SettingsPage extends ConsumerWidget {
       ),
       backgroundColor: isDarkMode ? null : Colors.grey[100],
       body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Container(
-              //   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-              //   child: Text(
-              //     S.of(context).settings_label_general,
-              //     style: style.bodyLarge,
-              //   ),
-              // ),
-              // Card(
-              //   color: isDarkMode ? null : Colors.white,
-              //   child: const Column(
-              //     children: [
-              //       ListTile(
-              //         leading: Icon(BoxIcons.bx_cloud),
-              //         title: Text('Copia de seguridad'),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_about,
-                  style: style.bodyLarge,
+        child: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(S.of(context).settings_label_general,
+                      style: style.bodyLarge),
                 ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: () => context.push(RoutesPath.about),
-                      leading: const Icon(BoxIcons.bx_crown),
-                      title: Text(S.of(context).settings_about_app),
-                    ),
-                  ],
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de guardar en la nube
+                    },
+                    leading: const Icon(BoxIcons.bx_cloud),
+                    title: Text(S.of(context).settings_general_cloud),
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_legal,
-                  style: style.bodyLarge,
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de recordatorios.
+                    },
+                    leading: const Icon(BoxIcons.bx_time),
+                    title: const Text('Recordatorios'),
+                  ),
                 ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: () async {
-                        bool isEnglish = S.of(context).language == 'en';
-                        Uri uri = isEnglish
-                            ? Uri.parse(Urls.enPrivacyPolicy)
-                            : Uri.parse(Urls.esPrivacyPolicy);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      leading: const Icon(BoxIcons.bx_shield),
-                      title: Text(S.of(context).settings_legal_privacy_policy),
-                    ),
-                  ],
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
+                    },
+                    leading: const Icon(BoxIcons.bx_palette),
+                    title: const Text('Tema de la aplicación'),
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_support,
-                  style: style.bodyLarge,
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_about,
+                    style: style.bodyLarge,
+                  ),
                 ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: () async {
-                        bool isEnglish = S.of(context).language == 'en';
-                        Uri uri = isEnglish
-                            ? Uri.parse(Urls.enFeedback)
-                            : Uri.parse(Urls.esFeedback);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      leading: const Icon(BoxIcons.bx_envelope),
-                      title: Text(S.of(context).settings_support_contact),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () => context.push(RoutesPath.about),
+                        leading: const Icon(BoxIcons.bx_crown),
+                        title: Text(S.of(context).settings_about_app),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_legal,
+                    style: style.bodyLarge,
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () async {
+                          bool isEnglish = S.of(context).language == 'en';
+                          Uri uri = isEnglish
+                              ? Uri.parse(Urls.enPrivacyPolicy)
+                              : Uri.parse(Urls.esPrivacyPolicy);
+                          if (!await launchUrl(uri)) {
+                            Snackbar.show('Could not launch $uri',
+                                type: SnackBarType.error);
+                          }
+                        },
+                        leading: const Icon(BoxIcons.bx_shield),
+                        title:
+                            Text(S.of(context).settings_legal_privacy_policy),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_support,
+                    style: style.bodyLarge,
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () async {
+                      bool isEnglish = S.of(context).language == 'en';
+                      Uri uri = isEnglish
+                          ? Uri.parse(Urls.enFeedback)
+                          : Uri.parse(Urls.esFeedback);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    leading: const Icon(BoxIcons.bx_envelope),
+                    title: Text(S.of(context).settings_support_contact),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(defaultRadius),
+                        topRight: Radius.circular(defaultRadius),
                       ),
                     ),
-                    Divider(
-                      height: 0,
-                      color: isDarkMode ? Colors.white12 : Colors.black12,
-                    ),
-                    ListTile(
-                      onTap: () async {
-                        final uri = Uri.parse(Urls.kofiProfile);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      leading: const Icon(BoxIcons.bx_coffee),
-                      title: Text(S.of(context).settings_support_coffee),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () async {
+                      final uri = Uri.parse(Urls.kofiProfile);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    leading: const Icon(BoxIcons.bx_coffee),
+                    title: Text(S.of(context).settings_support_coffee),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(defaultRadius),
+                        bottomRight: Radius.circular(defaultRadius),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(S.of(context).settings_label_restore,
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.redAccent,
-                    )),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
-                      textColor: Colors.red,
-                      leading: const Icon(BoxIcons.bx_reset, color: Colors.red),
-                      title: Text(S.of(context).settings_button_restore_app),
-                    ),
-                  ],
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(S.of(context).settings_label_restore,
+                      style: style.bodyLarge?.copyWith(
+                        color: Colors.redAccent,
+                      )),
                 ),
-              ),
-              _BuildVersionLabel(),
-            ],
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                        textColor: Colors.red,
+                        leading:
+                            const Icon(BoxIcons.bx_reset, color: Colors.red),
+                        title: Text(S.of(context).settings_button_restore_app),
+                      ),
+                    ],
+                  ),
+                ),
+                _BuildVersionLabel(),
+                const Gap(defaultPadding * 2)
+              ],
+            ),
           ),
         ),
       ),
