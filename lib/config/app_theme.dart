@@ -13,7 +13,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     fontFamily: GoogleFonts.lexend().fontFamily,
     colorSchemeSeed: isDarkMode ? Colors.white : Colors.black,
     scaffoldBackgroundColor:
-        isDarkMode ? backgroundDarkColor : backgroundLightColor,
+        isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
 
     // PageTransitions
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -38,13 +38,14 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     // AppBar
     appBarTheme: AppBarTheme(
-      backgroundColor: isDarkMode ? backgroundDarkColor : backgroundLightColor,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       centerTitle: true,
     ),
 
     // Card
     cardTheme: CardTheme(
-      color: isDarkMode ? cardDarkColor : cardLightColor,
+      color: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -57,7 +58,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
+        backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
         foregroundColor: isDarkMode ? Colors.white : Colors.black,
       ),
     ),
@@ -72,14 +73,16 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor: isDarkMode ? backgroundDarkColor : backgroundLightColor,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
-      backgroundColor: isDarkMode ? backgroundDarkColor : backgroundLightColor,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
@@ -88,7 +91,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: isDarkMode ? cardDarkColor : cardLightColor,
+      fillColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
       contentPadding: const EdgeInsets.all(defaultPadding),
       iconColor: isDarkMode ? Colors.white : Colors.black,
       hintStyle: TextStyle(

@@ -62,7 +62,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
           const SizedBox(height: defaultPadding),
           CustomFilledButton(
             onPressed: () => context.pop(),
-            backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
+            backgroundColor:
+                isDarkMode ? MyColors.cardDark : MyColors.cardLight,
             foregroundColor: isDarkMode ? Colors.white : Colors.black,
             child: Text(S.of(context).button_cancel),
           ),

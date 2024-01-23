@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 
-const Color primaryColor = Color(0xFF9747FF);
-
-const Color cardDarkColor = Color(0xFF21222D);
-const Color backgroundDarkColor = Color(0xFF171821);
-
-const Color cardLightColor = Color(0xFFE7E7E7);
-const Color backgroundLightColor = Color(0xFFF5F5F5);
-
 const double defaultPadding = 16.0;
 const double defaultRadius = 16.0;
 
-const String kofiProfileUrl = 'https://ko-fi.com/ingedevs';
-const String esFeedbackUrl = 'https://forms.gle/ZNRTdVJ83ytXNFam9';
-const String enFeedbackUrl = 'https://forms.gle/m9nqeSKpEKWoNbCr6';
-const String esPrivacyPolicyUrl =
-    'https://docs.google.com/document/d/1PLJM7VoHYXqgBYiqJWUk_H8L92Gy40xz212hWhLiqVY/edit?usp=sharing';
-const String enPrivacyPolicyUrl =
-    'https://docs.google.com/document/d/148UtjWVcpBSP2ynijIkeLdWabPSHOnItsRQJPNAn1-4/edit?usp=sharing';
+class MyColors {
+  static Color primary = const Color(0xFF9747FF);
+  static Color cardDark = const Color(0xFF21222D);
+  static Color cardLight = const Color(0xFFE7E7E7);
+  static Color backgroundDark = const Color(0xFF171821);
+  static Color backgroundLight = const Color(0xFFF5F5F5);
+}
+
+class Urls {
+  static String kofiProfile = 'https://ko-fi.com/ingedevs';
+  static String esFeedback = 'https://forms.gle/ZNRTdVJ83ytXNFam9';
+  static String enFeedback = 'https://forms.gle/m9nqeSKpEKWoNbCr6';
+  static String esPrivacyPolicy =
+      'https://docs.google.com/document/d/1PLJM7VoHYXqgBYiqJWUk_H8L92Gy40xz212hWhLiqVY/edit?usp=sharing';
+  static String enPrivacyPolicy =
+      'https://docs.google.com/document/d/148UtjWVcpBSP2ynijIkeLdWabPSHOnItsRQJPNAn1-4/edit?usp=sharing';
+}
 
 class Keys {
   static String isFirstTime = 'isFirstTime';

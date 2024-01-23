@@ -98,8 +98,8 @@ class SettingsPage extends ConsumerWidget {
                       onTap: () async {
                         bool isEnglish = S.of(context).language == 'en';
                         Uri uri = isEnglish
-                            ? Uri.parse(enPrivacyPolicyUrl)
-                            : Uri.parse(esPrivacyPolicyUrl);
+                            ? Uri.parse(Urls.enPrivacyPolicy)
+                            : Uri.parse(Urls.esPrivacyPolicy);
                         if (!await launchUrl(uri)) {
                           Snackbar.show('Could not launch $uri',
                               type: SnackBarType.error);
@@ -130,8 +130,8 @@ class SettingsPage extends ConsumerWidget {
                       onTap: () async {
                         bool isEnglish = S.of(context).language == 'en';
                         Uri uri = isEnglish
-                            ? Uri.parse(enFeedbackUrl)
-                            : Uri.parse(esFeedbackUrl);
+                            ? Uri.parse(Urls.enFeedback)
+                            : Uri.parse(Urls.esFeedback);
                         if (!await launchUrl(uri)) {
                           Snackbar.show('Could not launch $uri',
                               type: SnackBarType.error);
@@ -153,7 +153,7 @@ class SettingsPage extends ConsumerWidget {
                     ),
                     _BuildListTile(
                       onTap: () async {
-                        final uri = Uri.parse(kofiProfileUrl);
+                        final uri = Uri.parse(Urls.kofiProfile);
                         if (!await launchUrl(uri)) {
                           Snackbar.show('Could not launch $uri',
                               type: SnackBarType.error);
