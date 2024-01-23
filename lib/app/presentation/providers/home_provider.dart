@@ -50,6 +50,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     BuildContext context = navigatorKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
+      elevation: 0,
       builder: (_) => Container(
         padding: const EdgeInsets.all(24),
         child: SafeArea(

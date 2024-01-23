@@ -17,42 +17,67 @@ class AboutPage extends StatelessWidget {
     final color = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: Center(
-          child: Column(
-            children: [
-              SvgPicture.asset('assets/svg/logo.svg', width: 60, color: color),
-              const Gap(defaultPadding),
-              Text('Tasking', style: style.displaySmall),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: defaultPadding),
-                child: Text(
-                  S.of(context).about_description,
+      appBar: AppBar(
+        title: Text(S.of(context).settings_label_about),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(defaultPadding),
+            margin: const EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: isDarkMode ? MyColors.cardDark : Colors.white,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Column(
+              children: [
+                const Gap(defaultPadding),
+                SvgPicture.asset('assets/svg/logo.svg',
+                    width: 40, color: color),
+                const Gap(defaultPadding),
+                Text('Tasking', style: style.displaySmall),
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: defaultPadding),
+                  child: Text(
+                    S.of(context).about_description,
+                    textAlign: TextAlign.center,
+                    style: style.bodyLarge,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(defaultPadding),
+            margin: const EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: isDarkMode ? MyColors.cardDark : Colors.white,
+              borderRadius: BorderRadius.circular(defaultRadius),
+            ),
+            child: Column(
+              children: [
+                const Gap(defaultPadding),
+                const CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/images/dev.png'),
+                ),
+                const Gap(defaultPadding),
+                Text(S.of(context).about_author,
+                    style: style.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    )),
+                const Gap(defaultPadding),
+                Text(
+                  S.of(context).about_author_description,
                   textAlign: TextAlign.center,
                   style: style.bodyLarge,
                 ),
-              ),
-              const Divider(height: defaultPadding * 3),
-              const CircleAvatar(
-                radius: 40,
-                backgroundImage: AssetImage('assets/images/dev.png'),
-              ),
-              const Gap(defaultPadding),
-              Text(S.of(context).about_author,
-                  style: style.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  )),
-              const Gap(defaultPadding),
-              Text(
-                S.of(context).about_author_description,
-                textAlign: TextAlign.center,
-                style: style.bodyLarge,
-              ),
-            ],
+                const Gap(defaultPadding),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

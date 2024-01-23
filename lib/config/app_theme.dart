@@ -11,7 +11,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     useMaterial3: true,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
     fontFamily: GoogleFonts.lexend().fontFamily,
-    colorSchemeSeed: isDarkMode ? Colors.white : Colors.black,
+    colorSchemeSeed: Colors.blue,
     scaffoldBackgroundColor:
         isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
 
@@ -73,16 +73,14 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor:
-          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
-      backgroundColor:
-          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
