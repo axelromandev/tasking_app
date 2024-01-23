@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
@@ -89,7 +88,9 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void _restore() async {
-    await NotificationService.cancelAll();
+    // FIXME: notification service
+
+    // await NotificationService.cancelAll();
     await _taskRepository.restore();
     getAll();
   }

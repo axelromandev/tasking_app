@@ -72,7 +72,9 @@ class TaskNotifier extends StateNotifier<TaskState> {
       if (value == null) return;
       await _taskRepository.delete(state.task!.id).then((value) {
         if (state.task?.reminder != null) {
-          NotificationService.cancel(state.task!.id);
+          // FIXME: notification service
+
+          // NotificationService.cancel(state.task!.id);
         }
         refresh();
         navigatorKey.currentContext!.pop();
@@ -112,12 +114,14 @@ class TaskNotifier extends StateNotifier<TaskState> {
       task.reminder = date;
       state = state.copyWith(task: task);
       await _taskRepository.write(task).then((_) {
-        NotificationService.showSchedule(
-          id: state.task!.id,
-          title: S.of(context).reminder_notification_title,
-          body: state.task!.message,
-          scheduledDate: date,
-        );
+        // FIXME: notification service
+
+        // NotificationService.showSchedule(
+        //   id: state.task!.id,
+        //   title: S.of(context).reminder_notification_title,
+        //   body: state.task!.message,
+        //   scheduledDate: date,
+        // );
       });
       await refresh();
     });
@@ -128,7 +132,9 @@ class TaskNotifier extends StateNotifier<TaskState> {
     task.reminder = null;
     state = state.copyWith(task: task);
     await _taskRepository.write(task).then((_) {
-      NotificationService.cancel(state.task!.id);
+      // FIXME: notification service
+
+      // NotificationService.cancel(state.task!.id);
     });
     refresh();
   }
@@ -140,12 +146,14 @@ class TaskNotifier extends StateNotifier<TaskState> {
     state = state.copyWith(task: task);
     await _taskRepository.write(task).then((_) {
       if (state.task?.reminder != null) {
-        NotificationService.showSchedule(
-          id: state.task!.id,
-          title: S.of(context).reminder_notification_title,
-          body: state.task!.message,
-          scheduledDate: state.task!.reminder!,
-        );
+        // FIXME: notification service
+
+        // NotificationService.showSchedule(
+        //   id: state.task!.id,
+        //   title: S.of(context).reminder_notification_title,
+        //   body: state.task!.message,
+        //   scheduledDate: state.task!.reminder!,
+        // );
       }
     });
     refresh();
