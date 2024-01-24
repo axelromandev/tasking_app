@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:isar/isar.dart';
 
 import 'task.dart';
@@ -14,4 +15,7 @@ class GroupTasks {
   GroupTasks({
     required this.name,
   });
+
+  @override
+  String toString() => 'GroupTasks(id: $id, name: $name)';
 }

@@ -20,12 +20,12 @@ class TaskNotifier extends StateNotifier<TaskState> {
 
   TaskNotifier({required this.refresh}) : super(TaskState());
 
-  final _taskRepository = TaskRepositoryImpl();
+  final _taskDataSource = TaskDataSource();
 
   BuildContext context = navigatorKey.currentContext!;
 
   void initialize(int id) async {
-    final task = await _taskRepository.get(id);
+    final task = await _taskDataSource.get(id);
     state = state.copyWith(task: task);
   }
 
@@ -71,7 +71,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
       ),
     ).then((value) async {
       if (value == null) return;
-      await _taskRepository.delete(state.task!.id).then((value) {
+      await _taskDataSource.delete(state.task!.id).then((value) {
         if (state.task?.reminder != null) {
           // FIXME: notification service
 
@@ -92,7 +92,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
       final task = state.task!;
       task.dueDate = date;
       state = state.copyWith(task: task);
-      await _taskRepository.write(task);
+      await _taskDataSource.update(task);
       await refresh();
     });
   }
@@ -101,7 +101,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
     final task = state.task!;
     task.dueDate = null;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task);
+    await _taskDataSource.update(task);
     refresh();
   }
 
@@ -114,7 +114,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
       final task = state.task!;
       task.reminder = date;
       state = state.copyWith(task: task);
-      await _taskRepository.write(task).then((_) {
+      await _taskDataSource.update(task).then((_) {
         // FIXME: notification service
 
         // NotificationService.showSchedule(
@@ -132,7 +132,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
     final task = state.task!;
     task.reminder = null;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task).then((_) {
+    await _taskDataSource.update(task).then((_) {
       // FIXME: notification service
 
       // NotificationService.cancel(state.task!.id);
@@ -145,7 +145,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task).then((_) {
+    await _taskDataSource.update(task).then((_) {
       if (state.task?.reminder != null) {
         // FIXME: notification service
 
@@ -165,7 +165,7 @@ class TaskNotifier extends StateNotifier<TaskState> {
     final result = task.isCompleted == null ? DateTime.now() : null;
     task.isCompleted = result;
     state = state.copyWith(task: task);
-    await _taskRepository.write(task);
+    await _taskDataSource.update(task);
     refresh();
   }
 }

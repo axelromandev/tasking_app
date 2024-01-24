@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:isar/isar.dart';
 
 part 'task.g.dart';
@@ -16,6 +17,11 @@ class Task {
     this.dueDate,
     this.reminder,
     this.isCompleted,
-    required this.createAt,
+    this.createAt,
   });
+
+  @override
+  String toString() {
+    return 'Task(id: $id, message: $message, dueDate: $dueDate, reminder: $reminder, isCompleted: $isCompleted, createAt: $createAt)';
+  }
 }

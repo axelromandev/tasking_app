@@ -8,21 +8,32 @@ import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+
+    final group = ref.watch(homeProvider).group;
 
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           title: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Personal', style: style.titleLarge),
-              const SizedBox(width: defaultPadding / 2),
+              const Icon(BoxIcons.bx_crown),
+              const SizedBox(width: 8.0),
+              Flexible(
+                child: Text(
+                  group?.name ?? 'Tasking',
+                  style: style.titleLarge,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 8.0),
               const Icon(BoxIcons.bx_chevron_down),
             ],
           ),
