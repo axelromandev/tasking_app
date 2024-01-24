@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
+import '../modals/select_group_modal.dart';
 import '../presentation.dart';
 
 class HomePage extends ConsumerWidget {
@@ -21,21 +22,30 @@ class HomePage extends ConsumerWidget {
       body: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
-          title: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(BoxIcons.bx_crown),
-              const SizedBox(width: 8.0),
-              Flexible(
-                child: Text(
-                  group?.name ?? 'Tasking',
-                  style: style.titleLarge,
-                  overflow: TextOverflow.ellipsis,
+          title: GestureDetector(
+            onTap: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              useSafeArea: true,
+              elevation: 0,
+              builder: (_) => const SelectGroupModal(),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(group?.icon?.iconData ?? BoxIcons.bx_crown),
+                const SizedBox(width: 8.0),
+                Flexible(
+                  child: Text(
+                    group?.name ?? 'Tasking',
+                    style: style.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8.0),
-              const Icon(BoxIcons.bx_chevron_down),
-            ],
+                const SizedBox(width: 8.0),
+                const Icon(BoxIcons.bx_chevron_down),
+              ],
+            ),
           ),
           centerTitle: false,
           actions: [

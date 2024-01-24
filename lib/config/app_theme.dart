@@ -80,7 +80,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
-      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),

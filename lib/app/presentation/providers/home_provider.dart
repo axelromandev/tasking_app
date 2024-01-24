@@ -34,6 +34,11 @@ class HomeNotifier extends StateNotifier<HomeState> {
     );
   }
 
+  void onSelectGroup(GroupTasks group) {
+    _pref.setKeyValue<int>(Keys.groupId, group.id);
+    state = state.copyWith(group: group, tasks: group.tasks.toList());
+  }
+
   Future<void> getAll() async {
     final group = await _groupDataSource.get(state.group!.id);
     final tasks = group!.tasks.toList();

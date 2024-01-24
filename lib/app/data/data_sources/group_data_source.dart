@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:tasking/app/domain/entities/group.dart';
 
@@ -18,9 +19,18 @@ class GroupDataSource implements GroupRepository {
   }
 
   @override
-  Future<GroupTasks> add(String name) async {
+  Future<GroupTasks> add(String name, IconData icon) async {
     return await _isar.writeTxn(() async {
-      final id = await _isar.groupTasks.put(GroupTasks(name: name));
+      final id = await _isar.groupTasks.put(
+        GroupTasks(
+          name: name,
+          icon: GroupIcon(
+            codePoint: icon.codePoint,
+            fontFamily: icon.fontFamily,
+            fontPackage: icon.fontPackage,
+          ),
+        ),
+      );
       final group = await _isar.groupTasks.get(id);
       return group!;
     });

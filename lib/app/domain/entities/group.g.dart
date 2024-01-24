@@ -17,8 +17,14 @@ const GroupTasksSchema = CollectionSchema(
   name: r'GroupTasks',
   id: -3157108690716533507,
   properties: {
-    r'name': PropertySchema(
+    r'icon': PropertySchema(
       id: 0,
+      name: r'icon',
+      type: IsarType.object,
+      target: r'GroupIcon',
+    ),
+    r'name': PropertySchema(
+      id: 1,
       name: r'name',
       type: IsarType.string,
     )
@@ -37,7 +43,7 @@ const GroupTasksSchema = CollectionSchema(
       single: false,
     )
   },
-  embeddedSchemas: {},
+  embeddedSchemas: {r'GroupIcon': GroupIconSchema},
   getId: _groupTasksGetId,
   getLinks: _groupTasksGetLinks,
   attach: _groupTasksAttach,
@@ -50,6 +56,14 @@ int _groupTasksEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.icon;
+    if (value != null) {
+      bytesCount += 3 +
+          GroupIconSchema.estimateSize(
+              value, allOffsets[GroupIcon]!, allOffsets);
+    }
+  }
   bytesCount += 3 + object.name.length * 3;
   return bytesCount;
 }
@@ -60,7 +74,13 @@ void _groupTasksSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.name);
+  writer.writeObject<GroupIcon>(
+    offsets[0],
+    allOffsets,
+    GroupIconSchema.serialize,
+    object.icon,
+  );
+  writer.writeString(offsets[1], object.name);
 }
 
 GroupTasks _groupTasksDeserialize(
@@ -70,7 +90,12 @@ GroupTasks _groupTasksDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = GroupTasks(
-    name: reader.readString(offsets[0]),
+    icon: reader.readObjectOrNull<GroupIcon>(
+      offsets[0],
+      GroupIconSchema.deserialize,
+      allOffsets,
+    ),
+    name: reader.readString(offsets[1]),
   );
   object.id = id;
   return object;
@@ -84,6 +109,12 @@ P _groupTasksDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
+      return (reader.readObjectOrNull<GroupIcon>(
+        offset,
+        GroupIconSchema.deserialize,
+        allOffsets,
+      )) as P;
+    case 1:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -182,6 +213,22 @@ extension GroupTasksQueryWhere
 
 extension GroupTasksQueryFilter
     on QueryBuilder<GroupTasks, GroupTasks, QFilterCondition> {
+  QueryBuilder<GroupTasks, GroupTasks, QAfterFilterCondition> iconIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'icon',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupTasks, GroupTasks, QAfterFilterCondition> iconIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'icon',
+      ));
+    });
+  }
+
   QueryBuilder<GroupTasks, GroupTasks, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -367,7 +414,14 @@ extension GroupTasksQueryFilter
 }
 
 extension GroupTasksQueryObject
-    on QueryBuilder<GroupTasks, GroupTasks, QFilterCondition> {}
+    on QueryBuilder<GroupTasks, GroupTasks, QFilterCondition> {
+  QueryBuilder<GroupTasks, GroupTasks, QAfterFilterCondition> icon(
+      FilterQuery<GroupIcon> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'icon');
+    });
+  }
+}
 
 extension GroupTasksQueryLinks
     on QueryBuilder<GroupTasks, GroupTasks, QFilterCondition> {
@@ -492,9 +546,492 @@ extension GroupTasksQueryProperty
     });
   }
 
+  QueryBuilder<GroupTasks, GroupIcon?, QQueryOperations> iconProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'icon');
+    });
+  }
+
   QueryBuilder<GroupTasks, String, QQueryOperations> nameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'name');
     });
   }
 }
+
+// **************************************************************************
+// IsarEmbeddedGenerator
+// **************************************************************************
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+const GroupIconSchema = Schema(
+  name: r'GroupIcon',
+  id: 5617005912032499487,
+  properties: {
+    r'codePoint': PropertySchema(
+      id: 0,
+      name: r'codePoint',
+      type: IsarType.long,
+    ),
+    r'fontFamily': PropertySchema(
+      id: 1,
+      name: r'fontFamily',
+      type: IsarType.string,
+    ),
+    r'fontPackage': PropertySchema(
+      id: 2,
+      name: r'fontPackage',
+      type: IsarType.string,
+    )
+  },
+  estimateSize: _groupIconEstimateSize,
+  serialize: _groupIconSerialize,
+  deserialize: _groupIconDeserialize,
+  deserializeProp: _groupIconDeserializeProp,
+);
+
+int _groupIconEstimateSize(
+  GroupIcon object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  {
+    final value = object.fontFamily;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fontPackage;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  return bytesCount;
+}
+
+void _groupIconSerialize(
+  GroupIcon object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeLong(offsets[0], object.codePoint);
+  writer.writeString(offsets[1], object.fontFamily);
+  writer.writeString(offsets[2], object.fontPackage);
+}
+
+GroupIcon _groupIconDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = GroupIcon(
+    codePoint: reader.readLongOrNull(offsets[0]),
+    fontFamily: reader.readStringOrNull(offsets[1]),
+    fontPackage: reader.readStringOrNull(offsets[2]),
+  );
+  return object;
+}
+
+P _groupIconDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readLongOrNull(offset)) as P;
+    case 1:
+      return (reader.readStringOrNull(offset)) as P;
+    case 2:
+      return (reader.readStringOrNull(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+extension GroupIconQueryFilter
+    on QueryBuilder<GroupIcon, GroupIcon, QFilterCondition> {
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> codePointIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'codePoint',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      codePointIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'codePoint',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> codePointEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'codePoint',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      codePointGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'codePoint',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> codePointLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'codePoint',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> codePointBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'codePoint',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fontFamily',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontFamilyIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fontFamily',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontFamilyGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'fontFamily',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontFamilyStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'fontFamily',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontFamilyMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'fontFamily',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontFamilyIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'fontFamily',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontFamilyIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'fontFamily',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fontPackage',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fontPackage',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'fontPackage',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'fontPackage',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition> fontPackageMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'fontPackage',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'fontPackage',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<GroupIcon, GroupIcon, QAfterFilterCondition>
+      fontPackageIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'fontPackage',
+        value: '',
+      ));
+    });
+  }
+}
+
+extension GroupIconQueryObject
+    on QueryBuilder<GroupIcon, GroupIcon, QFilterCondition> {}
