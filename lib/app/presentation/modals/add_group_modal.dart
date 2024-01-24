@@ -14,6 +14,8 @@ class AddGroupModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     final provider = ref.watch(addGroupProvider);
 
     final notifier = ref.read(addGroupProvider.notifier);
@@ -34,7 +36,7 @@ class AddGroupModal extends ConsumerWidget {
             children: [
               CustomActionButton(
                 onPressed: () => notifier.onIconChanged(context),
-                backgroundColor: Colors.white,
+                backgroundColor: isDarkMode ? MyColors.cardDark : Colors.white,
                 child: Icon(provider.icon),
               ),
               const Gap(defaultPadding / 2),
@@ -44,7 +46,7 @@ class AddGroupModal extends ConsumerWidget {
                   controller: notifier.textController,
                   decoration: InputDecoration(
                     hintText: 'Nombre del grupo',
-                    fillColor: Colors.white,
+                    fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10),
@@ -61,12 +63,6 @@ class AddGroupModal extends ConsumerWidget {
               ),
             ],
           ),
-          // const Gap(defaultPadding),
-          // const ListTile(
-          //   trailing: Icon(BoxIcons.bx_share_alt),
-          //   title: Text('Grupo compartido'),
-          //   subtitle: Text('Comparte este grupo con otros usuarios'),
-          // ),
           const Gap(24),
           CustomFilledButton(
             onPressed: provider.name.isNotEmpty
