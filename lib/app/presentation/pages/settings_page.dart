@@ -59,6 +59,10 @@ class SettingsPage extends ConsumerWidget {
                     title: const Text('Recordatorios'),
                   ),
                 ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text('Personalización', style: style.bodyLarge),
+                ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
                   child: ListTile(
@@ -82,7 +86,7 @@ class SettingsPage extends ConsumerWidget {
                     children: [
                       ListTile(
                         onTap: () => context.push(RoutesPath.about),
-                        leading: const Icon(BoxIcons.bx_crown),
+                        leading: const Icon(BoxIcons.bx_info_circle),
                         title: Text(S.of(context).settings_about_app),
                       ),
                     ],
