@@ -98,19 +98,23 @@ class HomeNotifier extends StateNotifier<HomeState> {
 }
 
 class HomeState {
+  final GroupTasks? group;
   final List<Task> tasks;
   final DateTime? date;
 
   HomeState({
+    this.group,
     this.tasks = const [],
     this.date,
   });
 
   HomeState copyWith({
+    GroupTasks? group,
     List<Task>? tasks,
     DateTime? date,
   }) {
     return HomeState(
+      group: group ?? this.group,
       tasks: tasks ?? this.tasks,
       date: date,
     );

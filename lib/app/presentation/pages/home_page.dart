@@ -1,8 +1,5 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -24,18 +21,9 @@ class HomePage extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           title: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SvgPicture.asset(
-                  'assets/svg/logo.svg',
-                  height: 20,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-                ),
-              ),
+              Text('Personal', style: style.titleLarge),
               const SizedBox(width: defaultPadding / 2),
-              Text(S.of(context).app_name, style: style.titleLarge),
+              const Icon(BoxIcons.bx_chevron_down),
             ],
           ),
           centerTitle: false,
