@@ -3,13 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_router.dart';
 
-final changeThemeProvider =
-    StateNotifierProvider<ChangeThemeNotifier, bool>((ref) {
-  return ChangeThemeNotifier();
+final changeThemeProvider = StateNotifierProvider<_Notifier, bool>((ref) {
+  return _Notifier();
 });
 
-class ChangeThemeNotifier extends StateNotifier<bool> {
-  ChangeThemeNotifier() : super(false) {
+class _Notifier extends StateNotifier<bool> {
+  _Notifier() : super(false) {
     initialize();
   }
 

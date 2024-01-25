@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tasking/config/color_theme.dart';
 import 'package:tasking/config/config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
   final isDarkMode = ref.watch(changeThemeProvider);
+  final colorSeed = ref.watch(colorThemeProvider);
 
   return ThemeData(
     // General
     useMaterial3: true,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
     fontFamily: GoogleFonts.lexend().fontFamily,
-    colorSchemeSeed: Colors.blue,
+    colorSchemeSeed: colorSeed,
     scaffoldBackgroundColor:
         isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
 
