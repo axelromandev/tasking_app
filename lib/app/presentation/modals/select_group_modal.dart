@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 import '../providers/select_group_provider.dart';
 import 'add_group_modal.dart';
@@ -44,8 +45,8 @@ class SelectGroupModal extends ConsumerWidget {
                 onTap: () => context.pop(),
                 child: const Icon(BoxIcons.bx_x, size: 28),
               ),
-              title: const Text('Seleccionar grupo'),
-              subtitle: const Text('Mantén para más opciones'),
+              title: Text(S.of(context).group_select_title),
+              subtitle: Text(S.of(context).group_select_subtitle),
             ),
             Expanded(
               child: ListView.separated(
@@ -92,7 +93,7 @@ class SelectGroupModal extends ConsumerWidget {
                   notifier.initialize();
                 },
                 leading: const Icon(BoxIcons.bx_list_plus),
-                title: const Text('Agregar grupo'),
+                title: Text(S.of(context).group_add_button),
               ),
             ),
           ],

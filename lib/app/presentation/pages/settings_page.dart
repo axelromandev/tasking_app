@@ -56,12 +56,13 @@ class SettingsPage extends ConsumerWidget {
                       //TODO: Implementar la funcionalidad de recordatorios.
                     },
                     leading: const Icon(BoxIcons.bx_time),
-                    title: const Text('Recordatorios'),
+                    title: Text(S.of(context).settings_general_reminders),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text('Personalización', style: style.bodyLarge),
+                  child: Text(S.of(context).settings_label_custom,
+                      style: style.bodyLarge),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
@@ -70,7 +71,7 @@ class SettingsPage extends ConsumerWidget {
                       //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
                     },
                     leading: const Icon(BoxIcons.bx_palette),
-                    title: const Text('Tema de la aplicación'),
+                    title: Text(S.of(context).settings_custom_theme),
                   ),
                 ),
                 Container(

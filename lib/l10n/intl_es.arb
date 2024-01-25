@@ -30,7 +30,9 @@
   "settings_title": "Configuración",
   "settings_label_general": "General",
   "settings_general_cloud": "Copia de seguridad",
-  "settings_general_notifications": "Notificaciones",
+  "settings_general_reminders": "Recordatorios",
+  "settings_label_custom": "Personalización",
+  "settings_custom_theme": "Tema de la aplicación",
   "settings_label_about": "Acerca de",
   "settings_about_app": "Acerca de Tasking",
   "settings_label_legal": "Legal",
@@ -55,5 +57,12 @@
   "notification_enable_description_modal": "Recibirá una notificación sobre sus tareas y recordatorios diarios.",
   "notification_disable_title_modal": "Notificaciones deshabilitadas",
   "notification_disable_description_modal": "Habilite las notificaciones desde la configuración para recibir una notificación sobre sus tareas.",
-  "notification_button_modal": "Abrir configuración"
+  "notification_button_modal": "Abrir configuración",
+  "group_select_title": "Seleccionar grupo",
+  "group_select_subtitle": "Mantén para más opciones",
+  "group_add_button": "Agregar grupo",
+  "group_options_rename": "Renombrar",
+  "group_options_icon": "Cambiar icono",
+  "group_options_delete": "Eliminar grupo",
+  "group_delete_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar."
 }

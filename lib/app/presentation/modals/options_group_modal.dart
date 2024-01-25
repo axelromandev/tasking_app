@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/generated/l10n.dart';
 
 import '../../../config/config.dart';
 import '../providers/home_provider.dart';
@@ -31,10 +32,13 @@ class OptionsGroupModal extends ConsumerWidget {
                 ListTile(
                   title: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text('Eliminar grupo', style: style.titleLarge),
+                    child: Text(S.of(context).group_options_delete,
+                        style: style.titleLarge),
                   ),
-                  subtitle: const Text(
-                      '¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar.'),
+                  subtitle: Text(
+                    S.of(context).group_delete_description,
+                    style: style.bodyLarge,
+                  ),
                 ),
                 const Gap(defaultPadding),
                 CustomFilledButton(
@@ -42,7 +46,7 @@ class OptionsGroupModal extends ConsumerWidget {
                     //TODO: Eliminar grupo
                   },
                   backgroundColor: Colors.red,
-                  child: const Text('Eliminar definitivamente'),
+                  child: Text(S.of(context).group_options_delete),
                 ),
               ],
             ),
@@ -62,14 +66,14 @@ class OptionsGroupModal extends ConsumerWidget {
                 //TODO: Renombrar grupo
               },
               leading: const Icon(BoxIcons.bx_rename),
-              title: const Text('Renombrar'),
+              title: Text(S.of(context).group_options_rename),
             ),
             ListTile(
               onTap: () async {
                 //TODO: Cambiar icono del grupo
               },
               leading: Icon(group.icon!.iconData),
-              title: const Text('Cambiar icono'),
+              title: Text(S.of(context).group_options_icon),
             ),
             if (groupIdSelected != group.id) ...[
               const Divider(),
@@ -80,8 +84,8 @@ class OptionsGroupModal extends ConsumerWidget {
                 },
                 leading:
                     const Icon(BoxIcons.bx_trash_alt, color: Colors.redAccent),
-                title: const Text('Eliminar grupo',
-                    style: TextStyle(color: Colors.redAccent)),
+                title: Text(S.of(context).group_options_delete,
+                    style: const TextStyle(color: Colors.redAccent)),
               ),
             ],
           ],

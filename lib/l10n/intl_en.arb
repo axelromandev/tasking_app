@@ -30,8 +30,10 @@
   "settings_title": "Settings",
   "settings_label_general": "General",
   "settings_general_cloud": "Backup Copy",
-  "settings_general_notifications": "Notifications",
-  "settings_label_about": "About",
+  "settings_general_reminders": "Reminders",
+  "settings_label_custom": "Personalization",
+  "settings_custom_theme": "Theme App",
+  "settings_label_about": "About", 
   "settings_about_app": "About Tasking",
   "settings_label_legal": "Legal",
   "settings_legal_privacy_policy": "Privacy Policy",
@@ -55,5 +57,13 @@
   "notification_enable_description_modal": "You will receive a notification about your daily tasks and reminders.",
   "notification_disable_title_modal": "Disabled notifications",
   "notification_disable_description_modal": "Please enable notifications from settings to get notified about your tasks.",
-  "notification_button_modal": "Open Settings"
+  "notification_button_modal": "Open Settings",
+  "group_select_title": "Select group",
+  "group_select_subtitle": "Keep for more options",
+  "group_add_button": "Add group",
+  "group_options_rename": "Rename",
+  "group_options_icon": "Change icon",
+  "group_options_delete": "Delete group",
+  "group_delete_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered."
+
 }
