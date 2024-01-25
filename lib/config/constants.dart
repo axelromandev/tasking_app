@@ -19,6 +19,8 @@ class Urls {
       'https://docs.google.com/document/d/1PLJM7VoHYXqgBYiqJWUk_H8L92Gy40xz212hWhLiqVY/edit?usp=sharing';
   static String enPrivacyPolicy =
       'https://docs.google.com/document/d/148UtjWVcpBSP2ynijIkeLdWabPSHOnItsRQJPNAn1-4/edit?usp=sharing';
+  static String githubRepo = 'https://github.com/ingedevs/tasking.git';
+  static String linkedin = 'https://www.linkedin.com/in/axelroman20/';
 }
 
 class Keys {

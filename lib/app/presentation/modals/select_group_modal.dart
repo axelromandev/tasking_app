@@ -29,7 +29,7 @@ class SelectGroupModal extends ConsumerWidget {
     final groupIdSelected = ref.watch(homeProvider).group!.id;
 
     void onOptions(GroupTasks group) {
-      HapticFeedback.vibrate();
+      HapticFeedback.heavyImpact();
       showModalBottomSheet(
         context: context,
         elevation: 0,
