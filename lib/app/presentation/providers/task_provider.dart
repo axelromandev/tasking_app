@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
 import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
 import '../../data/data.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
@@ -39,36 +39,10 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onDelete() async {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    await showDialog<bool?>(
+    await showModalBottomSheet<bool?>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          S.of(context).dialog_delete_title,
-          textAlign: TextAlign.center,
-        ),
-        content: Text(
-          S.of(context).dialog_delete_subtitle,
-          textAlign: TextAlign.center,
-        ),
-        actions: [
-          CustomFilledButton(
-            onPressed: () => context.pop(true),
-            foregroundColor: Colors.red,
-            backgroundColor: Colors.red.shade900.withOpacity(.1),
-            child: Text(S.of(context).button_delete_task),
-          ),
-          const SizedBox(height: defaultPadding),
-          CustomFilledButton(
-            onPressed: () => context.pop(),
-            backgroundColor:
-                isDarkMode ? MyColors.cardDark : MyColors.cardLight,
-            foregroundColor: isDarkMode ? Colors.white : Colors.black,
-            child: Text(S.of(context).button_cancel),
-          ),
-        ],
-      ),
+      elevation: 0,
+      builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
       await _taskDataSource.delete(state.task!.id).then((value) {

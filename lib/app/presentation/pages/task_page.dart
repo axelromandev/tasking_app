@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:intl/intl.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../providers/providers.dart';
-import '../widgets/widgets.dart';
 
 class TaskPage extends ConsumerWidget {
   const TaskPage({super.key});
@@ -47,57 +46,78 @@ class TaskPage extends ConsumerWidget {
         child: Column(
           children: [
             _TextField(),
-            Container(
-              margin: const EdgeInsets.only(top: 8),
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(left: 16),
-                onTap: ref.read(taskProvider.notifier).onAddDueDate,
-                leading: const Icon(HeroIcons.calendar),
-                title: Text(
-                  task.dueDate != null
-                      ? DateFormat()
-                          .add_yMMMMEEEEd()
-                          .format(task.dueDate!)
-                          .toString()
-                      : S.of(context).button_add_due_date,
-                ),
-                trailing: Visibility(
-                  visible: task.dueDate != null,
-                  child: IconButton(
-                    onPressed: ref.read(taskProvider.notifier).onRemoveDueDate,
-                    icon: const Icon(BoxIcons.bx_x),
-                  ),
-                ),
-              ),
+            const Gap(defaultPadding / 2),
+            ListTile(
+              onTap: () {},
+              leading: const Icon(BoxIcons.bx_calendar),
+              title: const Text('Fecha de vencimiento'),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 8),
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(left: 16),
-                onTap: ref.read(taskProvider.notifier).onAddReminder,
-                leading: const Icon(HeroIcons.bell_alert),
-                title: Text(
-                  task.reminder != null
-                      ? DateFormat().format(task.reminder!).toString()
-                      : S.of(context).button_reminder,
-                ),
-                trailing: Visibility(
-                  visible: task.reminder != null,
-                  child: IconButton(
-                    onPressed: ref.read(taskProvider.notifier).onRemoveReminder,
-                    icon: const Icon(BoxIcons.bx_x),
-                  ),
-                ),
-              ),
+            const Gap(defaultPadding / 2),
+            ListTile(
+              onTap: () {},
+              enabled: task.dueDate != null,
+              leading: const Icon(BoxIcons.bx_time),
+              title: const Text('Agregar hora'),
             ),
-            CustomFilledButton(
-              margin: const EdgeInsets.only(top: 16),
-              onPressed: ref.read(taskProvider.notifier).onDelete,
-              foregroundColor: Colors.red,
-              backgroundColor: Colors.red.shade900.withOpacity(.1),
-              icon: const Icon(HeroIcons.trash, size: 16),
-              child: Text(S.of(context).button_delete_task),
-            )
+            const Gap(defaultPadding / 2),
+            ListTile(
+              onTap: ref.read(taskProvider.notifier).onDelete,
+              iconColor: Colors.red,
+              textColor: Colors.red,
+              leading: const Icon(BoxIcons.bx_trash),
+              title: Text(S.of(context).button_delete_task),
+            ),
+            // Container(
+            //   margin: const EdgeInsets.only(top: 8),
+            //   child: ListTile(
+            //     contentPadding: const EdgeInsets.only(left: 16),
+            //     onTap: ref.read(taskProvider.notifier).onAddDueDate,
+            //     leading: const Icon(HeroIcons.calendar),
+            //     title: Text(
+            //       task.dueDate != null
+            //           ? DateFormat()
+            //               .add_yMMMMEEEEd()
+            //               .format(task.dueDate!)
+            //               .toString()
+            //           : S.of(context).button_add_due_date,
+            //     ),
+            //     trailing: Visibility(
+            //       visible: task.dueDate != null,
+            //       child: IconButton(
+            //         onPressed: ref.read(taskProvider.notifier).onRemoveDueDate,
+            //         icon: const Icon(BoxIcons.bx_x),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   margin: const EdgeInsets.only(top: 8),
+            //   child: ListTile(
+            //     contentPadding: const EdgeInsets.only(left: 16),
+            //     onTap: ref.read(taskProvider.notifier).onAddReminder,
+            //     leading: const Icon(BoxIcons.bx_time),
+            //     title: Text(
+            //       task.reminder != null
+            //           ? DateFormat().format(task.reminder!).toString()
+            //           : S.of(context).button_reminder,
+            //     ),
+            //     trailing: Visibility(
+            //       visible: task.reminder != null,
+            //       child: IconButton(
+            //         onPressed: ref.read(taskProvider.notifier).onRemoveReminder,
+            //         icon: const Icon(BoxIcons.bx_x),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // CustomFilledButton(
+            //   margin: const EdgeInsets.only(top: 16),
+            //   onPressed: ref.read(taskProvider.notifier).onDelete,
+            //   foregroundColor: Colors.red,
+            //   backgroundColor: Colors.red.shade900.withOpacity(.1),
+            //   icon: const Icon(HeroIcons.trash, size: 16),
+            //   child: Text(S.of(context).button_delete_task),
+            // )
           ],
         ),
       ),
@@ -178,6 +198,12 @@ class _TextFieldState extends ConsumerState<_TextField> {
       cursorColor: isDarkMode ? Colors.white : Colors.black,
       decoration: InputDecoration(
         filled: focusNode.hasFocus,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(defaultRadius),
+          borderSide: BorderSide(
+            color: isDarkMode ? Colors.white12 : Colors.black12,
+          ),
+        ),
         prefixIcon: Padding(
           padding: const EdgeInsets.only(left: 4),
           child: IconButton(
