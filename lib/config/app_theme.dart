@@ -82,8 +82,11 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       elevation: 0,
       backgroundColor:
           isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(defaultRadius),
+          topRight: Radius.circular(defaultRadius),
+        ),
       ),
     ),
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -45,6 +47,8 @@ class OptionsGroupModal extends ConsumerWidget {
                 ),
                 const Gap(defaultPadding),
                 CustomFilledButton(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: defaultPadding),
                   onPressed: () {
                     Navigator.pop(context);
                     ref.read(selectGroupProvider.notifier).onDeleteGroup(group);
@@ -53,6 +57,7 @@ class OptionsGroupModal extends ConsumerWidget {
                   foregroundColor: Colors.white,
                   child: Text(S.of(context).group_options_delete_title),
                 ),
+                if (Platform.isAndroid) const Gap(defaultPadding),
               ],
             ),
           ),
