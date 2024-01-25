@@ -42,6 +42,7 @@ class _Notifier extends StateNotifier<void> {
       context: context,
       isDismissible: false,
       enableDrag: false,
+      elevation: 0,
       builder: (_) => const PermissionNotificationModal(),
     ).then((_) async {
       await onRequest().then((_) async {

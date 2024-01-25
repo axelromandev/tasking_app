@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:tasking/config/color_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';

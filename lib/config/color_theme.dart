@@ -9,7 +9,7 @@ final colorThemeProvider = StateNotifierProvider<_Notifier, Color>((ref) {
 });
 
 class _Notifier extends StateNotifier<Color> {
-  _Notifier() : super(Colors.amber) {
+  _Notifier() : super(Colors.indigo) {
     initialize();
   }
 

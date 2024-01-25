@@ -13,6 +13,8 @@ class PermissionNotificationModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
+
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       child: SafeArea(
@@ -42,6 +44,7 @@ class PermissionNotificationModal extends StatelessWidget {
             CustomFilledButton(
               margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               onPressed: () => context.pop(),
+              foregroundColor: isDarkMode ? Colors.black : Colors.white,
               child: Text(S.of(context).button_continue),
             ),
             if (Platform.isAndroid) const Gap(defaultPadding),

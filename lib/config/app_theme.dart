@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tasking/config/color_theme.dart';
 import 'package:tasking/config/config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
@@ -60,8 +59,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        backgroundColor: isDarkMode ? MyColors.cardDark : Colors.white,
-        foregroundColor: isDarkMode ? Colors.white : Colors.black,
+        backgroundColor: colorSeed,
+        foregroundColor: Colors.black,
       ),
     ),
     textButtonTheme: TextButtonThemeData(

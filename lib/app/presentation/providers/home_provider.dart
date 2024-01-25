@@ -86,8 +86,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
               const Gap(defaultPadding),
               CustomFilledButton(
                 onPressed: () => context.pop(true),
-                foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
                 child: Text(S.of(context).settings_button_restore_app),
               ),
             ],
