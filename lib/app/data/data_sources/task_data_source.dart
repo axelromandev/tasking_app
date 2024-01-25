@@ -19,7 +19,11 @@ class TaskDataSource implements TaskRepository {
 
   @override
   Future<void> add(int groupId, String value) async {
-    final task = Task(message: value, createAt: DateTime.now());
+    final task = Task(
+      message: value,
+      groupId: groupId,
+      createAt: DateTime.now(),
+    );
     final query = _isar.groupTasks.where().filter().idEqualTo(groupId);
     final group = await query.findFirst();
     group!.tasks.add(task);

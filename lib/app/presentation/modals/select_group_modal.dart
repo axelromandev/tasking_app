@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +29,7 @@ class SelectGroupModal extends ConsumerWidget {
     final groupIdSelected = ref.watch(homeProvider).group!.id;
 
     void onOptions(GroupTasks group) {
+      HapticFeedback.vibrate();
       showModalBottomSheet(
         context: context,
         elevation: 0,

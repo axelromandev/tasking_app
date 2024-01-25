@@ -27,18 +27,23 @@ const TaskSchema = CollectionSchema(
       name: r'dueDate',
       type: IsarType.dateTime,
     ),
-    r'isCompleted': PropertySchema(
+    r'groupId': PropertySchema(
       id: 2,
+      name: r'groupId',
+      type: IsarType.long,
+    ),
+    r'isCompleted': PropertySchema(
+      id: 3,
       name: r'isCompleted',
       type: IsarType.dateTime,
     ),
     r'message': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'message',
       type: IsarType.string,
     ),
     r'reminder': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'reminder',
       type: IsarType.dateTime,
     )
@@ -75,9 +80,10 @@ void _taskSerialize(
 ) {
   writer.writeDateTime(offsets[0], object.createAt);
   writer.writeDateTime(offsets[1], object.dueDate);
-  writer.writeDateTime(offsets[2], object.isCompleted);
-  writer.writeString(offsets[3], object.message);
-  writer.writeDateTime(offsets[4], object.reminder);
+  writer.writeLong(offsets[2], object.groupId);
+  writer.writeDateTime(offsets[3], object.isCompleted);
+  writer.writeString(offsets[4], object.message);
+  writer.writeDateTime(offsets[5], object.reminder);
 }
 
 Task _taskDeserialize(
@@ -89,9 +95,10 @@ Task _taskDeserialize(
   final object = Task(
     createAt: reader.readDateTimeOrNull(offsets[0]),
     dueDate: reader.readDateTimeOrNull(offsets[1]),
-    isCompleted: reader.readDateTimeOrNull(offsets[2]),
-    message: reader.readString(offsets[3]),
-    reminder: reader.readDateTimeOrNull(offsets[4]),
+    groupId: reader.readLong(offsets[2]),
+    isCompleted: reader.readDateTimeOrNull(offsets[3]),
+    message: reader.readString(offsets[4]),
+    reminder: reader.readDateTimeOrNull(offsets[5]),
   );
   object.id = id;
   return object;
@@ -109,10 +116,12 @@ P _taskDeserializeProp<P>(
     case 1:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 4:
+      return (reader.readString(offset)) as P;
+    case 5:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -337,6 +346,58 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'dueDate',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> groupIdEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'groupId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> groupIdGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'groupId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> groupIdLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'groupId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> groupIdBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'groupId',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -693,6 +754,18 @@ extension TaskQuerySortBy on QueryBuilder<Task, Task, QSortBy> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterSortBy> sortByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> sortByGroupIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.desc);
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterSortBy> sortByIsCompleted() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isCompleted', Sort.asc);
@@ -752,6 +825,18 @@ extension TaskQuerySortThenBy on QueryBuilder<Task, Task, QSortThenBy> {
   QueryBuilder<Task, Task, QAfterSortBy> thenByDueDateDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'dueDate', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> thenByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> thenByGroupIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'groupId', Sort.desc);
     });
   }
 
@@ -817,6 +902,12 @@ extension TaskQueryWhereDistinct on QueryBuilder<Task, Task, QDistinct> {
     });
   }
 
+  QueryBuilder<Task, Task, QDistinct> distinctByGroupId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'groupId');
+    });
+  }
+
   QueryBuilder<Task, Task, QDistinct> distinctByIsCompleted() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'isCompleted');
@@ -853,6 +944,12 @@ extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
   QueryBuilder<Task, DateTime?, QQueryOperations> dueDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'dueDate');
+    });
+  }
+
+  QueryBuilder<Task, int, QQueryOperations> groupIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'groupId');
     });
   }
 

@@ -39,6 +39,7 @@ class GroupIcon {
   String toString() =>
       'GroupIcon(codePoint: $codePoint, fontFamily: $fontFamily, fontPackage: $fontPackage)';
 
+  @ignore
   IconData get iconData {
     return IconData(
       codePoint!,

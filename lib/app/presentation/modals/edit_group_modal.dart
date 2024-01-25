@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/config.dart';
 
+import '../../../generated/l10n.dart';
 import '../providers/edit_group_provider.dart';
 import '../widgets/custom_action_button.dart';
 
@@ -47,7 +48,7 @@ class EditGroupModal extends ConsumerWidget {
                   autofocus: true,
                   controller: notifier.textController,
                   decoration: InputDecoration(
-                    hintText: 'Nombre del grupo',
+                    hintText: S.of(context).group_name_field,
                     fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -70,7 +71,7 @@ class EditGroupModal extends ConsumerWidget {
             onPressed: provider.name.isNotEmpty
                 ? () => notifier.onUpdateGroup(context)
                 : null,
-            child: const Text('Guardar'),
+            child: Text(S.of(context).button_save),
           ),
         ],
       ),

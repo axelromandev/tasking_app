@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:tasking/app/domain/entities/group.dart';
+import 'package:tasking/app/domain/domain.dart';
 
 import '../../../core/core.dart';
 import '../repositories/group_repository.dart';
@@ -40,6 +40,14 @@ class GroupDataSource implements GroupRepository {
   Future<void> update(GroupTasks group) async {
     await _isar.writeTxn(() async {
       await _isar.groupTasks.put(group);
+    });
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    await _isar.writeTxn(() async {
+      await _isar.tasks.filter().groupIdEqualTo(id).deleteAll();
+      await _isar.groupTasks.delete(id);
     });
   }
 }

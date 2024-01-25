@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
 import 'package:tasking/config/config.dart';
 
+import '../../../generated/l10n.dart';
 import '../providers/add_group_provider.dart';
 import '../widgets/custom_action_button.dart';
 
@@ -29,7 +30,7 @@ class AddGroupModal extends ConsumerWidget {
               onTap: () => context.pop(),
               child: const Icon(BoxIcons.bx_x, size: 28),
             ),
-            title: const Text('Agregar grupo'),
+            title: Text(S.of(context).group_add_button),
           ),
           const Gap(defaultPadding),
           Row(
@@ -45,7 +46,7 @@ class AddGroupModal extends ConsumerWidget {
                   autofocus: true,
                   controller: notifier.textController,
                   decoration: InputDecoration(
-                    hintText: 'Nombre del grupo',
+                    hintText: S.of(context).group_name_field,
                     fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -68,7 +69,7 @@ class AddGroupModal extends ConsumerWidget {
             onPressed: provider.name.isNotEmpty
                 ? () => notifier.onAddGroup(context)
                 : null,
-            child: const Text('Agregar'),
+            child: Text(S.of(context).button_save),
           ),
         ],
       ),

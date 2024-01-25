@@ -22,9 +22,10 @@ class OptionsGroupModal extends ConsumerWidget {
 
     final groupIdSelected = ref.watch(homeProvider).group!.id;
 
-    void onDelete() {
-      showModalBottomSheet(
+    Future<void> onDelete() async {
+      await showModalBottomSheet(
         context: context,
+        elevation: 0,
         builder: (_) => Container(
           padding: const EdgeInsets.all(defaultPadding),
           child: SafeArea(
@@ -45,9 +46,11 @@ class OptionsGroupModal extends ConsumerWidget {
                 const Gap(defaultPadding),
                 CustomFilledButton(
                   onPressed: () {
-                    //TODO: Eliminar grupo
+                    Navigator.pop(context);
+                    ref.read(selectGroupProvider.notifier).onDeleteGroup(group);
                   },
                   backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
                   child: Text(S.of(context).group_options_delete_title),
                 ),
               ],
@@ -69,6 +72,7 @@ class OptionsGroupModal extends ConsumerWidget {
                   context: context,
                   isScrollControlled: true,
                   useSafeArea: true,
+                  elevation: 0,
                   builder: (_) => EditGroupModal(group),
                 ).then((_) {
                   ref.read(selectGroupProvider.notifier).initialize();
@@ -81,9 +85,10 @@ class OptionsGroupModal extends ConsumerWidget {
             const Divider(),
             if (groupIdSelected != group.id)
               ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  onDelete();
+                onTap: () async {
+                  await onDelete().then((_) {
+                    Navigator.pop(context);
+                  });
                 },
                 leading:
                     const Icon(BoxIcons.bx_trash_alt, color: Colors.redAccent),

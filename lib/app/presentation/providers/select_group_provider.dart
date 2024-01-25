@@ -19,6 +19,11 @@ class _Notifier extends StateNotifier<_State> {
     final groups = await _groupDataSource.fetchAll();
     state = state.copyWith(groups: groups);
   }
+
+  void onDeleteGroup(GroupTasks group) async {
+    await _groupDataSource.delete(group.id);
+    initialize();
+  }
 }
 
 class _State {

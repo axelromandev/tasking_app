@@ -6,6 +6,7 @@ part 'task.g.dart';
 @collection
 class Task {
   Id id = Isar.autoIncrement;
+  int groupId;
   String message;
   DateTime? dueDate;
   DateTime? reminder;
@@ -14,6 +15,7 @@ class Task {
 
   Task({
     required this.message,
+    required this.groupId,
     this.dueDate,
     this.reminder,
     this.isCompleted,
@@ -22,6 +24,6 @@ class Task {
 
   @override
   String toString() {
-    return 'Task(id: $id, message: $message, dueDate: $dueDate, reminder: $reminder, isCompleted: $isCompleted, createAt: $createAt)';
+    return 'Task(id: $id, groupId: $groupId, message: $message, dueDate: $dueDate, reminder: $reminder, isCompleted: $isCompleted, createAt: $createAt)';
   }
 }

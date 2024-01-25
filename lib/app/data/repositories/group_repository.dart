@@ -6,4 +6,5 @@ abstract interface class GroupRepository {
   Future<GroupTasks?> get(int id);
   Future<GroupTasks> add(String name, IconData icon);
   Future<void> update(GroupTasks group);
+  Future<void> delete(int id);
 }
