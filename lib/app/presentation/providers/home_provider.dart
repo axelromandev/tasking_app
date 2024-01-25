@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
@@ -105,7 +106,10 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
     // await NotificationService.cancelAll();
     await _taskDataSource.restore();
-    getAll();
+    await _groupDataSource.restore();
+    final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
+    _pref.setKeyValue<int>(Keys.groupId, group.id);
+    state = state.copyWith(group: group, tasks: []);
   }
 }
 
