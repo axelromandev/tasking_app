@@ -99,21 +99,22 @@ class _BuildTasks extends ConsumerWidget {
         if (listCompleted.isNotEmpty)
           Row(
             children: [
-              Text('${listCompleted.length} completed   •',
+              Text(
+                  '${listCompleted.length} ${S.of(context).home_completed}   •',
                   style: style.bodyMedium?.copyWith(
                     color: colors.onSurface.withOpacity(.8),
                   )),
               TextButton(
                 onPressed: ref.read(homeProvider.notifier).onClearCompleted,
-                child: const Text('Clear'),
+                child: Text(S.of(context).button_clear),
               ),
               const Spacer(),
               TextButton(
                 onPressed:
                     ref.read(homeProvider.notifier).onToggleShowCompleted,
                 child: provider.isShowCompleted
-                    ? const Text('Hide')
-                    : const Text('Show'),
+                    ? Text(S.of(context).button_hide)
+                    : Text(S.of(context).button_show),
               ),
             ],
           ),
