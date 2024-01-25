@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/generated/l10n.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
+import '../../domain/domain.dart';
 import '../providers/home_provider.dart';
+import '../providers/select_group_provider.dart';
 import '../widgets/widgets.dart';
+import 'edit_group_modal.dart';
 
 class OptionsGroupModal extends ConsumerWidget {
   const OptionsGroupModal(this.group, {super.key});
@@ -32,11 +34,11 @@ class OptionsGroupModal extends ConsumerWidget {
                 ListTile(
                   title: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(S.of(context).group_options_delete,
+                    child: Text(S.of(context).group_options_delete_title,
                         style: style.titleLarge),
                   ),
                   subtitle: Text(
-                    S.of(context).group_delete_description,
+                    S.of(context).group_delete_confirm_description,
                     style: style.bodyLarge,
                   ),
                 ),
@@ -46,7 +48,7 @@ class OptionsGroupModal extends ConsumerWidget {
                     //TODO: Eliminar grupo
                   },
                   backgroundColor: Colors.red,
-                  child: Text(S.of(context).group_options_delete),
+                  child: Text(S.of(context).group_options_delete_title),
                 ),
               ],
             ),
@@ -62,21 +64,22 @@ class OptionsGroupModal extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              onTap: () {
-                //TODO: Renombrar grupo
-              },
-              leading: const Icon(BoxIcons.bx_rename),
-              title: Text(S.of(context).group_options_rename),
-            ),
-            ListTile(
               onTap: () async {
-                //TODO: Cambiar icono del grupo
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  builder: (_) => EditGroupModal(group),
+                ).then((_) {
+                  ref.read(selectGroupProvider.notifier).initialize();
+                  Navigator.pop(context);
+                });
               },
-              leading: Icon(group.icon!.iconData),
-              title: Text(S.of(context).group_options_icon),
+              leading: const Icon(BoxIcons.bx_edit),
+              title: Text(S.of(context).group_options_edit),
             ),
-            if (groupIdSelected != group.id) ...[
-              const Divider(),
+            const Divider(),
+            if (groupIdSelected != group.id)
               ListTile(
                 onTap: () {
                   Navigator.pop(context);
@@ -84,10 +87,15 @@ class OptionsGroupModal extends ConsumerWidget {
                 },
                 leading:
                     const Icon(BoxIcons.bx_trash_alt, color: Colors.redAccent),
-                title: Text(S.of(context).group_options_delete,
+                title: Text(S.of(context).group_options_delete_title,
                     style: const TextStyle(color: Colors.redAccent)),
+              )
+            else
+              ListTile(
+                leading: const Icon(BoxIcons.bx_trash_alt),
+                title: Text(S.of(context).group_options_delete_title),
+                subtitle: Text(S.of(context).group_options_delete_subtitle),
               ),
-            ],
           ],
         ),
       ),

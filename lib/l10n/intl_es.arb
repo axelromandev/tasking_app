@@ -61,8 +61,8 @@
   "group_select_title": "Seleccionar grupo",
   "group_select_subtitle": "Mantén para más opciones",
   "group_add_button": "Agregar grupo",
-  "group_options_rename": "Renombrar",
-  "group_options_icon": "Cambiar icono",
-  "group_options_delete": "Eliminar grupo",
-  "group_delete_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar."
+  "group_options_edit": "Editar grupo",
+  "group_options_delete_title": "Eliminar grupo",
+  "group_options_delete_subtitle": "No puedes eliminar el grupo seleccionado",
+  "group_delete_confirm_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar."
 }

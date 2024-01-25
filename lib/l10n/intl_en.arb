@@ -61,9 +61,8 @@
   "group_select_title": "Select group",
   "group_select_subtitle": "Keep for more options",
   "group_add_button": "Add group",
-  "group_options_rename": "Rename",
-  "group_options_icon": "Change icon",
-  "group_options_delete": "Delete group",
-  "group_delete_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered."
-
+  "group_options_edit": "Edit group",
+  "group_options_delete_title": "Delete group",
+  "group_options_delete_subtitle": "You can't delete the selected group",
+  "group_delete_confirm_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered."
 }

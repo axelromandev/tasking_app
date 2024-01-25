@@ -35,4 +35,11 @@ class GroupDataSource implements GroupRepository {
       return group!;
     });
   }
+
+  @override
+  Future<void> update(GroupTasks group) async {
+    await _isar.writeTxn(() async {
+      await _isar.groupTasks.put(group);
+    });
+  }
 }
