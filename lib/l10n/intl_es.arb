@@ -26,7 +26,7 @@
   "button_cancel": "Cancelar",
   "button_continue": "Continuar",
   "button_reminder": "Recuerdame",
-  "button_add_due_date": "Agregar fecha de vencimiento",
+  "button_due_date": "Fecha de vencimiento",
   "dialog_delete_subtitle": "No podrás deshacer esta acción.",
   "dialog_delete_title": "Se eliminará permanentemente.",
   "task_empty_title": "Ups! Tarea no encontrada",

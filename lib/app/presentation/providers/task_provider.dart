@@ -5,25 +5,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
 import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
 import '../../data/data.dart';
 import '../../domain/domain.dart';
 import '../presentation.dart';
 
 final taskProvider =
-    StateNotifierProvider.autoDispose<TaskNotifier, TaskState>((ref) {
+    StateNotifierProvider.autoDispose<TaskNotifier, _State>((ref) {
   final refresh = ref.watch(homeProvider.notifier).getAll;
-  return TaskNotifier(refresh: refresh);
+  return TaskNotifier(refresh);
 });
 
-class TaskNotifier extends StateNotifier<TaskState> {
+class TaskNotifier extends StateNotifier<_State> {
   final Future<void> Function() refresh;
+  TaskNotifier(this.refresh) : super(_State());
 
-  TaskNotifier({required this.refresh}) : super(TaskState());
-
+  final now = DateTime.now();
   final _taskDataSource = TaskDataSource();
 
   BuildContext context = navigatorKey.currentContext!;
@@ -62,11 +64,8 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onAddDueDate() async {
-    final now = DateTime.now();
-
     final dateNew = DateTime(now.year, now.month, now.day, 09, 00);
     final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
-    final dateWeekend = _getNextSaturday();
 
     showModalBottomSheet(
       context: context,
@@ -94,25 +93,11 @@ class TaskNotifier extends StateNotifier<TaskState> {
                 title: const Text('Mañana'),
                 trailing: Text(dateTomorrow.toString()),
               ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _saveDueDate(dateWeekend);
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Este fin de semana'),
-                trailing: Text(dateWeekend.toString()),
-              ),
               const Divider(),
               ListTile(
                 onTap: () {
                   Navigator.pop(context);
-                  showDateTimePicker(
-                    currentTime: state.task?.dueDate,
-                  ).then((date) async {
-                    if (date == null) return;
-                    _saveDueDate(date);
-                  });
+                  _customSaveDueDate();
                 },
                 leading: const Icon(BoxIcons.bx_calendar),
                 title: const Text('Custom'),
@@ -125,15 +110,13 @@ class TaskNotifier extends StateNotifier<TaskState> {
     );
   }
 
-  DateTime _getNextSaturday() {
-    DateTime now = DateTime.now();
-    int daysToAdd;
-    if (now.weekday <= DateTime.saturday) {
-      daysToAdd = DateTime.saturday - now.weekday;
-    } else {
-      daysToAdd = 6;
-    }
-    return now.add(Duration(days: daysToAdd));
+  void _customSaveDueDate() {
+    showDateTimePicker(
+      currentTime: state.task?.dueDate,
+    ).then((date) async {
+      if (date == null) return;
+      _saveDueDate(date);
+    });
   }
 
   void _saveDueDate(DateTime date) async {
@@ -215,14 +198,31 @@ class TaskNotifier extends StateNotifier<TaskState> {
     await _taskDataSource.update(task);
     refresh();
   }
+
+  String formatDate() {
+    final date = state.task!.dueDate;
+    if (date == null) {
+      return S.of(context).button_due_date;
+    }
+    if (date.day == now.day) {
+      return 'Hoy';
+    }
+    if (date.day == now.day + 1) {
+      return 'Mañana';
+    }
+    return DateFormat()
+        .add_yMMMMEEEEd()
+        .format(state.task!.dueDate!)
+        .toString();
+  }
 }
 
-class TaskState {
+class _State {
   final Task? task;
 
-  TaskState({this.task});
+  _State({this.task});
 
-  TaskState copyWith({Task? task}) {
-    return TaskState(task: task ?? this.task);
+  _State copyWith({Task? task}) {
+    return _State(task: task ?? this.task);
   }
 }

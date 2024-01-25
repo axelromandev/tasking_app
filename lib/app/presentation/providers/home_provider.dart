@@ -47,6 +47,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void onSubmit(String value) async {
+    state = state.copyWith(isShowCompleted: false);
     ref.read(controllerProvider).clear();
     if (value.trim().isEmpty) return;
     await _taskDataSource.add(state.group!.id, value);

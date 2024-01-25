@@ -26,7 +26,7 @@
   "button_cancel": "Cancel",
   "button_continue": "Continue",
   "button_reminder": "Remind Me",
-  "button_add_due_date": "Add Due Date",
+  "button_due_date": "Due date",
   "dialog_delete_subtitle": "You won't be able to undo this action.",
   "dialog_delete_title": "Will be permanently deleted.",
   "task_empty_title": "Ups! Task not found",
