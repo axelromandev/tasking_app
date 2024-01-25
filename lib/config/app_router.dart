@@ -47,7 +47,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       )
     ],
     redirect: (context, state) {
-      if (pref.getValue<bool>(isFirstTimeKey) == null) {
+      if (pref.getValue<bool>(Keys.isFirstTime) == null) {
         return RoutesPath.intro;
       }
       return null;

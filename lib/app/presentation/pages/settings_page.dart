@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -27,178 +28,175 @@ class SettingsPage extends ConsumerWidget {
       ),
       backgroundColor: isDarkMode ? null : Colors.grey[100],
       body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_general,
-                  style: style.bodyLarge,
+        child: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(S.of(context).settings_label_general,
+                      style: style.bodyLarge),
                 ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildLanguageButton(),
-                    Divider(
-                      height: 0,
-                      color: isDarkMode ? Colors.white12 : Colors.black12,
-                    ),
-                    _BuildThemeButton(),
-                  ],
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de guardar en la nube
+                    },
+                    leading: const Icon(BoxIcons.bx_cloud),
+                    title: Text(S.of(context).settings_general_cloud),
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_about,
-                  style: style.bodyLarge,
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de recordatorios.
+                    },
+                    leading: const Icon(BoxIcons.bx_time),
+                    title: Text(S.of(context).settings_general_reminders),
+                  ),
                 ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildListTile(
-                      onTap: () => context.push(RoutesPath.about),
-                      iconData: BoxIcons.bx_crown,
-                      iconColor: Colors.orange,
-                      title: S.of(context).settings_about_app,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(S.of(context).settings_label_custom,
+                      style: style.bodyLarge),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
+                    },
+                    leading: const Icon(BoxIcons.bx_palette),
+                    title: Text(S.of(context).settings_custom_theme),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_about,
+                    style: style.bodyLarge,
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () => context.push(RoutesPath.about),
+                        leading: const Icon(BoxIcons.bx_info_circle),
+                        title: Text(S.of(context).settings_about_app),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_legal,
+                    style: style.bodyLarge,
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () async {
+                          bool isEnglish = S.of(context).language == 'en';
+                          Uri uri = isEnglish
+                              ? Uri.parse(Urls.enPrivacyPolicy)
+                              : Uri.parse(Urls.esPrivacyPolicy);
+                          if (!await launchUrl(uri)) {
+                            Snackbar.show('Could not launch $uri',
+                                type: SnackBarType.error);
+                          }
+                        },
+                        leading: const Icon(BoxIcons.bx_shield),
+                        title:
+                            Text(S.of(context).settings_legal_privacy_policy),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(
+                    S.of(context).settings_label_support,
+                    style: style.bodyLarge,
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () async {
+                      bool isEnglish = S.of(context).language == 'en';
+                      Uri uri = isEnglish
+                          ? Uri.parse(Urls.enFeedback)
+                          : Uri.parse(Urls.esFeedback);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    leading: const Icon(BoxIcons.bx_envelope),
+                    title: Text(S.of(context).settings_support_contact),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(defaultRadius),
+                        topRight: Radius.circular(defaultRadius),
                       ),
                     ),
-                    Divider(
-                      height: 0,
-                      color: isDarkMode ? Colors.white12 : Colors.black12,
-                    ),
-                    _BuildVersionLabel(),
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_legal,
-                  style: style.bodyLarge,
-                ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildListTile(
-                      onTap: () async {
-                        bool isEnglish = S.of(context).language == 'en';
-                        Uri uri = isEnglish
-                            ? Uri.parse(enPrivacyPolicyUrl)
-                            : Uri.parse(esPrivacyPolicyUrl);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      iconData: BoxIcons.bx_shield,
-                      iconColor: Colors.green,
-                      title: S.of(context).settings_legal_privacy_policy,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(defaultRadius),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () async {
+                      final uri = Uri.parse(Urls.kofiProfile);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    leading: const Icon(BoxIcons.bx_coffee),
+                    title: Text(S.of(context).settings_support_coffee),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(defaultRadius),
+                        bottomRight: Radius.circular(defaultRadius),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text(
-                  S.of(context).settings_label_support,
-                  style: style.bodyLarge,
-                ),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    _BuildListTile(
-                      onTap: () async {
-                        bool isEnglish = S.of(context).language == 'en';
-                        Uri uri = isEnglish
-                            ? Uri.parse(enFeedbackUrl)
-                            : Uri.parse(esFeedbackUrl);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      iconData: BoxIcons.bx_envelope,
-                      iconColor: Colors.white,
-                      title: S.of(context).settings_support_contact,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    Divider(
-                      height: 0,
-                      color: isDarkMode ? Colors.white12 : Colors.black12,
-                    ),
-                    _BuildListTile(
-                      onTap: () async {
-                        final uri = Uri.parse(kofiProfileUrl);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
-                        }
-                      },
-                      iconData: BoxIcons.bx_coffee,
-                      iconColor: Colors.white,
-                      title: S.of(context).settings_support_coffee,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                child: Text('Danger Zone',
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.redAccent,
-                    )),
-              ),
-              Card(
-                color: isDarkMode ? null : Colors.white,
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
-                      textColor: Colors.redAccent,
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
+                Container(
+                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
+                  child: Text(S.of(context).settings_label_restore,
+                      style: style.bodyLarge?.copyWith(
                         color: Colors.redAccent,
-                      ),
-                      title: Text(S.of(context).settings_button_restore_app),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(defaultRadius),
-                      ),
-                    ),
-                  ],
+                      )),
                 ),
-              ),
-            ],
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                        textColor: Colors.red,
+                        leading:
+                            const Icon(BoxIcons.bx_reset, color: Colors.red),
+                        title: Text(S.of(context).settings_button_restore_app),
+                      ),
+                    ],
+                  ),
+                ),
+                _BuildVersionLabel(),
+                const Gap(defaultPadding * 2)
+              ],
+            ),
           ),
         ),
       ),
@@ -212,7 +210,8 @@ class _BuildVersionLabel extends StatefulWidget {
 }
 
 class _BuildVersionLabelState extends State<_BuildVersionLabel> {
-  String version = '-';
+  String version = '?';
+  String buildNumber = '';
 
   @override
   void initState() {
@@ -222,157 +221,21 @@ class _BuildVersionLabelState extends State<_BuildVersionLabel> {
 
   void getVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() => version = packageInfo.version);
+    setState(() {
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _BuildListTile(
-      iconData: BoxIcons.bx_info_circle,
-      iconColor: Colors.orange,
-      title: S.of(context).about_version,
-      trailing: version,
-    );
-  }
-}
-
-class _BuildLanguageButton extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-
-    const color = Colors.cyan;
-
-    return ListTile(
-      onTap: () => showModalBottomSheet(
-        context: context,
-        builder: (_) => Container(
-          padding: const EdgeInsets.all(24),
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(S.of(context).settings_general_language,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )),
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    S.of(context).language_description,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    return Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(top: defaultPadding),
+      child: Text(
+        'Version $version:$buildNumber',
+        style: const TextStyle(fontSize: 12, color: Colors.grey),
       ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(defaultRadius),
-          topRight: Radius.circular(defaultRadius),
-        ),
-      ),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: color.withOpacity(.1),
-          borderRadius: BorderRadius.circular(defaultRadius),
-        ),
-        child: const Icon(Icons.language_outlined, color: color),
-      ),
-      trailing: Text(
-        S.of(context).language == 'en'
-            ? S.of(context).language_en
-            : S.of(context).language_es,
-        style: style.bodyLarge,
-      ),
-      title: Text(S.of(context).settings_general_language),
-    );
-  }
-}
-
-class _BuildThemeButton extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-
-    final isDarkMode = ref.watch(changeThemeProvider);
-
-    const color = Colors.cyan;
-
-    return ListTile(
-      shape: const RoundedRectangleBorder(),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: color.withOpacity(.1),
-          borderRadius: BorderRadius.circular(defaultRadius),
-        ),
-        child: Icon(
-          isDarkMode ? BoxIcons.bx_moon : BoxIcons.bx_sun,
-          color: color,
-        ),
-      ),
-      trailing: Text(
-        isDarkMode
-            ? S.of(context).settings_general_dark_mode
-            : S.of(context).settings_general_light_mode,
-        style: style.bodyLarge,
-      ),
-      title: Text(S.of(context).settings_general_theme),
-    );
-  }
-}
-
-class _BuildListTile extends StatelessWidget {
-  final VoidCallback? onTap;
-  final IconData iconData;
-  final Color iconColor;
-  final String title;
-  final String? trailing;
-  final ShapeBorder? shape;
-
-  const _BuildListTile({
-    this.onTap,
-    this.shape,
-    required this.iconData,
-    required this.iconColor,
-    required this.title,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final color = iconColor == Colors.white
-        ? isDarkMode
-            ? Colors.white
-            : Colors.black
-        : iconColor;
-
-    return ListTile(
-      onTap: onTap,
-      splashColor: color.withOpacity(.1),
-      shape: shape ?? const RoundedRectangleBorder(),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: color.withOpacity(.1),
-          borderRadius: BorderRadius.circular(defaultRadius),
-        ),
-        child: Icon(iconData, color: color),
-      ),
-      title: Text(title),
-      trailing: onTap != null
-          ? const Icon(Icons.chevron_right)
-          : Text(trailing!, style: style.bodyLarge),
     );
   }
 }

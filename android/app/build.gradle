@@ -49,7 +49,7 @@ android {
 
     defaultConfig {
         applicationId "com.ingedevs.tasking"
-        minSdkVersion 23
+        minSdkVersion 28
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

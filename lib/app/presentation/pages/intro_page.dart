@@ -1,36 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../presentation.dart';
+import '../providers/intro_provider.dart';
 
-class IntroPage extends StatefulWidget {
+class IntroPage extends ConsumerWidget {
   const IntroPage({super.key});
 
   @override
-  State<IntroPage> createState() => _IntroPageState();
-}
-
-class _IntroPageState extends State<IntroPage> {
-  final _pref = SharedPrefsService();
-
-  void onNext() async {
-    await _pref.setKeyValue<bool>(isFirstTimeKey, false).then((value) {
-      context.go(RoutesPath.home);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(defaultPadding * 2),
+          padding: const EdgeInsets.all(28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -62,11 +49,17 @@ class _IntroPageState extends State<IntroPage> {
                 leading: const _Leading(icon: BoxIcons.bx_shield),
                 title: Text(S.of(context).intro_option4),
               ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const _Leading(icon: BoxIcons.bx_group),
+                title: Text(S.of(context).intro_option5),
+              ),
               const Spacer(),
               Text(S.of(context).intro_disclaimer),
               CustomFilledButton(
                 margin: const EdgeInsets.only(top: defaultPadding),
-                onPressed: onNext,
+                onPressed: () =>
+                    ref.read(introProvider.notifier).onNext(context),
                 textStyle: style.titleLarge,
                 child: Text(S.of(context).intro_button),
               ),

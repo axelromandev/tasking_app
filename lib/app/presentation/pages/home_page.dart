@@ -1,42 +1,51 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
+import '../modals/select_group_modal.dart';
 import '../presentation.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+
+    final group = ref.watch(homeProvider).group;
 
     return Scaffold(
       body: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
-          title: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SvgPicture.asset(
-                  'assets/svg/logo.svg',
-                  height: 20,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
+          title: GestureDetector(
+            onTap: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              useSafeArea: true,
+              elevation: 0,
+              builder: (_) => const SelectGroupModal(),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(group?.icon?.iconData ?? BoxIcons.bx_crown),
+                const SizedBox(width: 8.0),
+                Flexible(
+                  child: Text(
+                    group?.name ?? 'Tasking',
+                    style: style.titleLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-              const SizedBox(width: defaultPadding / 2),
-              Text(S.of(context).app_name, style: style.titleLarge),
-            ],
+                const SizedBox(width: 8.0),
+                const Icon(BoxIcons.bx_chevron_down),
+              ],
+            ),
           ),
           centerTitle: false,
           actions: [

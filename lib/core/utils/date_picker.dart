@@ -23,7 +23,7 @@ Future<DateTime?> showDateTimePicker({
   return await p.DatePicker.showDatePicker(
     context,
     theme: p.DatePickerTheme(
-      backgroundColor: isDarkMode ? cardDarkColor : cardLightColor,
+      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
       cancelStyle: style.bodyLarge!,
       doneStyle: style.bodyLarge!,
       itemStyle: style.bodyLarge!.copyWith(
