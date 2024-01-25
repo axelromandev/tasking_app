@@ -53,4 +53,13 @@ class TaskDataSource implements TaskRepository {
       await _isar.tasks.put(task);
     });
   }
+
+  @override
+  Future<void> clearComplete(int groupId) async {
+    await _isar.writeTxn(() async {
+      final ref = _isar.tasks.filter();
+      final query = ref.groupIdEqualTo(groupId).isCompletedIsNotNull();
+      await query.deleteAll();
+    });
+  }
 }

@@ -23,6 +23,7 @@ class CardTask extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Card(
+      color: isDarkMode ? null : Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
         onTap: onShowDetails,
@@ -47,13 +48,8 @@ class CardTask extends StatelessWidget {
         ),
         title: Text(
           task.message,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
-            decoration: task.isCompleted != null
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
             color: task.isCompleted != null
                 ? isDarkMode
                     ? Colors.white70

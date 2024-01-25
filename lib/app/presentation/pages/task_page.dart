@@ -15,6 +15,8 @@ class TaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final task = ref.watch(taskProvider).task;
 
+    final notifier = ref.read(taskProvider.notifier);
+
     if (task == null) {
       return _EmptyTask();
     }
@@ -48,7 +50,7 @@ class TaskPage extends ConsumerWidget {
             _TextField(),
             const Gap(defaultPadding / 2),
             ListTile(
-              onTap: () {},
+              onTap: notifier.onAddDueDate,
               leading: const Icon(BoxIcons.bx_calendar),
               title: const Text('Fecha de vencimiento'),
             ),
@@ -197,8 +199,8 @@ class _TextFieldState extends ConsumerState<_TextField> {
       maxLines: null,
       cursorColor: isDarkMode ? Colors.white : Colors.black,
       decoration: InputDecoration(
-        filled: focusNode.hasFocus,
-        enabledBorder: OutlineInputBorder(
+        filled: true,
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
           borderSide: BorderSide(
             color: isDarkMode ? Colors.white12 : Colors.black12,

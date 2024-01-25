@@ -65,7 +65,11 @@ class HomePage extends ConsumerWidget {
 class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(homeProvider).tasks;
+    final colors = Theme.of(context).colorScheme;
+
+    final provider = ref.watch(homeProvider);
+
+    final tasks = provider.tasks;
 
     final listCompleted =
         tasks.where((task) => task.isCompleted != null).toList();
@@ -90,32 +94,32 @@ class _BuildTasks extends ConsumerWidget {
     }
 
     return ListView(
-      padding: const EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       children: [
-        ...listPending.map((task) => _BuildTask(task)).toList(),
         if (listCompleted.isNotEmpty)
-          Column(
-            mainAxisSize: MainAxisSize.min,
+          Row(
             children: [
-              if (listPending.isNotEmpty)
-                const SizedBox(height: defaultPadding * 2),
-              Row(
-                children: [
-                  const Icon(
-                    BoxIcons.bx_check_circle,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(S.of(context).home_completed,
-                      style: style.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w300,
-                      )),
-                ],
+              Text('${listCompleted.length} completed   •',
+                  style: style.bodyMedium?.copyWith(
+                    color: colors.onSurface.withOpacity(.8),
+                  )),
+              TextButton(
+                onPressed: ref.read(homeProvider.notifier).onClearCompleted,
+                child: const Text('Clear'),
               ),
-              const SizedBox(height: 8),
+              const Spacer(),
+              TextButton(
+                onPressed:
+                    ref.read(homeProvider.notifier).onToggleShowCompleted,
+                child: provider.isShowCompleted
+                    ? const Text('Hide')
+                    : const Text('Show'),
+              ),
             ],
           ),
-        ...listCompleted.map((task) => _BuildTask(task)).toList(),
+        ...listPending.map((task) => _BuildTask(task)).toList(),
+        if (provider.isShowCompleted)
+          ...listCompleted.map((task) => _BuildTask(task)).toList(),
       ],
     );
   }

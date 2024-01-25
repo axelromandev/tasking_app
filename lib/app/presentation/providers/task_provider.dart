@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
 import 'package:tasking/core/core.dart';
 
@@ -58,17 +62,86 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onAddDueDate() async {
-    showDateTimePicker(
-      minTime: DateTime.now().add(const Duration(days: 1)),
-      currentTime: state.task?.dueDate,
-    ).then((date) async {
-      if (date == null) return;
-      final task = state.task!;
-      task.dueDate = date;
-      state = state.copyWith(task: task);
-      await _taskDataSource.update(task);
-      await refresh();
-    });
+    final now = DateTime.now();
+
+    final dateNew = DateTime(now.year, now.month, now.day, 09, 00);
+    final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
+    final dateWeekend = _getNextSaturday();
+
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _saveDueDate(dateNew);
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Hoy'),
+                trailing: Text(dateNew.toString()),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _saveDueDate(dateTomorrow);
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Mañana'),
+                trailing: Text(dateTomorrow.toString()),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _saveDueDate(dateWeekend);
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Este fin de semana'),
+                trailing: Text(dateWeekend.toString()),
+              ),
+              const Divider(),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  showDateTimePicker(
+                    currentTime: state.task?.dueDate,
+                  ).then((date) async {
+                    if (date == null) return;
+                    _saveDueDate(date);
+                  });
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Custom'),
+              ),
+              if (Platform.isAndroid) const Gap(defaultPadding),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  DateTime _getNextSaturday() {
+    DateTime now = DateTime.now();
+    int daysToAdd;
+    if (now.weekday <= DateTime.saturday) {
+      daysToAdd = DateTime.saturday - now.weekday;
+    } else {
+      daysToAdd = 6;
+    }
+    return now.add(Duration(days: daysToAdd));
+  }
+
+  void _saveDueDate(DateTime date) async {
+    final task = state.task!;
+    task.dueDate = date;
+    state = state.copyWith(task: task);
+    await _taskDataSource.update(task);
+    await refresh();
   }
 
   void onRemoveDueDate() async {

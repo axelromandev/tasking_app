@@ -33,8 +33,15 @@ class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
           },
           style: const TextStyle(fontSize: 16),
           maxLines: null,
+          autocorrect: false,
           cursorColor: isDarkMode ? Colors.white : Colors.black,
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(defaultRadius),
+              borderSide: BorderSide(
+                color: isDarkMode ? Colors.white12 : Colors.black12,
+              ),
+            ),
             prefixIcon: controller.text.isEmpty
                 ? const Icon(HeroIcons.plus)
                 : const Icon(BoxIcons.bx_circle),

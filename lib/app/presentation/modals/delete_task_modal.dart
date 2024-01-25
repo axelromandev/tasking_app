@@ -43,7 +43,7 @@ class DeleteTaskModal extends StatelessWidget {
                     child: CustomFilledButton(
                       onPressed: () => context.pop(),
                       backgroundColor:
-                          isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+                          isDarkMode ? MyColors.cardDark : Colors.white,
                       foregroundColor: isDarkMode ? Colors.white : Colors.black,
                       child: Text(S.of(context).button_cancel),
                     ),

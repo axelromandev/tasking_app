@@ -45,7 +45,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     // Card
     cardTheme: CardTheme(
-      color: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      color: isDarkMode ? MyColors.cardDark : Colors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -58,7 +58,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+        backgroundColor: isDarkMode ? MyColors.cardDark : Colors.white,
         foregroundColor: isDarkMode ? Colors.white : Colors.black,
       ),
     ),
@@ -73,7 +73,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
@@ -93,7 +94,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
       contentPadding: const EdgeInsets.all(defaultPadding),
       iconColor: isDarkMode ? Colors.white : Colors.black,
       hintStyle: TextStyle(

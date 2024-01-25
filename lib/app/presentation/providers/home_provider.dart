@@ -111,25 +111,39 @@ class HomeNotifier extends StateNotifier<HomeState> {
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: []);
   }
+
+  void onClearCompleted() async {
+    final groupId = state.group!.id;
+    await _taskDataSource.clearComplete(groupId);
+    getAll();
+  }
+
+  void onToggleShowCompleted() {
+    state = state.copyWith(isShowCompleted: !state.isShowCompleted);
+  }
 }
 
 class HomeState {
+  final bool isShowCompleted;
   final GroupTasks? group;
   final List<Task> tasks;
   final DateTime? date;
 
   HomeState({
+    this.isShowCompleted = false,
     this.group,
     this.tasks = const [],
     this.date,
   });
 
   HomeState copyWith({
+    bool? isShowCompleted,
     GroupTasks? group,
     List<Task>? tasks,
     DateTime? date,
   }) {
     return HomeState(
+      isShowCompleted: isShowCompleted ?? this.isShowCompleted,
       group: group ?? this.group,
       tasks: tasks ?? this.tasks,
       date: date,
