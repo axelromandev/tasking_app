@@ -24,4 +24,5 @@ class Urls {
 class Keys {
   static String isFirstTime = 'isFirstTime';
   static String groupId = 'groupId';
+  static String colorSeed = 'colorSeed';
 }

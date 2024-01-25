@@ -20,8 +20,6 @@ class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
 
     final controller = ref.watch(controllerProvider);
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(defaultPadding),
@@ -36,7 +34,7 @@ class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
           style: const TextStyle(fontSize: 16),
           maxLines: null,
           autocorrect: false,
-          cursorColor: isDarkMode ? Colors.white : Colors.black,
+          cursorColor: colors.primary,
           decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(defaultRadius),

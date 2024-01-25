@@ -1,9 +1,11 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tasking/config/color_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
@@ -69,13 +71,29 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {
-                      //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
-                    },
+                  child: ExpansionTile(
+                    controller:
+                        ref.read(colorThemeProvider.notifier).controller,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(defaultRadius),
+                      ),
+                    ),
                     iconColor: colors.primary,
+                    collapsedIconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_palette),
                     title: Text(S.of(context).settings_custom_theme),
+                    children: [
+                      ColorPicker(
+                        color: ref.watch(colorThemeProvider),
+                        onColorChanged:
+                            ref.read(colorThemeProvider.notifier).setColor,
+                        width: 44,
+                        height: 44,
+                        borderRadius: 22,
+                        enableShadesSelection: false,
+                      ),
+                    ],
                   ),
                 ),
                 Container(

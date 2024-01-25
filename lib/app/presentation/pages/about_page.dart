@@ -16,8 +16,8 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final color = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
@@ -36,8 +36,9 @@ class AboutPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  const Gap(defaultPadding),
                   SvgPicture.asset('assets/svg/logo.svg',
-                      width: 40, color: color),
+                      width: 40, color: colors.primary),
                   const Gap(defaultPadding),
                   Text('Tasking', style: style.displaySmall),
                   Container(
@@ -56,7 +57,9 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(primary: color),
+                    style: TextButton.styleFrom(
+                      primary: isDarkMode ? Colors.white : colors.primary,
+                    ),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),
@@ -82,6 +85,7 @@ class AboutPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  const Gap(defaultPadding),
                   const CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage('assets/images/dev.png'),
@@ -105,7 +109,9 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(primary: color),
+                    style: TextButton.styleFrom(
+                      primary: isDarkMode ? Colors.white : colors.primary,
+                    ),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),
