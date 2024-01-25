@@ -16,6 +16,8 @@ class AddTaskField extends ConsumerStatefulWidget {
 class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     final controller = ref.watch(controllerProvider);
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -39,7 +41,7 @@ class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(defaultRadius),
               borderSide: BorderSide(
-                color: isDarkMode ? Colors.white12 : Colors.black12,
+                color: colors.primary.withOpacity(.6),
               ),
             ),
             prefixIcon: controller.text.isEmpty

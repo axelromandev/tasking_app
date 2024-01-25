@@ -65,12 +65,14 @@ class _BuildIcons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Wrap(
       spacing: defaultPadding,
       children: icons
           .map((e) => IconButton(
                 onPressed: () => Navigator.pop(context, e),
-                icon: Icon(e),
+                icon: Icon(e, color: colors.primary),
               ))
           .toList(),
     );

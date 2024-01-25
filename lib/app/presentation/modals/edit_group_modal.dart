@@ -17,6 +17,7 @@ class EditGroupModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colors = Theme.of(context).colorScheme;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     final provider = ref.watch(editGroupProvider(group));
@@ -40,7 +41,7 @@ class EditGroupModal extends ConsumerWidget {
               CustomActionButton(
                 onPressed: () => notifier.onIconChanged(context),
                 backgroundColor: isDarkMode ? MyColors.cardDark : Colors.white,
-                child: Icon(provider.icon),
+                child: Icon(provider.icon, color: colors.primary),
               ),
               const Gap(defaultPadding / 2),
               Expanded(

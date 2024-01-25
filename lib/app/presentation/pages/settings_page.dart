@@ -17,6 +17,7 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -45,6 +46,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {
                       //TODO: Implementar la funcionalidad de guardar en la nube
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_cloud),
                     title: Text(S.of(context).settings_general_cloud),
                   ),
@@ -55,6 +57,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {
                       //TODO: Implementar la funcionalidad de recordatorios.
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_time),
                     title: Text(S.of(context).settings_general_reminders),
                   ),
@@ -70,6 +73,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {
                       //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_palette),
                     title: Text(S.of(context).settings_custom_theme),
                   ),
@@ -87,6 +91,7 @@ class SettingsPage extends ConsumerWidget {
                     children: [
                       ListTile(
                         onTap: () => context.push(RoutesPath.about),
+                        iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_info_circle),
                         title: Text(S.of(context).settings_about_app),
                       ),
@@ -115,6 +120,7 @@ class SettingsPage extends ConsumerWidget {
                                 type: SnackBarType.error);
                           }
                         },
+                        iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_shield),
                         title:
                             Text(S.of(context).settings_legal_privacy_policy),
@@ -142,6 +148,7 @@ class SettingsPage extends ConsumerWidget {
                             type: SnackBarType.error);
                       }
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_envelope),
                     title: Text(S.of(context).settings_support_contact),
                     shape: const RoundedRectangleBorder(
@@ -162,6 +169,7 @@ class SettingsPage extends ConsumerWidget {
                             type: SnackBarType.error);
                       }
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_coffee),
                     title: Text(S.of(context).settings_support_coffee),
                     shape: const RoundedRectangleBorder(

@@ -15,6 +15,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final group = ref.watch(homeProvider).group;
 
@@ -33,7 +34,10 @@ class HomePage extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(group?.icon?.iconData ?? BoxIcons.bx_crown),
+                Icon(
+                  group?.icon?.iconData ?? BoxIcons.bx_crown,
+                  color: colors.primary,
+                ),
                 const SizedBox(width: 8.0),
                 Flexible(
                   child: Text(

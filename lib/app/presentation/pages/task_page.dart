@@ -175,9 +175,11 @@ class _TextFieldState extends ConsumerState<_TextField> {
 
   @override
   Widget build(BuildContext context) {
-    final task = ref.watch(taskProvider).task!;
+    final colors = Theme.of(context).colorScheme;
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    final task = ref.watch(taskProvider).task!;
 
     return TextFormField(
       controller: controller,
@@ -203,7 +205,7 @@ class _TextFieldState extends ConsumerState<_TextField> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
           borderSide: BorderSide(
-            color: isDarkMode ? Colors.white12 : Colors.black12,
+            color: colors.primary.withOpacity(.6),
           ),
         ),
         prefixIcon: Padding(
