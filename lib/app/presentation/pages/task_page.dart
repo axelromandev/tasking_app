@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../providers/providers.dart';
 
@@ -15,7 +14,9 @@ class TaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
 
-    final task = ref.watch(taskProvider).task!;
+    final task = ref.watch(taskProvider).task;
+
+    if (task == null) return const CircularProgressIndicator();
 
     final notifier = ref.read(taskProvider.notifier);
 
@@ -26,22 +27,9 @@ class TaskPage extends ConsumerWidget {
               ? S.of(context).home_completed
               : S.of(context).home_pending,
           style: TextStyle(
-            color: task.isCompleted != null
-                ? colors.primary
-                : dueDateColor(task.dueDate),
+            color: task.isCompleted != null ? colors.primary : null,
           ),
         ),
-        actions: [
-          task.isCompleted != null
-              ? Container()
-              : Container(
-                  padding: const EdgeInsets.only(right: defaultPadding),
-                  child: Icon(
-                    dueDateIcon(task.dueDate),
-                    color: dueDateColor(task.dueDate),
-                  ),
-                ),
-        ],
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: defaultPadding),

@@ -72,6 +72,7 @@ class EditGroupModal extends ConsumerWidget {
             onPressed: provider.name.isNotEmpty
                 ? () => notifier.onUpdateGroup(context)
                 : null,
+            foregroundColor: isDarkMode ? Colors.black : Colors.white,
             child: Text(S.of(context).button_save),
           ),
         ],

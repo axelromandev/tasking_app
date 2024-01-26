@@ -41,13 +41,6 @@ class TaskDataSource implements TaskRepository {
   }
 
   @override
-  Future<void> restore() async {
-    await _isar.writeTxn(() async {
-      await _isar.tasks.where().deleteAll();
-    });
-  }
-
-  @override
   Future<void> update(Task task) async {
     await _isar.writeTxn(() async {
       await _isar.tasks.put(task);

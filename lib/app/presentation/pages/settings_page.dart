@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
+import '../modals/backup_options_modal.dart';
 import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -36,21 +37,40 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {},
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_crown),
+                    title: Row(
+                      children: [
+                        const Text('Tasking'),
+                        const Gap(defaultPadding / 2),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding / 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colors.primary,
+                            borderRadius: BorderRadius.circular(defaultRadius),
+                          ),
+                          child: const Text('Pro',
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                    subtitle: const Padding(
+                      padding: EdgeInsets.only(top: 3),
+                      child: Text('Enjoy the full experience.'),
+                    ),
+                    trailing: const Icon(BoxIcons.bx_chevron_right),
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
                       style: style.bodyLarge),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {
-                      //TODO: Implementar la funcionalidad de guardar en la nube
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_cloud),
-                    title: Text(S.of(context).settings_general_cloud),
-                  ),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
@@ -63,10 +83,16 @@ class SettingsPage extends ConsumerWidget {
                     title: Text(S.of(context).settings_general_reminders),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(S.of(context).settings_label_custom,
-                      style: style.bodyLarge),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Implementar la funcionalidad de contraseña.
+                    },
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_lock),
+                    title: const Text('Contraseña'),
+                  ),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
@@ -87,18 +113,33 @@ class SettingsPage extends ConsumerWidget {
                         color: ref.watch(colorThemeProvider),
                         onColorChanged:
                             ref.read(colorThemeProvider.notifier).setColor,
+                        pickersEnabled: const <ColorPickerType, bool>{
+                          ColorPickerType.primary: true,
+                          ColorPickerType.accent: false,
+                        },
                         width: 44,
                         height: 44,
-                        borderRadius: 22,
                         enableShadesSelection: false,
                       ),
                     ],
                   ),
                 ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (_) => const BackupOptionsModal(),
+                    ),
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_cloud),
+                    title: Text(S.of(context).settings_general_cloud),
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(
-                    S.of(context).settings_label_about,
+                    'Más información',
                     style: style.bodyLarge,
                   ),
                 ),
@@ -113,13 +154,6 @@ class SettingsPage extends ConsumerWidget {
                         title: Text(S.of(context).settings_about_app),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    S.of(context).settings_label_legal,
-                    style: style.bodyLarge,
                   ),
                 ),
                 Card(
@@ -143,13 +177,6 @@ class SettingsPage extends ConsumerWidget {
                             Text(S.of(context).settings_legal_privacy_policy),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    S.of(context).settings_label_support,
-                    style: style.bodyLarge,
                   ),
                 ),
                 Card(
@@ -209,7 +236,7 @@ class SettingsPage extends ConsumerWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                        onTap: ref.read(homeProvider.notifier).onRestore,
                         textColor: Colors.red,
                         leading:
                             const Icon(BoxIcons.bx_reset, color: Colors.red),

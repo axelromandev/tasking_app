@@ -23,6 +23,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   final _pref = SharedPrefsService();
+  final _isarDataSource = IsarDataSource();
   final _groupDataSource = GroupDataSource();
   final _taskDataSource = TaskDataSource();
 
@@ -54,13 +55,23 @@ class HomeNotifier extends StateNotifier<HomeState> {
     getAll();
   }
 
+  void onClearCompleted() async {
+    final groupId = state.group!.id;
+    await _taskDataSource.clearComplete(groupId);
+    getAll();
+  }
+
+  void onToggleShowCompleted() {
+    state = state.copyWith(isShowCompleted: !state.isShowCompleted);
+  }
+
   void onToggleCheck(Task task) async {
     task.isCompleted = task.isCompleted == null ? DateTime.now() : null;
     await _taskDataSource.update(task);
     getAll();
   }
 
-  void onRestoreDataApp() async {
+  void onRestore() async {
     BuildContext context = navigatorKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
@@ -106,21 +117,10 @@ class HomeNotifier extends StateNotifier<HomeState> {
     // FIXME: notification service
 
     // await NotificationService.cancelAll();
-    await _taskDataSource.restore();
-    await _groupDataSource.restore();
+    await _isarDataSource.restore();
     final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: []);
-  }
-
-  void onClearCompleted() async {
-    final groupId = state.group!.id;
-    await _taskDataSource.clearComplete(groupId);
-    getAll();
-  }
-
-  void onToggleShowCompleted() {
-    state = state.copyWith(isShowCompleted: !state.isShowCompleted);
   }
 }
 

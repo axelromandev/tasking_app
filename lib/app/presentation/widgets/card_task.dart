@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 
@@ -97,13 +96,6 @@ class CardTask extends StatelessWidget {
                 ],
               )
             : null,
-        trailing: Visibility(
-          visible: task.reminder != null,
-          child: Icon(
-            BoxIcons.bx_bell,
-            color: dueDateColor(task.dueDate),
-          ),
-        ),
       ),
     );
   }

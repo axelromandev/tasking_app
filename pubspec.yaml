@@ -8,9 +8,11 @@ environment:
 
 dependencies:
   adaptive_theme: ^3.5.0
+  file_picker: ^6.1.1
   flex_color_picker: ^3.3.1
   flutter:
     sdk: flutter
+  flutter_archive: ^6.0.0
   flutter_datetime_picker_plus: ^2.1.0
   flutter_localizations:
     sdk: flutter
@@ -26,7 +28,7 @@ dependencies:
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   package_info_plus: ^4.2.0
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   permission_handler: ^11.2.0
   rxdart: ^0.27.7
   shared_preferences: ^2.2.2

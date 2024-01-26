@@ -70,6 +70,7 @@ class AddGroupModal extends ConsumerWidget {
             onPressed: provider.name.isNotEmpty
                 ? () => notifier.onAddGroup(context)
                 : null,
+            foregroundColor: isDarkMode ? Colors.black : Colors.white,
             child: Text(S.of(context).button_save),
           ),
         ],
