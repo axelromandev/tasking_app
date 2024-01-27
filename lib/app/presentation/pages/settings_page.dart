@@ -1,7 +1,9 @@
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
+import '../modals/backup_options_modal.dart';
 import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -17,6 +20,7 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -34,6 +38,44 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () {},
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_crown),
+                    title: Row(
+                      children: [
+                        const Text('Tasking'),
+                        const Gap(defaultPadding / 2),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding / 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colors.primary,
+                            borderRadius: BorderRadius.circular(defaultRadius),
+                          ),
+                          child: const Text('Pro',
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                    subtitle: const Padding(
+                      padding: EdgeInsets.only(top: 3),
+                      child: Text('Enjoy the full experience.'),
+                    ),
+                    trailing: const Icon(BoxIcons.bx_chevron_right),
+                  ),
+                ),
+                if (AdModService.bannerAdSettings != null)
+                  Container(
+                    margin: const EdgeInsets.only(top: defaultPadding),
+                    width: AdModService.bannerAdSettings!.size.width.toDouble(),
+                    height:
+                        AdModService.bannerAdSettings!.size.height.toDouble(),
+                    child: AdWidget(ad: AdModService.bannerAdSettings!),
+                  ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
@@ -43,41 +85,70 @@ class SettingsPage extends ConsumerWidget {
                   color: isDarkMode ? null : Colors.white,
                   child: ListTile(
                     onTap: () {
-                      //TODO: Implementar la funcionalidad de guardar en la nube
-                    },
-                    leading: const Icon(BoxIcons.bx_cloud),
-                    title: Text(S.of(context).settings_general_cloud),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {
                       //TODO: Implementar la funcionalidad de recordatorios.
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_time),
                     title: Text(S.of(context).settings_general_reminders),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(S.of(context).settings_label_custom,
-                      style: style.bodyLarge),
-                ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
                   child: ListTile(
                     onTap: () {
-                      //TODO: Implementar la funcionalidad de cambiar el thema de la aplicación
+                      //TODO: Implementar la funcionalidad de contraseña.
                     },
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_lock),
+                    title: const Text('Contraseña'),
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ExpansionTile(
+                    controller:
+                        ref.read(colorThemeProvider.notifier).controller,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(defaultRadius),
+                      ),
+                    ),
+                    iconColor: colors.primary,
+                    collapsedIconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_palette),
                     title: Text(S.of(context).settings_custom_theme),
+                    children: [
+                      ColorPicker(
+                        color: ref.watch(colorThemeProvider),
+                        onColorChanged:
+                            ref.read(colorThemeProvider.notifier).setColor,
+                        pickersEnabled: const <ColorPickerType, bool>{
+                          ColorPickerType.primary: true,
+                          ColorPickerType.accent: false,
+                        },
+                        width: 44,
+                        height: 44,
+                        enableShadesSelection: false,
+                      ),
+                    ],
+                  ),
+                ),
+                Card(
+                  color: isDarkMode ? null : Colors.white,
+                  child: ListTile(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (_) => const BackupOptionsModal(),
+                    ),
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_cloud),
+                    title: Text(S.of(context).settings_general_cloud),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(
-                    S.of(context).settings_label_about,
+                    'Más información',
                     style: style.bodyLarge,
                   ),
                 ),
@@ -87,17 +158,11 @@ class SettingsPage extends ConsumerWidget {
                     children: [
                       ListTile(
                         onTap: () => context.push(RoutesPath.about),
+                        iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_info_circle),
                         title: Text(S.of(context).settings_about_app),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    S.of(context).settings_label_legal,
-                    style: style.bodyLarge,
                   ),
                 ),
                 Card(
@@ -115,18 +180,12 @@ class SettingsPage extends ConsumerWidget {
                                 type: SnackBarType.error);
                           }
                         },
+                        iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_shield),
                         title:
                             Text(S.of(context).settings_legal_privacy_policy),
                       ),
                     ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    S.of(context).settings_label_support,
-                    style: style.bodyLarge,
                   ),
                 ),
                 Card(
@@ -142,6 +201,7 @@ class SettingsPage extends ConsumerWidget {
                             type: SnackBarType.error);
                       }
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_envelope),
                     title: Text(S.of(context).settings_support_contact),
                     shape: const RoundedRectangleBorder(
@@ -162,6 +222,7 @@ class SettingsPage extends ConsumerWidget {
                             type: SnackBarType.error);
                       }
                     },
+                    iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_coffee),
                     title: Text(S.of(context).settings_support_coffee),
                     shape: const RoundedRectangleBorder(
@@ -184,7 +245,7 @@ class SettingsPage extends ConsumerWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: ref.read(homeProvider.notifier).onRestoreDataApp,
+                        onTap: ref.read(homeProvider.notifier).onRestore,
                         textColor: Colors.red,
                         leading:
                             const Icon(BoxIcons.bx_reset, color: Colors.red),

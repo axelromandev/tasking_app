@@ -16,124 +16,131 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final color = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).settings_label_about),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(defaultPadding),
-            margin: const EdgeInsets.all(defaultPadding),
-            decoration: BoxDecoration(
-              color: isDarkMode ? MyColors.cardDark : Colors.white,
-              borderRadius: BorderRadius.circular(defaultRadius),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(defaultPadding),
+              margin: const EdgeInsets.all(defaultPadding),
+              decoration: BoxDecoration(
+                color: isDarkMode ? MyColors.cardDark : Colors.white,
+                borderRadius: BorderRadius.circular(defaultRadius),
+              ),
+              child: Column(
+                children: [
+                  const Gap(defaultPadding),
+                  SvgPicture.asset('assets/svg/logo.svg',
+                      width: 40, color: colors.primary),
+                  const Gap(defaultPadding),
+                  Text('Tasking', style: style.displaySmall),
+                  Container(
+                    margin: const EdgeInsets.only(top: defaultPadding),
+                    child: Text(
+                      S.of(context).about_description,
+                      textAlign: TextAlign.center,
+                      style: style.bodyLarge,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final uri = Uri.parse(Urls.githubRepo);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      primary: isDarkMode ? Colors.white : colors.primary,
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: defaultPadding),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(BoxIcons.bxl_github),
+                          const Gap(defaultPadding / 2),
+                          Text('Github', style: style.bodyLarge),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            child: Column(
-              children: [
-                const Gap(defaultPadding),
-                SvgPicture.asset('assets/svg/logo.svg',
-                    width: 40, color: color),
-                const Gap(defaultPadding),
-                Text('Tasking', style: style.displaySmall),
-                Container(
-                  margin: const EdgeInsets.only(top: defaultPadding),
-                  child: Text(
-                    S.of(context).about_description,
+            Container(
+              padding: const EdgeInsets.all(defaultPadding),
+              margin: const EdgeInsets.all(defaultPadding),
+              decoration: BoxDecoration(
+                color: isDarkMode ? MyColors.cardDark : Colors.white,
+                borderRadius: BorderRadius.circular(defaultRadius),
+              ),
+              child: Column(
+                children: [
+                  const Gap(defaultPadding),
+                  const CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/images/dev.png'),
+                  ),
+                  const Gap(defaultPadding),
+                  Text(S.of(context).about_author,
+                      style: style.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      )),
+                  const Gap(defaultPadding),
+                  Text(
+                    S.of(context).about_author_description,
                     textAlign: TextAlign.center,
                     style: style.bodyLarge,
                   ),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    final uri = Uri.parse(Urls.githubRepo);
-                    if (!await launchUrl(uri)) {
-                      Snackbar.show('Could not launch $uri',
-                          type: SnackBarType.error);
-                    }
-                  },
-                  style: TextButton.styleFrom(primary: color),
-                  child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(BoxIcons.bxl_github),
-                        const Gap(defaultPadding / 2),
-                        Text('Github', style: style.bodyLarge),
-                      ],
+                  TextButton(
+                    onPressed: () async {
+                      final uri = Uri.parse(Urls.linkedin);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show('Could not launch $uri',
+                            type: SnackBarType.error);
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      primary: isDarkMode ? Colors.white : colors.primary,
                     ),
-                  ),
-                )
-              ],
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: defaultPadding),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(BoxIcons.bxl_linkedin_square),
+                          const Gap(defaultPadding / 2),
+                          Text('Linkedin', style: style.bodyLarge),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(defaultPadding),
-            margin: const EdgeInsets.all(defaultPadding),
-            decoration: BoxDecoration(
-              color: isDarkMode ? MyColors.cardDark : Colors.white,
-              borderRadius: BorderRadius.circular(defaultRadius),
-            ),
-            child: Column(
+            const Gap(defaultPadding / 2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Gap(defaultPadding),
-                const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/images/dev.png'),
-                ),
-                const Gap(defaultPadding),
-                Text(S.of(context).about_author,
-                    style: style.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    )),
-                const Gap(defaultPadding),
-                Text(
-                  S.of(context).about_author_description,
-                  textAlign: TextAlign.center,
-                  style: style.bodyLarge,
-                ),
-                TextButton(
-                  onPressed: () async {
-                    final uri = Uri.parse(Urls.linkedin);
-                    if (!await launchUrl(uri)) {
-                      Snackbar.show('Could not launch $uri',
-                          type: SnackBarType.error);
-                    }
-                  },
-                  style: TextButton.styleFrom(primary: color),
-                  child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(BoxIcons.bxl_linkedin_square),
-                        const Gap(defaultPadding / 2),
-                        Text('Linkedin', style: style.bodyLarge),
-                      ],
-                    ),
-                  ),
-                )
+                Text(S.of(context).about_built_part1),
+                const Icon(BoxIcons.bxl_flutter, color: Colors.cyan),
+                Text(S.of(context).about_built_part2),
+                const Icon(BoxIcons.bxs_heart, color: Colors.red),
               ],
             ),
-          ),
-          const Gap(defaultPadding / 2),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(S.of(context).about_built_part1),
-              const Icon(BoxIcons.bxl_flutter, color: Colors.cyan),
-              Text(S.of(context).about_built_part2),
-              const Icon(BoxIcons.bxs_heart, color: Colors.red),
-            ],
-          )
-        ],
+            const Gap(defaultPadding * 2),
+          ],
+        ),
       ),
     );
   }

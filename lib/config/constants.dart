@@ -4,11 +4,9 @@ const double defaultPadding = 16.0;
 const double defaultRadius = 16.0;
 
 class MyColors {
-  static Color primary = const Color(0xFF9747FF);
   static Color cardDark = const Color(0xFF21222D);
-  static Color cardLight = const Color(0xFFE7E7E7);
   static Color backgroundDark = const Color(0xFF171821);
-  static Color backgroundLight = const Color(0xFFF5F5F5);
+  static Color backgroundLight = const Color(0xFFF6F6F6);
 }
 
 class Urls {
@@ -26,4 +24,5 @@ class Urls {
 class Keys {
   static String isFirstTime = 'isFirstTime';
   static String groupId = 'groupId';
+  static String colorSeed = 'colorSeed';
 }

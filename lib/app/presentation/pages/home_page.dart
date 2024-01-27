@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../modals/select_group_modal.dart';
@@ -15,6 +17,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final group = ref.watch(homeProvider).group;
 
@@ -33,7 +36,10 @@ class HomePage extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(group?.icon?.iconData ?? BoxIcons.bx_crown),
+                Icon(
+                  group?.icon?.iconData ?? BoxIcons.bx_crown,
+                  color: colors.primary,
+                ),
                 const SizedBox(width: 8.0),
                 Flexible(
                   child: Text(
@@ -65,7 +71,11 @@ class HomePage extends ConsumerWidget {
 class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(homeProvider).tasks;
+    final colors = Theme.of(context).colorScheme;
+
+    final provider = ref.watch(homeProvider);
+
+    final tasks = provider.tasks;
 
     final listCompleted =
         tasks.where((task) => task.isCompleted != null).toList();
@@ -90,32 +100,40 @@ class _BuildTasks extends ConsumerWidget {
     }
 
     return ListView(
-      padding: const EdgeInsets.all(defaultPadding),
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       children: [
-        ...listPending.map((task) => _BuildTask(task)).toList(),
+        if (AdModService.bannerAdHome != null)
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            width: AdModService.bannerAdHome!.size.width.toDouble(),
+            height: AdModService.bannerAdHome!.size.height.toDouble(),
+            child: AdWidget(ad: AdModService.bannerAdHome!),
+          ),
         if (listCompleted.isNotEmpty)
-          Column(
-            mainAxisSize: MainAxisSize.min,
+          Row(
             children: [
-              if (listPending.isNotEmpty)
-                const SizedBox(height: defaultPadding * 2),
-              Row(
-                children: [
-                  const Icon(
-                    BoxIcons.bx_check_circle,
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(S.of(context).home_completed,
-                      style: style.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w300,
-                      )),
-                ],
+              Text(
+                  '${listCompleted.length} ${S.of(context).home_completed}   •',
+                  style: style.bodyMedium?.copyWith(
+                    color: colors.onSurface.withOpacity(.8),
+                  )),
+              TextButton(
+                onPressed: ref.read(homeProvider.notifier).onClearCompleted,
+                child: Text(S.of(context).button_clear),
               ),
-              const SizedBox(height: 8),
+              const Spacer(),
+              TextButton(
+                onPressed:
+                    ref.read(homeProvider.notifier).onToggleShowCompleted,
+                child: provider.isShowCompleted
+                    ? Text(S.of(context).button_hide)
+                    : Text(S.of(context).button_show),
+              ),
             ],
           ),
-        ...listCompleted.map((task) => _BuildTask(task)).toList(),
+        ...listPending.map((task) => _BuildTask(task)).toList(),
+        if (provider.isShowCompleted)
+          ...listCompleted.map((task) => _BuildTask(task)).toList(),
       ],
     );
   }

@@ -24,16 +24,11 @@ class CustomFilledButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final backgroundColor = isDarkMode ? Colors.white : Colors.black;
-    final foregroundColor = isDarkMode ? Colors.black : Colors.white;
-
     final style = FilledButton.styleFrom(
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
-      backgroundColor: this.backgroundColor ?? backgroundColor,
-      foregroundColor: this.foregroundColor ?? foregroundColor,
+      backgroundColor: backgroundColor,
+      foregroundColor: foregroundColor,
     );
 
     if (icon != null) {

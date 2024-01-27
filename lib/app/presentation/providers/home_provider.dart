@@ -23,6 +23,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   final _pref = SharedPrefsService();
+  final _isarDataSource = IsarDataSource();
   final _groupDataSource = GroupDataSource();
   final _taskDataSource = TaskDataSource();
 
@@ -47,10 +48,21 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void onSubmit(String value) async {
+    state = state.copyWith(isShowCompleted: false);
     ref.read(controllerProvider).clear();
     if (value.trim().isEmpty) return;
     await _taskDataSource.add(state.group!.id, value);
     getAll();
+  }
+
+  void onClearCompleted() async {
+    final groupId = state.group!.id;
+    await _taskDataSource.clearComplete(groupId);
+    getAll();
+  }
+
+  void onToggleShowCompleted() {
+    state = state.copyWith(isShowCompleted: !state.isShowCompleted);
   }
 
   void onToggleCheck(Task task) async {
@@ -59,7 +71,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     getAll();
   }
 
-  void onRestoreDataApp() async {
+  void onRestore() async {
     BuildContext context = navigatorKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
@@ -86,8 +98,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
               const Gap(defaultPadding),
               CustomFilledButton(
                 onPressed: () => context.pop(true),
-                foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
                 child: Text(S.of(context).settings_button_restore_app),
               ),
             ],
@@ -105,8 +117,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     // FIXME: notification service
 
     // await NotificationService.cancelAll();
-    await _taskDataSource.restore();
-    await _groupDataSource.restore();
+    await _isarDataSource.restore();
     final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: []);
@@ -114,22 +125,26 @@ class HomeNotifier extends StateNotifier<HomeState> {
 }
 
 class HomeState {
+  final bool isShowCompleted;
   final GroupTasks? group;
   final List<Task> tasks;
   final DateTime? date;
 
   HomeState({
+    this.isShowCompleted = false,
     this.group,
     this.tasks = const [],
     this.date,
   });
 
   HomeState copyWith({
+    bool? isShowCompleted,
     GroupTasks? group,
     List<Task>? tasks,
     DateTime? date,
   }) {
     return HomeState(
+      isShowCompleted: isShowCompleted ?? this.isShowCompleted,
       group: group ?? this.group,
       tasks: tasks ?? this.tasks,
       date: date,

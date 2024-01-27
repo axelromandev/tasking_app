@@ -14,6 +14,10 @@ class IntroPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final colorSeed = ref.watch(colorThemeProvider);
+
+    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -21,7 +25,15 @@ class IntroPage extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomTitle('Tasking'),
+              Row(
+                children: [
+                  Text('Tasking',
+                      style: style.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: colorSeed,
+                      )),
+                ],
+              ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
@@ -61,6 +73,7 @@ class IntroPage extends ConsumerWidget {
                 onPressed: () =>
                     ref.read(introProvider.notifier).onNext(context),
                 textStyle: style.titleLarge,
+                foregroundColor: isDarkMode ? Colors.black : Colors.white,
                 child: Text(S.of(context).intro_button),
               ),
             ],
@@ -71,24 +84,22 @@ class IntroPage extends ConsumerWidget {
   }
 }
 
-class _Leading extends StatelessWidget {
+class _Leading extends ConsumerWidget {
   final IconData icon;
 
   const _Leading({required this.icon});
 
   @override
-  Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    final color = isDarkMode ? Colors.white : Colors.black;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorSeed = ref.watch(colorThemeProvider);
 
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: color.withOpacity(.1),
+        color: colorSeed.withOpacity(.1),
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
-      child: Icon(icon, color: color),
+      child: Icon(icon, color: colorSeed),
     );
   }
 }

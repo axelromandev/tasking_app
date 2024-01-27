@@ -16,9 +16,9 @@ class AddTaskField extends ConsumerStatefulWidget {
 class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
   @override
   Widget build(BuildContext context) {
-    final controller = ref.watch(controllerProvider);
+    final colors = Theme.of(context).colorScheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final controller = ref.watch(controllerProvider);
 
     return SafeArea(
       child: Container(
@@ -33,8 +33,15 @@ class _ButtonAddTaskState extends ConsumerState<AddTaskField> {
           },
           style: const TextStyle(fontSize: 16),
           maxLines: null,
-          cursorColor: isDarkMode ? Colors.white : Colors.black,
+          autocorrect: false,
+          cursorColor: colors.primary,
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(defaultRadius),
+              borderSide: BorderSide(
+                color: colors.primary.withOpacity(.6),
+              ),
+            ),
             prefixIcon: controller.text.isEmpty
                 ? const Icon(HeroIcons.plus)
                 : const Icon(BoxIcons.bx_circle),

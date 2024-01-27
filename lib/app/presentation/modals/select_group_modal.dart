@@ -63,7 +63,7 @@ class SelectGroupModal extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(defaultRadius),
                       side: groupIdSelected == group.id
-                          ? BorderSide(color: colors.primary)
+                          ? BorderSide(color: colors.primary.withOpacity(.6))
                           : BorderSide.none,
                     ),
                     child: ListTile(
@@ -71,6 +71,7 @@ class SelectGroupModal extends ConsumerWidget {
                         ref.read(homeProvider.notifier).onSelectGroup(group);
                         context.pop();
                       },
+                      iconColor: colors.primary,
                       onLongPress: () => onOptions(group),
                       leading: Icon(group.icon!.iconData),
                       title: Text(group.name, style: style.titleLarge),

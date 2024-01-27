@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
+import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
 import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
@@ -10,16 +16,16 @@ import '../../domain/domain.dart';
 import '../presentation.dart';
 
 final taskProvider =
-    StateNotifierProvider.autoDispose<TaskNotifier, TaskState>((ref) {
+    StateNotifierProvider.autoDispose<TaskNotifier, _State>((ref) {
   final refresh = ref.watch(homeProvider.notifier).getAll;
-  return TaskNotifier(refresh: refresh);
+  return TaskNotifier(refresh);
 });
 
-class TaskNotifier extends StateNotifier<TaskState> {
+class TaskNotifier extends StateNotifier<_State> {
   final Future<void> Function() refresh;
+  TaskNotifier(this.refresh) : super(_State());
 
-  TaskNotifier({required this.refresh}) : super(TaskState());
-
+  final now = DateTime.now();
   final _taskDataSource = TaskDataSource();
 
   BuildContext context = navigatorKey.currentContext!;
@@ -39,44 +45,16 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onDelete() async {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    await showDialog<bool?>(
+    await showModalBottomSheet<bool?>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          S.of(context).dialog_delete_title,
-          textAlign: TextAlign.center,
-        ),
-        content: Text(
-          S.of(context).dialog_delete_subtitle,
-          textAlign: TextAlign.center,
-        ),
-        actions: [
-          CustomFilledButton(
-            onPressed: () => context.pop(true),
-            foregroundColor: Colors.red,
-            backgroundColor: Colors.red.shade900.withOpacity(.1),
-            child: Text(S.of(context).button_delete_task),
-          ),
-          const SizedBox(height: defaultPadding),
-          CustomFilledButton(
-            onPressed: () => context.pop(),
-            backgroundColor:
-                isDarkMode ? MyColors.cardDark : MyColors.cardLight,
-            foregroundColor: isDarkMode ? Colors.white : Colors.black,
-            child: Text(S.of(context).button_cancel),
-          ),
-        ],
-      ),
+      elevation: 0,
+      builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
       await _taskDataSource.delete(state.task!.id).then((value) {
-        if (state.task?.reminder != null) {
-          // FIXME: notification service
+        // FIXME: notification service
 
-          // NotificationService.cancel(state.task!.id);
-        }
+        // NotificationService.cancel(state.task!.id);
         refresh();
         navigatorKey.currentContext!.pop();
       });
@@ -84,17 +62,67 @@ class TaskNotifier extends StateNotifier<TaskState> {
   }
 
   void onAddDueDate() async {
+    final dateNew = DateTime(now.year, now.month, now.day, 09, 00);
+    final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
+
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _saveDueDate(dateNew);
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Hoy'),
+                trailing: Text(dateNew.toString()),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _saveDueDate(dateTomorrow);
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Mañana'),
+                trailing: Text(dateTomorrow.toString()),
+              ),
+              const Divider(),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _customSaveDueDate();
+                },
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: const Text('Custom'),
+              ),
+              if (Platform.isAndroid) const Gap(defaultPadding),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _customSaveDueDate() {
     showDateTimePicker(
-      minTime: DateTime.now().add(const Duration(days: 1)),
       currentTime: state.task?.dueDate,
     ).then((date) async {
       if (date == null) return;
-      final task = state.task!;
-      task.dueDate = date;
-      state = state.copyWith(task: task);
-      await _taskDataSource.update(task);
-      await refresh();
+      _saveDueDate(date);
     });
+  }
+
+  void _saveDueDate(DateTime date) async {
+    final task = state.task!;
+    task.dueDate = date;
+    state = state.copyWith(task: task);
+    await _taskDataSource.update(task);
+    await refresh();
   }
 
   void onRemoveDueDate() async {
@@ -105,57 +133,20 @@ class TaskNotifier extends StateNotifier<TaskState> {
     refresh();
   }
 
-  void onAddReminder() async {
-    showDateTimePicker(
-      minTime: DateTime.now().add(const Duration(days: 1)),
-      currentTime: state.task?.reminder,
-    ).then((date) async {
-      if (date == null) return;
-      final task = state.task!;
-      task.reminder = date;
-      state = state.copyWith(task: task);
-      await _taskDataSource.update(task).then((_) {
-        // FIXME: notification service
-
-        // NotificationService.showSchedule(
-        //   id: state.task!.id,
-        //   title: S.of(context).reminder_notification_title,
-        //   body: state.task!.message,
-        //   scheduledDate: date,
-        // );
-      });
-      await refresh();
-    });
-  }
-
-  void onRemoveReminder() async {
-    final task = state.task!;
-    task.reminder = null;
-    state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
-      // FIXME: notification service
-
-      // NotificationService.cancel(state.task!.id);
-    });
-    refresh();
-  }
-
   void onChangeMessage(String value) async {
     if (value.trim().isEmpty) return;
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
     await _taskDataSource.update(task).then((_) {
-      if (state.task?.reminder != null) {
-        // FIXME: notification service
+      // FIXME: notification service
 
-        // NotificationService.showSchedule(
-        //   id: state.task!.id,
-        //   title: S.of(context).reminder_notification_title,
-        //   body: state.task!.message,
-        //   scheduledDate: state.task!.reminder!,
-        // );
-      }
+      // NotificationService.showSchedule(
+      //   id: state.task!.id,
+      //   title: S.of(context).reminder_notification_title,
+      //   body: state.task!.message,
+      //   scheduledDate: state.task!.reminder!,
+      // );
     });
     refresh();
   }
@@ -168,14 +159,31 @@ class TaskNotifier extends StateNotifier<TaskState> {
     await _taskDataSource.update(task);
     refresh();
   }
+
+  String formatDate() {
+    final date = state.task!.dueDate;
+    if (date == null) {
+      return S.of(context).button_due_date;
+    }
+    if (date.day == now.day) {
+      return 'Hoy';
+    }
+    if (date.day == now.day + 1) {
+      return 'Mañana';
+    }
+    return DateFormat()
+        .add_yMMMMEEEEd()
+        .format(state.task!.dueDate!)
+        .toString();
+  }
 }
 
-class TaskState {
+class _State {
   final Task? task;
 
-  TaskState({this.task});
+  _State({this.task});
 
-  TaskState copyWith({Task? task}) {
-    return TaskState(task: task ?? this.task);
+  _State copyWith({Task? task}) {
+    return _State(task: task ?? this.task);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
 
-import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
@@ -19,10 +20,26 @@ class CardTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
+    String formatDate() {
+      final date = task.dueDate;
+      if (date == null) {
+        return S.of(context).button_due_date;
+      }
+      if (date.day == DateTime.now().day) {
+        return 'Hoy';
+      }
+      if (date.day == DateTime.now().day + 1) {
+        return 'Mañana';
+      }
+      return DateFormat().add_yMMMMEEEEd().format(task.dueDate!).toString();
+    }
+
     return Card(
+      color: isDarkMode ? null : Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
         onTap: onShowDetails,
@@ -38,36 +55,47 @@ class CardTask extends StatelessWidget {
             task.isCompleted != null
                 ? BoxIcons.bx_check_circle
                 : BoxIcons.bx_circle,
-            color: task.isCompleted != null
-                ? isDarkMode
-                    ? Colors.white70
-                    : Colors.black54
-                : dueDateColor(task.dueDate),
+            color: colors.primary,
           ),
         ),
         title: Text(
           task.message,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
           style: style.titleMedium?.copyWith(
             fontWeight: FontWeight.w300,
-            decoration: task.isCompleted != null
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
             color: task.isCompleted != null
                 ? isDarkMode
                     ? Colors.white70
                     : Colors.black54
-                : dueDateColor(task.dueDate),
+                : null,
           ),
         ),
-        trailing: Visibility(
-          visible: task.reminder != null,
-          child: Icon(
-            BoxIcons.bx_bell,
-            color: dueDateColor(task.dueDate),
-          ),
-        ),
+        subtitle: task.dueDate != null
+            ? Row(
+                children: [
+                  Icon(
+                    BoxIcons.bx_calendar,
+                    color: task.isCompleted != null
+                        ? isDarkMode
+                            ? Colors.white70
+                            : Colors.black54
+                        : null,
+                    size: 14,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    formatDate(),
+                    style: style.bodyMedium?.copyWith(
+                      color: task.isCompleted != null
+                          ? isDarkMode
+                              ? Colors.white70
+                              : Colors.black54
+                          : null,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              )
+            : null,
       ),
     );
   }

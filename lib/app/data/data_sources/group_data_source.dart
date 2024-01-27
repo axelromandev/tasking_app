@@ -50,11 +50,4 @@ class GroupDataSource implements GroupRepository {
       await _isar.groupTasks.delete(id);
     });
   }
-
-  @override
-  Future<void> restore() async {
-    await _isar.writeTxn(() async {
-      await _isar.groupTasks.where().deleteAll();
-    });
-  }
 }

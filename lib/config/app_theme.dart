@@ -5,13 +5,14 @@ import 'package:tasking/config/config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
   final isDarkMode = ref.watch(changeThemeProvider);
+  final colorSeed = ref.watch(colorThemeProvider);
 
   return ThemeData(
     // General
     useMaterial3: true,
     brightness: isDarkMode ? Brightness.dark : Brightness.light,
     fontFamily: GoogleFonts.lexend().fontFamily,
-    colorSchemeSeed: Colors.blue,
+    colorSchemeSeed: colorSeed,
     scaffoldBackgroundColor:
         isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
 
@@ -45,7 +46,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     // Card
     cardTheme: CardTheme(
-      color: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      color: isDarkMode ? MyColors.cardDark : Colors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -58,8 +59,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(defaultRadius),
         ),
-        backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
-        foregroundColor: isDarkMode ? Colors.white : Colors.black,
+        backgroundColor: colorSeed,
+        foregroundColor: Colors.black,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -73,7 +74,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      backgroundColor:
+          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
@@ -82,15 +84,18 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       elevation: 0,
       backgroundColor:
           isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(defaultRadius),
+          topRight: Radius.circular(defaultRadius),
+        ),
       ),
     ),
 
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: isDarkMode ? MyColors.cardDark : MyColors.cardLight,
+      fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
       contentPadding: const EdgeInsets.all(defaultPadding),
       iconColor: isDarkMode ? Colors.white : Colors.black,
       hintStyle: TextStyle(

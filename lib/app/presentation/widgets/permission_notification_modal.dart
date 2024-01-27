@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
@@ -10,6 +13,8 @@ class PermissionNotificationModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
+
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       child: SafeArea(
@@ -35,11 +40,14 @@ class PermissionNotificationModal extends StatelessWidget {
                 style: const TextStyle(fontSize: 16),
               ),
             ),
+            const Gap(defaultPadding),
             CustomFilledButton(
-              margin: const EdgeInsets.only(top: defaultPadding),
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               onPressed: () => context.pop(),
+              foregroundColor: isDarkMode ? Colors.black : Colors.white,
               child: Text(S.of(context).button_continue),
             ),
+            if (Platform.isAndroid) const Gap(defaultPadding),
           ],
         ),
       ),
