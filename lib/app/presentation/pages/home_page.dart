@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../modals/select_group_modal.dart';
@@ -100,6 +102,13 @@ class _BuildTasks extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       children: [
+        if (AdModService.bannerAdHome != null)
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 8.0),
+            width: AdModService.bannerAdHome!.size.width.toDouble(),
+            height: AdModService.bannerAdHome!.size.height.toDouble(),
+            child: AdWidget(ad: AdModService.bannerAdHome!),
+          ),
         if (listCompleted.isNotEmpty)
           Row(
             children: [

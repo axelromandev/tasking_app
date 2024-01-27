@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -67,6 +68,14 @@ class SettingsPage extends ConsumerWidget {
                     trailing: const Icon(BoxIcons.bx_chevron_right),
                   ),
                 ),
+                if (AdModService.bannerAdSettings != null)
+                  Container(
+                    margin: const EdgeInsets.only(top: defaultPadding),
+                    width: AdModService.bannerAdSettings!.size.width.toDouble(),
+                    height:
+                        AdModService.bannerAdSettings!.size.height.toDouble(),
+                    child: AdWidget(ad: AdModService.bannerAdSettings!),
+                  ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
