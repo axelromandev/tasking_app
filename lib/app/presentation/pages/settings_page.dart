@@ -37,36 +37,6 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {},
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_crown),
-                    title: Row(
-                      children: [
-                        const Text('Tasking'),
-                        const Gap(defaultPadding / 2),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: defaultPadding / 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: colors.primary,
-                            borderRadius: BorderRadius.circular(defaultRadius),
-                          ),
-                          child: const Text('Pro',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ],
-                    ),
-                    subtitle: const Padding(
-                      padding: EdgeInsets.only(top: 3),
-                      child: Text('Enjoy the full experience.'),
-                    ),
-                    trailing: const Icon(BoxIcons.bx_chevron_right),
-                  ),
-                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
