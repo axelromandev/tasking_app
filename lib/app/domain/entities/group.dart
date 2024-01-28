@@ -57,9 +57,9 @@ class GroupIcon {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'code_point': codePoint,
-      'font_family': fontFamily,
-      'font_package': fontPackage,
+      'codePoint': codePoint,
+      'fontFamily': fontFamily,
+      'fontPackage': fontPackage,
     };
   }
 }

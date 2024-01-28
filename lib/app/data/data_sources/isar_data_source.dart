@@ -21,14 +21,31 @@ class IsarDataSource implements IsarRepository {
   }
 
   @override
-  Future<void> import(Map<String, dynamic> data) async {
-    //TODO: Implementar la funcionalidad de importar desde el dispositivo
-
-    // await _isar.writeTxn(() async {
-    //   await _isar.groupTasks.clear();
-    //   await _isar.tasks.clear();
-    //   final groups = data['groups'] as List<Map>;
-    // });
+  Future<void> import(String jsonEncode) async {
+    final json = jsonDecode(jsonEncode);
+    List<Map<String, dynamic>> groupsJson = [];
+    List<Map<String, dynamic>> tasksJson = [];
+    for (var group in json['groups']) {
+      groupsJson.add(group);
+    }
+    for (var task in json['tasks']) {
+      tasksJson.add(task);
+    }
+    await _isar.writeTxn(() async {
+      await _isar.groupTasks.clear();
+      await _isar.groupTasks.importJson(groupsJson);
+      await _isar.tasks.clear();
+      await _isar.tasks.importJson(tasksJson);
+    });
+    final groups = await _isar.groupTasks.where().findAll();
+    for (var group in groups) {
+      final tasks =
+          await _isar.tasks.where().filter().groupIdEqualTo(group.id).findAll();
+      group.tasks.addAll(tasks);
+      await _isar.writeTxn(() async {
+        await group.tasks.save();
+      });
+    }
   }
 
   @override

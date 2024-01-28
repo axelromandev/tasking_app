@@ -2,10 +2,11 @@
 
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
@@ -16,9 +17,9 @@ class BackupOptionsModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
-
     final notifier = ref.read(backupProvider.notifier);
+
+    final isLoading = ref.watch(backupProvider);
 
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
@@ -27,24 +28,32 @@ class BackupOptionsModal extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
+              enabled: !isLoading,
+              leading: GestureDetector(
+                onTap: () => context.pop(),
+                child: isLoading
+                    ? SpinPerfect(
+                        infinite: true,
+                        child: const Icon(BoxIcons.bx_sync),
+                      )
+                    : const Icon(BoxIcons.bx_x, size: 28),
+              ),
+              title: Text(
+                'Opciones de respaldo',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+            ListTile(
+              enabled: !isLoading,
               onTap: notifier.exportToDevice,
               leading: const Icon(BoxIcons.bx_export),
               title: const Text('Exportar en el dispositivo'),
             ),
             ListTile(
+              enabled: !isLoading,
               onTap: notifier.importFromDevice,
               leading: const Icon(BoxIcons.bx_import),
               title: const Text('Importar desde el dispositivo'),
-            ),
-            ListTile(
-              onTap: notifier.exportToExcel,
-              leading: SvgPicture.asset(
-                'assets/svg/excel.svg',
-                height: 24,
-                width: 24,
-                color: isDarkMode ? Colors.white : Colors.black,
-              ),
-              title: const Text('Exportar a Excel'),
             ),
             if (Platform.isAndroid) const Gap(defaultPadding),
           ],

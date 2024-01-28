@@ -29,9 +29,9 @@ class Task {
       'id': id,
       'groupId': groupId,
       'message': message,
-      'dueDate': dueDate?.toIso8601String(),
-      'isCompleted': isCompleted?.toIso8601String(),
-      'createAt': createAt?.toIso8601String(),
+      'dueDate': dueDate?.microsecondsSinceEpoch,
+      'isCompleted': isCompleted?.microsecondsSinceEpoch,
+      'createAt': createAt?.microsecondsSinceEpoch,
     };
   }
 }
