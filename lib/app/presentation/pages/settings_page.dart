@@ -45,7 +45,7 @@ class SettingsPage extends ConsumerWidget {
                 Card(
                   color: isDarkMode ? null : Colors.white,
                   child: ListTile(
-                    onTap: () {
+                    onTap: () async {
                       //TODO: Implementar la funcionalidad de recordatorios.
                     },
                     iconColor: colors.primary,

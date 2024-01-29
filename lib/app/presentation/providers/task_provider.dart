@@ -51,11 +51,12 @@ class TaskNotifier extends StateNotifier<_State> {
       builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
-      await _taskDataSource.delete(state.task!.id).then((value) {
-        // FIXME: notification service
-
-        // NotificationService.cancel(state.task!.id);
+      await _taskDataSource.delete(state.task!.id).then((_) async {
+        if (state.task?.dueDate != null) {
+          await NotificationService.cancel(state.task!.id);
+        }
         refresh();
+        // ignore: use_build_context_synchronously
         navigatorKey.currentContext!.pop();
       });
     });
@@ -138,15 +139,14 @@ class TaskNotifier extends StateNotifier<_State> {
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
-      // FIXME: notification service
-
-      // NotificationService.showSchedule(
-      //   id: state.task!.id,
-      //   title: S.of(context).reminder_notification_title,
-      //   body: state.task!.message,
-      //   scheduledDate: state.task!.reminder!,
-      // );
+    await _taskDataSource.update(task).then((_) async {
+      if (task.dueDate == null) return;
+      await NotificationService.showScheduleNotification(
+        id: state.task!.id,
+        title: S.of(context).reminder_notification_title,
+        body: state.task!.message,
+        scheduledDate: state.task!.dueDate!,
+      );
     });
     refresh();
   }

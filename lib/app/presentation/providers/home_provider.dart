@@ -114,9 +114,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void _restore() async {
-    // FIXME: notification service
-
-    // await NotificationService.cancelAll();
+    await NotificationService.cancelAll();
     await _isarDataSource.restore();
     final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
     _pref.setKeyValue<int>(Keys.groupId, group.id);
