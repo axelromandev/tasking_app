@@ -63,7 +63,7 @@ class TaskNotifier extends StateNotifier<_State> {
   }
 
   void onAddDueDate() async {
-    final dateNew = DateTime(now.year, now.month, now.day, 09, 00);
+    final dateNew = DateTime(now.year, now.month, now.day, 20, 00);
     final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
 
     showModalBottomSheet(
@@ -83,8 +83,9 @@ class TaskNotifier extends StateNotifier<_State> {
                   },
                   iconColor: Theme.of(context).colorScheme.primary,
                   leading: const Icon(BoxIcons.bx_calendar),
-                  title: const Text('Hoy'),
-                  trailing: Text(dateNew.toString()),
+                  title: Text(S.of(context).calendar_today),
+                  trailing: Text(
+                      DateFormat().add_MMMMEEEEd().format(dateNew).toString()),
                 ),
                 ListTile(
                   onTap: () {
@@ -93,8 +94,11 @@ class TaskNotifier extends StateNotifier<_State> {
                   },
                   iconColor: Theme.of(context).colorScheme.primary,
                   leading: const Icon(BoxIcons.bx_calendar),
-                  title: const Text('Mañana'),
-                  trailing: Text(dateTomorrow.toString()),
+                  title: Text(S.of(context).calendar_tomorrow),
+                  trailing: Text(DateFormat()
+                      .add_MMMMEEEEd()
+                      .format(dateTomorrow)
+                      .toString()),
                 ),
                 const Divider(),
                 ListTile(
@@ -104,7 +108,7 @@ class TaskNotifier extends StateNotifier<_State> {
                   },
                   iconColor: Theme.of(context).colorScheme.primary,
                   leading: const Icon(BoxIcons.bx_calendar),
-                  title: const Text('Custom'),
+                  title: Text(S.of(context).calendar_custom),
                 ),
                 if (Platform.isAndroid) const Gap(defaultPadding),
               ],
@@ -120,7 +124,8 @@ class TaskNotifier extends StateNotifier<_State> {
       currentTime: state.task?.dueDate,
     ).then((date) async {
       if (date == null) return;
-      _saveDueDate(date);
+      final dateCustom = DateTime(date.year, date.month, date.day, 09, 00);
+      _saveDueDate(dateCustom);
     });
   }
 
@@ -128,16 +133,25 @@ class TaskNotifier extends StateNotifier<_State> {
     final task = state.task!;
     task.dueDate = date;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task);
-    await refresh();
+    await _taskDataSource.update(task).then((_) async {
+      await NotificationService.showScheduleNotification(
+        id: task.id,
+        title: task.message,
+        body: S.of(context).reminder_notification_title,
+        scheduledDate: date,
+      );
+      await refresh();
+    });
   }
 
   void onRemoveDueDate() async {
     final task = state.task!;
     task.dueDate = null;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task);
-    refresh();
+    await _taskDataSource.update(task).then((_) async {
+      await NotificationService.cancel(task.id);
+      await refresh();
+    });
   }
 
   void onChangeMessage(String value) async {
@@ -146,13 +160,14 @@ class TaskNotifier extends StateNotifier<_State> {
     task.message = value;
     state = state.copyWith(task: task);
     await _taskDataSource.update(task).then((_) async {
-      if (task.dueDate == null) return;
-      await NotificationService.showScheduleNotification(
-        id: state.task!.id,
-        title: S.of(context).reminder_notification_title,
-        body: state.task!.message,
-        scheduledDate: state.task!.dueDate!,
-      );
+      if (state.task?.dueDate != null) {
+        await NotificationService.showScheduleNotification(
+          id: state.task!.id,
+          title: state.task!.message,
+          body: S.of(context).reminder_notification_title,
+          scheduledDate: state.task!.dueDate!,
+        );
+      }
     });
     refresh();
   }
@@ -171,11 +186,17 @@ class TaskNotifier extends StateNotifier<_State> {
     if (date == null) {
       return S.of(context).button_due_date;
     }
-    if (date.day == now.day) {
-      return 'Hoy';
+    if (date.day == now.day && date.month == now.month) {
+      return S.of(context).calendar_today;
     }
-    if (date.day == now.day + 1) {
-      return 'Mañana';
+    if (date.day == now.day + 1 && date.month == now.month) {
+      return S.of(context).calendar_tomorrow;
+    }
+    if (date.year == now.year) {
+      return DateFormat()
+          .add_MMMMEEEEd()
+          .format(state.task!.dueDate!)
+          .toString();
     }
     return DateFormat()
         .add_yMMMMEEEEd()

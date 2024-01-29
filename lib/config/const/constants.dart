@@ -10,7 +10,6 @@ class MyColors {
 }
 
 class Urls {
-  static String kofiProfile = 'https://ko-fi.com/ingedevs';
   static String esFeedback = 'https://forms.gle/ZNRTdVJ83ytXNFam9';
   static String enFeedback = 'https://forms.gle/m9nqeSKpEKWoNbCr6';
   static String esPrivacyPolicy =

@@ -37,13 +37,9 @@
   "settings_custom_theme": "Theme App",
   "settings_label_about": "About",
   "settings_about_app": "About Tasking",
+  "settings_label_info": "More information",
   "settings_legal_privacy_policy": "Privacy Policy",
-  "settings_legal_terms_of_use": "Terms of Use",
-  "settings_label_social": "Social",
-  "settings_social_rate_app": "Rate App",
-  "settings_social_share_app": "Share App",
   "settings_support_contact": "Contact Us",
-  "settings_support_coffee": "Buy me a coffee",
   "settings_label_restore": "Danger Zone",
   "settings_button_restore_app": "Restore App",
   "about_author": "Ingedevs",
@@ -66,5 +62,8 @@
   "group_options_edit": "Edit group",
   "group_options_delete_title": "Delete group",
   "group_options_delete_subtitle": "You can't delete the selected group",
-  "group_delete_confirm_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered."
+  "group_delete_confirm_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered.",
+  "calendar_today": "Today",
+  "calendar_tomorrow": "Tomorrow",
+  "calendar_custom": "Custom"
 }

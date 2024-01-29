@@ -44,17 +44,6 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () async {
-                      //TODO: Implementar la funcionalidad de recordatorios.
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_time),
-                    title: Text(S.of(context).settings_general_reminders),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
                   child: ExpansionTile(
                     controller:
                         ref.read(colorThemeProvider.notifier).controller,
@@ -97,10 +86,8 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    'Más información',
-                    style: style.bodyLarge,
-                  ),
+                  child: Text(S.of(context).settings_label_info,
+                      style: style.bodyLarge),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
@@ -158,27 +145,6 @@ class SettingsPage extends ConsumerWidget {
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(defaultRadius),
                         topRight: Radius.circular(defaultRadius),
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () async {
-                      final uri = Uri.parse(Urls.kofiProfile);
-                      if (!await launchUrl(uri)) {
-                        Snackbar.show('Could not launch $uri',
-                            type: SnackBarType.error);
-                      }
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_coffee),
-                    title: Text(S.of(context).settings_support_coffee),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(defaultRadius),
-                        bottomRight: Radius.circular(defaultRadius),
                       ),
                     ),
                   ),
