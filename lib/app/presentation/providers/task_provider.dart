@@ -51,11 +51,12 @@ class TaskNotifier extends StateNotifier<_State> {
       builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
-      await _taskDataSource.delete(state.task!.id).then((value) {
-        // FIXME: notification service
-
-        // NotificationService.cancel(state.task!.id);
+      await _taskDataSource.delete(state.task!.id).then((_) async {
+        if (state.task?.dueDate != null) {
+          await NotificationService.cancel(state.task!.id);
+        }
         refresh();
+        // ignore: use_build_context_synchronously
         navigatorKey.currentContext!.pop();
       });
     });
@@ -67,41 +68,47 @@ class TaskNotifier extends StateNotifier<_State> {
 
     showModalBottomSheet(
       context: context,
-      builder: (_) => Container(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _saveDueDate(dateNew);
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Hoy'),
-                trailing: Text(dateNew.toString()),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _saveDueDate(dateTomorrow);
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Mañana'),
-                trailing: Text(dateTomorrow.toString()),
-              ),
-              const Divider(),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _customSaveDueDate();
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Custom'),
-              ),
-              if (Platform.isAndroid) const Gap(defaultPadding),
-            ],
+      builder: (_) => Card(
+        margin: EdgeInsets.zero,
+        child: Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _saveDueDate(dateNew);
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Hoy'),
+                  trailing: Text(dateNew.toString()),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _saveDueDate(dateTomorrow);
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Mañana'),
+                  trailing: Text(dateTomorrow.toString()),
+                ),
+                const Divider(),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _customSaveDueDate();
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Custom'),
+                ),
+                if (Platform.isAndroid) const Gap(defaultPadding),
+              ],
+            ),
           ),
         ),
       ),
@@ -138,15 +145,14 @@ class TaskNotifier extends StateNotifier<_State> {
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
-      // FIXME: notification service
-
-      // NotificationService.showSchedule(
-      //   id: state.task!.id,
-      //   title: S.of(context).reminder_notification_title,
-      //   body: state.task!.message,
-      //   scheduledDate: state.task!.reminder!,
-      // );
+    await _taskDataSource.update(task).then((_) async {
+      if (task.dueDate == null) return;
+      await NotificationService.showScheduleNotification(
+        id: state.task!.id,
+        title: S.of(context).reminder_notification_title,
+        body: state.task!.message,
+        scheduledDate: state.task!.dueDate!,
+      );
     });
     refresh();
   }

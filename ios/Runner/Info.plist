@@ -41,7 +41,7 @@
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 		</array>
-		<key>GADApplicationIdentifier</key>
-		<string>ca-app-pub-3940256099942544/2934735716</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>A dependency is really used to obtain a backup saved in a .ZIP exclusively</string>
 	</dict>
 </plist>

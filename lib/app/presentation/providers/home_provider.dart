@@ -22,7 +22,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     initialize();
   }
 
-  final _pref = SharedPrefsService();
+  final _pref = SharedPrefs();
   final _isarDataSource = IsarDataSource();
   final _groupDataSource = GroupDataSource();
   final _taskDataSource = TaskDataSource();
@@ -76,33 +76,36 @@ class HomeNotifier extends StateNotifier<HomeState> {
     await showModalBottomSheet<bool?>(
       context: context,
       elevation: 0,
-      builder: (_) => Container(
-        padding: const EdgeInsets.all(24),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(S.of(context).dialog_restore_title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: Text(
-                  S.of(context).dialog_restore_subtitle,
-                  style: const TextStyle(fontSize: 16),
+      builder: (_) => Card(
+        margin: EdgeInsets.zero,
+        child: Container(
+          margin: const EdgeInsets.all(24),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(S.of(context).dialog_restore_title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    S.of(context).dialog_restore_subtitle,
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
-              ),
-              const Gap(defaultPadding),
-              CustomFilledButton(
-                onPressed: () => context.pop(true),
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                child: Text(S.of(context).settings_button_restore_app),
-              ),
-            ],
+                const Gap(defaultPadding),
+                CustomFilledButton(
+                  onPressed: () => context.pop(true),
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  child: Text(S.of(context).settings_button_restore_app),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -114,9 +117,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void _restore() async {
-    // FIXME: notification service
-
-    // await NotificationService.cancelAll();
+    await NotificationService.cancelAll();
     await _isarDataSource.restore();
     final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
     _pref.setKeyValue<int>(Keys.groupId, group.id);

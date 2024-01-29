@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,44 +37,6 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {},
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_crown),
-                    title: Row(
-                      children: [
-                        const Text('Tasking'),
-                        const Gap(defaultPadding / 2),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: defaultPadding / 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: colors.primary,
-                            borderRadius: BorderRadius.circular(defaultRadius),
-                          ),
-                          child: const Text('Pro',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ],
-                    ),
-                    subtitle: const Padding(
-                      padding: EdgeInsets.only(top: 3),
-                      child: Text('Enjoy the full experience.'),
-                    ),
-                    trailing: const Icon(BoxIcons.bx_chevron_right),
-                  ),
-                ),
-                if (AdModService.bannerAdSettings != null)
-                  Container(
-                    margin: const EdgeInsets.only(top: defaultPadding),
-                    width: AdModService.bannerAdSettings!.size.width.toDouble(),
-                    height:
-                        AdModService.bannerAdSettings!.size.height.toDouble(),
-                    child: AdWidget(ad: AdModService.bannerAdSettings!),
-                  ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
@@ -84,23 +45,12 @@ class SettingsPage extends ConsumerWidget {
                 Card(
                   color: isDarkMode ? null : Colors.white,
                   child: ListTile(
-                    onTap: () {
+                    onTap: () async {
                       //TODO: Implementar la funcionalidad de recordatorios.
                     },
                     iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_time),
                     title: Text(S.of(context).settings_general_reminders),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {
-                      //TODO: Implementar la funcionalidad de contraseña.
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_lock),
-                    title: const Text('Contraseña'),
                   ),
                 ),
                 Card(

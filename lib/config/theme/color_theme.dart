@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../core/core.dart';
-import 'config.dart';
+import '../../core/core.dart';
+import '../const/constants.dart';
 
 final colorThemeProvider = StateNotifierProvider<_Notifier, Color>((ref) {
   return _Notifier();
@@ -13,7 +13,7 @@ class _Notifier extends StateNotifier<Color> {
     initialize();
   }
 
-  final _pref = SharedPrefsService();
+  final _pref = SharedPrefs();
 
   final controller = ExpansionTileController();
 
