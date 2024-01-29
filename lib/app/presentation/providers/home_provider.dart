@@ -22,7 +22,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     initialize();
   }
 
-  final _pref = SharedPrefsService();
+  final _pref = SharedPrefs();
   final _isarDataSource = IsarDataSource();
   final _groupDataSource = GroupDataSource();
   final _taskDataSource = TaskDataSource();

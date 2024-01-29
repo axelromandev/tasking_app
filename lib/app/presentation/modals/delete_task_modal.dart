@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasking/config/constants.dart';
 
+import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../widgets/widgets.dart';
 

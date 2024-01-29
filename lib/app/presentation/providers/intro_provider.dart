@@ -14,7 +14,7 @@ final introProvider = StateNotifierProvider.autoDispose<_Notifier, void>((ref) {
 class _Notifier extends StateNotifier<void> {
   _Notifier() : super(null);
 
-  final _pref = SharedPrefsService();
+  final _pref = SharedPrefs();
 
   final groupDataSource = GroupDataSource();
 

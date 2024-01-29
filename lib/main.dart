@@ -9,7 +9,7 @@ import 'generated/l10n.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await IsarService.initialize();
-  await SharedPrefsService.initialize();
+  await SharedPrefs.initialize();
   runApp(const ProviderScope(
     child: MainApp(),
   ));

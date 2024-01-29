@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../app/app.dart';
-import '../core/core.dart';
-import 'config.dart';
+import '../../app/app.dart';
+import '../../core/core.dart';
+import '../const/constants.dart';
+import 'routes_path.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final initialLocation = RoutesPath.home;
 
-  final pref = SharedPrefsService();
+  final pref = SharedPrefs();
 
   return GoRouter(
     initialLocation: initialLocation,

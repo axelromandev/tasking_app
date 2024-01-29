@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app_router.dart';
+import '../routes/app_router.dart';
 
 final changeThemeProvider = StateNotifierProvider<_Notifier, bool>((ref) {
   return _Notifier();
