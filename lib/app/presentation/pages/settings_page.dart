@@ -55,17 +55,6 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () {
-                      //TODO: Implementar la funcionalidad de contraseña.
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_lock),
-                    title: const Text('Contraseña'),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
                   child: ExpansionTile(
                     controller:
                         ref.read(colorThemeProvider.notifier).controller,

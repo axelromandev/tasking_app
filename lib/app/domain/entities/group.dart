@@ -9,22 +9,26 @@ part 'group.g.dart';
 class GroupTasks {
   Id id = Isar.autoIncrement;
   String name;
+  String? password;
   GroupIcon? icon;
 
   final tasks = IsarLinks<Task>();
 
   GroupTasks({
     required this.name,
+    this.password,
     this.icon,
   });
 
   @override
-  String toString() => 'GroupTasks(id: $id, name: $name, icon: $icon)';
+  String toString() =>
+      'GroupTasks(id: $id, name: $name, password: $password,  icon: $icon)';
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
       'name': name,
+      'password': password,
       'icon': icon?.toJson(),
     };
   }

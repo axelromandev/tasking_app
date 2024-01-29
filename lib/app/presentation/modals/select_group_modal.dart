@@ -74,7 +74,8 @@ class SelectGroupModal extends ConsumerWidget {
                       iconColor: colors.primary,
                       onLongPress: () => onOptions(group),
                       leading: Icon(group.icon!.iconData),
-                      title: Text(group.name, style: style.titleLarge),
+                      title: Text(group.name,
+                          style: const TextStyle(fontSize: 18)),
                       trailing: Text(group.tasks.length.toString(),
                           style: style.bodyLarge),
                     ),
@@ -95,7 +96,7 @@ class SelectGroupModal extends ConsumerWidget {
                   );
                   notifier.initialize();
                 },
-                leading: const Icon(BoxIcons.bx_list_plus),
+                leading: const Icon(BoxIcons.bx_plus),
                 title: Text(S.of(context).group_add_button),
               ),
             ),
