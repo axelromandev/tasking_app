@@ -37,11 +37,8 @@
   "settings_custom_theme": "Tema de la aplicación",
   "settings_label_about": "Acerca de",
   "settings_about_app": "Acerca de Tasking",
+  "settings_label_info": "Más información",
   "settings_legal_privacy_policy": "Política de privacidad",
-  "settings_legal_terms_of_use": "Términos de uso",
-  "settings_label_social": "Social",
-  "settings_social_rate_app": "Calificar la aplicación",
-  "settings_social_share_app": "Compartir la aplicación",
   "settings_support_contact": "Contáctenos",
   "settings_label_restore": "Zona peligrosa",
   "settings_button_restore_app": "Restablecer la aplicación",
@@ -67,6 +64,6 @@
   "group_options_delete_subtitle": "No puedes eliminar el grupo seleccionado",
   "group_delete_confirm_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar.",
   "calendar_today": "Hoy",
-  "calendar_tomorrow": "Mañana",
+  "calendar_tomorrow": "Tomorrow",
   "calendar_custom": "Otro día"
 }

@@ -44,17 +44,6 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () async {
-                      //TODO: Implementar la funcionalidad de recordatorios.
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_time),
-                    title: Text(S.of(context).settings_general_reminders),
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
                   child: ExpansionTile(
                     controller:
                         ref.read(colorThemeProvider.notifier).controller,
@@ -97,10 +86,8 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
-                  child: Text(
-                    'Más información',
-                    style: style.bodyLarge,
-                  ),
+                  child: Text(S.of(context).settings_label_info,
+                      style: style.bodyLarge),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
