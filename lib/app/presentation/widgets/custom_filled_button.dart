@@ -24,10 +24,12 @@ class CustomFilledButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     final style = FilledButton.styleFrom(
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
-      backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor ?? colors.primary,
       foregroundColor: foregroundColor,
     );
 

@@ -83,21 +83,23 @@ class SelectGroupModal extends ConsumerWidget {
                 },
               ),
             ),
-            Card(
-              color: isDarkMode ? null : Colors.white70,
-              child: ListTile(
-                onTap: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    useSafeArea: true,
-                    elevation: 0,
-                    builder: (_) => const AddGroupModal(),
-                  );
-                  notifier.initialize();
-                },
-                leading: const Icon(BoxIcons.bx_plus),
-                title: Text(S.of(context).group_add_button),
+            CustomFilledButton(
+              onPressed: () async {
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  elevation: 0,
+                  builder: (_) => const AddGroupModal(),
+                );
+                notifier.initialize();
+              },
+              child: Row(
+                children: [
+                  const Icon(BoxIcons.bx_plus),
+                  const Gap(8),
+                  Text(S.of(context).group_add_button),
+                ],
               ),
             ),
           ],

@@ -15,53 +15,39 @@ class DeleteTaskModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
-
-    return Container(
-      padding: const EdgeInsets.all(defaultPadding),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: Text(
-                S.of(context).dialog_delete_title,
-                style: style.titleLarge,
-              ),
-              subtitle: Text(
-                S.of(context).dialog_delete_subtitle,
-                style: style.bodyLarge,
-              ),
-            ),
-            const Gap(defaultPadding),
-            Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: CustomFilledButton(
-                      onPressed: () => context.pop(),
-                      backgroundColor:
-                          isDarkMode ? MyColors.cardDark : Colors.white,
-                      foregroundColor: isDarkMode ? Colors.white : Colors.black,
-                      child: Text(S.of(context).button_cancel),
-                    ),
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text(
+                  S.of(context).dialog_delete_title,
+                  style: style.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Gap(defaultPadding),
-                  Expanded(
-                    child: CustomFilledButton(
-                      onPressed: () => context.pop(true),
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      child: Text(S.of(context).button_delete_task),
-                    ),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    S.of(context).dialog_delete_subtitle,
+                    style: style.bodyLarge,
                   ),
-                ],
+                ),
               ),
-            ),
-            if (Platform.isAndroid) const Gap(defaultPadding),
-          ],
+              const Gap(defaultPadding),
+              CustomFilledButton(
+                onPressed: () => context.pop(true),
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                child: Text(S.of(context).button_delete_task),
+              ),
+              if (Platform.isAndroid) const Gap(defaultPadding),
+            ],
+          ),
         ),
       ),
     );

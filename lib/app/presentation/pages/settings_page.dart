@@ -88,8 +88,6 @@ class SettingsPage extends ConsumerWidget {
                   child: ListTile(
                     onTap: () => showModalBottomSheet(
                       context: context,
-                      isDismissible: false,
-                      enableDrag: false,
                       builder: (_) => const BackupOptionsModal(),
                     ),
                     iconColor: colors.primary,

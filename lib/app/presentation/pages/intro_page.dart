@@ -14,10 +14,7 @@ class IntroPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-
-    final colorSeed = ref.watch(colorThemeProvider);
-
-    final isDarkMode = Brightness.dark == Theme.of(context).brightness;
+    final colors = Theme.of(context).colorScheme;
 
     return Scaffold(
       body: SafeArea(
@@ -31,7 +28,7 @@ class IntroPage extends ConsumerWidget {
                   Text('Tasking',
                       style: style.displaySmall?.copyWith(
                         fontWeight: FontWeight.w500,
-                        color: colorSeed,
+                        color: colors.primary,
                       )),
                 ],
               ),
@@ -72,7 +69,6 @@ class IntroPage extends ConsumerWidget {
                 onPressed: () =>
                     ref.read(introProvider.notifier).onFinish(context),
                 textStyle: style.titleLarge,
-                foregroundColor: isDarkMode ? Colors.black : Colors.white,
                 child: Text(S.of(context).intro_button),
               ),
             ],
@@ -83,22 +79,22 @@ class IntroPage extends ConsumerWidget {
   }
 }
 
-class _Leading extends ConsumerWidget {
+class _Leading extends StatelessWidget {
   final IconData icon;
 
   const _Leading({required this.icon});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final colorSeed = ref.watch(colorThemeProvider);
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: colorSeed.withOpacity(.1),
+        color: colors.primary.withOpacity(.1),
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
-      child: Icon(icon, color: colorSeed),
+      child: Icon(icon, color: colors.primary),
     );
   }
 }

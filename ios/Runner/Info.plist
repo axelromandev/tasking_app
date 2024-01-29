@@ -41,5 +41,7 @@
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 		</array>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>A dependency is really used to obtain a backup saved in a .ZIP exclusively</string>
 	</dict>
 </plist>

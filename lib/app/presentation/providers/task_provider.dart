@@ -68,41 +68,47 @@ class TaskNotifier extends StateNotifier<_State> {
 
     showModalBottomSheet(
       context: context,
-      builder: (_) => Container(
-        padding: const EdgeInsets.all(defaultPadding),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _saveDueDate(dateNew);
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Hoy'),
-                trailing: Text(dateNew.toString()),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _saveDueDate(dateTomorrow);
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Mañana'),
-                trailing: Text(dateTomorrow.toString()),
-              ),
-              const Divider(),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  _customSaveDueDate();
-                },
-                leading: const Icon(BoxIcons.bx_calendar),
-                title: const Text('Custom'),
-              ),
-              if (Platform.isAndroid) const Gap(defaultPadding),
-            ],
+      builder: (_) => Card(
+        margin: EdgeInsets.zero,
+        child: Container(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _saveDueDate(dateNew);
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Hoy'),
+                  trailing: Text(dateNew.toString()),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _saveDueDate(dateTomorrow);
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Mañana'),
+                  trailing: Text(dateTomorrow.toString()),
+                ),
+                const Divider(),
+                ListTile(
+                  onTap: () {
+                    Navigator.pop(context);
+                    _customSaveDueDate();
+                  },
+                  iconColor: Theme.of(context).colorScheme.primary,
+                  leading: const Icon(BoxIcons.bx_calendar),
+                  title: const Text('Custom'),
+                ),
+                if (Platform.isAndroid) const Gap(defaultPadding),
+              ],
+            ),
           ),
         ),
       ),

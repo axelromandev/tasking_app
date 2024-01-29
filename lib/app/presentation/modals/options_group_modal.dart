@@ -21,44 +21,49 @@ class OptionsGroupModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
 
     final groupIdSelected = ref.watch(homeProvider).group!.id;
 
     Future<void> onDelete() async {
       await showModalBottomSheet(
         context: context,
-        elevation: 0,
-        builder: (_) => Container(
-          padding: const EdgeInsets.all(defaultPadding),
-          child: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text(S.of(context).group_options_delete_title,
-                        style: style.titleLarge),
+        builder: (_) => Card(
+          margin: EdgeInsets.zero,
+          child: Container(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Text(S.of(context).group_options_delete_title,
+                          style: style.titleLarge),
+                    ),
+                    subtitle: Text(
+                      S.of(context).group_delete_confirm_description,
+                      style: style.bodyLarge,
+                    ),
                   ),
-                  subtitle: Text(
-                    S.of(context).group_delete_confirm_description,
-                    style: style.bodyLarge,
+                  const Gap(defaultPadding),
+                  CustomFilledButton(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      ref
+                          .read(selectGroupProvider.notifier)
+                          .onDeleteGroup(group);
+                    },
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    child: Text(S.of(context).group_options_delete_title),
                   ),
-                ),
-                const Gap(defaultPadding),
-                CustomFilledButton(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  onPressed: () {
-                    Navigator.pop(context);
-                    ref.read(selectGroupProvider.notifier).onDeleteGroup(group);
-                  },
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  child: Text(S.of(context).group_options_delete_title),
-                ),
-                if (Platform.isAndroid) const Gap(defaultPadding),
-              ],
+                  if (Platform.isAndroid) const Gap(defaultPadding),
+                ],
+              ),
             ),
           ),
         ),
@@ -84,6 +89,7 @@ class OptionsGroupModal extends ConsumerWidget {
                   Navigator.pop(context);
                 });
               },
+              iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_edit),
               title: Text(S.of(context).group_options_edit),
             ),
@@ -102,6 +108,7 @@ class OptionsGroupModal extends ConsumerWidget {
               )
             else
               ListTile(
+                enabled: false,
                 leading: const Icon(BoxIcons.bx_trash_alt),
                 title: Text(S.of(context).group_options_delete_title),
                 subtitle: Text(S.of(context).group_options_delete_subtitle),
