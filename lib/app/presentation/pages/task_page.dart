@@ -38,7 +38,7 @@ class TaskPage extends ConsumerWidget {
             _TextField(),
             const Gap(defaultPadding / 2),
             ListTile(
-              tileColor: task.dueDate != null ? Colors.white : null,
+              iconColor: task.dueDate != null ? colors.primary : null,
               contentPadding: const EdgeInsets.only(left: defaultPadding),
               onTap: notifier.onAddDueDate,
               leading: const Icon(BoxIcons.bx_calendar),
@@ -50,13 +50,6 @@ class TaskPage extends ConsumerWidget {
                   icon: const Icon(BoxIcons.bx_x),
                 ),
               ),
-            ),
-            const Gap(defaultPadding / 2),
-            ListTile(
-              onTap: () {},
-              enabled: task.dueDate != null,
-              leading: const Icon(BoxIcons.bx_time),
-              title: const Text('Agregar hora'),
             ),
             const Gap(defaultPadding / 2),
             ListTile(

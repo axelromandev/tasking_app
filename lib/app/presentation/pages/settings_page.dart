@@ -162,27 +162,6 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () async {
-                      final uri = Uri.parse(Urls.kofiProfile);
-                      if (!await launchUrl(uri)) {
-                        Snackbar.show('Could not launch $uri',
-                            type: SnackBarType.error);
-                      }
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_coffee),
-                    title: Text(S.of(context).settings_support_coffee),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(defaultRadius),
-                        bottomRight: Radius.circular(defaultRadius),
-                      ),
-                    ),
-                  ),
-                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_restore,

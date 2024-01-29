@@ -26,14 +26,18 @@ class CardTask extends StatelessWidget {
 
     String formatDate() {
       final date = task.dueDate;
+      final now = DateTime.now();
       if (date == null) {
         return S.of(context).button_due_date;
       }
-      if (date.day == DateTime.now().day) {
-        return 'Hoy';
+      if (date.day == now.day && date.month == now.month) {
+        return S.of(context).calendar_today;
       }
-      if (date.day == DateTime.now().day + 1) {
-        return 'Mañana';
+      if (date.day == now.day + 1 && date.month == now.month) {
+        return S.of(context).calendar_tomorrow;
+      }
+      if (date.year == now.year) {
+        return DateFormat().add_MMMMEEEEd().format(task.dueDate!).toString();
       }
       return DateFormat().add_yMMMMEEEEd().format(task.dueDate!).toString();
     }
@@ -85,11 +89,7 @@ class CardTask extends StatelessWidget {
                   Text(
                     formatDate(),
                     style: style.bodyMedium?.copyWith(
-                      color: task.isCompleted != null
-                          ? isDarkMode
-                              ? Colors.white70
-                              : Colors.black54
-                          : null,
+                      color: task.isCompleted != null ? Colors.grey : null,
                       fontWeight: FontWeight.w300,
                     ),
                   ),

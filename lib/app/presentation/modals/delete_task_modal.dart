@@ -40,6 +40,8 @@ class DeleteTaskModal extends StatelessWidget {
               ),
               const Gap(defaultPadding),
               CustomFilledButton(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                 onPressed: () => context.pop(true),
                 backgroundColor: Colors.red,
                 foregroundColor: Colors.white,
