@@ -4,17 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tasking/config/config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
-  final isDarkMode = ref.watch(changeThemeProvider);
   final colorSeed = ref.watch(colorThemeProvider);
 
   return ThemeData(
     // General
     useMaterial3: true,
-    brightness: isDarkMode ? Brightness.dark : Brightness.light,
+    brightness: Brightness.dark,
     fontFamily: GoogleFonts.lexend().fontFamily,
     colorSchemeSeed: colorSeed,
-    scaffoldBackgroundColor:
-        isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+    scaffoldBackgroundColor: MyColors.backgroundDark,
 
     // PageTransitions
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -25,28 +23,26 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
 
     // IconTheme
-    iconTheme: IconThemeData(
-      color: isDarkMode ? Colors.white : Colors.black,
-    ),
-    primaryIconTheme: IconThemeData(
-      color: isDarkMode ? Colors.white : Colors.black,
-    ),
+    iconTheme: const IconThemeData(color: Colors.white),
+    primaryIconTheme: const IconThemeData(color: Colors.white),
     iconButtonTheme: IconButtonThemeData(
-      style: IconButton.styleFrom(
-        foregroundColor: isDarkMode ? Colors.white : Colors.black,
-      ),
+      style: IconButton.styleFrom(foregroundColor: Colors.white),
+    ),
+
+    primaryTextTheme: GoogleFonts.lexendTextTheme().apply(
+      bodyColor: Colors.white,
+      displayColor: Colors.white,
     ),
 
     // AppBar
     appBarTheme: AppBarTheme(
-      backgroundColor:
-          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+      backgroundColor: MyColors.backgroundDark,
       centerTitle: true,
     ),
 
     // Card
     cardTheme: CardTheme(
-      color: isDarkMode ? MyColors.cardDark : Colors.white,
+      color: MyColors.cardDark,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -74,16 +70,14 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor:
-          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+      backgroundColor: MyColors.backgroundDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
-      backgroundColor:
-          isDarkMode ? MyColors.backgroundDark : MyColors.backgroundLight,
+      backgroundColor: MyColors.backgroundDark,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(defaultRadius),
@@ -95,11 +89,11 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: isDarkMode ? MyColors.cardDark : Colors.white,
+      fillColor: MyColors.cardDark,
       contentPadding: const EdgeInsets.all(defaultPadding),
-      iconColor: isDarkMode ? Colors.white : Colors.black,
-      hintStyle: TextStyle(
-        color: isDarkMode ? Colors.white70 : Colors.black54,
+      iconColor: Colors.white,
+      hintStyle: const TextStyle(
+        color: Colors.white70,
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -109,7 +103,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     // listTileTheme
     listTileTheme: ListTileThemeData(
-      iconColor: isDarkMode ? Colors.white : Colors.black,
+      iconColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
