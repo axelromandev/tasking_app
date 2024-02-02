@@ -79,7 +79,9 @@ class SelectGroupModal extends ConsumerWidget {
                       title: Text(group.name,
                           style: const TextStyle(fontSize: 18)),
                       trailing: Text(group.tasks.length.toString(),
-                          style: style.bodyLarge),
+                          style: style.bodyLarge?.copyWith(
+                            color: Colors.white70,
+                          )),
                     ),
                   );
                 },
