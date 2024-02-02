@@ -19,7 +19,9 @@ class _Notifier extends StateNotifier<void> {
   final groupDataSource = GroupDataSource();
 
   Future<void> onFinish(BuildContext context) async {
-    final group = await groupDataSource.add('Personal', BoxIcons.bx_user);
+    final group = await groupDataSource.add('ToDo', BoxIcons.bx_list_ul);
+    await groupDataSource.add('Shopping', BoxIcons.bx_cart);
+    await groupDataSource.add('Work', BoxIcons.bx_briefcase);
     await _pref.setKeyValue<int>(Keys.groupId, group.id);
     await _pref.setKeyValue<bool>(Keys.isFirstTime, false).then((value) {
       context.go(RoutesPath.home);

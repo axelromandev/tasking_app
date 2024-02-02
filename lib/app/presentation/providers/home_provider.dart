@@ -120,7 +120,9 @@ class HomeNotifier extends StateNotifier<HomeState> {
   void _restore() async {
     await NotificationService.cancelAll();
     await _isarDataSource.restore();
-    final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
+    final group = await _groupDataSource.add('ToDo', BoxIcons.bx_list_ul);
+    await _groupDataSource.add('Shopping', BoxIcons.bx_cart);
+    await _groupDataSource.add('Work', BoxIcons.bx_briefcase);
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: []);
   }
