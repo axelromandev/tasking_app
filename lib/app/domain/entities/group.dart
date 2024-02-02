@@ -20,10 +20,6 @@ class GroupTasks {
     this.icon,
   });
 
-  @override
-  String toString() =>
-      'GroupTasks(id: $id, name: $name, password: $password,  icon: $icon)';
-
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,

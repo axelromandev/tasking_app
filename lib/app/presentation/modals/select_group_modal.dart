@@ -20,8 +20,6 @@ class SelectGroupModal extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     final provider = ref.watch(selectGroupProvider);
     final notifier = ref.read(selectGroupProvider.notifier);
     final groups = provider.groups;
@@ -59,7 +57,9 @@ class SelectGroupModal extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final group = groups[index];
                   return Card(
-                    color: isDarkMode ? null : Colors.white70,
+                    color: groupIdSelected == group.id
+                        ? colors.primary.withOpacity(.1)
+                        : null,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(defaultRadius),
                       side: groupIdSelected == group.id

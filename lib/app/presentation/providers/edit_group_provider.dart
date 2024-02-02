@@ -47,9 +47,7 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(name: '');
   }
 
-  void onIconChanged(BuildContext context) async {
-    final icon = await BoxIconsPicker.showModal(context);
-    if (icon == null) return;
+  void onIconChanged(IconData icon) async {
     state = state.copyWith(icon: icon);
   }
 
@@ -86,7 +84,7 @@ class _State {
     this.isLoading = false,
     this.isShared = false,
     this.name = '',
-    this.icon = BoxIcons.bx_note,
+    this.icon = BoxIcons.bx_list_ul,
   });
 
   _State copyWith({
