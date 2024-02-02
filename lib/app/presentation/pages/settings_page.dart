@@ -53,8 +53,7 @@ class SettingsPage extends ConsumerWidget {
                     leading: const Icon(BoxIcons.bx_crown),
                     title: Row(
                       children: [
-                        const Text('Tasking',
-                            style: TextStyle(color: Colors.white)),
+                        const Text('Tasking'),
                         const Gap(defaultPadding / 2),
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -91,8 +90,7 @@ class SettingsPage extends ConsumerWidget {
                         ),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_cloud),
-                        title: Text(S.of(context).settings_general_cloud,
-                            style: const TextStyle(color: Colors.white)),
+                        title: Text(S.of(context).settings_general_cloud),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
@@ -107,8 +105,7 @@ class SettingsPage extends ConsumerWidget {
                         },
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_bell),
-                        title: const Text('Notificaciones',
-                            style: TextStyle(color: Colors.white)),
+                        title: const Text('Notificaciones'),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(),
                       ),
@@ -119,8 +116,7 @@ class SettingsPage extends ConsumerWidget {
                         ),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_palette),
-                        title: Text(S.of(context).settings_custom_theme,
-                            style: const TextStyle(color: Colors.white)),
+                        title: Text(S.of(context).settings_custom_theme),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(),
                       ),
@@ -128,8 +124,7 @@ class SettingsPage extends ConsumerWidget {
                         onTap: () => openAppSettings(),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_world),
-                        title: Text(S.of(context).language_label,
-                            style: const TextStyle(color: Colors.white)),
+                        title: Text(S.of(context).language_label),
                         trailing: Text(
                           S.of(context).language == 'en'
                               ? S.of(context).language_en
@@ -161,8 +156,7 @@ class SettingsPage extends ConsumerWidget {
                         onTap: () => context.push(RoutesPath.about),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_info_circle),
-                        title: Text(S.of(context).settings_about_app,
-                            style: const TextStyle(color: Colors.white)),
+                        title: Text(S.of(context).settings_about_app),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(defaultRadius),
@@ -183,8 +177,8 @@ class SettingsPage extends ConsumerWidget {
                         },
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_shield),
-                        title: Text(S.of(context).settings_legal_privacy_policy,
-                            style: const TextStyle(color: Colors.white)),
+                        title:
+                            Text(S.of(context).settings_legal_privacy_policy),
                         shape: const RoundedRectangleBorder(),
                       ),
                       ListTile(
@@ -200,8 +194,7 @@ class SettingsPage extends ConsumerWidget {
                         },
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_envelope),
-                        title: Text(S.of(context).settings_support_contact,
-                            style: const TextStyle(color: Colors.white)),
+                        title: Text(S.of(context).settings_support_contact),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(defaultRadius),

@@ -104,6 +104,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // listTileTheme
     listTileTheme: ListTileThemeData(
       iconColor: Colors.white,
+      textColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
