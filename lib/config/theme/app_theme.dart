@@ -114,5 +114,10 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
+
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: colorSeed,
+      foregroundColor: Colors.black,
+    ),
   );
 });

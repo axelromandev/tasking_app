@@ -45,12 +45,12 @@ class HomePage extends ConsumerWidget {
                 Flexible(
                   child: Text(
                     group?.name ?? 'Tasking',
-                    style: style.titleLarge,
+                    style: style.titleLarge?.copyWith(color: Colors.white),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const SizedBox(width: 8.0),
-                const Icon(BoxIcons.bx_chevron_down),
+                const Icon(BoxIcons.bx_chevron_down, color: Colors.white),
               ],
             ),
           ),
@@ -63,7 +63,13 @@ class HomePage extends ConsumerWidget {
           ],
         ),
         body: _BuildTasks(),
-        bottomNavigationBar: const AddTaskField(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            //TODO: Add task modal or page
+          },
+          backgroundColor: colors.primary,
+          child: const Icon(BoxIcons.bx_plus),
+        ),
       ),
     );
   }
@@ -90,8 +96,11 @@ class _BuildTasks extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(HeroIcons.check),
-            Text(S.of(context).home_empty_tasks, style: style.bodyLarge),
+            const Icon(HeroIcons.check, color: Colors.white),
+            Text(S.of(context).home_empty_tasks,
+                style: style.bodyLarge?.copyWith(
+                  color: Colors.white,
+                )),
           ],
         ),
       );

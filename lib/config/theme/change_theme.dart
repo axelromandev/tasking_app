@@ -8,8 +8,8 @@ final changeThemeProvider = StateNotifierProvider<_Notifier, bool>((ref) {
 });
 
 class _Notifier extends StateNotifier<bool> {
-  _Notifier() : super(false) {
-    initialize();
+  _Notifier() : super(true) {
+    // initialize();
   }
 
   void initialize() async {

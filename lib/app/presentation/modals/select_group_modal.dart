@@ -45,7 +45,8 @@ class SelectGroupModal extends ConsumerWidget {
                 onTap: () => context.pop(),
                 child: const Icon(BoxIcons.bx_x, size: 28),
               ),
-              title: Text(S.of(context).group_select_title),
+              title: Text(S.of(context).group_select_title,
+                  style: const TextStyle(color: Colors.white)),
               subtitle: Text(S.of(context).group_select_subtitle),
             ),
             Expanded(
@@ -72,6 +73,7 @@ class SelectGroupModal extends ConsumerWidget {
                         context.pop();
                       },
                       iconColor: colors.primary,
+                      textColor: Colors.white,
                       onLongPress: () => onOptions(group),
                       leading: Icon(group.icon!.iconData),
                       title: Text(group.name,
