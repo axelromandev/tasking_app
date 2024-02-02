@@ -2,6 +2,7 @@
   "language": "es",
   "language_en": "Ingles",
   "language_es": "Español",
+  "language_label": "Idioma",
   "app_name": "Tasking",
   "intro_subtitle": "Una forma simple de controlar su vida digital",
   "intro_option1": "Administre su tiempo con nuestra aplicación",
@@ -65,5 +66,7 @@
   "group_delete_confirm_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar.",
   "calendar_today": "Hoy",
   "calendar_tomorrow": "Tomorrow",
-  "calendar_custom": "Otro día"
+  "calendar_custom": "Otro día",
+  "backup_export_modal": "Exportar en el dispositivo",
+  "backup_import_modal": "Importar desde el dispositivo"
 }
