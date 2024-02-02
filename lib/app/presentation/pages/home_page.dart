@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -69,10 +72,10 @@ class HomePage extends ConsumerWidget {
 class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
     final provider = ref.watch(homeProvider);
-
     final tasks = provider.tasks;
 
     final listCompleted =
@@ -81,9 +84,6 @@ class _BuildTasks extends ConsumerWidget {
 
     final listPending =
         tasks.where((task) => task.isCompleted == null).toList();
-    listPending.sort((a, b) => b.createAt!.compareTo(a.createAt!));
-
-    final style = Theme.of(context).textTheme;
 
     if (tasks.isEmpty) {
       return Center(
@@ -100,29 +100,81 @@ class _BuildTasks extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       children: [
+        ...listPending.map((task) => _BuildTask(task)).toList(),
         if (listCompleted.isNotEmpty)
           Row(
             children: [
-              Text(
-                  '${listCompleted.length} ${S.of(context).home_completed}   •',
-                  style: style.bodyMedium?.copyWith(
-                    color: colors.onSurface.withOpacity(.8),
-                  )),
-              TextButton(
-                onPressed: ref.read(homeProvider.notifier).onClearCompleted,
-                child: Text(S.of(context).button_clear),
-              ),
-              const Spacer(),
-              TextButton(
+              TextButton.icon(
                 onPressed:
                     ref.read(homeProvider.notifier).onToggleShowCompleted,
-                child: provider.isShowCompleted
+                icon: Icon(
+                  provider.isShowCompleted
+                      ? BoxIcons.bx_hide
+                      : BoxIcons.bx_show,
+                  size: 16.0,
+                ),
+                style: TextButton.styleFrom(
+                  foregroundColor: colors.onSurface.withOpacity(.8),
+                ),
+                label: provider.isShowCompleted
                     ? Text(S.of(context).button_hide)
                     : Text(S.of(context).button_show),
               ),
+              const Spacer(),
+              if (provider.isShowCompleted)
+                TextButton.icon(
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    builder: (_) => Container(
+                      padding: const EdgeInsets.all(defaultPadding),
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                'Eliminar todas las tareas completadas',
+                                style: style.titleLarge,
+                              ),
+                            ),
+                            const Gap(defaultPadding),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CustomFilledButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    backgroundColor: Colors.white10,
+                                    foregroundColor: colors.onSurface,
+                                    child: Text(S.of(context).button_cancel),
+                                  ),
+                                ),
+                                const Gap(defaultPadding),
+                                Expanded(
+                                  child: CustomFilledButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(homeProvider.notifier)
+                                          .onClearCompleted();
+                                      Navigator.pop(context);
+                                    },
+                                    backgroundColor: Colors.red,
+                                    foregroundColor: colors.onSurface,
+                                    child: const Text('Eliminar'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (Platform.isAndroid) const Gap(defaultPadding),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  icon: const Icon(BoxIcons.bx_trash, size: 16.0),
+                  label: Text(S.of(context).button_clear),
+                ),
             ],
           ),
-        ...listPending.map((task) => _BuildTask(task)).toList(),
         if (provider.isShowCompleted)
           ...listCompleted.map((task) => _BuildTask(task)).toList(),
       ],

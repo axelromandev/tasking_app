@@ -56,6 +56,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void onClearCompleted() async {
+    state = state.copyWith(isShowCompleted: false);
     final groupId = state.group!.id;
     await _taskDataSource.clearComplete(groupId);
     getAll();

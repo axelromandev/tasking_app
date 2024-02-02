@@ -42,61 +42,57 @@ class CardTask extends StatelessWidget {
       return DateFormat().add_yMMMMEEEEd().format(task.dueDate!).toString();
     }
 
-    return Card(
-      color: isDarkMode ? null : Colors.white,
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      child: ListTile(
-        onTap: onShowDetails,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+    return ListTile(
+      onTap: onShowDetails,
+      contentPadding: EdgeInsets.zero,
+      leading: IconButton(
+        padding: EdgeInsets.zero,
+        visualDensity: VisualDensity.compact,
+        onPressed: onCheckTask,
+        icon: Icon(
+          task.isCompleted != null
+              ? BoxIcons.bx_check_circle
+              : BoxIcons.bx_circle,
+          color: task.isCompleted != null
+              ? colors.primary.withOpacity(.6)
+              : colors.primary,
         ),
-        minLeadingWidth: 0,
-        leading: IconButton(
-          padding: EdgeInsets.zero,
-          visualDensity: VisualDensity.compact,
-          onPressed: onCheckTask,
-          icon: Icon(
-            task.isCompleted != null
-                ? BoxIcons.bx_check_circle
-                : BoxIcons.bx_circle,
-            color: colors.primary,
-          ),
-        ),
-        title: Text(
-          task.message,
-          style: style.titleMedium?.copyWith(
-            fontWeight: FontWeight.w300,
-            color: task.isCompleted != null
-                ? isDarkMode
-                    ? Colors.white70
-                    : Colors.black54
-                : null,
-          ),
-        ),
-        subtitle: task.dueDate != null
-            ? Row(
-                children: [
-                  Icon(
-                    BoxIcons.bx_calendar,
-                    color: task.isCompleted != null
-                        ? isDarkMode
-                            ? Colors.white70
-                            : Colors.black54
-                        : null,
-                    size: 14,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    formatDate(),
-                    style: style.bodyMedium?.copyWith(
-                      color: task.isCompleted != null ? Colors.grey : null,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
-              )
-            : null,
       ),
+      visualDensity: VisualDensity.compact,
+      title: Text(
+        task.message,
+        style: style.titleMedium?.copyWith(
+          fontWeight: FontWeight.w300,
+          color: task.isCompleted != null
+              ? isDarkMode
+                  ? Colors.white30
+                  : Colors.black54
+              : null,
+        ),
+      ),
+      subtitle: task.dueDate != null
+          ? Row(
+              children: [
+                Icon(
+                  BoxIcons.bx_calendar,
+                  color: task.isCompleted != null
+                      ? colors.primary.withOpacity(.3)
+                      : colors.primary,
+                  size: 14,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  formatDate(),
+                  style: style.bodyMedium?.copyWith(
+                    color: task.isCompleted != null
+                        ? colors.primary.withOpacity(.3)
+                        : colors.primary,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            )
+          : null,
     );
   }
 }
