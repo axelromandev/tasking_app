@@ -17,7 +17,6 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +30,7 @@ class AboutPage extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               margin: const EdgeInsets.all(defaultPadding),
               decoration: BoxDecoration(
-                color: isDarkMode ? MyColors.cardDark : Colors.white,
+                color: MyColors.cardDark,
                 borderRadius: BorderRadius.circular(defaultRadius),
               ),
               child: Column(
@@ -57,9 +56,7 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(
-                      primary: isDarkMode ? Colors.white : colors.primary,
-                    ),
+                    style: TextButton.styleFrom(primary: Colors.white),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),
@@ -80,7 +77,7 @@ class AboutPage extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               margin: const EdgeInsets.all(defaultPadding),
               decoration: BoxDecoration(
-                color: isDarkMode ? MyColors.cardDark : Colors.white,
+                color: MyColors.cardDark,
                 borderRadius: BorderRadius.circular(defaultRadius),
               ),
               child: Column(
@@ -109,9 +106,7 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(
-                      primary: isDarkMode ? Colors.white : colors.primary,
-                    ),
+                    style: TextButton.styleFrom(primary: Colors.white),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),

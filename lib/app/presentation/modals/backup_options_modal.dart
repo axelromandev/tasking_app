@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
 import '../providers/backup_provider.dart';
 
 class BackupOptionsModal extends ConsumerWidget {
@@ -31,13 +30,13 @@ class BackupOptionsModal extends ConsumerWidget {
                 enabled: !isLoading,
                 onTap: notifier.exportToDevice,
                 leading: const Icon(BoxIcons.bx_export),
-                title: const Text('Exportar en el dispositivo'),
+                title: Text(S.of(context).backup_export_modal),
               ),
               ListTile(
                 enabled: !isLoading,
                 onTap: notifier.importFromDevice,
                 leading: const Icon(BoxIcons.bx_import),
-                title: const Text('Importar desde el dispositivo'),
+                title: Text(S.of(context).backup_import_modal),
               ),
               if (Platform.isAndroid) const Gap(defaultPadding),
             ],

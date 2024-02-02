@@ -20,8 +20,6 @@ class SelectGroupModal extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     final provider = ref.watch(selectGroupProvider);
     final notifier = ref.read(selectGroupProvider.notifier);
     final groups = provider.groups;
@@ -47,7 +45,8 @@ class SelectGroupModal extends ConsumerWidget {
                 onTap: () => context.pop(),
                 child: const Icon(BoxIcons.bx_x, size: 28),
               ),
-              title: Text(S.of(context).group_select_title),
+              title: Text(S.of(context).group_select_title,
+                  style: const TextStyle(color: Colors.white)),
               subtitle: Text(S.of(context).group_select_subtitle),
             ),
             Expanded(
@@ -59,7 +58,9 @@ class SelectGroupModal extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final group = groups[index];
                   return Card(
-                    color: isDarkMode ? null : Colors.white70,
+                    color: groupIdSelected == group.id
+                        ? colors.primary.withOpacity(.1)
+                        : null,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(defaultRadius),
                       side: groupIdSelected == group.id
@@ -72,12 +73,15 @@ class SelectGroupModal extends ConsumerWidget {
                         context.pop();
                       },
                       iconColor: colors.primary,
+                      textColor: Colors.white,
                       onLongPress: () => onOptions(group),
                       leading: Icon(group.icon!.iconData),
                       title: Text(group.name,
                           style: const TextStyle(fontSize: 18)),
                       trailing: Text(group.tasks.length.toString(),
-                          style: style.bodyLarge),
+                          style: style.bodyLarge?.copyWith(
+                            color: Colors.white70,
+                          )),
                     ),
                   );
                 },

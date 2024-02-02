@@ -1,16 +1,18 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../modals/backup_options_modal.dart';
+import '../modals/coming_soon_modal.dart';
+import '../modals/theme_change_modal.dart';
 import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -37,57 +39,114 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Card(
+                  child: ListTile(
+                    onTap: () {
+                      //TODO: Add settings for tasking pro
+
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (_) => const ComingSoonModal(),
+                      );
+                    },
+                    iconColor: colors.primary,
+                    leading: const Icon(BoxIcons.bx_crown),
+                    title: Row(
+                      children: [
+                        const Text('Tasking'),
+                        const Gap(defaultPadding / 2),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding / 2),
+                          decoration: BoxDecoration(
+                            color: colors.primary,
+                            borderRadius: BorderRadius.circular(defaultRadius),
+                          ),
+                          child: Text('Pro',
+                              style: style.bodySmall?.copyWith(
+                                color: Colors.black,
+                              )),
+                        ),
+                      ],
+                    ),
+                    subtitle: const Text('Save your tasks in the cloud'),
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
-                      style: style.bodyLarge),
+                      style: style.bodyLarge?.copyWith(
+                        color: Colors.grey,
+                      )),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: ExpansionTile(
-                    controller:
-                        ref.read(colorThemeProvider.notifier).controller,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(defaultRadius),
-                      ),
-                    ),
-                    iconColor: colors.primary,
-                    collapsedIconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_palette),
-                    title: Text(S.of(context).settings_custom_theme),
+                  child: Column(
                     children: [
-                      ColorPicker(
-                        color: ref.watch(colorThemeProvider),
-                        onColorChanged:
-                            ref.read(colorThemeProvider.notifier).setColor,
-                        pickersEnabled: const <ColorPickerType, bool>{
-                          ColorPickerType.primary: true,
-                          ColorPickerType.accent: false,
+                      ListTile(
+                        onTap: () => showModalBottomSheet(
+                          context: context,
+                          builder: (_) => const BackupOptionsModal(),
+                        ),
+                        iconColor: colors.primary,
+                        leading: const Icon(BoxIcons.bx_cloud),
+                        title: Text(S.of(context).settings_general_cloud),
+                        trailing: const Icon(BoxIcons.bx_chevron_right),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(defaultRadius),
+                            topRight: Radius.circular(defaultRadius),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          //TODO: Add settings for notifications
                         },
-                        width: 44,
-                        height: 44,
-                        enableShadesSelection: false,
+                        iconColor: colors.primary,
+                        leading: const Icon(BoxIcons.bx_bell),
+                        title: const Text('Notificaciones'),
+                        trailing: const Icon(BoxIcons.bx_chevron_right),
+                        shape: const RoundedRectangleBorder(),
+                      ),
+                      ListTile(
+                        onTap: () => showModalBottomSheet(
+                          context: context,
+                          builder: (_) => const ThemeChangeModal(),
+                        ),
+                        iconColor: colors.primary,
+                        leading: const Icon(BoxIcons.bx_palette),
+                        title: Text(S.of(context).settings_custom_theme),
+                        trailing: const Icon(BoxIcons.bx_chevron_right),
+                        shape: const RoundedRectangleBorder(),
+                      ),
+                      ListTile(
+                        onTap: () => openAppSettings(),
+                        iconColor: colors.primary,
+                        leading: const Icon(BoxIcons.bx_world),
+                        title: Text(S.of(context).language_label),
+                        trailing: Text(
+                          S.of(context).language == 'en'
+                              ? S.of(context).language_en
+                              : S.of(context).language_es,
+                          style: style.bodyMedium,
+                        ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(defaultRadius),
+                            bottomRight: Radius.circular(defaultRadius),
+                          ),
+                        ),
                       ),
                     ],
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () => showModalBottomSheet(
-                      context: context,
-                      builder: (_) => const BackupOptionsModal(),
-                    ),
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_cloud),
-                    title: Text(S.of(context).settings_general_cloud),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_info,
-                      style: style.bodyLarge),
+                      style: style.bodyLarge?.copyWith(
+                        color: Colors.grey,
+                      )),
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
@@ -98,14 +157,13 @@ class SettingsPage extends ConsumerWidget {
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_info_circle),
                         title: Text(S.of(context).settings_about_app),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(defaultRadius),
+                            topRight: Radius.circular(defaultRadius),
+                          ),
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: Column(
-                    children: [
                       ListTile(
                         onTap: () async {
                           bool isEnglish = S.of(context).language == 'en';
@@ -121,32 +179,30 @@ class SettingsPage extends ConsumerWidget {
                         leading: const Icon(BoxIcons.bx_shield),
                         title:
                             Text(S.of(context).settings_legal_privacy_policy),
+                        shape: const RoundedRectangleBorder(),
+                      ),
+                      ListTile(
+                        onTap: () async {
+                          bool isEnglish = S.of(context).language == 'en';
+                          Uri uri = isEnglish
+                              ? Uri.parse(Urls.enFeedback)
+                              : Uri.parse(Urls.esFeedback);
+                          if (!await launchUrl(uri)) {
+                            Snackbar.show('Could not launch $uri',
+                                type: SnackBarType.error);
+                          }
+                        },
+                        iconColor: colors.primary,
+                        leading: const Icon(BoxIcons.bx_envelope),
+                        title: Text(S.of(context).settings_support_contact),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(defaultRadius),
+                            bottomRight: Radius.circular(defaultRadius),
+                          ),
+                        ),
                       ),
                     ],
-                  ),
-                ),
-                Card(
-                  color: isDarkMode ? null : Colors.white,
-                  child: ListTile(
-                    onTap: () async {
-                      bool isEnglish = S.of(context).language == 'en';
-                      Uri uri = isEnglish
-                          ? Uri.parse(Urls.enFeedback)
-                          : Uri.parse(Urls.esFeedback);
-                      if (!await launchUrl(uri)) {
-                        Snackbar.show('Could not launch $uri',
-                            type: SnackBarType.error);
-                      }
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_envelope),
-                    title: Text(S.of(context).settings_support_contact),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(defaultRadius),
-                        topRight: Radius.circular(defaultRadius),
-                      ),
-                    ),
                   ),
                 ),
                 Container(
@@ -158,16 +214,11 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Card(
                   color: isDarkMode ? null : Colors.white,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        onTap: ref.read(homeProvider.notifier).onRestore,
-                        textColor: Colors.red,
-                        leading:
-                            const Icon(BoxIcons.bx_reset, color: Colors.red),
-                        title: Text(S.of(context).settings_button_restore_app),
-                      ),
-                    ],
+                  child: ListTile(
+                    onTap: ref.read(homeProvider.notifier).onRestore,
+                    textColor: Colors.red,
+                    leading: const Icon(BoxIcons.bx_reset, color: Colors.red),
+                    title: Text(S.of(context).settings_button_restore_app),
                   ),
                 ),
                 _BuildVersionLabel(),

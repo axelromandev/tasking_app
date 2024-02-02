@@ -56,6 +56,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   void onClearCompleted() async {
+    state = state.copyWith(isShowCompleted: false);
     final groupId = state.group!.id;
     await _taskDataSource.clearComplete(groupId);
     getAll();
@@ -119,7 +120,18 @@ class HomeNotifier extends StateNotifier<HomeState> {
   void _restore() async {
     await NotificationService.cancelAll();
     await _isarDataSource.restore();
-    final group = await _groupDataSource.add('Personal', BoxIcons.bx_user);
+    final group = await _groupDataSource.add(
+      S.current.default_group_1,
+      BoxIcons.bx_list_ul,
+    );
+    await _groupDataSource.add(
+      S.current.default_group_2,
+      BoxIcons.bx_cart,
+    );
+    await _groupDataSource.add(
+      S.current.default_group_3,
+      BoxIcons.bx_briefcase,
+    );
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: []);
   }
