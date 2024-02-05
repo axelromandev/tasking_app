@@ -25,7 +25,7 @@ class CardTask extends StatelessWidget {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     String formatDate() {
-      final date = task.dueDate;
+      final date = task.dueDate?.date;
       final now = DateTime.now();
       if (date == null) {
         return S.of(context).button_due_date;
@@ -37,9 +37,9 @@ class CardTask extends StatelessWidget {
         return S.of(context).calendar_tomorrow;
       }
       if (date.year == now.year) {
-        return DateFormat().add_MMMMEEEEd().format(task.dueDate!).toString();
+        return DateFormat().add_MMMMEEEEd().format(date).toString();
       }
-      return DateFormat().add_yMMMMEEEEd().format(task.dueDate!).toString();
+      return DateFormat().add_yMMMMEEEEd().format(date).toString();
     }
 
     return ListTile(

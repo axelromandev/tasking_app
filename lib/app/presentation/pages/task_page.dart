@@ -38,9 +38,9 @@ class TaskPage extends ConsumerWidget {
             _TextField(),
             const Gap(defaultPadding / 2),
             ListTile(
+              onTap: notifier.onAddDueDate,
               iconColor: task.dueDate != null ? colors.primary : null,
               contentPadding: const EdgeInsets.only(left: defaultPadding),
-              onTap: notifier.onAddDueDate,
               leading: const Icon(BoxIcons.bx_calendar),
               title: Text(notifier.formatDate()),
               trailing: Visibility(
@@ -50,6 +50,14 @@ class TaskPage extends ConsumerWidget {
                   icon: const Icon(BoxIcons.bx_x),
                 ),
               ),
+            ),
+            ListTile(
+              onTap: () {
+                //TODO: Add reminder functionality
+              },
+              contentPadding: const EdgeInsets.only(left: defaultPadding),
+              leading: const Icon(BoxIcons.bx_bell),
+              title: const Text('Remind me'),
             ),
             const Gap(defaultPadding / 2),
             ListTile(

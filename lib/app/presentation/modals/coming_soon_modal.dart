@@ -5,6 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/const/constants.dart';
 
+import '../../../generated/l10n.dart';
+
 class ComingSoonModal extends StatelessWidget {
   const ComingSoonModal({super.key});
 
@@ -23,13 +25,14 @@ class ComingSoonModal extends StatelessWidget {
                 children: [
                   const Icon(BoxIcons.bx_error),
                   const Gap(defaultPadding / 2),
-                  Text('Muy pronto', style: style.titleLarge),
+                  Text(S.of(context).coming_soon_title_modal,
+                      style: style.titleLarge),
                 ],
               ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  'Esta función no está disponible todavía. Por favor, vuelva más tarde.',
+                  S.of(context).coming_soon_subtitle_modal,
                   style: style.titleSmall,
                 ),
               ),

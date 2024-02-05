@@ -16,16 +16,16 @@ import '../../domain/domain.dart';
 import '../presentation.dart';
 
 final taskProvider =
-    StateNotifierProvider.autoDispose<TaskNotifier, _State>((ref) {
+    StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final refresh = ref.watch(homeProvider.notifier).getAll;
-  return TaskNotifier(refresh);
+  return _Notifier(refresh);
 });
 
-class TaskNotifier extends StateNotifier<_State> {
+class _Notifier extends StateNotifier<_State> {
   final Future<void> Function() refresh;
-  TaskNotifier(this.refresh) : super(_State());
+  _Notifier(this.refresh) : super(_State());
 
-  final now = DateTime.now();
+  final _now = DateTime.now();
   final _taskDataSource = TaskDataSource();
 
   BuildContext context = navigatorKey.currentContext!;
@@ -52,9 +52,6 @@ class TaskNotifier extends StateNotifier<_State> {
     ).then((value) async {
       if (value == null) return;
       await _taskDataSource.delete(state.task!.id).then((_) async {
-        if (state.task?.dueDate != null) {
-          await NotificationService.cancel(state.task!.id);
-        }
         refresh();
         // ignore: use_build_context_synchronously
         navigatorKey.currentContext!.pop();
@@ -63,8 +60,8 @@ class TaskNotifier extends StateNotifier<_State> {
   }
 
   void onAddDueDate() async {
-    final dateNew = DateTime(now.year, now.month, now.day, 20, 00);
-    final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
+    final dateNew = DateTime(_now.year, _now.month, _now.day, 20, 00);
+    final dateTomorrow = DateTime(_now.year, _now.month, _now.day + 1, 09, 00);
 
     showModalBottomSheet(
       context: context,
@@ -121,7 +118,7 @@ class TaskNotifier extends StateNotifier<_State> {
 
   void _customSaveDueDate() {
     showDateTimePicker(
-      currentTime: state.task?.dueDate,
+      currentTime: state.task?.dueDate?.date,
     ).then((date) async {
       if (date == null) return;
       final dateCustom = DateTime(date.year, date.month, date.day, 09, 00);
@@ -131,16 +128,10 @@ class TaskNotifier extends StateNotifier<_State> {
 
   void _saveDueDate(DateTime date) async {
     final task = state.task!;
-    task.dueDate = date;
+    task.dueDate = task.dueDate!.copyWith(date: date);
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
-      await NotificationService.showScheduleNotification(
-        id: task.id,
-        title: task.message,
-        body: S.of(context).reminder_notification_title,
-        scheduledDate: date,
-      );
-      await refresh();
+    await _taskDataSource.update(task).then((_) {
+      refresh();
     });
   }
 
@@ -148,9 +139,8 @@ class TaskNotifier extends StateNotifier<_State> {
     final task = state.task!;
     task.dueDate = null;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
-      await NotificationService.cancel(task.id);
-      await refresh();
+    await _taskDataSource.update(task).then((_) {
+      refresh();
     });
   }
 
@@ -159,17 +149,9 @@ class TaskNotifier extends StateNotifier<_State> {
     final task = state.task!;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
-      if (state.task?.dueDate != null) {
-        await NotificationService.showScheduleNotification(
-          id: state.task!.id,
-          title: state.task!.message,
-          body: S.of(context).reminder_notification_title,
-          scheduledDate: state.task!.dueDate!,
-        );
-      }
+    await _taskDataSource.update(task).then((_) {
+      refresh();
     });
-    refresh();
   }
 
   void onToggleComplete() async {
@@ -177,31 +159,26 @@ class TaskNotifier extends StateNotifier<_State> {
     final result = task.isCompleted == null ? DateTime.now() : null;
     task.isCompleted = result;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task);
-    refresh();
+    await _taskDataSource.update(task).then((_) {
+      refresh();
+    });
   }
 
   String formatDate() {
-    final date = state.task!.dueDate;
+    final date = state.task!.dueDate?.date;
     if (date == null) {
       return S.of(context).button_due_date;
     }
-    if (date.day == now.day && date.month == now.month) {
+    if (date.day == _now.day && date.month == _now.month) {
       return S.of(context).calendar_today;
     }
-    if (date.day == now.day + 1 && date.month == now.month) {
+    if (date.day == _now.day + 1 && date.month == _now.month) {
       return S.of(context).calendar_tomorrow;
     }
-    if (date.year == now.year) {
-      return DateFormat()
-          .add_MMMMEEEEd()
-          .format(state.task!.dueDate!)
-          .toString();
+    if (date.year == _now.year) {
+      return DateFormat().add_MMMMEEEEd().format(date).toString();
     }
-    return DateFormat()
-        .add_yMMMMEEEEd()
-        .format(state.task!.dueDate!)
-        .toString();
+    return DateFormat().add_yMMMMEEEEd().format(date).toString();
   }
 }
 

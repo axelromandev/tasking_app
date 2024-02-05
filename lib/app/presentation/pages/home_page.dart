@@ -9,6 +9,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
+import '../modals/add_task_modal.dart';
 import '../modals/select_group_modal.dart';
 import '../presentation.dart';
 
@@ -64,9 +65,25 @@ class HomePage extends ConsumerWidget {
         ),
         body: _BuildTasks(),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            //TODO: Add task modal or page
-          },
+          onPressed: () => showModalBottomSheet(
+            context: context,
+            elevation: 0,
+            isScrollControlled: true,
+            builder: (_) => LayoutBuilder(builder: (context, _) {
+              return AnimatedPadding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                duration: const Duration(milliseconds: 150),
+                curve: Curves.easeOut,
+                child: Container(
+                  constraints:
+                      const BoxConstraints(maxHeight: 500, minHeight: 150),
+                  child: const AddTaskModal(),
+                ),
+              );
+            }),
+          ),
           backgroundColor: colors.primary,
           child: const Icon(BoxIcons.bx_plus),
         ),

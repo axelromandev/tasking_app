@@ -29,7 +29,8 @@
   "button_cancel": "Cancel",
   "button_continue": "Continue",
   "button_reminder": "Remind Me",
-  "button_due_date": "Due date",
+  "button_due_date": "Add Due Date",
+  "button_remove": "Remove",
   "dialog_delete_subtitle": "You won't be able to undo this action.",
   "dialog_delete_title": "Will be permanently deleted.",
   "task_empty_title": "Ups! Task not found",
@@ -66,5 +67,7 @@
   "calendar_tomorrow": "Tomorrow",
   "calendar_custom": "Custom",
   "backup_export_modal": "Export on the device",
-  "backup_import_modal": "Import from the device"
+  "backup_import_modal": "Import from the device",
+  "coming_soon_title_modal": "Coming soon",
+  "coming_soon_subtitle_modal": "This feature is not yet available, but we are working on it."
 }
