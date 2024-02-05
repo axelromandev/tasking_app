@@ -69,7 +69,7 @@ class _Notifier extends StateNotifier<_State> {
                       .format(dateTomorrow)
                       .toString()),
                 ),
-                const Divider(),
+                const Divider(color: Colors.white12),
                 ListTile(
                   onTap: () {
                     Navigator.pop(context);
@@ -140,19 +140,26 @@ class _Notifier extends StateNotifier<_State> {
   void onSubmit(BuildContext context) async {
     final name = state.name.trim();
     if (name.isEmpty) return;
-    await _taskDataSource.add(group.id, name).then((_) {
+    DueDate? dueDate;
+    if (state.dueDate != null) {
+      dueDate = DueDate(date: state.dueDate, isReminder: state.isReminder);
+    }
+    final task =
+        await _taskDataSource.add(group.id, name, dueDate).then((task) {
       controller.clear();
       focusNode.requestFocus();
       state = state.reset();
+      return task;
     });
     if (state.isReminder && state.dueDate != null) {
       await NotificationService.showScheduleNotification(
-        title: name,
+        id: task.id,
+        title: task.message,
         body: DateFormat('E, d MMM y,')
             .add_jm()
-            .format(state.dueDate!)
+            .format(task.dueDate!.date!)
             .toString(),
-        scheduledDate: state.dueDate!,
+        scheduledDate: task.dueDate!.date!,
       );
     }
     await getAll();

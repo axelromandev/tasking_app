@@ -15,7 +15,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_archive: ^6.0.0
-  flutter_datetime_picker_plus: ^2.1.0
   flutter_local_notifications: ^16.3.2
   flutter_localizations:
     sdk: flutter

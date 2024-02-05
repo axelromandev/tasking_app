@@ -39,13 +39,30 @@ class DeleteTaskModal extends StatelessWidget {
                 ),
               ),
               const Gap(defaultPadding),
-              CustomFilledButton(
+              Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                onPressed: () => context.pop(true),
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                child: Text(S.of(context).button_delete_task),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomFilledButton(
+                        onPressed: () => context.pop(),
+                        backgroundColor: Colors.white12,
+                        foregroundColor: Colors.white,
+                        child: Text(S.of(context).button_cancel),
+                      ),
+                    ),
+                    const Gap(defaultPadding),
+                    Expanded(
+                      child: CustomFilledButton(
+                        onPressed: () => context.pop(true),
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        child: Text(S.of(context).button_delete_task),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               if (Platform.isAndroid) const Gap(defaultPadding),
             ],

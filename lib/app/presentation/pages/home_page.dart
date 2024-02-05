@@ -11,6 +11,7 @@ import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../modals/add_task_modal.dart';
 import '../modals/select_group_modal.dart';
+import '../modals/task_modal.dart';
 import '../presentation.dart';
 
 class HomePage extends ConsumerWidget {
@@ -64,30 +65,37 @@ class HomePage extends ConsumerWidget {
           ],
         ),
         body: _BuildTasks(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            elevation: 0,
-            isScrollControlled: true,
-            builder: (_) => LayoutBuilder(builder: (context, _) {
-              return AnimatedPadding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.easeOut,
-                child: Container(
-                  constraints:
-                      const BoxConstraints(maxHeight: 500, minHeight: 150),
-                  child: const AddTaskModal(),
-                ),
-              );
-            }),
-          ),
-          backgroundColor: colors.primary,
-          child: const Icon(BoxIcons.bx_plus),
-        ),
+        floatingActionButton: _AddTaskButton(),
       ),
+    );
+  }
+}
+
+class _AddTaskButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return FloatingActionButton(
+      onPressed: () => showModalBottomSheet(
+        context: context,
+        elevation: 0,
+        isScrollControlled: true,
+        builder: (_) => LayoutBuilder(builder: (context, _) {
+          return AnimatedPadding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            duration: const Duration(milliseconds: 150),
+            curve: Curves.easeOut,
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 500, minHeight: 150),
+              child: const AddTaskModal(),
+            ),
+          );
+        }),
+      ),
+      backgroundColor: colors.primary,
+      child: const Icon(BoxIcons.bx_plus),
     );
   }
 }
@@ -151,6 +159,7 @@ class _BuildTasks extends ConsumerWidget {
                 TextButton.icon(
                   onPressed: () => showModalBottomSheet(
                     context: context,
+                    elevation: 0,
                     builder: (_) => Container(
                       padding: const EdgeInsets.all(defaultPadding),
                       child: SafeArea(
@@ -209,16 +218,18 @@ class _BuildTasks extends ConsumerWidget {
 }
 
 class _BuildTask extends ConsumerWidget {
-  final Task task;
   const _BuildTask(this.task);
+  final Task task;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CardTask(
-      onShowDetails: () {
-        final routePath = RoutesPath.task.replaceAll(':id', '${task.id}');
-        context.push(routePath);
-      },
+      onShowDetails: () => showModalBottomSheet(
+        context: context,
+        elevation: 0,
+        isScrollControlled: true,
+        builder: (_) => TaskModal(task),
+      ),
       onCheckTask: () => ref.read(homeProvider.notifier).onToggleCheck(task),
       task: task,
     );

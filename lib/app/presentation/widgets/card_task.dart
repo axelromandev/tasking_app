@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:intl/intl.dart';
 
-import '../../../generated/l10n.dart';
+import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
@@ -21,26 +20,6 @@ class CardTask extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
-
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    String formatDate() {
-      final date = task.dueDate?.date;
-      final now = DateTime.now();
-      if (date == null) {
-        return S.of(context).button_due_date;
-      }
-      if (date.day == now.day && date.month == now.month) {
-        return S.of(context).calendar_today;
-      }
-      if (date.day == now.day + 1 && date.month == now.month) {
-        return S.of(context).calendar_tomorrow;
-      }
-      if (date.year == now.year) {
-        return DateFormat().add_MMMMEEEEd().format(date).toString();
-      }
-      return DateFormat().add_yMMMMEEEEd().format(date).toString();
-    }
 
     return ListTile(
       onTap: onShowDetails,
@@ -63,18 +42,16 @@ class CardTask extends StatelessWidget {
         task.message,
         style: style.titleMedium?.copyWith(
           fontWeight: FontWeight.w300,
-          color: task.isCompleted != null
-              ? isDarkMode
-                  ? Colors.white30
-                  : Colors.black54
-              : null,
+          color: task.isCompleted != null ? Colors.white30 : Colors.white,
         ),
       ),
-      subtitle: task.dueDate != null
+      subtitle: task.dueDate?.date != null
           ? Row(
               children: [
                 Icon(
-                  BoxIcons.bx_calendar,
+                  (task.dueDate?.isReminder ?? false)
+                      ? BoxIcons.bx_bell
+                      : BoxIcons.bx_calendar,
                   color: task.isCompleted != null
                       ? colors.primary.withOpacity(.3)
                       : colors.primary,
@@ -82,7 +59,7 @@ class CardTask extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  formatDate(),
+                  formatDate(task.dueDate?.date, task.dueDate!.isReminder),
                   style: style.bodyMedium?.copyWith(
                     color: task.isCompleted != null
                         ? colors.primary.withOpacity(.3)
