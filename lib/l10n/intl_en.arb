@@ -32,6 +32,8 @@
   "button_reminder": "Remind Me",
   "button_due_date": "Add Due Date",
   "button_remove": "Remove",
+  "label_date": "Date",
+  "label_time": "Time",
   "dialog_delete_subtitle": "You won´t be able to undo this action.",
   "dialog_delete_title": "Will be permanently deleted.",
   "task_empty_title": "Ups! Task not found",
@@ -56,7 +58,6 @@
   "about_built_part2": " with much ",
   "dialog_restore_title": "Restore App",
   "dialog_restore_subtitle": "Are you sure you want to restore the data app? This action cannot be undone.",
-  "notification_button_modal": "Open Settings",
   "group_select_title": "Select group",
   "group_select_subtitle": "Keep for more options",
   "group_add_button": "Add group",
@@ -71,5 +72,9 @@
   "backup_export_modal": "Export on the device",
   "backup_import_modal": "Import from the device",
   "coming_soon_title_modal": "Coming soon",
-  "coming_soon_subtitle_modal": "This feature is not yet available, but we are working on it."
+  "coming_soon_subtitle_modal": "This feature is not yet available, but we are working on it.",
+  "pageNotificationsLabel": "ALL-DAY REMINDERS",
+  "pageNotificationsTitle": "Today notification",
+  "pageNotificationsDescription": "Set a time to show a notification when there are all-day reminders (with no specified time).",
+  "pageNotificationsErrorPermission": "Notifications are disabled: You must activate them from the settings."
 }

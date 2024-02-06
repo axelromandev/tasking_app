@@ -32,6 +32,8 @@
   "button_reminder": "Recuerdame",
   "button_due_date": "Fecha de vencimiento",
   "button_remove": "Eliminar",
+  "label_date": "Fecha",
+  "label_time": "Tiempo",
   "dialog_delete_subtitle": "No podrás deshacer esta acción.",
   "dialog_delete_title": "Se eliminará permanentemente.",
   "task_empty_title": "Ups! Tarea no encontrada",
@@ -61,7 +63,6 @@
   "notification_enable_description_modal": "Recibirá una notificación sobre sus tareas y recordatorios diarios.",
   "notification_disable_title_modal": "Notificaciones deshabilitadas",
   "notification_disable_description_modal": "Habilite las notificaciones desde la configuración para recibir una notificación sobre sus tareas.",
-  "notification_button_modal": "Abrir configuración",
   "group_select_title": "Seleccionar grupo",
   "group_select_subtitle": "Mantén para más opciones",
   "group_add_button": "Agregar grupo",
@@ -76,5 +77,9 @@
   "backup_export_modal": "Exportar en el dispositivo",
   "backup_import_modal": "Importar desde el dispositivo",
   "coming_soon_title_modal": "Muy pronto",
-  "coming_soon_subtitle_modal": "Esta característica aún no está disponible, pero estamos trabajando en ello."
+  "coming_soon_subtitle_modal": "Esta característica aún no está disponible, pero estamos trabajando en ello.",
+  "pageNotificationsLabel": "RECORDATORIOS DE TODO EL DÍA",
+  "pageNotificationsTitle": "Notificaciones de hoy",
+  "pageNotificationsDescription": "Establezca una hora para mostrar una notificación cuando haya recordatorios de todo el día (sin hora especificada).",
+  "pageNotificationsErrorPermission": "Las notificaciones están desactivadas: Debes activarlas desde la configuración."
 }

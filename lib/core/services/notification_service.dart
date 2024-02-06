@@ -33,8 +33,12 @@ class NotificationService {
 
   static Future<NotificationDetails> _notificationSimpleDetails() async {
     const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'tasking_simple_notification', 'Tasking Simple Notification',
-        importance: Importance.max, priority: Priority.high, ticker: 'ticker');
+      'tasking_simple_notification',
+      'Tasking Simple Notification',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    );
     const iOSPlatformChannelSpecifics = DarwinNotificationDetails();
     return const NotificationDetails(
       android: androidPlatformChannelSpecifics,
@@ -42,19 +46,8 @@ class NotificationService {
     );
   }
 
-  static Future<void> showSimpleNotification({
-    int id = 0,
-    required String title,
-    String? body,
-    String? payload,
-  }) async {
-    await _flutterLocalNotificationsPlugin.show(
-        id, title, body, await _notificationSimpleDetails(),
-        payload: payload);
-  }
-
   static Future<void> showScheduleNotification({
-    int id = 1,
+    required int id,
     required String title,
     String? body,
     String? payload,
