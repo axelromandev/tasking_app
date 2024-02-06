@@ -198,21 +198,20 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
     }
   }
 
-  // void _onDone() {
-  //   TimeOfDay? selectedTime;
-  //   if (periodOffset == 0 && hour == 12) {
-  //     selectedTime = TimeOfDay(hour: 0, minute: minute);
-  //   } else if (periodOffset == 1 && hour == 12) {
-  //     selectedTime = TimeOfDay(hour: 12, minute: minute);
-  //   } else {
-  //     selectedTime = TimeOfDay(
-  //       hour: periodOffset == 1 ? hour + 12 : hour,
-  //       minute: minute,
-  //     );
-  //   }
-  //   widget.onChangeSelected.call(selectedTime);
-  //   Navigator.pop(context);
-  // }
+  void _onDone() {
+    TimeOfDay? selectedTime;
+    if (periodOffset == 0 && hour == 12) {
+      selectedTime = TimeOfDay(hour: 0, minute: minute);
+    } else if (periodOffset == 1 && hour == 12) {
+      selectedTime = TimeOfDay(hour: 12, minute: minute);
+    } else {
+      selectedTime = TimeOfDay(
+        hour: periodOffset == 1 ? hour + 12 : hour,
+        minute: minute,
+      );
+    }
+    widget.onChangeSelected.call(selectedTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -235,6 +234,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
             ),
             onChanged: (value) => setState(() {
               hour = value;
+              _onDone();
             }),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -255,6 +255,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
             ),
             onChanged: (value) => setState(() {
               minute = value;
+              _onDone();
             }),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -273,6 +274,7 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
             ),
             onChanged: (value) => setState(() {
               periodOffset = value;
+              _onDone();
             }),
             textMapper: (value) {
               return value == '0' ? 'AM' : 'PM';

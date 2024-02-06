@@ -1,24 +1,27 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:time_picker_spinner/time_picker_spinner.dart';
+import 'package:tasking/app/app.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
+import '../providers/notifications_provider.dart';
 
-class SelectDateTimeModal extends StatefulWidget {
+class SelectDateTimeModal extends ConsumerStatefulWidget {
   const SelectDateTimeModal({this.initialDueDate, super.key});
 
   final DueDate? initialDueDate;
 
   @override
-  State<SelectDateTimeModal> createState() => _SelectDateTimeModalState();
+  ConsumerState<SelectDateTimeModal> createState() =>
+      _SelectDateTimeModalState();
 }
 
-class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
+class _SelectDateTimeModalState extends ConsumerState<SelectDateTimeModal> {
   bool isDateSelected = false;
   bool isTimeSelected = false;
   final now = DateTime.now();
@@ -41,6 +44,9 @@ class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
+    final isGrantedNotification =
+        ref.watch(notificationsProvider).isGrantedNotification;
+
     return Container(
       padding: const EdgeInsets.all(defaultPadding / 2),
       child: Column(
@@ -59,7 +65,7 @@ class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
                   )
                 else
                   Text(
-                    'Due Date',
+                    S.of(context).button_due_date,
                     style: style.bodyMedium?.copyWith(color: Colors.white),
                   ),
                 if (isTimeSelected) ...[
@@ -87,7 +93,7 @@ class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
                           Navigator.pop(context, dueDate);
                         }
                       : null,
-                  child: const Text('Done'),
+                  child: Text(S.of(context).button_save),
                 ),
               ],
             ),
@@ -97,7 +103,7 @@ class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
               children: [
                 ListTile(
                   leading: Icon(BoxIcons.bx_calendar, color: colors.primary),
-                  title: const Text('Date'),
+                  title: Text(S.of(context).label_date),
                   trailing: Switch(
                     value: isDateSelected,
                     onChanged: (value) => setState(() {
@@ -128,46 +134,52 @@ class _SelectDateTimeModalState extends State<SelectDateTimeModal> {
               children: [
                 ListTile(
                   leading: Icon(BoxIcons.bx_time, color: colors.primary),
-                  title: const Text('Time'),
+                  title: Text(S.of(context).label_time),
                   trailing: Switch(
                     value: isTimeSelected,
-                    onChanged: (value) => setState(() {
-                      isTimeSelected = value;
-                      if (value) {
-                        if (!isDateSelected) {
-                          isDateSelected = true;
-                          selectedDate = now;
+                    onChanged: (value) {
+                      if (!isGrantedNotification) return;
+                      setState(() {
+                        isTimeSelected = value;
+                        if (value) {
+                          if (!isDateSelected) {
+                            isDateSelected = true;
+                            selectedDate = now;
+                          }
+                          selectedTime = now;
+                        } else {
+                          selectedTime = null;
                         }
-                        selectedTime = now;
-                      } else {
-                        selectedTime = null;
-                      }
-                    }),
+                      });
+                    },
                   ),
                 ),
                 if (isTimeSelected)
-                  TimePickerSpinner(
-                    locale: Locale(S.current.language),
-                    time: selectedTime,
-                    is24HourMode: false,
-                    itemHeight: 50,
-                    normalTextStyle: style.bodyLarge?.copyWith(
-                      color: Colors.white70,
-                    ),
-                    highlightedTextStyle: style.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colors.primary,
-                    ),
-                    isForce2Digits: true,
-                    onTimeChange: (time) {
-                      setState(() {
-                        selectedTime = time;
-                      });
-                    },
+                  TimePickerWidget(
+                    initialTime: selectedTime != null
+                        ? TimeOfDay(
+                            hour: selectedTime!.hour,
+                            minute: selectedTime!.minute,
+                          )
+                        : null,
+                    onChangeSelected: (time) => setState(() {
+                      selectedTime = DateTime(
+                        selectedDate!.year,
+                        selectedDate!.month,
+                        selectedDate!.day,
+                        time.hour,
+                        time.minute,
+                      );
+                    }),
                   ),
               ],
             ),
           ),
+          if (!isGrantedNotification)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: DisableNotificationButton(),
+            ),
         ],
       ),
     );
