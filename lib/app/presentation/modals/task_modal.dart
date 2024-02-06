@@ -62,7 +62,7 @@ class _BuilderModal extends ConsumerWidget {
             trailing: TextButton(
               onPressed: () => notifier.onDelete(context),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
-              child: const Text('Delete'),
+              child: Text(S.of(context).button_delete_task),
             ),
           ),
           const Gap(4),

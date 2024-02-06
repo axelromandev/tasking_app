@@ -58,7 +58,7 @@ class DeleteTaskModal extends StatelessWidget {
                         onPressed: () => context.pop(true),
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
-                        child: Text(S.of(context).button_delete_task),
+                        child: Text(S.of(context).button_delete),
                       ),
                     ),
                   ],
