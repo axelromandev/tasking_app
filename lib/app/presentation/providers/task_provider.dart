@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,211 +8,213 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
-import 'package:tasking/core/core.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../data/data.dart';
 import '../../domain/domain.dart';
+import '../modals/delete_task_modal.dart';
+import '../modals/select_date_time_modal.dart';
 import '../presentation.dart';
 
-final taskProvider =
-    StateNotifierProvider.autoDispose<TaskNotifier, _State>((ref) {
+final taskProvider = StateNotifierProvider.family
+    .autoDispose<_Notifier, _State, Task>((ref, task) {
   final refresh = ref.watch(homeProvider.notifier).getAll;
-  return TaskNotifier(refresh);
+  return _Notifier(task: task, refresh: refresh);
 });
 
-class TaskNotifier extends StateNotifier<_State> {
+class _Notifier extends StateNotifier<_State> {
+  final Task task;
   final Future<void> Function() refresh;
-  TaskNotifier(this.refresh) : super(_State());
 
-  final now = DateTime.now();
+  _Notifier({
+    required this.task,
+    required this.refresh,
+  }) : super(_State(task: task));
+
+  final _now = DateTime.now();
   final _taskDataSource = TaskDataSource();
 
-  BuildContext context = navigatorKey.currentContext!;
-
-  void initialize(int id) async {
-    final task = await _taskDataSource.get(id);
-    state = state.copyWith(task: task);
-  }
-
-  void showSnackbar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: const Duration(seconds: 3),
-      ),
-    );
-  }
-
-  void onDelete() async {
+  void onDelete(BuildContext context) async {
     await showModalBottomSheet<bool?>(
       context: context,
       elevation: 0,
       builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
-      await _taskDataSource.delete(state.task!.id).then((_) async {
-        if (state.task?.dueDate != null) {
-          await NotificationService.cancel(state.task!.id);
+      await _taskDataSource.delete(state.task.id).then((_) async {
+        if (state.task.dueDate != null && state.task.dueDate!.isReminder) {
+          await NotificationService.cancel(state.task.id);
         }
         refresh();
-        // ignore: use_build_context_synchronously
         navigatorKey.currentContext!.pop();
       });
     });
   }
 
-  void onAddDueDate() async {
-    final dateNew = DateTime(now.year, now.month, now.day, 20, 00);
-    final dateTomorrow = DateTime(now.year, now.month, now.day + 1, 09, 00);
+  void onAddDueDate(BuildContext context) async {
+    final dateToday = DateTime(_now.year, _now.month, _now.day, 23, 59);
+    final dateTomorrow = DateTime(_now.year, _now.month, _now.day + 1, 23, 59);
 
-    showModalBottomSheet(
+    await showModalBottomSheet<DateTime?>(
       context: context,
-      builder: (_) => Card(
-        margin: EdgeInsets.zero,
-        child: Container(
-          padding: const EdgeInsets.all(defaultPadding),
-          child: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    _saveDueDate(dateNew);
-                  },
-                  iconColor: Theme.of(context).colorScheme.primary,
-                  leading: const Icon(BoxIcons.bx_calendar),
-                  title: Text(S.of(context).calendar_today),
-                  trailing: Text(
-                      DateFormat().add_MMMMEEEEd().format(dateNew).toString()),
+      elevation: 0,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () => Navigator.pop(context, dateToday),
+                iconColor: Theme.of(context).colorScheme.primary,
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: Text(S.of(context).calendar_today),
+                trailing: Text(
+                  DateFormat('EEEE, d MMMM').format(dateToday).toString(),
                 ),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    _saveDueDate(dateTomorrow);
-                  },
-                  iconColor: Theme.of(context).colorScheme.primary,
-                  leading: const Icon(BoxIcons.bx_calendar),
-                  title: Text(S.of(context).calendar_tomorrow),
-                  trailing: Text(DateFormat()
-                      .add_MMMMEEEEd()
-                      .format(dateTomorrow)
-                      .toString()),
-                ),
-                const Divider(),
-                ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    _customSaveDueDate();
-                  },
-                  iconColor: Theme.of(context).colorScheme.primary,
-                  leading: const Icon(BoxIcons.bx_calendar),
-                  title: Text(S.of(context).calendar_custom),
-                ),
-                if (Platform.isAndroid) const Gap(defaultPadding),
-              ],
-            ),
+              ),
+              ListTile(
+                onTap: () => Navigator.pop(context, dateTomorrow),
+                iconColor: Theme.of(context).colorScheme.primary,
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: Text(S.of(context).calendar_tomorrow),
+                trailing: Text(
+                    DateFormat('EEEE, d MMMM').format(dateTomorrow).toString()),
+              ),
+              const Divider(color: Colors.white12),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  _customDateTime(context);
+                },
+                iconColor: Theme.of(context).colorScheme.primary,
+                leading: const Icon(BoxIcons.bx_calendar),
+                title: Text(S.of(context).calendar_custom),
+              ),
+              if (Platform.isAndroid) const Gap(defaultPadding),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  void _customSaveDueDate() {
-    showDateTimePicker(
-      currentTime: state.task?.dueDate,
-    ).then((date) async {
-      if (date == null) return;
-      final dateCustom = DateTime(date.year, date.month, date.day, 09, 00);
-      _saveDueDate(dateCustom);
+    ).then((value) async {
+      if (value == null) return;
+      final task = state.task;
+      task.dueDate = DueDate(date: value);
+      state = state.copyWith(task: task);
+      await _taskDataSource.update(task).then((_) {
+        refresh();
+      });
     });
   }
 
-  void _saveDueDate(DateTime date) async {
-    final task = state.task!;
-    task.dueDate = date;
+  void _customDateTime(BuildContext context) async {
+    await showModalBottomSheet<DueDate?>(
+      context: context,
+      elevation: 0,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: MyColors.backgroundDark,
+      builder: (_) => const SelectDateTimeModal(),
+    ).then((value) async {
+      if (value == null) return;
+      _saveCustomDate(value);
+    });
+  }
+
+  void onEditDueDate(BuildContext context) async {
+    await showModalBottomSheet<DueDate?>(
+      context: context,
+      elevation: 0,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: MyColors.backgroundDark,
+      builder: (_) => SelectDateTimeModal(
+        initialDueDate: state.task.dueDate,
+      ),
+    ).then((value) async {
+      if (value == null) return;
+      _saveCustomDate(value);
+    });
+  }
+
+  void _saveCustomDate(DueDate value) async {
+    final task = state.task;
+    task.dueDate = value;
     state = state.copyWith(task: task);
     await _taskDataSource.update(task).then((_) async {
+      refresh();
+    });
+    _saveNotification();
+  }
+
+  void _saveNotification() async {
+    final task = state.task;
+    if (task.dueDate != null && task.dueDate!.isReminder) {
       await NotificationService.showScheduleNotification(
         id: task.id,
         title: task.message,
-        body: S.of(context).reminder_notification_title,
-        scheduledDate: date,
+        body: DateFormat('E, d MMM y,')
+            .add_jm()
+            .format(task.dueDate!.date!)
+            .toString(),
+        scheduledDate: task.dueDate!.date!,
       );
-      await refresh();
-    });
+    }
   }
 
   void onRemoveDueDate() async {
-    final task = state.task!;
+    final task = state.task;
     task.dueDate = null;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
-      await NotificationService.cancel(task.id);
-      await refresh();
+    await _taskDataSource.update(task).then((_) {
+      refresh();
     });
+    if (task.dueDate != null && task.dueDate!.isReminder) {
+      await NotificationService.cancel(task.id);
+    }
   }
 
   void onChangeMessage(String value) async {
     if (value.trim().isEmpty) return;
-    final task = state.task!;
+    final task = state.task;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
-      if (state.task?.dueDate != null) {
-        await NotificationService.showScheduleNotification(
-          id: state.task!.id,
-          title: state.task!.message,
-          body: S.of(context).reminder_notification_title,
-          scheduledDate: state.task!.dueDate!,
-        );
-      }
+    await _taskDataSource.update(task).then((_) {
+      refresh();
     });
-    refresh();
+    _saveNotification();
   }
 
   void onToggleComplete() async {
-    final task = state.task!;
+    final task = state.task;
     final result = task.isCompleted == null ? DateTime.now() : null;
     task.isCompleted = result;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task);
-    refresh();
-  }
-
-  String formatDate() {
-    final date = state.task!.dueDate;
-    if (date == null) {
-      return S.of(context).button_due_date;
+    await _taskDataSource.update(task).then((_) {
+      refresh();
+    });
+    if (task.isCompleted != null) {
+      await NotificationService.cancel(task.id);
+    } else {
+      _saveNotification();
     }
-    if (date.day == now.day && date.month == now.month) {
-      return S.of(context).calendar_today;
-    }
-    if (date.day == now.day + 1 && date.month == now.month) {
-      return S.of(context).calendar_tomorrow;
-    }
-    if (date.year == now.year) {
-      return DateFormat()
-          .add_MMMMEEEEd()
-          .format(state.task!.dueDate!)
-          .toString();
-    }
-    return DateFormat()
-        .add_yMMMMEEEEd()
-        .format(state.task!.dueDate!)
-        .toString();
   }
 }
 
 class _State {
-  final Task? task;
+  final Task task;
 
-  _State({this.task});
+  _State({
+    required this.task,
+  });
 
-  _State copyWith({Task? task}) {
-    return _State(task: task ?? this.task);
+  _State copyWith({
+    Task? task,
+  }) {
+    return _State(
+      task: task ?? this.task,
+    );
   }
 }

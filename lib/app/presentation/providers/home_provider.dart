@@ -47,14 +47,6 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(tasks: tasks);
   }
 
-  void onSubmit(String value) async {
-    state = state.copyWith(isShowCompleted: false);
-    ref.read(controllerProvider).clear();
-    if (value.trim().isEmpty) return;
-    await _taskDataSource.add(state.group!.id, value);
-    getAll();
-  }
-
   void onClearCompleted() async {
     state = state.copyWith(isShowCompleted: false);
     final groupId = state.group!.id;
@@ -164,7 +156,3 @@ class HomeState {
     );
   }
 }
-
-final controllerProvider = Provider<TextEditingController>((ref) {
-  return TextEditingController();
-});

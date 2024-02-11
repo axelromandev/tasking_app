@@ -8,8 +8,10 @@ class TaskDataSource implements TaskRepository {
   final Isar _isar = IsarService.isar;
 
   @override
-  Future<Task?> get(int id) async {
-    return await _isar.tasks.get(id);
+  Future<Task> get(int id) async {
+    final task = await _isar.tasks.get(id);
+    if (task == null) throw Exception('Task not found');
+    return task;
   }
 
   @override
@@ -18,19 +20,21 @@ class TaskDataSource implements TaskRepository {
   }
 
   @override
-  Future<void> add(int groupId, String value) async {
+  Future<Task> add(int groupId, String value, [DueDate? dueDate]) async {
     final task = Task(
       message: value,
       groupId: groupId,
+      dueDate: dueDate,
       createAt: DateTime.now(),
     );
     final query = _isar.groupTasks.where().filter().idEqualTo(groupId);
     final group = await query.findFirst();
     group!.tasks.add(task);
     await _isar.writeTxn(() async {
-      await _isar.tasks.put(task);
+      task.id = await _isar.tasks.put(task);
       await group.tasks.save();
     });
+    return task;
   }
 
   @override

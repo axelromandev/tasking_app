@@ -48,18 +48,31 @@ class OptionsGroupModal extends ConsumerWidget {
                     ),
                   ),
                   const Gap(defaultPadding),
-                  CustomFilledButton(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      ref
-                          .read(selectGroupProvider.notifier)
-                          .onDeleteGroup(group);
-                    },
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    child: Text(S.of(context).group_options_delete_title),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomFilledButton(
+                          onPressed: () => Navigator.pop(context),
+                          backgroundColor: Colors.white12,
+                          foregroundColor: Colors.white,
+                          child: Text(S.of(context).button_cancel),
+                        ),
+                      ),
+                      const Gap(defaultPadding),
+                      Expanded(
+                        child: CustomFilledButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            ref
+                                .read(selectGroupProvider.notifier)
+                                .onDeleteGroup(group);
+                          },
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          child: Text(S.of(context).group_options_delete_title),
+                        ),
+                      ),
+                    ],
                   ),
                   if (Platform.isAndroid) const Gap(defaultPadding),
                 ],
@@ -93,7 +106,7 @@ class OptionsGroupModal extends ConsumerWidget {
               leading: const Icon(BoxIcons.bx_edit),
               title: Text(S.of(context).group_options_edit),
             ),
-            const Divider(),
+            const Divider(color: Colors.white12),
             if (groupIdSelected != group.id)
               ListTile(
                 onTap: () async {

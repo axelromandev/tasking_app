@@ -101,6 +101,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       ),
     ),
 
+    dividerColor: Colors.white12,
+
     // listTileTheme
     listTileTheme: ListTileThemeData(
       iconColor: Colors.white,

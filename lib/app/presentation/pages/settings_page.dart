@@ -46,6 +46,7 @@ class SettingsPage extends ConsumerWidget {
 
                       showModalBottomSheet(
                         context: context,
+                        elevation: 0,
                         builder: (_) => const ComingSoonModal(),
                       );
                     },
@@ -86,6 +87,7 @@ class SettingsPage extends ConsumerWidget {
                       ListTile(
                         onTap: () => showModalBottomSheet(
                           context: context,
+                          elevation: 0,
                           builder: (_) => const BackupOptionsModal(),
                         ),
                         iconColor: colors.primary,
@@ -100,18 +102,18 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                       ListTile(
-                        onTap: () {
-                          //TODO: Add settings for notifications
-                        },
+                        onTap: () => context.push(RoutesPath.notifications),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_bell),
-                        title: const Text('Notificaciones'),
+                        title:
+                            Text(S.of(context).settings_general_notifications),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(),
                       ),
                       ListTile(
                         onTap: () => showModalBottomSheet(
                           context: context,
+                          elevation: 0,
                           builder: (_) => const ThemeChangeModal(),
                         ),
                         iconColor: colors.primary,

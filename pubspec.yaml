@@ -1,7 +1,7 @@
 name: tasking
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.0+8
+version: 0.1.0+9
 
 environment:
   sdk: '>=3.1.2 <4.0.0'
@@ -9,12 +9,12 @@ environment:
 dependencies:
   adaptive_theme: ^3.5.0
   animate_do: ^3.3.0
+  calendar_date_picker2: ^0.5.3
   file_picker: ^6.1.1
   flex_color_picker: ^3.3.1
   flutter:
     sdk: flutter
   flutter_archive: ^6.0.0
-  flutter_datetime_picker_plus: ^2.1.0
   flutter_local_notifications: ^16.3.2
   flutter_localizations:
     sdk: flutter
@@ -29,6 +29,7 @@ dependencies:
   intl: ^0.18.1
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
+  numberpicker: ^2.1.2
   package_info_plus: ^4.2.0
   path_provider: ^2.1.2
   permission_handler: ^11.2.0
