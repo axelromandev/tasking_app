@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tasking/config/config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
@@ -10,7 +9,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // General
     useMaterial3: true,
     brightness: Brightness.dark,
-    fontFamily: GoogleFonts.lexend().fontFamily,
+    fontFamily: 'Lexend',
     colorSchemeSeed: colorSeed,
     scaffoldBackgroundColor: MyColors.backgroundDark,
 
@@ -27,11 +26,6 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     primaryIconTheme: const IconThemeData(color: Colors.white),
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(foregroundColor: Colors.white),
-    ),
-
-    primaryTextTheme: GoogleFonts.lexendTextTheme().apply(
-      bodyColor: Colors.white,
-      displayColor: Colors.white,
     ),
 
     // AppBar

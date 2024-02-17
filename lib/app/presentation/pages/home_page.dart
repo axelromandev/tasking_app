@@ -134,7 +134,7 @@ class _BuildTasks extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
       children: [
-        ...listPending.map((task) => _BuildTask(task)).toList(),
+        ...listPending.map((task) => _BuildTask(task)),
         if (listCompleted.isNotEmpty)
           Row(
             children: [
@@ -211,7 +211,7 @@ class _BuildTasks extends ConsumerWidget {
             ],
           ),
         if (provider.isShowCompleted)
-          ...listCompleted.map((task) => _BuildTask(task)).toList(),
+          ...listCompleted.map((task) => _BuildTask(task)),
       ],
     );
   }
