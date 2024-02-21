@@ -18,7 +18,7 @@
   "intro_notification_body": "Enable notifications to receive reminders of your tasks.You can change this in the configuration of your device.",
   "home_title": "Your tasks",
   "home_button_add": "Add a task",
-  "home_empty_tasks": "All clear here",
+  "home_empty_tasks": "No tasks yet",
   "home_pending": "Pending",
   "home_completed": "Completed",
   "button_delete_task": "Delete Task",

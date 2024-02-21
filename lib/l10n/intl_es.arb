@@ -18,7 +18,7 @@
   "intro_notification_body": "Habilite las notificaciones para recibir recordatorios de sus tareas. Puede cambiar esto en la configuración de su dispositivo.",
   "home_title": "Tus tareas",
   "home_button_add": "Agregar una tarea",
-  "home_empty_tasks": "Todo bien aquí",
+  "home_empty_tasks": "No hay tareas",
   "home_pending": "Pendiente",
   "home_completed": "Completado",
   "button_delete_task": "Eliminar tarea",

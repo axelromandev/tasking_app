@@ -21,6 +21,13 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       },
     ),
 
+    // TextTheme
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: Colors.white),
+      bodyMedium: TextStyle(color: Colors.white),
+      bodySmall: TextStyle(color: Colors.white),
+    ),
+
     // IconTheme
     iconTheme: const IconThemeData(color: Colors.white),
     primaryIconTheme: const IconThemeData(color: Colors.white),
@@ -106,9 +113,22 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       ),
     ),
 
+    // floatingActionButtonTheme
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: colorSeed,
       foregroundColor: Colors.black,
+    ),
+
+    // drawerThemeData
+    drawerTheme: DrawerThemeData(
+      elevation: 0,
+      backgroundColor: MyColors.backgroundDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(defaultRadius),
+          bottomRight: Radius.circular(defaultRadius),
+        ),
+      ),
     ),
   );
 });

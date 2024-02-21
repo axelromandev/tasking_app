@@ -78,10 +78,12 @@ class SelectGroupModal extends ConsumerWidget {
                       leading: Icon(group.icon!.iconData),
                       title: Text(group.name,
                           style: const TextStyle(fontSize: 18)),
-                      trailing: Text(group.tasks.length.toString(),
-                          style: style.bodyLarge?.copyWith(
-                            color: Colors.white70,
-                          )),
+                      trailing: group.tasks.isNotEmpty
+                          ? Text(group.tasks.length.toString(),
+                              style: style.bodyLarge?.copyWith(
+                                color: Colors.white70,
+                              ))
+                          : null,
                     ),
                   );
                 },

@@ -118,16 +118,7 @@ class _BuildTasks extends ConsumerWidget {
 
     if (tasks.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(HeroIcons.check, color: Colors.white),
-            Text(S.of(context).home_empty_tasks,
-                style: style.bodyLarge?.copyWith(
-                  color: Colors.white,
-                )),
-          ],
-        ),
+        child: Text(S.of(context).home_empty_tasks, style: style.bodyLarge),
       );
     }
 
