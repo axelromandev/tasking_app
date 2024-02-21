@@ -9,13 +9,13 @@ class SharedPrefs {
 
   T? getValue<T>(String key) {
     switch (T) {
-      case int:
+      case const (int):
         return _prefs.getInt(key) as T?;
-      case double:
+      case const (double):
         return _prefs.getDouble(key) as T?;
-      case String:
+      case const (String):
         return _prefs.getString(key) as T?;
-      case bool:
+      case const (bool):
         return _prefs.getBool(key) as T?;
       default:
         throw UnimplementedError(
@@ -30,16 +30,16 @@ class SharedPrefs {
 
   Future<void> setKeyValue<T>(String key, T value) async {
     switch (T) {
-      case int:
+      case const (int):
         await _prefs.setInt(key, value as int);
         break;
-      case double:
+      case const (double):
         await _prefs.setDouble(key, value as double);
         break;
-      case String:
+      case const (String):
         await _prefs.setString(key, value as String);
         break;
-      case bool:
+      case const (bool):
         await _prefs.setBool(key, value as bool);
         break;
       default:

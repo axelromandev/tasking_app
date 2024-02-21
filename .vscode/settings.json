@@ -5,6 +5,7 @@
     "fullscreen",
     "Iconsax",
     "kofi",
+    "Lexend",
     "MMMMEEE",
     "Monitoreo",
     "numberpicker",
@@ -12,5 +13,5 @@
     "Recuerdame",
     "rxdart"
   ],
-  "dart.flutterSdkPath": ".fvm\\versions\\3.16.8"
+  "dart.flutterSdkPath": ".fvm/versions/3.16.9"
 }
