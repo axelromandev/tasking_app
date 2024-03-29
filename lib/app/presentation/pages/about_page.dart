@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -39,7 +40,10 @@ class AboutPage extends StatelessWidget {
                   SvgPicture.asset('assets/svg/logo.svg',
                       width: 40, color: colors.primary),
                   const Gap(defaultPadding),
-                  Text('Tasking', style: style.displaySmall),
+                  Text('Tasking',
+                      style: style.displaySmall?.copyWith(
+                        color: Colors.white,
+                      )),
                   Container(
                     margin: const EdgeInsets.only(top: defaultPadding),
                     child: Text(
@@ -56,7 +60,7 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(primary: Colors.white),
+                    style: TextButton.styleFrom(foregroundColor: Colors.white),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),
@@ -83,14 +87,17 @@ class AboutPage extends StatelessWidget {
               child: Column(
                 children: [
                   const Gap(defaultPadding),
-                  const CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/images/dev.png'),
+                  const AdvancedAvatar(
+                    size: 80,
+                    image: NetworkImage(
+                      'https://avatars.githubusercontent.com/u/60910680?v=4',
+                    ),
                   ),
                   const Gap(defaultPadding),
                   Text(S.of(context).about_author,
                       style: style.titleLarge?.copyWith(
                         fontWeight: FontWeight.w500,
+                        color: Colors.white,
                       )),
                   const Gap(defaultPadding),
                   Text(
@@ -106,7 +113,7 @@ class AboutPage extends StatelessWidget {
                             type: SnackBarType.error);
                       }
                     },
-                    style: TextButton.styleFrom(primary: Colors.white),
+                    style: TextButton.styleFrom(foregroundColor: Colors.white),
                     child: Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: defaultPadding),
