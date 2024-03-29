@@ -15,8 +15,6 @@ class _Notifier extends StateNotifier<Color> {
 
   final _pref = SharedPrefs();
 
-  final controller = ExpansionTileController();
-
   void initialize() {
     final colorValue = _pref.getValue<int>(Keys.colorSeed);
     if (colorValue == null) return;
@@ -26,6 +24,5 @@ class _Notifier extends StateNotifier<Color> {
   void setColor(Color color) async {
     await _pref.setKeyValue<int>(Keys.colorSeed, color.value);
     state = color;
-    controller.collapse();
   }
 }

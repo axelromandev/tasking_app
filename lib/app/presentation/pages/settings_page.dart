@@ -11,7 +11,6 @@ import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../modals/backup_options_modal.dart';
-import '../modals/coming_soon_modal.dart';
 import '../modals/theme_change_modal.dart';
 import '../presentation.dart';
 
@@ -39,40 +38,6 @@ class SettingsPage extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  child: ListTile(
-                    onTap: () {
-                      //TODO: Add settings for tasking pro
-
-                      showModalBottomSheet(
-                        context: context,
-                        elevation: 0,
-                        builder: (_) => const ComingSoonModal(),
-                      );
-                    },
-                    iconColor: colors.primary,
-                    leading: const Icon(BoxIcons.bx_crown),
-                    title: Row(
-                      children: [
-                        const Text('Tasking'),
-                        const Gap(defaultPadding / 2),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: defaultPadding / 2),
-                          decoration: BoxDecoration(
-                            color: colors.primary,
-                            borderRadius: BorderRadius.circular(defaultRadius),
-                          ),
-                          child: Text('Pro',
-                              style: style.bodySmall?.copyWith(
-                                color: Colors.black,
-                              )),
-                        ),
-                      ],
-                    ),
-                    subtitle: const Text('Save your tasks in the cloud'),
-                  ),
-                ),
                 Container(
                   margin: const EdgeInsets.only(top: defaultPadding, left: 8),
                   child: Text(S.of(context).settings_label_general,
@@ -127,12 +92,7 @@ class SettingsPage extends ConsumerWidget {
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_world),
                         title: Text(S.of(context).language_label),
-                        trailing: Text(
-                          S.of(context).language == 'en'
-                              ? S.of(context).language_en
-                              : S.of(context).language_es,
-                          style: style.bodyMedium,
-                        ),
+                        trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(defaultRadius),
