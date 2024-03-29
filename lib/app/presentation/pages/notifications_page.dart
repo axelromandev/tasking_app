@@ -30,7 +30,10 @@ class NotificationsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).settings_general_notifications),
+        title: Text(
+          S.of(context).settings_general_notifications,
+          style: const TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: Container(

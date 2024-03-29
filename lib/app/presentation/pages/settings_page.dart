@@ -27,7 +27,10 @@ class SettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.white,
-        title: Text(S.of(context).settings_title),
+        title: Text(
+          S.of(context).settings_title,
+          style: const TextStyle(color: Colors.white),
+        ),
         backgroundColor: isDarkMode ? null : Colors.grey[100],
       ),
       backgroundColor: isDarkMode ? null : Colors.grey[100],

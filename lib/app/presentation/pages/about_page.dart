@@ -21,7 +21,10 @@ class AboutPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).settings_label_about),
+        title: Text(
+          S.of(context).settings_label_about,
+          style: const TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
