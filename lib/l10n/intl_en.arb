@@ -76,5 +76,14 @@
   "pageNotificationsLabel": "ALL-DAY REMINDERS",
   "pageNotificationsTitle": "Today notification",
   "pageNotificationsDescription": "Set a time to show a notification when there are all-day reminders (with no specified time).",
-  "pageNotificationsErrorPermission": "Notifications are disabled: You must activate them from the settings."
+  "pageNotificationsErrorPermission": "Notifications are disabled: You must activate them from the settings.",
+  "pageLanguageDescription2": "The language that is configured on your device is: ",
+  "pageLanguageDescription1": "The tasking application uses the same language you have configured on the device.",
+  "pageLanguageDescription3": "If you want to change the application of the application, follow these steps:",
+  "pageLanguageStep1": "•  Go to your device´s home screen.",
+  "pageLanguageStep2": "•  Open the device settings.",
+  "pageLanguageStep3": "•  Look for language adjustments.",
+  "pageLanguageStep4": "•  Choose a language from the list.",
+  "pageLanguageStep5": "•  Confirm your choice.",
+  "pageLanguageDescription4": "When you change the configured language, the tasking application will automatically update the new language."
 }

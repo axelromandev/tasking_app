@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasking/app/presentation/pages/language_page.dart';
 
 import '../../app/app.dart';
 import '../../core/core.dart';
@@ -33,6 +34,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutesPath.notifications,
         builder: (_, __) => const NotificationsPage(),
+      ),
+      GoRoute(
+        path: RoutesPath.language,
+        builder: (_, __) => const LanguagePage(),
       ),
       GoRoute(
         path: RoutesPath.about,

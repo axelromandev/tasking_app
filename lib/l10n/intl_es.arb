@@ -81,5 +81,14 @@
   "pageNotificationsLabel": "RECORDATORIOS DE TODO EL DÍA",
   "pageNotificationsTitle": "Notificaciones de hoy",
   "pageNotificationsDescription": "Establezca una hora para mostrar una notificación cuando haya recordatorios de todo el día (sin hora especificada).",
-  "pageNotificationsErrorPermission": "Las notificaciones están desactivadas: Debes activarlas desde la configuración."
+  "pageNotificationsErrorPermission": "Las notificaciones están desactivadas: Debes activarlas desde la configuración.",
+  "pageLanguageDescription2": "El idioma que esta configurado en tu dispositivo es: ",
+  "pageLanguageDescription1": "La aplicación de Tasking usa el mismo idioma que tengas configurado en el dispositivo.",
+  "pageLanguageDescription3": "Si deseas cambiar el idioma de la aplicación, sigue estos pasos:",
+  "pageLanguageStep1": "•  Ve a la pantalla de inicio de tu dispositivo.",
+  "pageLanguageStep2": "•  Abre los ajustes del dispositivo.",
+  "pageLanguageStep3": "•  Busca los ajustes de idioma.",
+  "pageLanguageStep4": "•  Elige un idioma de la lista.",
+  "pageLanguageStep5": "•  Confirma tu elección.",
+  "pageLanguageDescription4": "Cuando cambies el idioma configurado, la aplicación de Tasking se actualizara automáticamente al nuevo idioma."
 }
