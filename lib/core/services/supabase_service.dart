@@ -14,4 +14,6 @@ class SupabaseService {
       log('Error', name: 'SupabaseService', error: e);
     }
   }
+
+  static SupabaseClient get client => Supabase.instance.client;
 }
