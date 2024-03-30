@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/app/presentation/providers/task_provider.dart';
 import 'package:tasking/config/const/constants.dart';
 import 'package:tasking/core/core.dart';
-
-import '../../../generated/l10n.dart';
-import '../../domain/domain.dart';
-import '../providers/task_provider.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class TaskModal extends ConsumerWidget {
   const TaskModal(this.task, {super.key});

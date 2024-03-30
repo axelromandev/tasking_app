@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
-
-import '../../generated/l10n.dart';
+import 'package:tasking/generated/l10n.dart';
 
 String formatDate(DateTime? date, [bool isReminder = false]) {
   final now = DateTime.now();

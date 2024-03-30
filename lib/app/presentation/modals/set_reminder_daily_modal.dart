@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:tasking/app/presentation/widgets/custom_filled_button.dart';
 import 'package:tasking/config/config.dart';
-
-import '../widgets/custom_filled_button.dart';
 
 class SetReminderDailyModal extends ConsumerWidget {
   const SetReminderDailyModal({super.key});

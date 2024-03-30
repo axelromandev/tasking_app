@@ -4,10 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
+import 'package:tasking/app/presentation/providers/edit_group_provider.dart';
 import 'package:tasking/config/config.dart';
-
-import '../../../generated/l10n.dart';
-import '../providers/edit_group_provider.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class EditGroupModal extends ConsumerWidget {
   const EditGroupModal(this.group, {super.key});

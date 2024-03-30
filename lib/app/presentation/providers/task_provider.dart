@@ -8,15 +8,14 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../../generated/l10n.dart';
-import '../../data/data.dart';
-import '../../domain/domain.dart';
-import '../modals/delete_task_modal.dart';
-import '../modals/select_date_time_modal.dart';
-import '../presentation.dart';
+import 'package:tasking/app/data/data.dart';
+import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
+import 'package:tasking/app/presentation/modals/select_date_time_modal.dart';
+import 'package:tasking/app/presentation/presentation.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/generated/l10n.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, Task>((ref, task) {
@@ -36,7 +35,7 @@ class _Notifier extends StateNotifier<_State> {
   final _now = DateTime.now();
   final _taskDataSource = TaskDataSource();
 
-  void onDelete(BuildContext context) async {
+  Future<void> onDelete(BuildContext context) async {
     await showModalBottomSheet<bool?>(
       context: context,
       elevation: 0,
@@ -53,7 +52,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void onAddDueDate(BuildContext context) async {
+  Future<void> onAddDueDate(BuildContext context) async {
     final dateToday = DateTime(_now.year, _now.month, _now.day, 23, 59);
     final dateTomorrow = DateTime(_now.year, _now.month, _now.day + 1, 23, 59);
 
@@ -109,7 +108,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void _customDateTime(BuildContext context) async {
+  Future<void> _customDateTime(BuildContext context) async {
     await showModalBottomSheet<DueDate?>(
       context: context,
       elevation: 0,
@@ -123,7 +122,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void onEditDueDate(BuildContext context) async {
+  Future<void> onEditDueDate(BuildContext context) async {
     await showModalBottomSheet<DueDate?>(
       context: context,
       elevation: 0,
@@ -139,7 +138,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void _saveCustomDate(DueDate value) async {
+  Future<void> _saveCustomDate(DueDate value) async {
     final task = state.task;
     task.dueDate = value;
     state = state.copyWith(task: task);
@@ -149,7 +148,7 @@ class _Notifier extends StateNotifier<_State> {
     _saveNotification();
   }
 
-  void _saveNotification() async {
+  Future<void> _saveNotification() async {
     final task = state.task;
     if (task.dueDate != null && task.dueDate!.isReminder) {
       await NotificationService.showScheduleNotification(
@@ -164,7 +163,7 @@ class _Notifier extends StateNotifier<_State> {
     }
   }
 
-  void onRemoveDueDate() async {
+  Future<void> onRemoveDueDate() async {
     final task = state.task;
     task.dueDate = null;
     state = state.copyWith(task: task);
@@ -176,7 +175,7 @@ class _Notifier extends StateNotifier<_State> {
     }
   }
 
-  void onChangeMessage(String value) async {
+  Future<void> onChangeMessage(String value) async {
     if (value.trim().isEmpty) return;
     final task = state.task;
     task.message = value;
@@ -187,7 +186,7 @@ class _Notifier extends StateNotifier<_State> {
     _saveNotification();
   }
 
-  void onToggleComplete() async {
+  Future<void> onToggleComplete() async {
     final task = state.task;
     final result = task.isCompleted == null ? DateTime.now() : null;
     task.isCompleted = result;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-
-import 'task.dart';
+import 'package:tasking/app/domain/entities/task.dart';
 
 part 'group.g.dart';
 

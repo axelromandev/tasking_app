@@ -4,14 +4,13 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tasking/app/presentation/modals/backup_options_modal.dart';
+import 'package:tasking/app/presentation/modals/theme_change_modal.dart';
+import 'package:tasking/app/presentation/presentation.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../../generated/l10n.dart';
-import '../modals/backup_options_modal.dart';
-import '../modals/theme_change_modal.dart';
-import '../presentation.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -211,7 +210,7 @@ class _BuildVersionLabelState extends State<_BuildVersionLabel> {
     getVersion();
   }
 
-  void getVersion() async {
+  Future<void> getVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version = packageInfo.version;

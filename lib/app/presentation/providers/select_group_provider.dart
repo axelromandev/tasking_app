@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../data/data.dart';
-import '../../domain/domain.dart';
+import 'package:tasking/app/data/data.dart';
+import 'package:tasking/app/domain/domain.dart';
 
 final selectGroupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -15,12 +14,12 @@ class _Notifier extends StateNotifier<_State> {
 
   final _groupDataSource = GroupDataSource();
 
-  void initialize() async {
+  Future<void> initialize() async {
     final groups = await _groupDataSource.fetchAll();
     state = state.copyWith(groups: groups);
   }
 
-  void onDeleteGroup(GroupTasks group) async {
+  Future<void> onDeleteGroup(GroupTasks group) async {
     await _groupDataSource.delete(group.id);
     initialize();
   }

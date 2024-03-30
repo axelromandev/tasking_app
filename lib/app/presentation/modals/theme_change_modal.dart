@@ -4,9 +4,8 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class ThemeChangeModal extends ConsumerWidget {
   const ThemeChangeModal({super.key});

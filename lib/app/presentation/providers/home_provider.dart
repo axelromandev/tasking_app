@@ -3,13 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../../generated/l10n.dart';
-import '../../data/data.dart';
-import '../../domain/domain.dart';
-import '../widgets/widgets.dart';
+import 'package:tasking/app/data/data.dart';
+import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/app/presentation/widgets/widgets.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/generated/l10n.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
   return HomeNotifier(ref);
@@ -27,7 +26,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   final _groupDataSource = GroupDataSource();
   final _taskDataSource = TaskDataSource();
 
-  void initialize() async {
+  Future<void> initialize() async {
     final groupId = _pref.getValue<int>(Keys.groupId)!;
     final group = await _groupDataSource.get(groupId);
     state = state.copyWith(
@@ -47,7 +46,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(tasks: tasks);
   }
 
-  void onClearCompleted() async {
+  Future<void> onClearCompleted() async {
     state = state.copyWith(isShowCompleted: false);
     final groupId = state.group!.id;
     await _taskDataSource.clearComplete(groupId);
@@ -58,13 +57,13 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(isShowCompleted: !state.isShowCompleted);
   }
 
-  void onToggleCheck(Task task) async {
+  Future<void> onToggleCheck(Task task) async {
     task.isCompleted = task.isCompleted == null ? DateTime.now() : null;
     await _taskDataSource.update(task);
     getAll();
   }
 
-  void onRestore() async {
+  Future<void> onRestore() async {
     BuildContext context = navigatorKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
@@ -109,7 +108,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     });
   }
 
-  void _restore() async {
+  Future<void> _restore() async {
     await NotificationService.cancelAll();
     await _isarDataSource.restore();
     final group = await _groupDataSource.add(

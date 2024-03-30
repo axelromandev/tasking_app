@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:isar/isar.dart';
+import 'package:tasking/app/data/repositories/isar_repository.dart';
 import 'package:tasking/app/domain/domain.dart';
-
-import '../../../core/core.dart';
-import '../repositories/isar_repository.dart';
+import 'package:tasking/core/core.dart';
 
 class IsarDataSource implements IsarRepository {
   final Isar _isar = IsarService.isar;

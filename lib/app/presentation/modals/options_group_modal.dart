@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
-import '../../domain/domain.dart';
-import '../providers/home_provider.dart';
-import '../providers/select_group_provider.dart';
-import '../widgets/widgets.dart';
-import 'edit_group_modal.dart';
+import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/app/presentation/modals/edit_group_modal.dart';
+import 'package:tasking/app/presentation/providers/home_provider.dart';
+import 'package:tasking/app/presentation/providers/select_group_provider.dart';
+import 'package:tasking/app/presentation/widgets/widgets.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class OptionsGroupModal extends ConsumerWidget {
   const OptionsGroupModal(this.group, {super.key});

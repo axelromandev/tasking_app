@@ -6,11 +6,10 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/app/app.dart';
+import 'package:tasking/app/presentation/modals/select_date_time_modal.dart';
+import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
-import '../modals/select_date_time_modal.dart';
+import 'package:tasking/generated/l10n.dart';
 
 final addTaskProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -37,7 +36,7 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(name: value);
   }
 
-  void onAddDueDate(BuildContext context) async {
+  Future<void> onAddDueDate(BuildContext context) async {
     final dateToday = DateTime(_now.year, _now.month, _now.day, 23, 59);
     final dateTomorrow = DateTime(_now.year, _now.month, _now.day + 1, 23, 59);
 
@@ -92,7 +91,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void _customDateTime(BuildContext context) async {
+  Future<void> _customDateTime(BuildContext context) async {
     await showModalBottomSheet<DueDate?>(
       context: context,
       elevation: 0,
@@ -110,7 +109,7 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void onEditDueDate(BuildContext context) async {
+  Future<void> onEditDueDate(BuildContext context) async {
     await showModalBottomSheet<DueDate?>(
       context: context,
       elevation: 0,
@@ -137,7 +136,7 @@ class _Notifier extends StateNotifier<_State> {
     state = state.removeDueDate();
   }
 
-  void onSubmit(BuildContext context) async {
+  Future<void> onSubmit(BuildContext context) async {
     final name = state.name.trim();
     if (name.isEmpty) return;
     DueDate? dueDate;

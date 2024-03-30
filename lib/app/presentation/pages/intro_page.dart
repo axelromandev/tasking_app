@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
-import '../presentation.dart';
-import '../providers/intro_provider.dart';
+import 'package:tasking/app/presentation/presentation.dart';
+import 'package:tasking/app/presentation/providers/intro_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class IntroPage extends ConsumerWidget {
   const IntroPage({super.key});

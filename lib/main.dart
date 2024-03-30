@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/core/services/dotenv.dart';
-
-import 'config/config.dart';
-import 'core/core.dart';
-import 'generated/l10n.dart';
+import 'package:tasking/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

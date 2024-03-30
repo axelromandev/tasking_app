@@ -12,10 +12,10 @@ class CustomOutlinedButton extends StatelessWidget {
 
   const CustomOutlinedButton({
     required this.onPressed,
+    required this.child,
     this.icon,
     this.backgroundColor,
     this.foregroundColor,
-    required this.child,
     this.margin,
     this.padding,
     this.elevation,

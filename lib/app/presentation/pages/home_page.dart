@@ -5,14 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
-import '../../domain/domain.dart';
-import '../modals/add_task_modal.dart';
-import '../modals/select_group_modal.dart';
-import '../modals/task_modal.dart';
-import '../presentation.dart';
+import 'package:tasking/app/domain/domain.dart';
+import 'package:tasking/app/presentation/modals/add_task_modal.dart';
+import 'package:tasking/app/presentation/modals/select_group_modal.dart';
+import 'package:tasking/app/presentation/modals/task_modal.dart';
+import 'package:tasking/app/presentation/presentation.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

@@ -22,7 +22,7 @@ class _Notifier extends StateNotifier<bool> {
   final _isarDataSource = IsarDataSource();
   final now = DateTime.now();
 
-  void exportToDevice() async {
+  Future<void> exportToDevice() async {
     state = true;
     final directory = await getApplicationDocumentsDirectory();
     final fileJson = File('${directory.path}/backup.json');
@@ -44,7 +44,7 @@ class _Notifier extends StateNotifier<bool> {
     }
   }
 
-  void importFromDevice() async {
+  Future<void> importFromDevice() async {
     state = true;
     File? fileJson;
     try {

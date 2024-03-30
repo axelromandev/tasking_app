@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../../../core/core.dart';
+import 'package:tasking/core/core.dart';
 
 final notificationsProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier();
@@ -13,17 +12,17 @@ class _Notifier extends StateNotifier<_State> {
     _initialize();
   }
 
-  void _initialize() async {
+  Future<void> _initialize() async {
     final status = await Permission.notification.request();
     state = state.copyWith(isGrantedNotification: status.isGranted);
   }
 
-  void onToggleReminder(bool value) async {
+  Future<void> onToggleReminder(bool value) async {
     if (!state.isGrantedNotification) return;
     state = state.copyWith(isEnableReminder: value);
   }
 
-  void onSelectTime(BuildContext context) async {
+  Future<void> onSelectTime(BuildContext context) async {
     await showScrollTimePicker(
       context: context,
       initialTime: state.reminder,

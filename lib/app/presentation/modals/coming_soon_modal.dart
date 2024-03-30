@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/const/constants.dart';
-
-import '../../../generated/l10n.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class ComingSoonModal extends StatelessWidget {
   const ComingSoonModal({super.key});

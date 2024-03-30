@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/app/app.dart';
-
-import '../../../core/core.dart';
+import 'package:tasking/core/core.dart';
 
 final editGroupProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, GroupTasks>((ref, group) {
@@ -47,11 +46,11 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(name: '');
   }
 
-  void onIconChanged(IconData icon) async {
+  Future<void> onIconChanged(IconData icon) async {
     state = state.copyWith(icon: icon);
   }
 
-  void onUpdateGroup(BuildContext context) async {
+  Future<void> onUpdateGroup(BuildContext context) async {
     try {
       group.icon = GroupIcon(
         codePoint: state.icon.codePoint,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../config/config.dart';
+import 'package:tasking/config/config.dart';
 
 class BoxIconsPicker {
   static Future<IconData?> showModal(BuildContext context) async {

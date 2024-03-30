@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../core/core.dart';
-import '../../data/data.dart';
+import 'package:tasking/app/data/data.dart';
+import 'package:tasking/core/core.dart';
 
 final addGroupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -30,7 +29,7 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(icon: icon);
   }
 
-  void onAddGroup(BuildContext context) async {
+  Future<void> onAddGroup(BuildContext context) async {
     try {
       await _groupDataSource.add(state.name, state.icon).then((_) {
         Navigator.pop(context);

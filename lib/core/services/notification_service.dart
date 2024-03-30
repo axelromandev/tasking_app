@@ -55,9 +55,9 @@ class NotificationService {
   static Future<void> showScheduleNotification({
     required int id,
     required String title,
+    required DateTime scheduledDate,
     String? body,
     String? payload,
-    required DateTime scheduledDate,
   }) async {
     tz.initializeTimeZones();
     await _flutterLocalNotificationsPlugin.zonedSchedule(

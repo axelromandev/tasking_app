@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:tasking/app/data/data.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/generated/l10n.dart';
-
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../data/data.dart';
 
 final introProvider = StateNotifierProvider.autoDispose<_Notifier, void>((ref) {
   return _Notifier();

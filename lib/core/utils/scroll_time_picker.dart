@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:numberpicker/numberpicker.dart';
-
-import '../../config/config.dart';
+import 'package:tasking/config/config.dart';
 
 Future<void> showScrollTimePicker({
   required BuildContext context,
@@ -22,7 +21,7 @@ Future<void> showScrollTimePicker({
 }
 
 class _TimePicker extends StatefulWidget {
-  const _TimePicker({this.initialTime, required this.onSelected});
+  const _TimePicker({required this.onSelected, this.initialTime});
 
   final TimeOfDay? initialTime;
   final Function(TimeOfDay) onSelected;

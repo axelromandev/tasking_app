@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
-import '../modals/coming_soon_modal.dart';
-import '../providers/notifications_provider.dart';
-import '../widgets/widgets.dart';
+import 'package:tasking/app/presentation/modals/coming_soon_modal.dart';
+import 'package:tasking/app/presentation/providers/notifications_provider.dart';
+import 'package:tasking/app/presentation/widgets/widgets.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/generated/l10n.dart';
 
 class NotificationsPage extends ConsumerWidget {
   const NotificationsPage({super.key});
