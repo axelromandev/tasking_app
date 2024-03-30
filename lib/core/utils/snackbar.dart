@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasking/config/config.dart';
+
+import '../../config/config.dart';
 
 enum SnackBarType { info, success, error, warning }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tasking/config/const/constants.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/const/constants.dart';
+import '../../../generated/l10n.dart';
 
 class LanguagePage extends StatelessWidget {
   const LanguagePage({super.key});

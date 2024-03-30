@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tasking/core/core.dart';
+
+import '../../../core/core.dart';
 
 final notificationsProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier();

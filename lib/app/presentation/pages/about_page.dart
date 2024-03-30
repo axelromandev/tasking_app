@@ -5,10 +5,11 @@ import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/core/core.dart';
-import 'package:tasking/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../config/config.dart';
+import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});

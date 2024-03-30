@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
-import 'package:tasking/app/data/repositories/group_repository.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/core/core.dart';
+
+import '../../../core/core.dart';
+import '../../domain/domain.dart';
+import '../repositories/group_repository.dart';
 
 class GroupDataSource implements GroupRepository {
   final Isar _isar = IsarService.isar;

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/app/data/data.dart';
-import 'package:tasking/app/domain/domain.dart';
+
+import '../../data/data.dart';
+import '../../domain/domain.dart';
 
 final selectGroupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {

@@ -4,12 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/app.dart';
-import 'package:tasking/app/presentation/modals/add_group_modal.dart';
-import 'package:tasking/app/presentation/modals/options_group_modal.dart';
-import 'package:tasking/app/presentation/providers/select_group_provider.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
+import '../../app.dart';
+import '../providers/select_group_provider.dart';
+import 'add_group_modal.dart';
+import 'options_group_modal.dart';
 
 class SelectGroupModal extends ConsumerWidget {
   const SelectGroupModal({super.key});

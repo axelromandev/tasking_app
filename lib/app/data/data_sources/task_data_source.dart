@@ -1,7 +1,8 @@
 import 'package:isar/isar.dart';
-import 'package:tasking/app/data/repositories/task_repository.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/core/core.dart';
+
+import '../../../core/core.dart';
+import '../../domain/domain.dart';
+import '../repositories/task_repository.dart';
 
 class TaskDataSource implements TaskRepository {
   final Isar _isar = IsarService.isar;

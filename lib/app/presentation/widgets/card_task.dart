@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/core/core.dart';
+
+import '../../../core/core.dart';
+import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
   final VoidCallback onShowDetails;

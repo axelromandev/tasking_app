@@ -5,7 +5,8 @@ import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tasking/app/app.dart';
+
+import '../../app.dart';
 
 final backupProvider =
     StateNotifierProvider.autoDispose<_Notifier, bool>((ref) {

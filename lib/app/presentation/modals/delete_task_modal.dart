@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasking/app/presentation/widgets/widgets.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/config.dart';
+import '../../../generated/l10n.dart';
+import '../widgets/widgets.dart';
 
 class DeleteTaskModal extends StatelessWidget {
   const DeleteTaskModal({super.key});

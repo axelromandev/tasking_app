@@ -8,14 +8,15 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:tasking/app/data/data.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/app/presentation/modals/delete_task_modal.dart';
-import 'package:tasking/app/presentation/modals/select_date_time_modal.dart';
-import 'package:tasking/app/presentation/presentation.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/core/core.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/config.dart';
+import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
+import '../../data/data.dart';
+import '../../domain/domain.dart';
+import '../modals/delete_task_modal.dart';
+import '../modals/select_date_time_modal.dart';
+import '../presentation.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, Task>((ref, task) {

@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/data/data.dart';
-import 'package:tasking/app/domain/domain.dart';
-import 'package:tasking/app/presentation/widgets/widgets.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/core/core.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/config.dart';
+import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
+import '../../data/data.dart';
+import '../../domain/domain.dart';
+import '../widgets/widgets.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
   return HomeNotifier(ref);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/config/config.dart';
+
+import '../config.dart';
 
 final appThemeProvider = Provider<ThemeData>((ref) {
   final colorSeed = ref.watch(colorThemeProvider);

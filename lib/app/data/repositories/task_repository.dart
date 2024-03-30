@@ -1,4 +1,4 @@
-import 'package:tasking/app/domain/domain.dart';
+import '../../domain/domain.dart';
 
 abstract interface class TaskRepository {
   Future<Task> get(int id);

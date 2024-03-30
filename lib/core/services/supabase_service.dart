@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tasking/core/services/dotenv.dart';
+
+import 'dotenv.dart';
 
 class SupabaseService {
   static Future<void> initialize() async {

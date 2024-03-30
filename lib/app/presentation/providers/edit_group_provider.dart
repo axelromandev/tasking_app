@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:tasking/app/app.dart';
-import 'package:tasking/core/core.dart';
+
+import '../../../core/core.dart';
+import '../../app.dart';
 
 final editGroupProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, GroupTasks>((ref, group) {

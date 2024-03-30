@@ -4,11 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
-import 'package:tasking/app/app.dart';
-import 'package:tasking/app/presentation/providers/notifications_provider.dart';
-import 'package:tasking/config/config.dart';
-import 'package:tasking/core/core.dart';
-import 'package:tasking/generated/l10n.dart';
+
+import '../../../config/config.dart';
+import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
+import '../../app.dart';
+import '../providers/notifications_provider.dart';
 
 class SelectDateTimeModal extends ConsumerStatefulWidget {
   const SelectDateTimeModal({this.initialDueDate, super.key});

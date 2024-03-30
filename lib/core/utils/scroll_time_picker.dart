@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'package:tasking/config/config.dart';
+
+import '../../config/config.dart';
 
 Future<void> showScrollTimePicker({
   required BuildContext context,
