@@ -22,6 +22,7 @@ migrate_working_dir/
 #.vscode/
 generated
 pubspec.lock
+*.env
 
 # Flutter/Dart/Pub related
 **/doc/api/

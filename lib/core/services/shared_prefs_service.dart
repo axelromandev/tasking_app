@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
   static late SharedPreferences _prefs;
 
   static Future<void> initialize() async {
-    _prefs = await SharedPreferences.getInstance();
+    try {
+      _prefs = await SharedPreferences.getInstance();
+    } catch (e) {
+      log('Error', name: 'SharedPrefs', error: e);
+    }
   }
 
   T? getValue<T>(String key) {

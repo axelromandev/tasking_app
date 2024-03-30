@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -9,26 +11,30 @@ class NotificationService {
 
   static final onClickNotification = BehaviorSubject<String>();
 
-  static void onNotificationTap(NotificationResponse response) {
-    onClickNotification.add(response.payload ?? '');
+  static Future<void> initialize() async {
+    try {
+      const initSettingsAndroid = AndroidInitializationSettings('app_icon');
+      final initSettingsDarwin = DarwinInitializationSettings(
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+          onDidReceiveLocalNotification: (id, title, body, payload) {});
+      final initializationSettings = InitializationSettings(
+        android: initSettingsAndroid,
+        iOS: initSettingsDarwin,
+      );
+      await _flutterLocalNotificationsPlugin.initialize(
+        initializationSettings,
+        onDidReceiveNotificationResponse: onNotificationTap,
+        onDidReceiveBackgroundNotificationResponse: onNotificationTap,
+      );
+    } catch (e) {
+      log('Error', name: 'NotificationService', error: e);
+    }
   }
 
-  static Future<void> initialize() async {
-    const initSettingsAndroid = AndroidInitializationSettings('app_icon');
-    final initSettingsDarwin = DarwinInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: (id, title, body, payload) {});
-    final initializationSettings = InitializationSettings(
-      android: initSettingsAndroid,
-      iOS: initSettingsDarwin,
-    );
-    await _flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: onNotificationTap,
-      onDidReceiveBackgroundNotificationResponse: onNotificationTap,
-    );
+  static void onNotificationTap(NotificationResponse response) {
+    onClickNotification.add(response.payload ?? '');
   }
 
   static Future<NotificationDetails> _notificationSimpleDetails() async {

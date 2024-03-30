@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/core/services/dotenv.dart';
 
 import 'config/config.dart';
 import 'core/core.dart';
@@ -8,9 +9,11 @@ import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DotEnv.initialize();
+  await NotificationService.initialize();
+  await SupabaseService.initialize();
   await IsarService.initialize();
   await SharedPrefs.initialize();
-  await NotificationService.initialize();
   runApp(const ProviderScope(
     child: MainApp(),
   ));
