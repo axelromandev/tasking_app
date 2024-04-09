@@ -13,15 +13,14 @@ class NotificationService {
 
   static Future<void> initialize() async {
     try {
-      const initSettingsAndroid = AndroidInitializationSettings('app_icon');
-      final initSettingsDarwin = DarwinInitializationSettings(
-          requestAlertPermission: true,
-          requestBadgePermission: true,
-          requestSoundPermission: true,
-          onDidReceiveLocalNotification: (id, title, body, payload) {});
       final initializationSettings = InitializationSettings(
-        android: initSettingsAndroid,
-        iOS: initSettingsDarwin,
+        android: const AndroidInitializationSettings('app_icon'),
+        iOS: DarwinInitializationSettings(
+          requestSoundPermission: false,
+          requestBadgePermission: false,
+          requestAlertPermission: false,
+          onDidReceiveLocalNotification: (id, title, body, payload) {},
+        ),
       );
       await _flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
