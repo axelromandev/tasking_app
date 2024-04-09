@@ -6,8 +6,9 @@ class CustomFilledButton extends StatelessWidget {
   final Color? backgroundColor, foregroundColor;
   final Widget child;
   final EdgeInsetsGeometry? margin, padding;
-  final double? elevation;
+  final double? elevation, height;
   final TextStyle? textStyle;
+  final BorderSide? side;
 
   const CustomFilledButton({
     required this.onPressed,
@@ -18,7 +19,9 @@ class CustomFilledButton extends StatelessWidget {
     this.margin,
     this.padding,
     this.elevation,
+    this.height = 56,
     this.textStyle,
+    this.side,
     super.key,
   });
 
@@ -31,6 +34,7 @@ class CustomFilledButton extends StatelessWidget {
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
       backgroundColor: backgroundColor ?? colors.primary,
       foregroundColor: foregroundColor,
+      side: side,
     );
 
     if (icon != null) {
@@ -49,7 +53,7 @@ class CustomFilledButton extends StatelessWidget {
     }
 
     return Container(
-      height: 56,
+      height: height,
       width: double.infinity,
       margin: margin,
       padding: padding,
