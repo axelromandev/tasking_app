@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app.dart';
+import '../../app/presentation/pages/intro_setup_page.dart';
 import '../../app/presentation/pages/language_page.dart';
 import '../../core/core.dart';
 import '../const/constants.dart';
@@ -22,6 +23,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RoutesPath.intro,
         builder: (_, __) => const IntroPage(),
+      ),
+      GoRoute(
+        path: RoutesPath.introSetup,
+        builder: (_, __) => const IntroSetupPage(),
       ),
       GoRoute(
         path: RoutesPath.home,
@@ -45,7 +50,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       )
     ],
     redirect: (context, state) {
+      final isGoingTo = state.fullPath;
       if (pref.getValue<bool>(Keys.isFirstTime) == null) {
+        if (isGoingTo == RoutesPath.introSetup) {
+          return RoutesPath.introSetup;
+        }
         return RoutesPath.intro;
       }
       return null;
