@@ -4,16 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'config/config.dart';
 import 'core/core.dart';
-import 'core/services/dotenv.dart';
 import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DotEnv.initialize();
-  await NotificationService.initialize();
-  await SupabaseService.initialize();
-  await IsarService.initialize();
   await SharedPrefs.initialize();
+  await IsarService.initialize();
+  await FirebaseService.initialize();
+  await NotificationService.initialize();
   runApp(const ProviderScope(
     child: MainApp(),
   ));
