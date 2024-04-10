@@ -36,7 +36,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     );
   }
 
-  void onSelectGroup(GroupTasks group) {
+  void onSelectGroup(ListTasks group) {
     _pref.setKeyValue<int>(Keys.groupId, group.id);
     state = state.copyWith(group: group, tasks: group.tasks.toList());
   }
@@ -131,7 +131,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
 class HomeState {
   final bool isShowCompleted;
-  final GroupTasks? group;
+  final ListTasks? group;
   final List<Task> tasks;
   final DateTime? date;
 
@@ -144,7 +144,7 @@ class HomeState {
 
   HomeState copyWith({
     bool? isShowCompleted,
-    GroupTasks? group,
+    ListTasks? group,
     List<Task>? tasks,
     DateTime? date,
   }) {

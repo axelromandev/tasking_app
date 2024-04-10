@@ -12,7 +12,7 @@ import '../providers/edit_group_provider.dart';
 class EditGroupModal extends ConsumerWidget {
   const EditGroupModal(this.group, {super.key});
 
-  final GroupTasks group;
+  final ListTasks group;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

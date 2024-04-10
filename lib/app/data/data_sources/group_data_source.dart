@@ -9,37 +9,37 @@ class GroupDataSource implements GroupRepository {
   final Isar _isar = IsarService.isar;
 
   @override
-  Future<List<GroupTasks>> fetchAll() async {
-    return await _isar.groupTasks.where().findAll();
+  Future<List<ListTasks>> fetchAll() async {
+    return await _isar.listTasks.where().findAll();
   }
 
   @override
-  Future<GroupTasks?> get(int id) async {
-    return await _isar.groupTasks.get(id);
+  Future<ListTasks?> get(int id) async {
+    return await _isar.listTasks.get(id);
   }
 
   @override
-  Future<GroupTasks> add(String name, IconData icon) async {
+  Future<ListTasks> add(String name, IconData icon) async {
     return await _isar.writeTxn(() async {
-      final id = await _isar.groupTasks.put(
-        GroupTasks(
+      final id = await _isar.listTasks.put(
+        ListTasks(
           name: name,
-          icon: GroupIcon(
+          icon: ListIconData(
             codePoint: icon.codePoint,
             fontFamily: icon.fontFamily,
             fontPackage: icon.fontPackage,
           ),
         ),
       );
-      final group = await _isar.groupTasks.get(id);
+      final group = await _isar.listTasks.get(id);
       return group!;
     });
   }
 
   @override
-  Future<void> update(GroupTasks group) async {
+  Future<void> update(ListTasks group) async {
     await _isar.writeTxn(() async {
-      await _isar.groupTasks.put(group);
+      await _isar.listTasks.put(group);
     });
   }
 
@@ -47,7 +47,7 @@ class GroupDataSource implements GroupRepository {
   Future<void> delete(int id) async {
     await _isar.writeTxn(() async {
       await _isar.tasks.filter().groupIdEqualTo(id).deleteAll();
-      await _isar.groupTasks.delete(id);
+      await _isar.listTasks.delete(id);
     });
   }
 }

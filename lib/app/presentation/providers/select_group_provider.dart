@@ -20,18 +20,18 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(groups: groups);
   }
 
-  Future<void> onDeleteGroup(GroupTasks group) async {
+  Future<void> onDeleteGroup(ListTasks group) async {
     await _groupDataSource.delete(group.id);
     initialize();
   }
 }
 
 class _State {
-  final List<GroupTasks> groups;
+  final List<ListTasks> groups;
 
   _State({this.groups = const []});
 
-  _State copyWith({List<GroupTasks>? groups}) {
+  _State copyWith({List<ListTasks>? groups}) {
     return _State(groups: groups ?? this.groups);
   }
 }

@@ -23,6 +23,7 @@ migrate_working_dir/
 generated
 pubspec.lock
 firebase_options.dart
+*.g.dart
 
 # Flutter/Dart/Pub related
 **/doc/api/

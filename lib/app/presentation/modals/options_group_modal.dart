@@ -16,7 +16,7 @@ import 'edit_group_modal.dart';
 class OptionsGroupModal extends ConsumerWidget {
   const OptionsGroupModal(this.group, {super.key});
 
-  final GroupTasks group;
+  final ListTasks group;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

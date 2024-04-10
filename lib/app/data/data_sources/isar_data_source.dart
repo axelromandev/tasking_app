@@ -11,7 +11,7 @@ class IsarDataSource implements IsarRepository {
 
   @override
   Future<String> export() async {
-    final groups = await _isar.groupTasks.where().findAll();
+    final groups = await _isar.listTasks.where().findAll();
     final tasks = await _isar.tasks.where().findAll();
     final data = {
       'groups': groups.map((e) => e.toJson()).toList(),
@@ -32,12 +32,12 @@ class IsarDataSource implements IsarRepository {
       tasksJson.add(task);
     }
     await _isar.writeTxn(() async {
-      await _isar.groupTasks.clear();
-      await _isar.groupTasks.importJson(groupsJson);
+      await _isar.listTasks.clear();
+      await _isar.listTasks.importJson(groupsJson);
       await _isar.tasks.clear();
       await _isar.tasks.importJson(tasksJson);
     });
-    final groups = await _isar.groupTasks.where().findAll();
+    final groups = await _isar.listTasks.where().findAll();
     for (var group in groups) {
       final tasks =
           await _isar.tasks.where().filter().groupIdEqualTo(group.id).findAll();
@@ -51,7 +51,7 @@ class IsarDataSource implements IsarRepository {
   @override
   Future<void> restore() async {
     await _isar.writeTxn(() async {
-      await _isar.groupTasks.clear();
+      await _isar.listTasks.clear();
       await _isar.tasks.clear();
     });
   }

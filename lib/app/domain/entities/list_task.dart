@@ -3,18 +3,18 @@ import 'package:isar/isar.dart';
 
 import 'task.dart';
 
-part 'group.g.dart';
+part 'list_task.g.dart';
 
 @collection
-class GroupTasks {
+class ListTasks {
   Id id = Isar.autoIncrement;
   String name;
   String? password;
-  GroupIcon? icon;
+  ListIconData? icon;
 
   final tasks = IsarLinks<Task>();
 
-  GroupTasks({
+  ListTasks({
     required this.name,
     this.password,
     this.icon,
@@ -31,12 +31,12 @@ class GroupTasks {
 }
 
 @embedded
-class GroupIcon {
+class ListIconData {
   final int? codePoint;
   final String? fontFamily;
   final String? fontPackage;
 
-  const GroupIcon({
+  const ListIconData({
     this.codePoint,
     this.fontFamily,
     this.fontPackage,

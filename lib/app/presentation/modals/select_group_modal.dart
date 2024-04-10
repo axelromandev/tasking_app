@@ -26,7 +26,7 @@ class SelectGroupModal extends ConsumerWidget {
 
     final groupIdSelected = ref.watch(homeProvider).group!.id;
 
-    void onOptions(GroupTasks group) {
+    void onOptions(ListTasks group) {
       HapticFeedback.heavyImpact();
       showModalBottomSheet(
         context: context,

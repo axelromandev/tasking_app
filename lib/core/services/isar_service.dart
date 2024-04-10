@@ -12,7 +12,7 @@ class IsarService {
     try {
       final dir = await getApplicationDocumentsDirectory();
       isar = await Isar.open(
-        [TaskSchema, GroupTasksSchema],
+        [TaskSchema, ListTasksSchema],
         directory: dir.path,
       );
     } catch (e) {

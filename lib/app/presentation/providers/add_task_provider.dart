@@ -20,7 +20,7 @@ final addTaskProvider =
 });
 
 class _Notifier extends StateNotifier<_State> {
-  final GroupTasks group;
+  final ListTasks group;
   final Future<void> Function() getAll;
 
   _Notifier({

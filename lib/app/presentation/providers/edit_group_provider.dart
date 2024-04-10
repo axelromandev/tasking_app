@@ -6,7 +6,7 @@ import '../../../core/core.dart';
 import '../../app.dart';
 
 final editGroupProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, _State, GroupTasks>((ref, group) {
+    .autoDispose<_Notifier, _State, ListTasks>((ref, group) {
   final groupIdSelected = ref.read(homeProvider).group!.id;
   final onSelectGroup = ref.read(homeProvider.notifier).onSelectGroup;
 
@@ -18,9 +18,9 @@ final editGroupProvider = StateNotifierProvider.family
 });
 
 class _Notifier extends StateNotifier<_State> {
-  final GroupTasks group;
+  final ListTasks group;
   final int groupIdSelected;
-  final void Function(GroupTasks) onSelectGroup;
+  final void Function(ListTasks) onSelectGroup;
 
   _Notifier({
     required this.group,
@@ -53,7 +53,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onUpdateGroup(BuildContext context) async {
     try {
-      group.icon = GroupIcon(
+      group.icon = ListIconData(
         codePoint: state.icon.codePoint,
         fontFamily: state.icon.fontFamily,
         fontPackage: state.icon.fontPackage,

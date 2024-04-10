@@ -27,7 +27,7 @@ class TaskDataSource implements TaskRepository {
       dueDate: dueDate,
       createAt: DateTime.now(),
     );
-    final query = _isar.groupTasks.where().filter().idEqualTo(groupId);
+    final query = _isar.listTasks.where().filter().idEqualTo(groupId);
     final group = await query.findFirst();
     group!.tasks.add(task);
     await _isar.writeTxn(() async {
