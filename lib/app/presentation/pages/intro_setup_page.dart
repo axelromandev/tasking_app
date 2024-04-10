@@ -6,7 +6,6 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
 import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -155,6 +154,7 @@ class _IntroTaskLists extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
+    final provider = ref.watch(introProvider);
     final notifier = ref.read(introProvider.notifier);
 
     return SafeArea(
@@ -179,74 +179,55 @@ class _IntroTaskLists extends ConsumerWidget {
               style: style.bodyLarge,
             ),
             const Gap(defaultPadding),
-            Container(
-              margin: const EdgeInsets.only(bottom: defaultPadding),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
+            ...provider.taskLists.map(
+              (e) => Container(
+                margin: const EdgeInsets.only(bottom: defaultPadding),
+                child: ListTile(
+                  onTap:
+                      e.isDefault ? null : () => notifier.onRemoveTaskList(e),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(defaultRadius),
+                  ),
+                  tileColor: Colors.white.withOpacity(0.06),
+                  iconColor: colors.primary,
+                  leading: Icon(e.icon),
+                  title: Text(e.title),
+                  trailing: e.isDefault
+                      ? Text('Default',
+                          style: style.bodySmall?.copyWith(
+                            color: Colors.white70,
+                          ))
+                      : Text('Remove',
+                          style: style.bodySmall?.copyWith(
+                            color: Colors.redAccent,
+                          )),
                 ),
-                tileColor: Colors.white.withOpacity(0.06),
-                iconColor: colors.primary,
-                leading: const Icon(BoxIcons.bx_list_ul),
-                title: Text(S.current.default_group_1),
-                trailing: Text('Default',
-                    style: style.bodySmall?.copyWith(
-                      color: Colors.white70,
-                    )),
               ),
-            ),
-            const Gap(defaultPadding * 2),
-            Text(
-              'Suggestions List',
-              style: style.bodyLarge,
             ),
             const Gap(defaultPadding),
-            Container(
-              margin: const EdgeInsets.only(bottom: defaultPadding),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
-                ),
-                tileColor: Colors.white.withOpacity(0.06),
-                iconColor: colors.primary,
-                leading: const Icon(BoxIcons.bx_cart),
-                title: Text(S.current.default_group_2),
-                trailing: Text('Add',
-                    style: style.bodySmall?.copyWith(
-                      color: colors.primary,
-                    )),
+            if (provider.suggestionsLists.isNotEmpty)
+              Text(
+                'Suggestions List',
+                style: style.bodyLarge,
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: defaultPadding),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
+            const Gap(defaultPadding),
+            ...provider.suggestionsLists.map(
+              (e) => Container(
+                margin: const EdgeInsets.only(bottom: defaultPadding),
+                child: ListTile(
+                  onTap: () => notifier.onAddTaskList(e),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(defaultRadius),
+                  ),
+                  tileColor: Colors.white.withOpacity(0.06),
+                  iconColor: colors.primary,
+                  leading: Icon(e.icon),
+                  title: Text(e.title),
+                  trailing: Text('Add',
+                      style: style.bodySmall?.copyWith(
+                        color: colors.primary,
+                      )),
                 ),
-                tileColor: Colors.white.withOpacity(0.06),
-                iconColor: colors.primary,
-                leading: const Icon(BoxIcons.bx_briefcase),
-                title: Text(S.current.default_group_3),
-                trailing: Text('Add',
-                    style: style.bodySmall?.copyWith(
-                      color: colors.primary,
-                    )),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: defaultPadding),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultRadius),
-                ),
-                tileColor: Colors.white.withOpacity(0.06),
-                iconColor: colors.primary,
-                leading: const Icon(BoxIcons.bx_star),
-                title: const Text('Important'),
-                trailing: Text('Add',
-                    style: style.bodySmall?.copyWith(
-                      color: colors.primary,
-                    )),
               ),
             ),
             const Spacer(),

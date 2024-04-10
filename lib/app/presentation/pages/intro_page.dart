@@ -24,6 +24,8 @@ class IntroPage extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  Icon(BoxIcons.bxs_crown, color: colors.primary, size: 28),
+                  const Gap(defaultPadding / 2),
                   Text('Tasking',
                       style: style.displaySmall?.copyWith(
                         fontWeight: FontWeight.w500,

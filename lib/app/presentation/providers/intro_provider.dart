@@ -1,17 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../core/core.dart';
 import '../../data/data.dart';
 
 final introProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  return _Notifier();
+  final user = ref.read(authProvider).user;
+
+  return _Notifier(user);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier() : super(_State()) {
+  final User? user;
+
+  _Notifier(this.user) : super(_State()) {
     _initialize();
   }
 
@@ -41,6 +48,28 @@ class _Notifier extends StateNotifier<_State> {
       curve: Curves.easeInOut,
     );
     state = state.copyWith(currentPage: state.currentPage - 1);
+  }
+
+  void onAddTaskList(_IntroTaskList e) {
+    final taskLists = state.taskLists.toList();
+    final suggestionsLists = state.suggestionsLists.toList();
+    taskLists.add(e);
+    suggestionsLists.remove(e);
+    state = state.copyWith(
+      taskLists: taskLists,
+      suggestionsLists: suggestionsLists,
+    );
+  }
+
+  void onRemoveTaskList(_IntroTaskList e) {
+    final taskLists = state.taskLists.toList();
+    final suggestionsLists = state.suggestionsLists.toList();
+    taskLists.remove(e);
+    suggestionsLists.add(e);
+    state = state.copyWith(
+      taskLists: taskLists,
+      suggestionsLists: suggestionsLists,
+    );
   }
 
   Future<void> onOpenAppSettings() async {
@@ -84,38 +113,64 @@ class _State {
   final int currentPage;
   final bool isCloudSyncEnabled;
   final bool isNotificationsGranted;
+  final List<_IntroTaskList> taskLists;
+  final List<_IntroTaskList> suggestionsLists;
 
-  final List<IntroSetupItem> items = [
-    IntroSetupItem(title: 'sync', skip: true),
-    IntroSetupItem(title: 'lists'),
-    IntroSetupItem(title: 'notifications'),
+  final List<_IntroSetupItem> items = [
+    const _IntroSetupItem(title: 'sync', skip: true),
+    const _IntroSetupItem(title: 'lists'),
+    const _IntroSetupItem(title: 'notifications'),
   ];
 
   _State({
     this.currentPage = 0,
     this.isCloudSyncEnabled = false,
     this.isNotificationsGranted = false,
+    this.taskLists = const [
+      _IntroTaskList(icon: BoxIcons.bx_list_ul, title: 'ToDo', isDefault: true),
+    ],
+    this.suggestionsLists = const [
+      _IntroTaskList(icon: BoxIcons.bx_cart, title: 'Shopping'),
+      _IntroTaskList(icon: BoxIcons.bx_briefcase, title: 'Work'),
+      _IntroTaskList(icon: BoxIcons.bx_star, title: 'Important'),
+    ],
   });
 
   _State copyWith({
     int? currentPage,
     bool? isCloudSyncEnabled,
     bool? isNotificationsGranted,
+    List<_IntroTaskList>? taskLists,
+    List<_IntroTaskList>? suggestionsLists,
   }) {
     return _State(
       currentPage: currentPage ?? this.currentPage,
       isCloudSyncEnabled: isCloudSyncEnabled ?? this.isCloudSyncEnabled,
       isNotificationsGranted:
           isNotificationsGranted ?? this.isNotificationsGranted,
+      taskLists: taskLists ?? this.taskLists,
+      suggestionsLists: suggestionsLists ?? this.suggestionsLists,
     );
   }
 }
 
-class IntroSetupItem {
+class _IntroTaskList {
+  final IconData icon;
+  final String title;
+  final bool isDefault;
+
+  const _IntroTaskList({
+    required this.icon,
+    required this.title,
+    this.isDefault = false,
+  });
+}
+
+class _IntroSetupItem {
   final String title;
   final bool skip;
 
-  IntroSetupItem({
+  const _IntroSetupItem({
     required this.title,
     this.skip = false,
   });
