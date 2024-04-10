@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../../core/core.dart';
 import '../../data/data.dart';
@@ -48,6 +50,27 @@ class _Notifier extends StateNotifier<_State> {
       curve: Curves.easeInOut,
     );
     state = state.copyWith(currentPage: state.currentPage - 1);
+  }
+
+  Future<void> onSignInWithGoogle() async {
+    GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+    try {
+      final credential = await googleSignIn.signIn();
+      print(credential);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> onSignInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [AppleIDAuthorizationScopes.email],
+      );
+      print(credential);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void onAddTaskList(_IntroTaskList e) {

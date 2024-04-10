@@ -250,6 +250,8 @@ class _IntroCloudSync extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
+    final notifier = ref.read(introProvider.notifier);
+
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.only(left: 28, right: 28, bottom: 28),
@@ -276,7 +278,7 @@ class _IntroCloudSync extends ConsumerWidget {
             const Spacer(),
             CustomFilledButton(
               margin: const EdgeInsets.only(top: defaultPadding),
-              onPressed: () {},
+              onPressed: notifier.onSignInWithGoogle,
               textStyle: style.bodyLarge,
               backgroundColor: Colors.white.withOpacity(0.06),
               foregroundColor: Colors.white,
@@ -290,7 +292,7 @@ class _IntroCloudSync extends ConsumerWidget {
             ),
             CustomFilledButton(
               margin: const EdgeInsets.only(top: defaultPadding),
-              onPressed: () {},
+              onPressed: notifier.onSignInWithApple,
               textStyle: style.bodyLarge,
               backgroundColor: Colors.white.withOpacity(0.06),
               foregroundColor: Colors.white,
