@@ -43,5 +43,18 @@
 		</array>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>A dependency is really used to obtain a backup saved in a .ZIP exclusively</string>
+		<key>GIDClientID</key>
+		<string>468865033284-opjoicoquq4ofmedk2rfrr9gk7gbqe0b.apps.googleusercontent.com</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.468865033284-opjoicoquq4ofmedk2rfrr9gk7gbqe0b</string>
+				</array>
+			</dict>
+		</array>
 	</dict>
 </plist>
