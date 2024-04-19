@@ -17,7 +17,7 @@ class DisableNotificationButton extends StatelessWidget {
           const SizedBox(width: 8),
           Flexible(
             child: Text(
-              S.of(context).pageNotificationsErrorPermission,
+              S.of(context).PAGE_NOTIFICATIONS_ERROR_PERMISSION,
               style: const TextStyle(
                 color: Colors.red,
                 decorationColor: Colors.red,

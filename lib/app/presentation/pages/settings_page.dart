@@ -21,7 +21,9 @@ class SettingsPage extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return Scaffold(
       appBar: AppBar(
@@ -93,7 +95,7 @@ class SettingsPage extends ConsumerWidget {
                         onTap: () => context.push(RoutesPath.language),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_world),
-                        title: Text(S.of(context).language_label),
+                        title: Text(S.of(context).LANGUAGE),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
@@ -130,7 +132,6 @@ class SettingsPage extends ConsumerWidget {
                       ),
                       ListTile(
                         onTap: () async {
-                          bool isEnglish = S.of(context).language == 'en';
                           Uri uri = isEnglish
                               ? Uri.parse(Urls.enPrivacyPolicy)
                               : Uri.parse(Urls.esPrivacyPolicy);
@@ -147,7 +148,6 @@ class SettingsPage extends ConsumerWidget {
                       ),
                       ListTile(
                         onTap: () async {
-                          bool isEnglish = S.of(context).language == 'en';
                           Uri uri = isEnglish
                               ? Uri.parse(Urls.enFeedback)
                               : Uri.parse(Urls.esFeedback);

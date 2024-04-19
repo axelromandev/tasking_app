@@ -65,7 +65,7 @@ class _SelectDateTimeModalState extends ConsumerState<SelectDateTimeModal> {
                   )
                 else
                   Text(
-                    S.of(context).button_due_date,
+                    S.of(context).BUTTON_ADD_DUE_DATE,
                     style: style.bodyMedium?.copyWith(color: Colors.white),
                   ),
                 if (isTimeSelected) ...[
@@ -93,7 +93,7 @@ class _SelectDateTimeModalState extends ConsumerState<SelectDateTimeModal> {
                           Navigator.pop(context, dueDate);
                         }
                       : null,
-                  child: Text(S.of(context).button_save),
+                  child: Text(S.of(context).BUTTON_SAVE),
                 ),
               ],
             ),

@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
+import '../../../generated/l10n.dart';
 import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -253,14 +254,14 @@ class _IntroCloudSync extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Cloud Sync',
+            Text(S.of(context).PAGE_INTRO_STEP1_TITLE,
                 style: style.displaySmall?.copyWith(
                   fontWeight: FontWeight.w500,
                   color: colors.primary,
                 )),
             const Gap(defaultPadding),
             Text(
-              'Sync your tasks across all devices, anywhere, anytime. Offline support included.',
+              S.of(context).PAGE_INTRO_STEP1_DESCRIPTION,
               style: style.bodyLarge,
             ),
             Container(
