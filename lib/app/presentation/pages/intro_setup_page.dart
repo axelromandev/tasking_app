@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -246,8 +247,6 @@ class _IntroCloudSync extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final notifier = ref.read(introProvider.notifier);
-
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.only(left: 28, right: 28, bottom: 28),
@@ -272,43 +271,90 @@ class _IntroCloudSync extends ConsumerWidget {
               ),
             ),
             const Spacer(),
-            CustomFilledButton(
-              margin: const EdgeInsets.only(top: defaultPadding),
-              onPressed: notifier.onSignInWithGoogle,
-              textStyle: style.bodyLarge,
-              backgroundColor: Colors.white.withOpacity(0.06),
-              foregroundColor: Colors.white,
-              child: const Row(
-                children: [
-                  Icon(BoxIcons.bxl_google, size: 28),
-                  Gap(8),
-                  Text('Sign in with Google'),
-                ],
-              ),
-            ),
-            CustomFilledButton(
-              margin: const EdgeInsets.only(top: defaultPadding),
-              onPressed: notifier.onSignInWithApple,
-              textStyle: style.bodyLarge,
-              backgroundColor: Colors.white.withOpacity(0.06),
-              foregroundColor: Colors.white,
-              child: const Row(
-                children: [
-                  Icon(BoxIcons.bxl_apple, size: 28),
-                  Gap(8),
-                  Text('Sign in with Apple'),
-                ],
-              ),
-            ),
-            CustomFilledButton(
-              margin: const EdgeInsets.only(top: defaultPadding),
-              onPressed: notifier.onNextPage,
-              textStyle: style.bodyLarge,
-              child: const Text('Skip for now'),
-            ),
+            _ActionsButtons(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ActionsButtons extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
+
+    final notifier = ref.read(authProvider.notifier);
+
+    final auth = ref.watch(authProvider);
+
+    bool isGoogleSignInAvailable() {
+      return auth.provider == AuthProvider.google;
+    }
+
+    bool isAppleSignInAvailable() {
+      return auth.provider == AuthProvider.apple;
+    }
+
+    return Column(
+      children: [
+        if (isGoogleSignInAvailable() || auth.user == null)
+          CustomFilledButton(
+            margin: const EdgeInsets.only(top: defaultPadding),
+            onPressed: isGoogleSignInAvailable()
+                ? notifier.logout
+                : notifier.onSignInWithGoogle,
+            textStyle: style.bodyLarge,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Colors.white12),
+            child: Row(
+              children: [
+                SvgPicture.asset('assets/svg/ic_google.svg', width: 28),
+                const Gap(8),
+                isGoogleSignInAvailable()
+                    ? Text('${auth.user?.email}')
+                    : const Text('Sign in with Google'),
+                const Spacer(),
+                isGoogleSignInAvailable()
+                    ? const Icon(BoxIcons.bx_x)
+                    : Container()
+              ],
+            ),
+          ),
+        if (isAppleSignInAvailable() || auth.user == null)
+          CustomFilledButton(
+            margin: const EdgeInsets.only(top: defaultPadding),
+            onPressed: isAppleSignInAvailable()
+                ? notifier.logout
+                : notifier.onSignInWithApple,
+            textStyle: style.bodyLarge,
+            backgroundColor: Colors.transparent,
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Colors.white12),
+            child: Row(
+              children: [
+                const Icon(BoxIcons.bxl_apple, size: 28),
+                const Gap(8),
+                isAppleSignInAvailable()
+                    ? Text('${auth.user?.email}')
+                    : const Text('Sign in with Apple'),
+                const Spacer(),
+                isAppleSignInAvailable()
+                    ? const Icon(BoxIcons.bx_x)
+                    : Container()
+              ],
+            ),
+          ),
+        CustomFilledButton(
+          margin: const EdgeInsets.only(top: defaultPadding),
+          onPressed: ref.read(introProvider.notifier).onNextPage,
+          textStyle: style.bodyLarge,
+          child: (auth.user != null)
+              ? const Text('Continue')
+              : const Text('Skip for now'),
+        ),
+      ],
     );
   }
 }
