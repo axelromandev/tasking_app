@@ -21,36 +21,32 @@ class IntroSetupPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: SizedBox(
-          height: 10,
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (_, __) => const Gap(4),
-            itemCount: provider.items.length,
-            itemBuilder: (_, index) => Container(
-              width: defaultPadding,
-              decoration: BoxDecoration(
-                color: index == provider.currentPage
-                    ? Colors.white
-                    : Colors.white12,
-                shape: BoxShape.circle,
+        actions: [
+          SizedBox(
+            height: 10,
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (_, __) => const Gap(4),
+              itemCount: 3,
+              itemBuilder: (_, index) => Container(
+                width: defaultPadding,
+                decoration: BoxDecoration(
+                  color: index == provider.currentPage
+                      ? Colors.white
+                      : Colors.white12,
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ),
-        ),
+          const Gap(defaultPadding),
+        ],
         leading: IconButton(
           onPressed: () => notifier.onPreviousPage(context),
           icon: const Icon(BoxIcons.bx_arrow_back),
         ),
-        actions: [
-          if (provider.items[provider.currentPage].skip)
-            TextButton(
-              onPressed: notifier.onNextPage,
-              child: const Text('skip'),
-            ),
-        ],
       ),
       body: PageView(
         controller: notifier.pageController,
@@ -258,13 +254,6 @@ class _IntroCloudSync extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                'assets/svg/undraw_cloud_sync.svg',
-                height: 260,
-              ),
-            ),
             Text('Cloud Sync',
                 style: style.displaySmall?.copyWith(
                   fontWeight: FontWeight.w500,
@@ -274,6 +263,13 @@ class _IntroCloudSync extends ConsumerWidget {
             Text(
               'Sync your tasks across all devices, anywhere, anytime. Offline support included.',
               style: style.bodyLarge,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: SvgPicture.asset(
+                'assets/svg/undraw_cloud_sync.svg',
+                height: 260,
+              ),
             ),
             const Spacer(),
             CustomFilledButton(
@@ -303,6 +299,12 @@ class _IntroCloudSync extends ConsumerWidget {
                   Text('Sign in with Apple'),
                 ],
               ),
+            ),
+            CustomFilledButton(
+              margin: const EdgeInsets.only(top: defaultPadding),
+              onPressed: notifier.onNextPage,
+              textStyle: style.bodyLarge,
+              child: const Text('Skip for now'),
             ),
           ],
         ),

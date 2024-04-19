@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,7 +60,7 @@ class _Notifier extends StateNotifier<_State> {
       final credential = await googleSignIn.signIn();
       print(credential);
     } catch (e) {
-      print(e);
+      log('$e', name: 'onSignInWithGoogle');
     }
   }
 
@@ -69,7 +71,7 @@ class _Notifier extends StateNotifier<_State> {
       );
       print(credential);
     } catch (e) {
-      print(e);
+      log('$e', name: 'onSignInWithApple');
     }
   }
 
@@ -139,12 +141,6 @@ class _State {
   final List<_IntroTaskList> taskLists;
   final List<_IntroTaskList> suggestionsLists;
 
-  final List<_IntroSetupItem> items = [
-    const _IntroSetupItem(title: 'sync', skip: true),
-    const _IntroSetupItem(title: 'lists'),
-    const _IntroSetupItem(title: 'notifications'),
-  ];
-
   _State({
     this.currentPage = 0,
     this.isCloudSyncEnabled = false,
@@ -186,15 +182,5 @@ class _IntroTaskList {
     required this.icon,
     required this.title,
     this.isDefault = false,
-  });
-}
-
-class _IntroSetupItem {
-  final String title;
-  final bool skip;
-
-  const _IntroSetupItem({
-    required this.title,
-    this.skip = false,
   });
 }
