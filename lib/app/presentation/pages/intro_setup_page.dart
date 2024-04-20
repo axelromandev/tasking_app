@@ -289,21 +289,55 @@ class _ActionsButtons extends ConsumerWidget {
 
     final auth = ref.watch(authProvider);
 
-    bool isGoogleSignInAvailable() {
-      return auth.provider == AuthProvider.google;
-    }
+    bool isGoogleSignInAvailable = auth.provider == AuthProvider.google;
+    bool isAppleSignInAvailable = auth.provider == AuthProvider.apple;
 
-    bool isAppleSignInAvailable() {
-      return auth.provider == AuthProvider.apple;
+    Future<void> showDialogLogout() async {
+      showModalBottomSheet(
+        context: context,
+        elevation: 0,
+        builder: (context) {
+          return SafeArea(
+            child: Container(
+              margin: const EdgeInsets.all(defaultPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    leading: auth.provider == AuthProvider.google
+                        ? SvgPicture.asset('assets/svg/ic_google.svg',
+                            width: 28)
+                        : const Icon(BoxIcons.bxl_apple, size: 28),
+                    title: Text('Sign out from ${auth.provider.name}'),
+                    subtitle: const Text('Are you sure you want to sign out?'),
+                  ),
+                  const Gap(defaultPadding),
+                  CustomFilledButton(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: defaultPadding),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      notifier.logout();
+                    },
+                    textStyle: style.bodyLarge,
+                    child: const Text('Log out'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
     }
 
     return Column(
       children: [
-        if (isGoogleSignInAvailable() || auth.user == null)
+        if (isGoogleSignInAvailable || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
-            onPressed: isGoogleSignInAvailable()
-                ? notifier.logout
+            onPressed: isGoogleSignInAvailable
+                ? showDialogLogout
                 : notifier.onSignInWithGoogle,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.transparent,
@@ -313,21 +347,21 @@ class _ActionsButtons extends ConsumerWidget {
               children: [
                 SvgPicture.asset('assets/svg/ic_google.svg', width: 28),
                 const Gap(8),
-                isGoogleSignInAvailable()
+                isGoogleSignInAvailable
                     ? Text('${auth.user?.email}')
                     : const Text('Sign in with Google'),
                 const Spacer(),
-                isGoogleSignInAvailable()
+                isGoogleSignInAvailable
                     ? const Icon(BoxIcons.bx_x)
                     : Container()
               ],
             ),
           ),
-        if (isAppleSignInAvailable() || auth.user == null)
+        if (isAppleSignInAvailable || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
-            onPressed: isAppleSignInAvailable()
-                ? notifier.logout
+            onPressed: isAppleSignInAvailable
+                ? showDialogLogout
                 : notifier.onSignInWithApple,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.transparent,
@@ -337,13 +371,11 @@ class _ActionsButtons extends ConsumerWidget {
               children: [
                 const Icon(BoxIcons.bxl_apple, size: 28),
                 const Gap(8),
-                isAppleSignInAvailable()
+                isAppleSignInAvailable
                     ? Text('${auth.user?.email}')
                     : const Text('Sign in with Apple'),
                 const Spacer(),
-                isAppleSignInAvailable()
-                    ? const Icon(BoxIcons.bx_x)
-                    : Container()
+                isAppleSignInAvailable ? const Icon(BoxIcons.bx_x) : Container()
               ],
             ),
           ),
