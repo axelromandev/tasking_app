@@ -289,6 +289,8 @@ class _ActionsButtons extends ConsumerWidget {
 
     final auth = ref.watch(authProvider);
 
+    final hasInternetAccess = ref.watch(internetConnectivityProvider);
+
     bool isGoogleSignInAvailable = auth.provider == AuthProvider.google;
     bool isAppleSignInAvailable = auth.provider == AuthProvider.apple;
 
@@ -336,16 +338,23 @@ class _ActionsButtons extends ConsumerWidget {
         if (isGoogleSignInAvailable || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
-            onPressed: isGoogleSignInAvailable
-                ? showDialogLogout
-                : notifier.onSignInWithGoogle,
+            onPressed: (hasInternetAccess)
+                ? (isGoogleSignInAvailable)
+                    ? showDialogLogout
+                    : notifier.onSignInWithGoogle
+                : null,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.transparent,
             foregroundColor: Colors.white,
             side: const BorderSide(color: Colors.white12),
             child: Row(
               children: [
-                SvgPicture.asset('assets/svg/ic_google.svg', width: 28),
+                SvgPicture.asset(
+                  'assets/svg/ic_google.svg',
+                  width: 28,
+                  // ignore: deprecated_member_use
+                  color: (hasInternetAccess) ? null : Colors.white30,
+                ),
                 const Gap(8),
                 isGoogleSignInAvailable
                     ? Text('${auth.user?.email}')
@@ -360,9 +369,11 @@ class _ActionsButtons extends ConsumerWidget {
         if (isAppleSignInAvailable || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
-            onPressed: isAppleSignInAvailable
-                ? showDialogLogout
-                : notifier.onSignInWithApple,
+            onPressed: (hasInternetAccess)
+                ? (isAppleSignInAvailable)
+                    ? showDialogLogout
+                    : notifier.onSignInWithApple
+                : null,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.transparent,
             foregroundColor: Colors.white,
@@ -385,7 +396,7 @@ class _ActionsButtons extends ConsumerWidget {
           textStyle: style.bodyLarge,
           child: (auth.user != null)
               ? const Text('Continue')
-              : const Text('Skip for now'),
+              : const Text('Continue (Offline)'),
         ),
       ],
     );

@@ -17,8 +17,6 @@ class _Notifier extends StateNotifier<_State> {
   final _auth = FirebaseAuth.instance;
 
   void _checkAuthStatus() {
-    logout();
-
     _auth.authStateChanges().listen((user) {
       if (user != null) {
         state = state.copyWith(status: AuthStatus.authenticated, user: user);
