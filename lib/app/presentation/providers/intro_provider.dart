@@ -55,6 +55,7 @@ class _Notifier extends StateNotifier<_State> {
     final suggestionsLists = state.suggestionsLists.toList();
     taskLists.add(e);
     suggestionsLists.remove(e);
+    suggestionsLists.sort((a, b) => a.index.compareTo(b.index));
     state = state.copyWith(
       taskLists: taskLists,
       suggestionsLists: suggestionsLists,
@@ -66,6 +67,7 @@ class _Notifier extends StateNotifier<_State> {
     final suggestionsLists = state.suggestionsLists.toList();
     taskLists.remove(e);
     suggestionsLists.add(e);
+    suggestionsLists.sort((a, b) => a.index.compareTo(b.index));
     state = state.copyWith(
       taskLists: taskLists,
       suggestionsLists: suggestionsLists,
@@ -120,13 +122,11 @@ class _State {
     this.currentPage = 0,
     this.isCloudSyncEnabled = false,
     this.isNotificationsGranted = false,
-    this.taskLists = const [
-      _IntroTaskList(icon: BoxIcons.bx_list_ul, title: 'ToDo', isDefault: true),
-    ],
+    this.taskLists = const [],
     this.suggestionsLists = const [
-      _IntroTaskList(icon: BoxIcons.bx_cart, title: 'Shopping'),
-      _IntroTaskList(icon: BoxIcons.bx_briefcase, title: 'Work'),
-      _IntroTaskList(icon: BoxIcons.bx_star, title: 'Important'),
+      _IntroTaskList(index: 0, icon: BoxIcons.bx_cart, title: 'Shopping'),
+      _IntroTaskList(index: 1, icon: BoxIcons.bx_briefcase, title: 'Work'),
+      _IntroTaskList(index: 2, icon: BoxIcons.bx_star, title: 'Important'),
     ],
   });
 
@@ -149,13 +149,13 @@ class _State {
 }
 
 class _IntroTaskList {
+  final int index;
   final IconData icon;
   final String title;
-  final bool isDefault;
 
   const _IntroTaskList({
+    required this.index,
     required this.icon,
     required this.title,
-    this.isDefault = false,
   });
 }

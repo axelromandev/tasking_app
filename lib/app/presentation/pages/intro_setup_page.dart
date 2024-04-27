@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,6 +64,8 @@ class IntroSetupPage extends ConsumerWidget {
     );
   }
 }
+
+// -----------------------------------------------------------------------
 
 class _IntroNotifications extends ConsumerWidget {
   @override
@@ -146,6 +150,8 @@ class _IntroNotifications extends ConsumerWidget {
   }
 }
 
+// -----------------------------------------------------------------------
+
 class _IntroTaskLists extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -172,43 +178,34 @@ class _IntroTaskLists extends ConsumerWidget {
               style: style.bodyLarge,
             ),
             const Gap(defaultPadding * 2),
-            Text(
-              'Selected List',
-              style: style.bodyLarge,
-            ),
-            const Gap(defaultPadding),
-            ...provider.taskLists.map(
-              (e) => Container(
-                margin: const EdgeInsets.only(bottom: defaultPadding),
-                child: ListTile(
-                  onTap:
-                      e.isDefault ? null : () => notifier.onRemoveTaskList(e),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(defaultRadius),
+            if (provider.taskLists.isNotEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.only(bottom: defaultPadding),
+                child: Text('Selected List', style: style.bodyLarge),
+              ),
+              ...provider.taskLists.map(
+                (e) => Container(
+                  margin: const EdgeInsets.only(bottom: defaultPadding),
+                  child: ListTile(
+                    onTap: () => notifier.onRemoveTaskList(e),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(defaultRadius),
+                    ),
+                    tileColor: Colors.white.withOpacity(0.06),
+                    leading: Icon(e.icon),
+                    title: Text(e.title),
+                    trailing:
+                        const Icon(BoxIcons.bx_x, color: Colors.redAccent),
                   ),
-                  tileColor: Colors.white.withOpacity(0.06),
-                  iconColor: colors.primary,
-                  leading: Icon(e.icon),
-                  title: Text(e.title),
-                  trailing: e.isDefault
-                      ? Text('Default',
-                          style: style.bodySmall?.copyWith(
-                            color: Colors.white70,
-                          ))
-                      : Text('Remove',
-                          style: style.bodySmall?.copyWith(
-                            color: Colors.redAccent,
-                          )),
                 ),
               ),
-            ),
-            const Gap(defaultPadding),
+              const Gap(defaultPadding),
+            ],
             if (provider.suggestionsLists.isNotEmpty)
-              Text(
-                'Suggestions List',
-                style: style.bodyLarge,
+              Padding(
+                padding: const EdgeInsets.only(bottom: defaultPadding),
+                child: Text('Suggestions List', style: style.bodyLarge),
               ),
-            const Gap(defaultPadding),
             ...provider.suggestionsLists.map(
               (e) => Container(
                 margin: const EdgeInsets.only(bottom: defaultPadding),
@@ -218,13 +215,9 @@ class _IntroTaskLists extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                   tileColor: Colors.white.withOpacity(0.06),
-                  iconColor: colors.primary,
                   leading: Icon(e.icon),
                   title: Text(e.title),
-                  trailing: Text('Add',
-                      style: style.bodySmall?.copyWith(
-                        color: colors.primary,
-                      )),
+                  trailing: Icon(BoxIcons.bx_plus, color: colors.primary),
                 ),
               ),
             ),
@@ -241,6 +234,8 @@ class _IntroTaskLists extends ConsumerWidget {
     );
   }
 }
+
+// -----------------------------------------------------------------------
 
 class _IntroCloudSync extends ConsumerWidget {
   @override
@@ -325,6 +320,7 @@ class _ActionsButtons extends ConsumerWidget {
                     textStyle: style.bodyLarge,
                     child: const Text('Log out'),
                   ),
+                  if (Platform.isAndroid) const Gap(defaultPadding),
                 ],
               ),
             ),
