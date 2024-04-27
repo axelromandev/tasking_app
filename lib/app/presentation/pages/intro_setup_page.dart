@@ -281,9 +281,7 @@ class _ActionsButtons extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
 
     final notifier = ref.read(authProvider.notifier);
-
     final auth = ref.watch(authProvider);
-
     final hasInternetAccess = ref.watch(internetConnectivityProvider);
 
     bool isGoogleSignInAvailable = auth.provider == AuthProvider.google;
@@ -302,12 +300,21 @@ class _ActionsButtons extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ListTile(
-                    leading: auth.provider == AuthProvider.google
-                        ? SvgPicture.asset('assets/svg/ic_google.svg',
-                            width: 28)
-                        : const Icon(BoxIcons.bxl_apple, size: 28),
-                    title: Text('Sign out from ${auth.provider.name}'),
-                    subtitle: const Text('Are you sure you want to sign out?'),
+                    leading: Icon(
+                      auth.provider == AuthProvider.google
+                          ? BoxIcons.bxl_google
+                          : BoxIcons.bxl_apple,
+                      size: 28,
+                    ),
+                    title: Text('Sign out from ${auth.provider.name}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        )),
+                    subtitle: const Text(
+                      'Are you sure you want to sign out?, All your information '
+                      'will only be stored locally on your device and may be lost.',
+                    ),
                   ),
                   const Gap(defaultPadding),
                   CustomFilledButton(
@@ -317,8 +324,9 @@ class _ActionsButtons extends ConsumerWidget {
                       Navigator.pop(context);
                       notifier.logout();
                     },
+                    backgroundColor: Colors.redAccent,
                     textStyle: style.bodyLarge,
-                    child: const Text('Log out'),
+                    child: const Text('Log out (offline mode)'),
                   ),
                   if (Platform.isAndroid) const Gap(defaultPadding),
                 ],
@@ -345,12 +353,7 @@ class _ActionsButtons extends ConsumerWidget {
             side: const BorderSide(color: Colors.white12),
             child: Row(
               children: [
-                SvgPicture.asset(
-                  'assets/svg/ic_google.svg',
-                  width: 28,
-                  // ignore: deprecated_member_use
-                  color: (hasInternetAccess) ? null : Colors.white30,
-                ),
+                const Icon(BoxIcons.bxl_google, size: 28),
                 const Gap(8),
                 isGoogleSignInAvailable
                     ? Text('${auth.user?.email}')

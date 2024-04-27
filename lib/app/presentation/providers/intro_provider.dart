@@ -10,7 +10,7 @@ import '../../data/data.dart';
 
 final introProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  final user = ref.read(authProvider).user;
+  final user = ref.watch(authProvider).user;
 
   return _Notifier(user);
 });
@@ -18,17 +18,10 @@ final introProvider =
 class _Notifier extends StateNotifier<_State> {
   final User? user;
 
-  _Notifier(this.user) : super(_State()) {
-    _initialize();
-  }
+  _Notifier(this.user) : super(_State());
 
   final groupDataSource = GroupDataSource();
   final pageController = PageController();
-
-  Future<void> _initialize() async {
-    final status = await Permission.notification.status;
-    state = state.copyWith(isNotificationsGranted: status.isGranted);
-  }
 
   void onNextPage() {
     pageController.nextPage(
@@ -76,7 +69,8 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onOpenAppSettings() async {
     await openAppSettings();
-    _initialize();
+    final status = await Permission.notification.status;
+    state = state.copyWith(isNotificationsGranted: status.isGranted);
   }
 
   Future<void> onFinish() async {
