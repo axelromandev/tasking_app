@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,6 @@ class IntroSetupPage extends ConsumerWidget {
     // TODO: IntroSetupPage Implement build method.
 
     final provider = ref.watch(introProvider);
-    final notifier = ref.read(introProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,12 +48,13 @@ class IntroSetupPage extends ConsumerWidget {
           const Gap(defaultPadding),
         ],
         leading: IconButton(
-          onPressed: () => notifier.onPreviousPage(context),
+          onPressed: () =>
+              ref.read(introProvider.notifier).onPreviousPage(context),
           icon: const Icon(BoxIcons.bx_arrow_back),
         ),
       ),
       body: PageView(
-        controller: notifier.pageController,
+        controller: ref.read(introProvider.notifier).pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
           _IntroCloudSync(),
@@ -178,12 +179,12 @@ class _IntroTaskLists extends ConsumerWidget {
               style: style.bodyLarge,
             ),
             const Gap(defaultPadding * 2),
-            if (provider.taskLists.isNotEmpty) ...[
+            if (provider.selectedLists.isNotEmpty) ...[
               Padding(
                 padding: const EdgeInsets.only(bottom: defaultPadding),
                 child: Text('Selected List', style: style.bodyLarge),
               ),
-              ...provider.taskLists.map(
+              ...provider.selectedLists.map(
                 (e) => Container(
                   margin: const EdgeInsets.only(bottom: defaultPadding),
                   child: ListTile(
@@ -237,9 +238,9 @@ class _IntroTaskLists extends ConsumerWidget {
 
 // -----------------------------------------------------------------------
 
-class _IntroCloudSync extends ConsumerWidget {
+class _IntroCloudSync extends StatelessWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
@@ -280,17 +281,16 @@ class _ActionsButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final notifier = ref.read(authProvider.notifier);
     final auth = ref.watch(authProvider);
+
     final hasInternetAccess = ref.watch(internetConnectivityProvider);
 
-    bool isGoogleSignInAvailable = auth.provider == AuthProvider.google;
-    bool isAppleSignInAvailable = auth.provider == AuthProvider.apple;
+    final isGoogleSignIn = auth.provider == AuthProvider.google;
+    final isAppleSignIn = auth.provider == AuthProvider.apple;
 
     Future<void> showDialogLogout() async {
       showModalBottomSheet(
         context: context,
-        elevation: 0,
         builder: (context) {
           return SafeArea(
             child: Container(
@@ -301,16 +301,15 @@ class _ActionsButtons extends ConsumerWidget {
                 children: [
                   ListTile(
                     leading: Icon(
-                      auth.provider == AuthProvider.google
-                          ? BoxIcons.bxl_google
-                          : BoxIcons.bxl_apple,
+                      isGoogleSignIn ? BoxIcons.bxl_google : BoxIcons.bxl_apple,
                       size: 28,
                     ),
-                    title: Text('Sign out from ${auth.provider.name}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        )),
+                    title:
+                        Text('Sign out from ${auth.provider.name.capitalize}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            )),
                     subtitle: const Text(
                       'Are you sure you want to sign out?, All your information '
                       'will only be stored locally on your device and may be lost.',
@@ -322,7 +321,7 @@ class _ActionsButtons extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
                     onPressed: () {
                       Navigator.pop(context);
-                      notifier.logout();
+                      ref.read(introProvider.notifier).onLogout();
                     },
                     backgroundColor: Colors.redAccent,
                     textStyle: style.bodyLarge,
@@ -339,53 +338,49 @@ class _ActionsButtons extends ConsumerWidget {
 
     return Column(
       children: [
-        if (isGoogleSignInAvailable || auth.user == null)
+        if (isGoogleSignIn || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
             onPressed: (hasInternetAccess)
-                ? (isGoogleSignInAvailable)
+                ? (isGoogleSignIn)
                     ? showDialogLogout
-                    : notifier.onSignInWithGoogle
+                    : ref.read(introProvider.notifier).onSignInWithGoogle
                 : null,
             textStyle: style.bodyLarge,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white10,
             foregroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white12),
             child: Row(
               children: [
                 const Icon(BoxIcons.bxl_google, size: 28),
                 const Gap(8),
-                isGoogleSignInAvailable
+                isGoogleSignIn
                     ? Text('${auth.user?.email}')
                     : const Text('Sign in with Google'),
                 const Spacer(),
-                isGoogleSignInAvailable
-                    ? const Icon(BoxIcons.bx_x)
-                    : Container()
+                isGoogleSignIn ? const Icon(BoxIcons.bx_x) : Container()
               ],
             ),
           ),
-        if (isAppleSignInAvailable || auth.user == null)
+        if (isAppleSignIn || auth.user == null)
           CustomFilledButton(
             margin: const EdgeInsets.only(top: defaultPadding),
             onPressed: (hasInternetAccess)
-                ? (isAppleSignInAvailable)
+                ? (isAppleSignIn)
                     ? showDialogLogout
-                    : notifier.onSignInWithApple
+                    : ref.read(introProvider.notifier).onSignInWithApple
                 : null,
             textStyle: style.bodyLarge,
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white10,
             foregroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white12),
             child: Row(
               children: [
                 const Icon(BoxIcons.bxl_apple, size: 28),
                 const Gap(8),
-                isAppleSignInAvailable
+                isAppleSignIn
                     ? Text('${auth.user?.email}')
                     : const Text('Sign in with Apple'),
                 const Spacer(),
-                isAppleSignInAvailable ? const Icon(BoxIcons.bx_x) : Container()
+                isAppleSignIn ? const Icon(BoxIcons.bx_x) : Container()
               ],
             ),
           ),

@@ -10,15 +10,27 @@ import '../../data/data.dart';
 
 final introProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  final user = ref.watch(authProvider).user;
+  final signInWithGoogle = ref.read(authProvider.notifier).signInWithGoogle;
+  final signInWithApple = ref.read(authProvider.notifier).signInWithApple;
+  final logout = ref.read(authProvider.notifier).logout;
 
-  return _Notifier(user);
+  return _Notifier(
+    signInWithGoogle: signInWithGoogle,
+    signInWithApple: signInWithApple,
+    logout: logout,
+  );
 });
 
 class _Notifier extends StateNotifier<_State> {
-  final User? user;
+  final Future<UserCredential?> Function() signInWithGoogle;
+  final Future<UserCredential?> Function() signInWithApple;
+  final Future<void> Function() logout;
 
-  _Notifier(this.user) : super(_State());
+  _Notifier({
+    required this.signInWithGoogle,
+    required this.signInWithApple,
+    required this.logout,
+  }) : super(_State());
 
   final groupDataSource = GroupDataSource();
   final pageController = PageController();
@@ -43,26 +55,43 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(currentPage: state.currentPage - 1);
   }
 
+  Future<void> onLogout() async {
+    if (state.credential?.additionalUserInfo?.isNewUser ?? false) {
+      await state.credential!.user?.delete();
+    }
+    await logout();
+  }
+
+  Future<void> onSignInWithGoogle() async {
+    final credential = await signInWithGoogle();
+    state = state.copyWith(credential: credential);
+  }
+
+  Future<void> onSignInWithApple() async {
+    final credential = await signInWithApple();
+    state = state.copyWith(credential: credential);
+  }
+
   void onAddTaskList(_IntroTaskList e) {
-    final taskLists = state.taskLists.toList();
+    final selectedLists = state.selectedLists.toList();
     final suggestionsLists = state.suggestionsLists.toList();
-    taskLists.add(e);
+    selectedLists.add(e);
     suggestionsLists.remove(e);
     suggestionsLists.sort((a, b) => a.index.compareTo(b.index));
     state = state.copyWith(
-      taskLists: taskLists,
+      selectedLists: selectedLists,
       suggestionsLists: suggestionsLists,
     );
   }
 
   void onRemoveTaskList(_IntroTaskList e) {
-    final taskLists = state.taskLists.toList();
+    final selectedLists = state.selectedLists.toList();
     final suggestionsLists = state.suggestionsLists.toList();
-    taskLists.remove(e);
+    selectedLists.remove(e);
     suggestionsLists.add(e);
     suggestionsLists.sort((a, b) => a.index.compareTo(b.index));
     state = state.copyWith(
-      taskLists: taskLists,
+      selectedLists: selectedLists,
       suggestionsLists: suggestionsLists,
     );
   }
@@ -107,16 +136,16 @@ class _Notifier extends StateNotifier<_State> {
 
 class _State {
   final int currentPage;
-  final bool isCloudSyncEnabled;
+  final UserCredential? credential;
   final bool isNotificationsGranted;
-  final List<_IntroTaskList> taskLists;
+  final List<_IntroTaskList> selectedLists;
   final List<_IntroTaskList> suggestionsLists;
 
   _State({
     this.currentPage = 0,
-    this.isCloudSyncEnabled = false,
+    this.credential,
     this.isNotificationsGranted = false,
-    this.taskLists = const [],
+    this.selectedLists = const [],
     this.suggestionsLists = const [
       _IntroTaskList(index: 0, icon: BoxIcons.bx_cart, title: 'Shopping'),
       _IntroTaskList(index: 1, icon: BoxIcons.bx_briefcase, title: 'Work'),
@@ -126,17 +155,17 @@ class _State {
 
   _State copyWith({
     int? currentPage,
-    bool? isCloudSyncEnabled,
+    UserCredential? credential,
     bool? isNotificationsGranted,
-    List<_IntroTaskList>? taskLists,
+    List<_IntroTaskList>? selectedLists,
     List<_IntroTaskList>? suggestionsLists,
   }) {
     return _State(
       currentPage: currentPage ?? this.currentPage,
-      isCloudSyncEnabled: isCloudSyncEnabled ?? this.isCloudSyncEnabled,
+      credential: credential ?? this.credential,
       isNotificationsGranted:
           isNotificationsGranted ?? this.isNotificationsGranted,
-      taskLists: taskLists ?? this.taskLists,
+      selectedLists: selectedLists ?? this.selectedLists,
       suggestionsLists: suggestionsLists ?? this.suggestionsLists,
     );
   }
