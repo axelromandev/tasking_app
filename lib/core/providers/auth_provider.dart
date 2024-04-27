@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,15 +47,24 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSignInWithApple() async {
     try {
-      final apple = await SignInWithApple.getAppleIDCredential(
-        scopes: [AppleIDAuthorizationScopes.email],
-      );
-      await FirebaseAuth.instance.signInWithCredential(
-        OAuthProvider('apple.com').credential(
-          idToken: apple.identityToken,
-          accessToken: apple.authorizationCode,
-        ),
-      );
+      if (Platform.isAndroid) {
+        await FirebaseAuth.instance.signInWithProvider(
+          AppleAuthProvider(),
+        );
+      } else {
+        final apple = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
+        await FirebaseAuth.instance.signInWithCredential(
+          OAuthProvider('apple.com').credential(
+            idToken: apple.identityToken,
+            accessToken: apple.authorizationCode,
+          ),
+        );
+      }
       state = state.copyWith(provider: AuthProvider.apple);
     } catch (e) {
       log('$e', name: 'onSignInWithApple');
