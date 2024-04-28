@@ -56,10 +56,10 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onLogout() async {
+    await logout();
     if (state.credential?.additionalUserInfo?.isNewUser ?? false) {
       await state.credential!.user?.delete();
     }
-    await logout();
   }
 
   Future<void> onSignInWithGoogle() async {

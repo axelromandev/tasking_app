@@ -14,7 +14,6 @@ class _Notifier extends StateNotifier<bool> {
   InternetConnection internetConnection = InternetConnection();
 
   Future<void> _checkingStatus() async {
-    print('_checkingStatus');
     internetConnection.onStatusChange.listen((status) {
       state = (InternetStatus.connected == status);
     });

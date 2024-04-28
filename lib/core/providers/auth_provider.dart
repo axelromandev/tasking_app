@@ -5,6 +5,7 @@ import 'dart:math' as m;
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -31,7 +32,7 @@ class _Notifier extends StateNotifier<_State> {
         state = state.copyWith(
           status: AuthStatus.authenticated,
           user: user,
-          provider: AuthProvider.values[index ?? 0],
+          provider: AuthTypeProvider.values[index ?? 0],
         );
       } else {
         _prefs.removeKey(Keys.authProvider);
@@ -41,7 +42,7 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<UserCredential?> signInWithGoogle() async {
-    GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+    GoogleSignIn googleSignIn = GoogleSignIn();
     try {
       final google = await googleSignIn.signIn();
       if (google == null) return null;
@@ -53,8 +54,8 @@ class _Notifier extends StateNotifier<_State> {
         ),
       );
       await _prefs.setKeyValue<int>(
-          Keys.authProvider, AuthProvider.google.index);
-      state = state.copyWith(provider: AuthProvider.google);
+          Keys.authProvider, AuthTypeProvider.google.index);
+      state = state.copyWith(provider: AuthTypeProvider.google);
       return credential;
     } catch (e) {
       log('$e', name: 'onSignInWithGoogle');
@@ -67,10 +68,8 @@ class _Notifier extends StateNotifier<_State> {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
       final webAuthenticationOptions = WebAuthenticationOptions(
-        clientId: 'com.ingedevs.tasking-service',
-        redirectUri: Uri.parse(
-          'https://callbackssigninwithapple-ghl66f62mq-uc.a.run.app',
-        ),
+        clientId: dotenv.env['APPLE_SERVICE_ID'] ?? '',
+        redirectUri: Uri.parse(dotenv.env['APPLE_REDIRECT_URI'] ?? ''),
       );
       UserCredential? credential;
       final apple = await SignInWithApple.getAppleIDCredential(
@@ -89,8 +88,8 @@ class _Notifier extends StateNotifier<_State> {
       );
       credential = await FirebaseAuth.instance.signInWithCredential(provider);
       await _prefs.setKeyValue<int>(
-          Keys.authProvider, AuthProvider.apple.index);
-      state = state.copyWith(provider: AuthProvider.apple);
+          Keys.authProvider, AuthTypeProvider.apple.index);
+      state = state.copyWith(provider: AuthTypeProvider.apple);
       return credential;
     } catch (e) {
       log('$e', name: 'onSignInWithApple');
@@ -121,24 +120,28 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> logout() async {
+    if (state.provider == AuthTypeProvider.google) {
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      await googleSignIn.signOut();
+    }
     await _auth.signOut();
   }
 }
 
 class _State {
   final AuthStatus status;
-  final AuthProvider provider;
+  final AuthTypeProvider provider;
   final User? user;
 
   _State({
     this.status = AuthStatus.checking,
-    this.provider = AuthProvider.unknown,
+    this.provider = AuthTypeProvider.unknown,
     this.user,
   });
 
   _State copyWith({
     AuthStatus? status,
-    AuthProvider? provider,
+    AuthTypeProvider? provider,
     User? user,
   }) {
     return _State(
@@ -151,7 +154,7 @@ class _State {
   _State logout() {
     return _State(
       status: AuthStatus.unauthenticated,
-      provider: AuthProvider.unknown,
+      provider: AuthTypeProvider.unknown,
       user: null,
     );
   }
@@ -163,7 +166,7 @@ enum AuthStatus {
   checking,
 }
 
-enum AuthProvider {
+enum AuthTypeProvider {
   unknown,
   google,
   apple,

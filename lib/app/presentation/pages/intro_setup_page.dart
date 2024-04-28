@@ -285,8 +285,8 @@ class _ActionsButtons extends ConsumerWidget {
 
     final hasInternetAccess = ref.watch(internetConnectivityProvider);
 
-    final isGoogleSignIn = auth.provider == AuthProvider.google;
-    final isAppleSignIn = auth.provider == AuthProvider.apple;
+    final isGoogleSignIn = auth.provider == AuthTypeProvider.google;
+    final isAppleSignIn = auth.provider == AuthTypeProvider.apple;
 
     Future<void> showDialogLogout() async {
       showModalBottomSheet(
