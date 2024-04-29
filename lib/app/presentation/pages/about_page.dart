@@ -50,7 +50,7 @@ class AboutPage extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(top: defaultPadding),
                     child: Text(
-                      S.of(context).PAGE_ABOUT_DESCRIPTION,
+                      S.of(context).page_about_description,
                       textAlign: TextAlign.center,
                       style: style.bodyLarge,
                     ),
@@ -97,14 +97,14 @@ class AboutPage extends StatelessWidget {
                     ),
                   ),
                   const Gap(defaultPadding),
-                  Text(S.of(context).PAGE_ABOUT_AUTHOR,
+                  Text(S.of(context).page_about_author,
                       style: style.titleLarge?.copyWith(
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
                       )),
                   const Gap(defaultPadding),
                   Text(
-                    S.of(context).PAGE_ABOUT_AUTHOR_DESCRIPTION,
+                    S.of(context).page_about_author_description,
                     textAlign: TextAlign.center,
                     style: style.bodyLarge,
                   ),
@@ -137,9 +137,9 @@ class AboutPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(S.of(context).PAGE_ABOUT_BUILT_PART1),
+                Text(S.of(context).page_about_built_part_1),
                 const Icon(BoxIcons.bxl_flutter, color: Colors.cyan),
-                Text(S.of(context).PAGE_ABOUT_BUILT_PART2),
+                Text(S.of(context).page_about_built_part_2),
                 const Icon(BoxIcons.bxs_heart, color: Colors.red),
               ],
             ),

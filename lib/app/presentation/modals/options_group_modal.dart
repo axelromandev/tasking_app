@@ -55,7 +55,7 @@ class OptionsGroupModal extends ConsumerWidget {
                           onPressed: () => Navigator.pop(context),
                           backgroundColor: Colors.white12,
                           foregroundColor: Colors.white,
-                          child: Text(S.of(context).BUTTON_CANCEL),
+                          child: Text(S.of(context).button_cancel),
                         ),
                       ),
                       const Gap(defaultPadding),

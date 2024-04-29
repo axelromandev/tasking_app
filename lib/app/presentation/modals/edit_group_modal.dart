@@ -67,7 +67,7 @@ class EditGroupModal extends ConsumerWidget {
               style: FilledButton.styleFrom(
                 backgroundColor: colors.primary,
               ),
-              child: Text(S.of(context).BUTTON_SAVE),
+              child: Text(S.of(context).button_save),
             ),
             const Gap(defaultPadding),
           ],

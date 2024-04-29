@@ -62,7 +62,7 @@ class _BuilderModal extends ConsumerWidget {
             trailing: TextButton(
               onPressed: () => notifier.onDelete(context),
               style: TextButton.styleFrom(foregroundColor: Colors.red),
-              child: Text(S.of(context).BUTTON_DELETE_TASK),
+              child: Text(S.of(context).button_delete_task),
             ),
           ),
           const Gap(4),
@@ -120,7 +120,7 @@ class _BuilderModal extends ConsumerWidget {
                           task.dueDate!.isReminder,
                         ),
                         style: style.bodyMedium)
-                    : Text(S.of(context).BUTTON_ADD_DUE_DATE),
+                    : Text(S.of(context).button_add_due_date),
               ),
               if (task.dueDate?.date != null)
                 GestureDetector(

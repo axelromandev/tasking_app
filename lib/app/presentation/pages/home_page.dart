@@ -142,8 +142,8 @@ class _BuildTasks extends ConsumerWidget {
                   foregroundColor: colors.onSurface.withOpacity(.8),
                 ),
                 label: provider.isShowCompleted
-                    ? Text(S.of(context).BUTTON_HIDE_COMPLETED)
-                    : Text(S.of(context).BUTTON_SHOW_COMPLETED),
+                    ? Text(S.of(context).button_hide_completed)
+                    : Text(S.of(context).button_show_completed),
               ),
               const Spacer(),
               if (provider.isShowCompleted)
@@ -171,7 +171,7 @@ class _BuildTasks extends ConsumerWidget {
                                     onPressed: () => Navigator.pop(context),
                                     backgroundColor: Colors.white10,
                                     foregroundColor: colors.onSurface,
-                                    child: Text(S.of(context).BUTTON_CANCEL),
+                                    child: Text(S.of(context).button_cancel),
                                   ),
                                 ),
                                 const Gap(defaultPadding),
@@ -197,7 +197,7 @@ class _BuildTasks extends ConsumerWidget {
                     ),
                   ),
                   icon: const Icon(BoxIcons.bx_trash, size: 16.0),
-                  label: Text(S.of(context).BUTTON_CLEAR),
+                  label: Text(S.of(context).button_clear),
                 ),
             ],
           ),

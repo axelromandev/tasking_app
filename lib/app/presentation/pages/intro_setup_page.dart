@@ -250,14 +250,14 @@ class _IntroCloudSync extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(S.of(context).PAGE_INTRO_STEP1_TITLE,
+            Text(S.of(context).page_intro_step_1_title,
                 style: style.displaySmall?.copyWith(
                   fontWeight: FontWeight.w500,
                   color: colors.primary,
                 )),
             const Gap(defaultPadding),
             Text(
-              S.of(context).PAGE_INTRO_STEP1_DESCRIPTION,
+              S.of(context).page_intro_step_1_description,
               style: style.bodyLarge,
             ),
             Container(

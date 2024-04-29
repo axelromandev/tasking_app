@@ -45,7 +45,7 @@ class NotificationsPage extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: Text(
-                S.of(context).PAGE_NOTIFICATIONS_LABEL,
+                S.of(context).page_notifications_label,
                 style: const TextStyle(color: Colors.white70),
               ),
             ),
@@ -56,7 +56,7 @@ class NotificationsPage extends ConsumerWidget {
                   ListTile(
                     iconColor: colors.primary,
                     leading: const Icon(BoxIcons.bx_sun),
-                    title: Text(S.of(context).PAGE_NOTIFICATIONS_TITLE),
+                    title: Text(S.of(context).page_notifications_title),
                     trailing: Switch(
                       value: provider.isEnableReminder,
                       // onChanged: notifier.onToggleReminder,
@@ -90,7 +90,7 @@ class NotificationsPage extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
-                S.of(context).PAGE_NOTIFICATIONS_DESCRIPTION,
+                S.of(context).page_notifications_description,
                 style: const TextStyle(color: Colors.white70),
               ),
             ),

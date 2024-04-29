@@ -95,7 +95,7 @@ class SettingsPage extends ConsumerWidget {
                         onTap: () => context.push(RoutesPath.language),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_world),
-                        title: Text(S.of(context).LANGUAGE),
+                        title: Text(S.of(context).language),
                         trailing: const Icon(BoxIcons.bx_chevron_right),
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(

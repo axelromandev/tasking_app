@@ -80,7 +80,7 @@ class AddTaskModal extends ConsumerWidget {
                               ],
                             ],
                           )
-                        : Text(S.of(context).BUTTON_ADD_DUE_DATE),
+                        : Text(S.of(context).button_add_due_date),
                   ],
                 ),
               ),

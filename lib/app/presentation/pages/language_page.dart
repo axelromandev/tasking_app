@@ -12,13 +12,13 @@ class LanguagePage extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     String language = Localizations.localeOf(context).languageCode == 'en'
-        ? S.of(context).LANGUAGE_EN
-        : S.of(context).LANGUAGE_ES;
+        ? S.of(context).language_en
+        : S.of(context).language_es;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).LANGUAGE,
+          S.of(context).language,
           style: const TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -28,11 +28,11 @@ class LanguagePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(S.of(context).PAGE_LANGUAGE_DESCRIPTION1),
+            Text(S.of(context).page_language_description_1),
             const Gap(defaultPadding / 2),
             Text.rich(
               TextSpan(
-                  text: S.of(context).PAGE_LANGUAGE_DESCRIPTION2,
+                  text: S.of(context).page_language_description_2,
                   children: [
                     TextSpan(
                       text: language,
@@ -44,15 +44,15 @@ class LanguagePage extends StatelessWidget {
                   ]),
             ),
             const Gap(defaultPadding),
-            Text(S.of(context).PAGE_LANGUAGE_DESCRIPTION3),
+            Text(S.of(context).page_language_description_3),
             const Gap(defaultPadding),
-            Text(S.of(context).PAGE_LANGUAGE_STEP1),
-            Text(S.of(context).PAGE_LANGUAGE_STEP2),
-            Text(S.of(context).PAGE_LANGUAGE_STEP3),
-            Text(S.of(context).PAGE_LANGUAGE_STEP4),
-            Text(S.of(context).PAGE_LANGUAGE_STEP5),
+            Text(S.of(context).page_language_step_1),
+            Text(S.of(context).page_language_step_2),
+            Text(S.of(context).page_language_step_3),
+            Text(S.of(context).page_language_step_4),
+            Text(S.of(context).page_language_step_5),
             const Gap(defaultPadding),
-            Text(S.of(context).PAGE_LANGUAGE_DESCRIPTION4),
+            Text(S.of(context).page_language_description_4),
           ],
         ),
       ),

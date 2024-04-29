@@ -5,7 +5,7 @@ import '../../generated/l10n.dart';
 String formatDate(DateTime? date, [bool isReminder = false]) {
   final now = DateTime.now();
   if (date == null) {
-    return S.current.BUTTON_ADD_DUE_DATE;
+    return S.current.button_add_due_date;
   }
   if (date.day == now.day && date.month == now.month) {
     return S.current.calendar_today;
