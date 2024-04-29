@@ -321,7 +321,7 @@ class _ActionsButtons extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
                     onPressed: () {
                       Navigator.pop(context);
-                      ref.read(introSetupProvider.notifier).onLogout();
+                      ref.read(authProvider.notifier).logout();
                     },
                     backgroundColor: Colors.redAccent,
                     textStyle: style.bodyLarge,

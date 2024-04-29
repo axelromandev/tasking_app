@@ -120,11 +120,15 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> logout() async {
-    if (state.provider == AuthTypeProvider.google) {
-      GoogleSignIn googleSignIn = GoogleSignIn();
-      await googleSignIn.signOut();
+    try {
+      if (state.provider == AuthTypeProvider.google) {
+        GoogleSignIn googleSignIn = GoogleSignIn();
+        await googleSignIn.signOut();
+      }
+      await _auth.signOut();
+    } catch (e) {
+      log('$e', name: 'onLogout');
     }
-    await _auth.signOut();
   }
 }
 

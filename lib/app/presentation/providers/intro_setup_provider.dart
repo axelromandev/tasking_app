@@ -12,24 +12,20 @@ final introSetupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final signInWithGoogle = ref.read(authProvider.notifier).signInWithGoogle;
   final signInWithApple = ref.read(authProvider.notifier).signInWithApple;
-  final logout = ref.read(authProvider.notifier).logout;
 
   return _Notifier(
     signInWithGoogle: signInWithGoogle,
     signInWithApple: signInWithApple,
-    logout: logout,
   );
 });
 
 class _Notifier extends StateNotifier<_State> {
   final Future<UserCredential?> Function() signInWithGoogle;
   final Future<UserCredential?> Function() signInWithApple;
-  final Future<void> Function() logout;
 
   _Notifier({
     required this.signInWithGoogle,
     required this.signInWithApple,
-    required this.logout,
   }) : super(_State());
 
   final groupDataSource = GroupDataSource();
@@ -53,13 +49,6 @@ class _Notifier extends StateNotifier<_State> {
       curve: Curves.easeInOut,
     );
     state = state.copyWith(currentPage: state.currentPage - 1);
-  }
-
-  Future<void> onLogout() async {
-    await logout();
-    if (state.credential?.additionalUserInfo?.isNewUser ?? false) {
-      await state.credential!.user?.delete();
-    }
   }
 
   Future<void> onSignInWithGoogle() async {
