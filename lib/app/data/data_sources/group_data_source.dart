@@ -3,7 +3,7 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../repositories/group_repository.dart';
+import '../../domain/repositories/group_repository.dart';
 
 class GroupDataSource implements GroupRepository {
   final Isar _isar = IsarService.isar;

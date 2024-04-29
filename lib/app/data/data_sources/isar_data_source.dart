@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../repositories/isar_repository.dart';
+import '../../domain/repositories/isar_repository.dart';
 
 class IsarDataSource implements IsarRepository {
   final Isar _isar = IsarService.isar;

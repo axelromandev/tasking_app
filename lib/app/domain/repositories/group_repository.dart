@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/domain.dart';
+import '../domain.dart';
 
 abstract interface class GroupRepository {
   Future<List<ListTasks>> fetchAll();
