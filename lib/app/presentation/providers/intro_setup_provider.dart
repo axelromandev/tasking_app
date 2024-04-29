@@ -8,7 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../core/core.dart';
 import '../../data/data.dart';
 
-final introProvider =
+final introSetupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final signInWithGoogle = ref.read(authProvider.notifier).signInWithGoogle;
   final signInWithApple = ref.read(authProvider.notifier).signInWithApple;

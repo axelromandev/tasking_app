@@ -11,7 +11,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
-import '../providers/intro_provider.dart';
+import '../providers/intro_setup_provider.dart';
 import '../widgets/widgets.dart';
 
 class IntroSetupPage extends ConsumerWidget {
@@ -21,7 +21,7 @@ class IntroSetupPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // TODO: IntroSetupPage Implement build method.
 
-    final provider = ref.watch(introProvider);
+    final provider = ref.watch(introSetupProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,12 +49,12 @@ class IntroSetupPage extends ConsumerWidget {
         ],
         leading: IconButton(
           onPressed: () =>
-              ref.read(introProvider.notifier).onPreviousPage(context),
+              ref.read(introSetupProvider.notifier).onPreviousPage(context),
           icon: const Icon(BoxIcons.bx_arrow_back),
         ),
       ),
       body: PageView(
-        controller: ref.read(introProvider.notifier).pageController,
+        controller: ref.read(introSetupProvider.notifier).pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
           _IntroCloudSync(),
@@ -74,8 +74,8 @@ class _IntroNotifications extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final provider = ref.watch(introProvider);
-    final notifier = ref.read(introProvider.notifier);
+    final provider = ref.watch(introSetupProvider);
+    final notifier = ref.read(introSetupProvider.notifier);
 
     return SafeArea(
       child: Container(
@@ -159,8 +159,8 @@ class _IntroTaskLists extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final provider = ref.watch(introProvider);
-    final notifier = ref.read(introProvider.notifier);
+    final provider = ref.watch(introSetupProvider);
+    final notifier = ref.read(introSetupProvider.notifier);
 
     return SafeArea(
       child: Container(
@@ -321,7 +321,7 @@ class _ActionsButtons extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
                     onPressed: () {
                       Navigator.pop(context);
-                      ref.read(introProvider.notifier).onLogout();
+                      ref.read(introSetupProvider.notifier).onLogout();
                     },
                     backgroundColor: Colors.redAccent,
                     textStyle: style.bodyLarge,
@@ -344,7 +344,7 @@ class _ActionsButtons extends ConsumerWidget {
             onPressed: (hasInternetAccess)
                 ? (isGoogleSignIn)
                     ? showDialogLogout
-                    : ref.read(introProvider.notifier).onSignInWithGoogle
+                    : ref.read(introSetupProvider.notifier).onSignInWithGoogle
                 : null,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.white10,
@@ -367,7 +367,7 @@ class _ActionsButtons extends ConsumerWidget {
             onPressed: (hasInternetAccess)
                 ? (isAppleSignIn)
                     ? showDialogLogout
-                    : ref.read(introProvider.notifier).onSignInWithApple
+                    : ref.read(introSetupProvider.notifier).onSignInWithApple
                 : null,
             textStyle: style.bodyLarge,
             backgroundColor: Colors.white10,
@@ -386,7 +386,7 @@ class _ActionsButtons extends ConsumerWidget {
           ),
         CustomFilledButton(
           margin: const EdgeInsets.only(top: defaultPadding),
-          onPressed: ref.read(introProvider.notifier).onNextPage,
+          onPressed: ref.read(introSetupProvider.notifier).onNextPage,
           textStyle: style.bodyLarge,
           child: (auth.user != null)
               ? const Text('Continue')
