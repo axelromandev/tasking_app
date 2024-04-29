@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../core/core.dart';
-import '../../data/data.dart';
+import '../../domain/domain.dart';
 
 final addGroupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -15,7 +15,7 @@ class _Notifier extends StateNotifier<_State> {
 
   final textController = TextEditingController();
 
-  final _groupDataSource = GroupDataSource();
+  final _groupRepository = GroupRepository();
 
   void onNameChanged(String value) {
     state = state.copyWith(name: value);
@@ -32,7 +32,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onAddGroup(BuildContext context) async {
     try {
-      await _groupDataSource.add(state.name, state.icon).then((_) {
+      await _groupRepository.add(state.name, state.icon).then((_) {
         Navigator.pop(context);
       });
     } catch (e) {

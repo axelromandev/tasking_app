@@ -19,8 +19,8 @@ class _Notifier extends StateNotifier<bool> {
 
   _Notifier(this.onSelectGroup) : super(false);
 
-  final _groupDataSource = GroupDataSource();
-  final _isarDataSource = IsarDataSource();
+  final _groupRepository = GroupRepository();
+  final _localRepository = LocalRepository();
   final now = DateTime.now();
 
   Future<void> exportToDevice() async {
@@ -30,7 +30,7 @@ class _Notifier extends StateNotifier<bool> {
     final zipFile =
         File('${directory.path}/tasking_backup_${now.toString()}.zip');
     try {
-      final jsonString = await _isarDataSource.export();
+      final jsonString = await _localRepository.export();
       await fileJson.writeAsString(jsonString);
       await ZipFile.createFromDirectory(
         sourceDir: Directory(fileJson.path),
@@ -65,8 +65,8 @@ class _Notifier extends StateNotifier<bool> {
         destinationDir: directory,
       );
       final jsonString = await fileJson.readAsString();
-      await _isarDataSource.import(jsonString);
-      final groups = await _groupDataSource.fetchAll();
+      await _localRepository.import(jsonString);
+      final groups = await _groupRepository.fetchAll();
       final group = groups.firstWhere((element) => element.id == 1);
       onSelectGroup(group);
     } finally {

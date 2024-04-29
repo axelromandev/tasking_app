@@ -28,10 +28,11 @@ class _Notifier extends StateNotifier<_State> {
     required this.getAll,
   }) : super(_State());
 
+  final _taskRepository = TaskRepository();
+
   final focusNode = FocusNode();
   final controller = TextEditingController();
   final DateTime _now = DateTime.now();
-  final _taskDataSource = TaskDataSource();
 
   void onNameChanged(String value) {
     state = state.copyWith(name: value);
@@ -145,7 +146,7 @@ class _Notifier extends StateNotifier<_State> {
       dueDate = DueDate(date: state.dueDate, isReminder: state.isReminder);
     }
     final task =
-        await _taskDataSource.add(group.id, name, dueDate).then((task) {
+        await _taskRepository.add(group.id, name, dueDate).then((task) {
       controller.clear();
       focusNode.requestFocus();
       state = state.reset();

@@ -4,9 +4,14 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../../domain/repositories/isar_repository.dart';
 
-class IsarDataSource implements IsarRepository {
+abstract interface class ILocalDataSource {
+  Future<String> export();
+  Future<void> import(String jsonEncode);
+  Future<void> restore();
+}
+
+class LocalDataSource implements ILocalDataSource {
   final Isar _isar = IsarService.isar;
 
   @override

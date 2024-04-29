@@ -36,7 +36,7 @@ class _Notifier extends StateNotifier<_State> {
 
   final textController = TextEditingController();
 
-  final _groupDataSource = GroupDataSource();
+  final _groupRepository = GroupRepository();
 
   void onNameChanged(String value) {
     state = state.copyWith(name: value);
@@ -59,7 +59,7 @@ class _Notifier extends StateNotifier<_State> {
         fontPackage: state.icon.fontPackage,
       );
       group.name = state.name;
-      await _groupDataSource.update(group).then((_) {
+      await _groupRepository.update(group).then((_) {
         _onSelectGroup();
         Navigator.pop(context);
       });

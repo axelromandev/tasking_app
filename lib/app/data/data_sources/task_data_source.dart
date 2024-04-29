@@ -2,9 +2,17 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../../domain/repositories/task_repository.dart';
 
-class TaskDataSource implements TaskRepository {
+abstract interface class ITaskDataSource {
+  Future<Task> get(int id);
+  Future<List<Task>> getAll();
+  Future<Task> add(int groupId, String name, [DueDate? dueDate]);
+  Future<void> update(Task task);
+  Future<void> delete(int id);
+  Future<void> clearComplete(int groupId);
+}
+
+class TaskDataSource implements ITaskDataSource {
   final Isar _isar = IsarService.isar;
 
   @override

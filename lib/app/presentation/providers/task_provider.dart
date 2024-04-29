@@ -12,7 +12,6 @@ import 'package:intl/intl.dart';
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
-import '../../data/data.dart';
 import '../../domain/domain.dart';
 import '../modals/delete_task_modal.dart';
 import '../modals/select_date_time_modal.dart';
@@ -34,7 +33,7 @@ class _Notifier extends StateNotifier<_State> {
   }) : super(_State(task: task));
 
   final _now = DateTime.now();
-  final _taskDataSource = TaskDataSource();
+  final _taskRepository = TaskRepository();
 
   Future<void> onDelete(BuildContext context) async {
     await showModalBottomSheet<bool?>(
@@ -43,7 +42,7 @@ class _Notifier extends StateNotifier<_State> {
       builder: (_) => const DeleteTaskModal(),
     ).then((value) async {
       if (value == null) return;
-      await _taskDataSource.delete(state.task.id).then((_) async {
+      await _taskRepository.delete(state.task.id).then((_) async {
         if (state.task.dueDate != null && state.task.dueDate!.isReminder) {
           await NotificationService.cancel(state.task.id);
         }
@@ -103,7 +102,7 @@ class _Notifier extends StateNotifier<_State> {
       final task = state.task;
       task.dueDate = DueDate(date: value);
       state = state.copyWith(task: task);
-      await _taskDataSource.update(task).then((_) {
+      await _taskRepository.update(task).then((_) {
         refresh();
       });
     });
@@ -143,7 +142,7 @@ class _Notifier extends StateNotifier<_State> {
     final task = state.task;
     task.dueDate = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) async {
+    await _taskRepository.update(task).then((_) async {
       refresh();
     });
     _saveNotification();
@@ -168,7 +167,7 @@ class _Notifier extends StateNotifier<_State> {
     final task = state.task;
     task.dueDate = null;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
+    await _taskRepository.update(task).then((_) {
       refresh();
     });
     if (task.dueDate != null && task.dueDate!.isReminder) {
@@ -181,7 +180,7 @@ class _Notifier extends StateNotifier<_State> {
     final task = state.task;
     task.message = value;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
+    await _taskRepository.update(task).then((_) {
       refresh();
     });
     _saveNotification();
@@ -192,7 +191,7 @@ class _Notifier extends StateNotifier<_State> {
     final result = task.isCompleted == null ? DateTime.now() : null;
     task.isCompleted = result;
     state = state.copyWith(task: task);
-    await _taskDataSource.update(task).then((_) {
+    await _taskRepository.update(task).then((_) {
       refresh();
     });
     if (task.isCompleted != null) {

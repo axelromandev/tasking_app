@@ -3,9 +3,16 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../../domain/repositories/group_repository.dart';
 
-class GroupDataSource implements GroupRepository {
+abstract interface class IGroupDataSource {
+  Future<List<ListTasks>> fetchAll();
+  Future<ListTasks?> get(int id);
+  Future<ListTasks> add(String name, IconData icon);
+  Future<void> update(ListTasks group);
+  Future<void> delete(int id);
+}
+
+class GroupDataSource implements IGroupDataSource {
   final Isar _isar = IsarService.isar;
 
   @override

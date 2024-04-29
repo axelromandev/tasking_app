@@ -6,7 +6,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/core.dart';
-import '../../data/data.dart';
 
 final introSetupProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -28,7 +27,6 @@ class _Notifier extends StateNotifier<_State> {
     required this.signInWithApple,
   }) : super(_State());
 
-  final groupDataSource = GroupDataSource();
   final pageController = PageController();
 
   void onNextPage() {
