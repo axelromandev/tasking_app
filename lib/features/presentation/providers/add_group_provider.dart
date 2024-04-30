@@ -15,7 +15,7 @@ class _Notifier extends StateNotifier<_State> {
 
   final textController = TextEditingController();
 
-  final _groupRepository = GroupRepository();
+  final _groupRepository = ListTasksRepository();
 
   void onNameChanged(String value) {
     state = state.copyWith(name: value);

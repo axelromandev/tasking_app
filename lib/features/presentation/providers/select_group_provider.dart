@@ -12,7 +12,7 @@ class _Notifier extends StateNotifier<_State> {
     initialize();
   }
 
-  final _groupRepository = GroupRepository();
+  final _groupRepository = ListTasksRepository();
 
   Future<void> initialize() async {
     final groups = await _groupRepository.fetchAll();

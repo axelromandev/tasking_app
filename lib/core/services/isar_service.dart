@@ -39,7 +39,7 @@ class IsarService {
           color: 0xffff5252,
           position: 0,
           icon: const ListIconData(
-            codePoint: 60570,
+            codePoint: 59830,
             fontFamily: 'BoxIcons',
             fontPackage: 'icons_plus',
           ),

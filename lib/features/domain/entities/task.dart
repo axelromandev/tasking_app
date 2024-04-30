@@ -17,6 +17,8 @@ class Task {
 
   final subtasks = IsarLinks<SubTask>();
 
+  bool get hasNote => note != null && note!.isNotEmpty;
+
   Task({
     required this.listId,
     required this.message,

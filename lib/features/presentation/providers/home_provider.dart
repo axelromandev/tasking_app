@@ -22,7 +22,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
   final _prefs = SharedPrefs();
   // final _localRepository = LocalRepository();
-  final _groupRepository = GroupRepository();
+  final _groupRepository = ListTasksRepository();
   final _taskRepository = TaskRepository();
 
   Future<void> initialize() async {

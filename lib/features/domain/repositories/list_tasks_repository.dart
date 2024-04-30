@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data/data.dart';
 import '../domain.dart';
 
-abstract interface class IGroupRepository {
+abstract interface class IListTasksRepository {
   Future<List<ListTasks>> fetchAll();
   Future<ListTasks?> get(int id);
   Future<ListTasks> add(String name, IconData icon);
@@ -11,7 +11,7 @@ abstract interface class IGroupRepository {
   Future<void> delete(int id);
 }
 
-class GroupRepository extends IGroupRepository {
+class ListTasksRepository extends IListTasksRepository {
   final IListTasksDataSource _dataSource = ListTasksDataSource();
 
   @override

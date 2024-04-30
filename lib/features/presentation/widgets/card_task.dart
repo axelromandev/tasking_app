@@ -1,67 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../domain/domain.dart';
 
-class CardTask extends StatelessWidget {
-  final VoidCallback onShowDetails;
-  final VoidCallback onCheckTask;
-  final Task task;
+class TaskCard extends StatelessWidget {
+  const TaskCard(this.task, {super.key});
 
-  const CardTask({
-    required this.onShowDetails,
-    required this.onCheckTask,
-    required this.task,
-    super.key,
-  });
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
+
+    final subtasks = task.subtasks.toList();
+
+    final completedSubtasks =
+        subtasks.where((subtask) => subtask.completed).toList();
 
     return ListTile(
-      onTap: onShowDetails,
+      onTap: () {
+        print('tap');
+      },
       contentPadding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      iconColor: task.completed ? Colors.white70 : Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       leading: IconButton(
-        padding: EdgeInsets.zero,
-        visualDensity: VisualDensity.compact,
-        onPressed: onCheckTask,
+        onPressed: () {
+          print('unmark');
+        },
         icon: Icon(
-          task.completed ? BoxIcons.bx_check_circle : BoxIcons.bx_circle,
-          color:
-              task.completed ? colors.primary.withOpacity(.6) : colors.primary,
+          task.completed ? BoxIcons.bx_check : BoxIcons.bx_circle,
+          size: 18,
         ),
       ),
-      visualDensity: VisualDensity.compact,
       title: Text(
         task.message,
-        style: style.titleMedium?.copyWith(
-          fontWeight: FontWeight.w300,
-          color: task.completed ? Colors.white30 : Colors.white,
-        ),
+        style: task.completed
+            ? style.bodyMedium?.copyWith(color: Colors.white70)
+            : style.bodyLarge,
       ),
-      subtitle: task.reminder != null
-          ? Row(
+      subtitle: (task.hasNote && task.subtasks.isNotEmpty)
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  BoxIcons.bx_bell,
-                  color: task.completed
-                      ? colors.primary.withOpacity(.3)
-                      : colors.primary,
-                  size: 14,
+                Row(
+                  children: [
+                    Icon(
+                      BoxIcons.bx_file,
+                      size: 12,
+                      color: task.completed ? Colors.white70 : Colors.white,
+                    ),
+                    const Gap(4.0),
+                    Text(task.note!,
+                        style: style.bodySmall?.copyWith(
+                          color: task.completed ? Colors.white70 : Colors.white,
+                        )),
+                  ],
                 ),
-                const SizedBox(width: 4),
-                Text(
-                  task.reminder.toString(),
-                  style: style.bodyMedium?.copyWith(
-                    color: task.completed
-                        ? colors.primary.withOpacity(.3)
-                        : colors.primary,
-                    fontWeight: FontWeight.w300,
-                  ),
+                Row(
+                  children: [
+                    Icon(
+                      BoxIcons.bx_list_ol,
+                      size: 12,
+                      color: task.completed ? Colors.white70 : Colors.white,
+                    ),
+                    const Gap(4.0),
+                    Text('${completedSubtasks.length}/${subtasks.length}',
+                        style: style.bodySmall?.copyWith(
+                          color: task.completed ? Colors.white70 : Colors.white,
+                        )),
+                  ],
                 ),
               ],
+            )
+          : null,
+      trailing: task.completed
+          ? IconButton(
+              onPressed: () {
+                print('delete');
+              },
+              icon: const Icon(BoxIcons.bx_x, size: 18),
             )
           : null,
     );
