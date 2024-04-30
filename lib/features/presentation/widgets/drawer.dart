@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -48,6 +49,7 @@ class Menu extends ConsumerWidget {
                 final list = lists[index];
                 return ListTile(
                   onTap: () {
+                    HapticFeedback.mediumImpact();
                     ref.read(selectListIdProvider.notifier).change(list.id);
                     context.pop();
                   },
@@ -101,6 +103,7 @@ class _ListTitleShowAll extends ConsumerWidget {
 
     return ListTile(
       onTap: () {
+        HapticFeedback.mediumImpact();
         ref.read(selectListIdProvider.notifier).change(0);
         context.pop();
       },

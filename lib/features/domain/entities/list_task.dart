@@ -64,6 +64,15 @@ class ListIconData {
     );
   }
 
+  static ListIconData? fromIcon(IconData? icon) {
+    if (icon == null) return null;
+    return ListIconData(
+      codePoint: icon.codePoint,
+      fontFamily: icon.fontFamily,
+      fontPackage: icon.fontPackage,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'codePoint': codePoint,

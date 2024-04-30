@@ -19,4 +19,8 @@ class _Notifier extends StateNotifier<List<ListTasks>> {
     lists.sort((a, b) => a.position.compareTo(b.position));
     state = lists;
   }
+
+  Future<void> refresh() async {
+    await _load();
+  }
 }

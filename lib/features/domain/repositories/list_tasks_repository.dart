@@ -6,7 +6,7 @@ import '../domain.dart';
 abstract interface class IListTasksRepository {
   Future<List<ListTasks>> fetchAll();
   Future<ListTasks?> get(int id);
-  Future<ListTasks> add(String name, IconData icon);
+  Future<ListTasks> add(String name, Color color, [IconData? icon]);
   Future<void> update(ListTasks group);
   Future<void> delete(int id);
 }
@@ -15,8 +15,8 @@ class ListTasksRepository extends IListTasksRepository {
   final IListTasksDataSource _dataSource = ListTasksDataSource();
 
   @override
-  Future<ListTasks> add(String name, IconData icon) {
-    return _dataSource.add(name, icon);
+  Future<ListTasks> add(String name, Color color, [IconData? icon]) {
+    return _dataSource.add(name, color, icon);
   }
 
   @override

@@ -51,7 +51,7 @@ class ListTasksCard extends StatelessWidget {
                     size: 18,
                   ),
                   const Gap(defaultPadding),
-                  Text(list.name),
+                  Flexible(child: Text(list.name)),
                 ],
               ),
             ),

@@ -8,7 +8,7 @@ import '../../domain/entities/subtask.dart';
 abstract interface class IListTasksDataSource {
   Future<List<ListTasks>> fetchAll();
   Future<ListTasks?> get(int id);
-  Future<ListTasks> add(String name, IconData icon);
+  Future<ListTasks> add(String name, Color color, [IconData? icon]);
   Future<void> update(ListTasks group);
   Future<void> delete(int id);
 }
@@ -27,21 +27,18 @@ class ListTasksDataSource implements IListTasksDataSource {
   }
 
   @override
-  Future<ListTasks> add(String name, IconData icon) async {
+  Future<ListTasks> add(String name, Color color, [IconData? icon]) async {
     return await _isar.writeTxn(() async {
-      final id = await _isar.listTasks.put(
-        ListTasks(
-          name: name,
-          position: 0,
-          icon: ListIconData(
-            codePoint: icon.codePoint,
-            fontFamily: icon.fontFamily,
-            fontPackage: icon.fontPackage,
-          ),
-        ),
-      );
-      final group = await _isar.listTasks.get(id);
-      return group!;
+      final groups = await _isar.listTasks.where().findAll();
+      int lastPosition = groups.isEmpty ? 0 : groups.last.position;
+      final id = await _isar.listTasks.put(ListTasks(
+        name: name,
+        position: (lastPosition += 1),
+        color: color.value,
+        icon: ListIconData.fromIcon(icon),
+      ));
+      final list = await _isar.listTasks.get(id);
+      return list!;
     });
   }
 

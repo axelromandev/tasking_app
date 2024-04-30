@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
@@ -30,6 +31,7 @@ class HomePage extends ConsumerWidget {
       key: keyScaffold,
       drawer: const Menu(),
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => keyScaffold.currentState?.openDrawer(),
           icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
@@ -85,29 +87,73 @@ class _BuildAllListTasks extends ConsumerWidget {
       return _EmptyListTasks();
     }
 
+    final pinnedLists = lists.where((list) => list.isPinned).toList();
+    final unpinnedLists = lists.where((list) => !list.isPinned).toList();
+
+    final style = Theme.of(context).textTheme;
+
     return Column(
       children: [
         Container(
           height: 1.5,
           color: Colors.white.withOpacity(.06),
         ),
-        Expanded(
-          child: MasonryGridView.count(
-            itemCount: lists.length,
+        if (pinnedLists.isNotEmpty) ...[
+          ListTile(
+            visualDensity: VisualDensity.compact,
+            leading: const Icon(
+              BoxIcons.bxs_pin,
+              size: 16,
+              color: Colors.white38,
+            ),
+            minLeadingWidth: 0,
+            title: Text('Pinned',
+                style: style.bodySmall?.copyWith(
+                  color: Colors.white38,
+                )),
+          ),
+          MasonryGridView.count(
+            itemCount: pinnedLists.length,
             crossAxisCount: 2,
-            padding: const EdgeInsets.all(defaultPadding),
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             mainAxisSpacing: 12.0,
             crossAxisSpacing: 12.0,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              final list = lists[index];
+              final list = pinnedLists[index];
               return ListTasksCard(
-                onTap: () =>
-                    ref.read(selectListIdProvider.notifier).change(list.id),
+                onTap: () {
+                  HapticFeedback.mediumImpact();
+                  ref.read(selectListIdProvider.notifier).change(list.id);
+                },
                 list: list,
               );
             },
           ),
+          const Gap(defaultPadding),
+          if (unpinnedLists.isNotEmpty)
+            Container(
+              height: 1.5,
+              color: Colors.white.withOpacity(.06),
+            ),
+        ],
+        MasonryGridView.count(
+          itemCount: unpinnedLists.length,
+          crossAxisCount: 2,
+          padding: const EdgeInsets.all(defaultPadding),
+          mainAxisSpacing: 12.0,
+          crossAxisSpacing: 12.0,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            final list = unpinnedLists[index];
+            return ListTasksCard(
+              onTap: () {
+                HapticFeedback.mediumImpact();
+                ref.read(selectListIdProvider.notifier).change(list.id);
+              },
+              list: list,
+            );
+          },
         ),
       ],
     );
@@ -260,40 +306,35 @@ class _EmptyListTasks extends StatelessWidget {
 class _EmptyTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Divider(),
-        Container(
-          margin: const EdgeInsets.only(top: 200.0),
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(defaultPadding),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.06),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  BoxIcons.bx_task,
-                  size: 38.0,
-                  color: Colors.white70,
-                ),
-              ),
-              const Gap(defaultPadding),
-              Text('There is no task.',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      )),
-              const Gap(8.0),
-              Text('Press + to add the task',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white70,
-                      )),
-            ],
+    return Container(
+      margin: const EdgeInsets.only(top: 200.0),
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(defaultPadding),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(.06),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              BoxIcons.bx_task,
+              size: 38.0,
+              color: Colors.white70,
+            ),
           ),
-        ),
-      ],
+          const Gap(defaultPadding),
+          Text('There is no task.',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+          const Gap(8.0),
+          Text('Press + to add the task',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.white70,
+                  )),
+        ],
+      ),
     );
   }
 }
