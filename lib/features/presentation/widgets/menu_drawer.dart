@@ -65,10 +65,12 @@ class Menu extends ConsumerWidget {
                     color: Color(list.color ?? 0xFF000000),
                   ),
                   title: Text(list.name),
-                  trailing: Text(list.tasks.length.toString(),
-                      style: style.bodySmall?.copyWith(
-                        color: Colors.white70,
-                      )),
+                  trailing: list.tasks.isNotEmpty
+                      ? Text(list.tasks.length.toString(),
+                          style: style.bodySmall?.copyWith(
+                            color: Colors.white70,
+                          ))
+                      : null,
                 );
               },
             ),

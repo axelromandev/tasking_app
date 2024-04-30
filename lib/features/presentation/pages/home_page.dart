@@ -11,8 +11,8 @@ import '../modals/add_list_tasks_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
-import '../widgets/drawer.dart';
-import '../widgets/list_tasks_card.dart';
+import '../widgets/card_list_tasks.dart';
+import '../widgets/menu_drawer.dart';
 import '../widgets/widgets.dart';
 
 final keyScaffold = GlobalKey<ScaffoldState>();
