@@ -36,7 +36,7 @@ class IsarService {
       await isar.writeTxn(() async {
         final list1 = ListTasks(
           name: 'Tutorial',
-          color: 0xffff5252,
+          color: 0xffffc107,
           position: 0,
           icon: const ListIconData(
             codePoint: 59830,

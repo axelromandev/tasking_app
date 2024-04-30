@@ -9,7 +9,7 @@ import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../app.dart';
 import '../providers/select_group_provider.dart';
-import 'add_group_modal.dart';
+import 'add_list_tasks_modal.dart';
 import 'options_group_modal.dart';
 
 class SelectGroupModal extends ConsumerWidget {
@@ -96,15 +96,15 @@ class SelectGroupModal extends ConsumerWidget {
                   isScrollControlled: true,
                   useSafeArea: true,
                   elevation: 0,
-                  builder: (_) => const AddGroupModal(),
+                  builder: (_) => const AddListTasksModal(),
                 );
                 notifier.initialize();
               },
-              child: Row(
+              child: const Row(
                 children: [
-                  const Icon(BoxIcons.bx_plus),
-                  const Gap(8),
-                  Text(S.of(context).group_add_button),
+                  Icon(BoxIcons.bx_plus),
+                  Gap(8),
+                  Text('List name'),
                 ],
               ),
             ),

@@ -5,7 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
-final addGroupProvider =
+final addListTasksModalProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   return _Notifier();
 });

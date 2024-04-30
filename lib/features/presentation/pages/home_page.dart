@@ -4,8 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../config/const/constants.dart';
+import '../../../config/config.dart';
 import '../../domain/domain.dart';
+import '../modals/add_list_tasks_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
@@ -20,6 +21,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
     final listId = ref.watch(selectListIdProvider);
@@ -32,28 +34,42 @@ class HomePage extends ConsumerWidget {
           onPressed: () => keyScaffold.currentState?.openDrawer(),
           icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
         ),
+        title: Text(listId == 0 ? 'ALL' : '', style: style.bodyLarge),
+        centerTitle: true,
         actions: [
-          if (listId != 0)
+          if (listId == 0)
             IconButton(
               onPressed: () {},
-              icon: Icon(
-                BoxIcons.bx_pin,
-                color: colors.primary,
-                size: 18,
-              ),
+              icon: Icon(BoxIcons.bx_cloud, color: colors.primary, size: 18),
             ),
-          if (listId != 0)
+          if (listId != 0) ...[
+            IconButton(
+              onPressed: () {},
+              icon: Icon(BoxIcons.bx_pin, color: colors.primary, size: 18),
+            ),
             IconButton(
               onPressed: () {},
               icon: Icon(BoxIcons.bx_dots_horizontal_rounded,
                   color: colors.primary),
             ),
+          ],
         ],
       ),
       body: listId == 0 ? _BuildAllListTasks() : _BuildListTasks(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          if (listId == 0) {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              useSafeArea: true,
+              builder: (_) => const AddListTasksModal(),
+            );
+          } else {
+            print('add task');
+          }
+        },
         child: const Icon(BoxIcons.bx_plus),
       ),
     );
@@ -71,7 +87,10 @@ class _BuildAllListTasks extends ConsumerWidget {
 
     return Column(
       children: [
-        const Divider(),
+        Container(
+          height: 1.5,
+          color: Colors.white.withOpacity(.06),
+        ),
         Expanded(
           child: MasonryGridView.count(
             itemCount: lists.length,
@@ -88,50 +107,6 @@ class _BuildAllListTasks extends ConsumerWidget {
                 list: list,
               );
             },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _EmptyListTasks extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
-
-    return Stack(
-      children: [
-        const Divider(),
-        Container(
-          margin: const EdgeInsets.only(top: 200.0),
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(defaultPadding),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.06),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  BoxIcons.bxs_inbox,
-                  size: 38.0,
-                  color: colors.primary,
-                ),
-              ),
-              const Gap(defaultPadding),
-              Text('There is no list.',
-                  style: style.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  )),
-              const Gap(8.0),
-              Text('Press + to add the list',
-                  style: style.bodyMedium?.copyWith(
-                    color: Colors.white70,
-                  )),
-            ],
           ),
         ),
       ],
@@ -172,47 +147,6 @@ class _BuildListTasks extends ConsumerWidget {
         listTasks.tasks.isEmpty
             ? _EmptyTasks()
             : _BuildTasks(listTasks.tasks.toList()),
-      ],
-    );
-  }
-}
-
-class _EmptyTasks extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Divider(),
-        Container(
-          margin: const EdgeInsets.only(top: 200.0),
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(defaultPadding),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.06),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  BoxIcons.bx_task,
-                  size: 38.0,
-                  color: Colors.white70,
-                ),
-              ),
-              const Gap(defaultPadding),
-              Text('There is no task.',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      )),
-              const Gap(8.0),
-              Text('Press + to add the task',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.white70,
-                      )),
-            ],
-          ),
-        ),
       ],
     );
   }
@@ -272,6 +206,94 @@ class _BuildTasks extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _EmptyListTasks extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+    final colors = Theme.of(context).colorScheme;
+
+    return Stack(
+      children: [
+        Container(
+          height: 1.5,
+          color: Colors.white.withOpacity(.06),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 200.0),
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(defaultPadding),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(.06),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  BoxIcons.bxs_inbox,
+                  size: 38.0,
+                  color: colors.primary,
+                ),
+              ),
+              const Gap(defaultPadding),
+              Text('There is no list.',
+                  style: style.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+              const Gap(8.0),
+              Text('Press + to add the list',
+                  style: style.bodyMedium?.copyWith(
+                    color: Colors.white70,
+                  )),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _EmptyTasks extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const Divider(),
+        Container(
+          margin: const EdgeInsets.only(top: 200.0),
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(defaultPadding),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(.06),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  BoxIcons.bx_task,
+                  size: 38.0,
+                  color: Colors.white70,
+                ),
+              ),
+              const Gap(defaultPadding),
+              Text('There is no task.',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      )),
+              const Gap(8.0),
+              Text('Press + to add the task',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.white70,
+                      )),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

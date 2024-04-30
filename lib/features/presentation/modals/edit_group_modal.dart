@@ -79,7 +79,7 @@ class EditGroupModal extends ConsumerWidget {
             autofocus: true,
             controller: notifier.textController,
             decoration: InputDecoration(
-              hintText: S.of(context).group_name_field,
+              hintText: 'List name',
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(10),
