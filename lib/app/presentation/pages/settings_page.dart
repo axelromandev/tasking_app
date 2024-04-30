@@ -71,7 +71,7 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                       ListTile(
-                        onTap: () => context.push(RoutesPath.notifications),
+                        onTap: () => context.push(Routes.notifications.path),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_bell),
                         title:
@@ -92,7 +92,7 @@ class SettingsPage extends ConsumerWidget {
                         shape: const RoundedRectangleBorder(),
                       ),
                       ListTile(
-                        onTap: () => context.push(RoutesPath.language),
+                        onTap: () => context.push(Routes.language.path),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_world),
                         title: Text(S.of(context).language),
@@ -119,7 +119,7 @@ class SettingsPage extends ConsumerWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap: () => context.push(RoutesPath.about),
+                        onTap: () => context.push(Routes.about.path),
                         iconColor: colors.primary,
                         leading: const Icon(BoxIcons.bx_info_circle),
                         title: Text(S.of(context).settings_about_app),

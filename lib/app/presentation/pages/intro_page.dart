@@ -5,9 +5,11 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
-import '../presentation.dart';
+import '../widgets/widgets.dart';
 
 class IntroPage extends ConsumerWidget {
+  static String routePage = '/intro';
+
   const IntroPage({super.key});
 
   @override

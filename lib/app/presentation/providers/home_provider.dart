@@ -64,7 +64,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   Future<void> onRestore() async {
-    BuildContext context = navigatorKey.currentContext!;
+    BuildContext context = navigatorGlobalKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
       elevation: 0,

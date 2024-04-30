@@ -47,7 +47,7 @@ class _Notifier extends StateNotifier<_State> {
           await NotificationService.cancel(state.task.id);
         }
         refresh();
-        navigatorKey.currentContext!.pop();
+        navigatorGlobalKey.currentContext!.pop();
       });
     });
   }

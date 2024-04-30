@@ -59,7 +59,7 @@ class HomePage extends ConsumerWidget {
           centerTitle: false,
           actions: [
             IconButton(
-              onPressed: () => context.push(RoutesPath.settings),
+              onPressed: () => context.push(Routes.settings.path),
               icon: const Icon(BoxIcons.bx_cog),
             ),
           ],

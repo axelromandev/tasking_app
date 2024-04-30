@@ -2,54 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app/app.dart';
 import '../../core/core.dart';
 import '../const/constants.dart';
-import 'routes_path.dart';
+import 'routes.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
+final navigatorGlobalKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final initialLocation = RoutesPath.home;
+  final initialLocation = Routes.home.path;
 
   final pref = SharedPrefs();
 
   return GoRouter(
     initialLocation: initialLocation,
-    navigatorKey: navigatorKey,
+    navigatorKey: navigatorGlobalKey,
     routes: [
-      GoRoute(
-        path: RoutesPath.intro,
-        builder: (_, __) => const IntroPage(),
-      ),
-      GoRoute(
-        path: RoutesPath.home,
-        builder: (_, __) => const HomePage(),
-      ),
-      GoRoute(
-        path: RoutesPath.settings,
-        builder: (_, __) => const SettingsPage(),
-      ),
-      GoRoute(
-        path: RoutesPath.notifications,
-        builder: (_, __) => const NotificationsPage(),
-      ),
-      GoRoute(
-        path: RoutesPath.language,
-        builder: (_, __) => const LanguagePage(),
-      ),
-      GoRoute(
-        path: RoutesPath.about,
-        builder: (_, __) => const AboutPage(),
-      )
+      Routes.intro,
+      Routes.home,
+      Routes.settings,
+      Routes.notifications,
+      Routes.language,
+      Routes.about,
     ],
     redirect: (context, state) {
-      final isGoingTo = state.fullPath;
       if (pref.getValue<bool>(Keys.isFirstTime) == null) {
-        if (isGoingTo == RoutesPath.introSetup) {
-          return RoutesPath.introSetup;
-        }
-        return RoutesPath.intro;
+        return Routes.intro.path;
       }
       return null;
     },

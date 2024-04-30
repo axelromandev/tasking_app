@@ -5,7 +5,7 @@ import '../../config/config.dart';
 enum SnackBarType { info, success, error, warning }
 
 class Snackbar {
-  static final BuildContext _context = navigatorKey.currentContext!;
+  static final BuildContext _context = navigatorGlobalKey.currentContext!;
 
   static void custom(
     String message, {
