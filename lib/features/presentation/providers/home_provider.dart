@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
@@ -22,7 +21,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   final _prefs = SharedPrefs();
-  final _localRepository = LocalRepository();
+  // final _localRepository = LocalRepository();
   final _groupRepository = GroupRepository();
   final _taskRepository = TaskRepository();
 
@@ -109,22 +108,22 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   Future<void> _restore() async {
-    await NotificationService.cancelAll();
-    await _localRepository.restore();
-    final group = await _groupRepository.add(
-      S.current.default_group_1,
-      BoxIcons.bx_list_ul,
-    );
-    await _groupRepository.add(
-      S.current.default_group_2,
-      BoxIcons.bx_cart,
-    );
-    await _groupRepository.add(
-      S.current.default_group_3,
-      BoxIcons.bx_briefcase,
-    );
-    _prefs.setKeyValue<int>(Keys.groupId, group.id);
-    state = state.copyWith(group: group, tasks: []);
+    // await NotificationService.cancelAll();
+    // await _localRepository.restore();
+    // final group = await _groupRepository.add(
+    //   S.current.default_group_1,
+    //   BoxIcons.bx_list_ul,
+    // );
+    // await _groupRepository.add(
+    //   S.current.default_group_2,
+    //   BoxIcons.bx_cart,
+    // );
+    // await _groupRepository.add(
+    //   S.current.default_group_3,
+    //   BoxIcons.bx_briefcase,
+    // );
+    // _prefs.setKeyValue<int>(Keys.groupId, group.id);
+    // state = state.copyWith(group: group, tasks: []);
   }
 }
 

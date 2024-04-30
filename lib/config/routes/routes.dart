@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../src/app.dart';
+import '../../features/app.dart';
 
 class Routes {
   static RoutePage intro = RoutePage(
