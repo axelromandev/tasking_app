@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../features/app.dart';
 import '../../features/domain/entities/subtask.dart';
+import '../../generated/l10n.dart';
 
 class IsarService {
   static late Isar isar;
@@ -22,18 +23,18 @@ class IsarService {
     }
   }
 
-  Future<void> tutorial() async {
+  Future<bool> tutorial() async {
     // find tutorial in the project
     final tutorial =
         await isar.listTasks.filter().nameEqualTo('Tutorial').findFirst();
 
     // existing tutorial, skip
-    if (tutorial != null) return;
+    if (tutorial != null) return false;
 
     // not found, create a new one
     try {
       await isar.writeTxn(() async {
-        final listId = await isar.listTasks.put(ListTasks(
+        final list1 = ListTasks(
           name: 'Tutorial',
           color: 0xffff5252,
           position: 0,
@@ -42,83 +43,113 @@ class IsarService {
             fontFamily: 'BoxIcons',
             fontPackage: 'icons_plus',
           ),
-        ));
+        );
 
-        await isar.tasks.put(Task(
+        final listId = await isar.listTasks.put(list1);
+
+        final task1 = Task(
           listId: listId,
-          message: 'Tap the left checkbox to check',
+          message: S.current.tutorial_task_1,
           position: 0,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task2 = Task(
           listId: listId,
-          message: 'Tap the left checkbox to remove the check',
+          message: S.current.tutorial_task_2,
           position: 1,
           completed: true,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task3 = Task(
           listId: listId,
-          message: 'Tap the right × to delete this task',
+          message: S.current.tutorial_task_3,
           position: 2,
           completed: true,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task4 = Task(
           listId: listId,
-          message: 'Tap the bottom right + to add a task',
+          message: S.current.tutorial_task_4,
           position: 3,
           completed: true,
-        ));
-
-        final taskWithAdditionalId = await isar.tasks.put(Task(
+        );
+        final task5 = Task(
           listId: listId,
-          message: 'Tap to edit this task',
-          note: 'You can write notes here',
+          message: S.current.tutorial_task_5,
+          note: S.current.tutorial_task_5_note,
           position: 4,
           completed: true,
-        ));
-
-        // add subtask
-        await isar.subTasks.put(SubTask(
-          taskId: taskWithAdditionalId,
-          message: 'You can add subtasks here',
-          position: 0,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task6 = Task(
           listId: listId,
-          message: 'Tap the upper right ⁝ to edit or delete this list',
+          message: S.current.tutorial_task_6,
           position: 5,
           completed: true,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task7 = Task(
           listId: listId,
-          message:
-              'There are other easy-to-use features, so please try them out!',
+          message: S.current.tutorial_task_7,
           position: 6,
           completed: true,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task8 = Task(
           listId: listId,
-          message:
-              'That´s it for the tutorial. I hope this app will be useful to you',
+          message: S.current.tutorial_task_8,
           position: 7,
           completed: true,
-        ));
-
-        await isar.tasks.put(Task(
+        );
+        final task9 = Task(
           listId: listId,
-          message: 'Thank you for using this app!',
+          message: S.current.tutorial_task_9,
           position: 8,
           completed: true,
-        ));
+        );
+        final task10 = Task(
+          listId: listId,
+          message: S.current.tutorial_task_10,
+          position: 9,
+          completed: true,
+        );
+
+        // save all tasks
+        await isar.tasks.put(task1);
+        await isar.tasks.put(task2);
+        await isar.tasks.put(task3);
+        await isar.tasks.put(task4);
+        final taskWithAdditionalId = await isar.tasks.put(task5);
+        await isar.tasks.put(task6);
+        await isar.tasks.put(task7);
+        await isar.tasks.put(task8);
+        await isar.tasks.put(task9);
+        await isar.tasks.put(task10);
+
+        // link tasks to the list
+        list1.tasks.addAll([
+          task1,
+          task2,
+          task3,
+          task4,
+          task5,
+          task6,
+          task7,
+          task8,
+          task9,
+          task10,
+        ]);
+        await list1.tasks.save();
+
+        // add subtasks to task4
+        final subtask1 = SubTask(
+          taskId: taskWithAdditionalId,
+          message: S.current.tutorial_task_5_subtask,
+          position: 0,
+        );
+        await isar.subTasks.put(subtask1);
+        task5.subtasks.add(subtask1);
+        await task5.subtasks.save();
       });
+
+      return true;
     } catch (e) {
       log('Error', name: 'IsarService', error: e);
-      rethrow;
+      return false;
     }
   }
 
@@ -175,6 +206,17 @@ class IsarService {
         for (var collection in collections) {
           await collection.clear();
         }
+      });
+    } catch (e) {
+      log('Error', name: 'IsarService', error: e);
+      rethrow;
+    }
+  }
+
+  Future<void> clear() async {
+    try {
+      await isar.writeTxn(() async {
+        await isar.clear();
       });
     } catch (e) {
       log('Error', name: 'IsarService', error: e);

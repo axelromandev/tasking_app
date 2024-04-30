@@ -41,6 +41,13 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       labelSmall: TextStyle(color: Colors.white),
     ),
 
+    // DividerThemeData
+    dividerTheme: const DividerThemeData(
+      color: Colors.white12,
+      space: defaultPadding,
+      thickness: 1,
+    ),
+
     // IconTheme
     iconTheme: const IconThemeData(color: Colors.white),
     primaryIconTheme: const IconThemeData(color: Colors.white),

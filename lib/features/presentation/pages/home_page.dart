@@ -3,69 +3,38 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../modals/add_task_modal.dart';
-import '../modals/select_group_modal.dart';
 import '../modals/task_modal.dart';
 import '../presentation.dart';
+import '../widgets/drawer.dart';
+
+final keyScaffold = GlobalKey<ScaffoldState>();
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final group = ref.watch(homeProvider).group;
-
     return Scaffold(
-      body: Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: Colors.transparent,
-          title: GestureDetector(
-            onTap: () => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              useSafeArea: true,
-              elevation: 0,
-              builder: (_) => const SelectGroupModal(),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  group?.icon?.iconData ?? BoxIcons.bx_crown,
-                  color: colors.primary,
-                ),
-                const SizedBox(width: 8.0),
-                Flexible(
-                  child: Text(
-                    group?.name ?? 'Tasking',
-                    style: style.titleLarge?.copyWith(color: Colors.white),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                const Icon(BoxIcons.bx_chevron_down, color: Colors.white),
-              ],
-            ),
-          ),
-          centerTitle: false,
-          actions: [
-            IconButton(
-              onPressed: () => context.push(Routes.settings.path),
-              icon: const Icon(BoxIcons.bx_cog),
-            ),
-          ],
+      key: keyScaffold,
+      drawer: const Menu(),
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => keyScaffold.currentState?.openDrawer(),
+          icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
         ),
-        body: _BuildTasks(),
-        floatingActionButton: _AddTaskButton(),
+      ),
+      body: const Center(child: Text('Home Page')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(BoxIcons.bx_plus),
       ),
     );
   }

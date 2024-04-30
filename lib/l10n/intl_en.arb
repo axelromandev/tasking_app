@@ -88,5 +88,17 @@
   "settings_support_contact": "Contact Us",
   "settings_title": "Settings",
   "task_empty_subtitle": "Go back to home and add a new task",
-  "task_empty_title": "Ups! Task not found"
+  "task_empty_title": "Ups! Task not found",
+  "tutorial_task_1": "Tap the left checkbox to check",
+  "tutorial_task_10": "Thank you for using this app!",
+  "tutorial_task_2": "Tap the left checkbox to remove the check",
+  "tutorial_task_3": "Tap the right × to delete this task",
+  "tutorial_task_4": "Tap the bottom right + to add a task",
+  "tutorial_task_5": "Tap to edit this task",
+  "tutorial_task_5_note": "You can write notes here",
+  "tutorial_task_5_subtask": "You can add subtasks here",
+  "tutorial_task_6": "Long tap to drag this task",
+  "tutorial_task_7": "Tap the upper right ⁝ to edit or delete this list",
+  "tutorial_task_8": "There are other easy-to-use features, so please try them out!",
+  "tutorial_task_9": "That´s it for the tutorial. I hope this app will be useful to you"
 }

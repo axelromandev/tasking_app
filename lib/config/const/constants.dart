@@ -24,5 +24,6 @@ class Keys {
   static String isFirstTime = 'isFirstTime';
   static String groupId = 'groupId';
   static String colorSeed = 'colorSeed';
-  static String authProvider = 'auth_provider';
+  static String authProvider = 'authProvider';
+  static String showCurrentListTasks = 'showCurrentListTasks';
 }
