@@ -1,65 +1,57 @@
 import 'package:isar/isar.dart';
 
+import 'subtask.dart';
+
 part 'task.g.dart';
 
 @collection
 class Task {
   Id id = Isar.autoIncrement;
-  int groupId;
-  String message;
-  DueDate? dueDate;
-  DateTime? isCompleted;
-  DateTime? createAt;
+  final int listId;
+  final String message;
+  final String? note;
+  final DateTime? reminder;
+  final bool completed;
+  final DateTime? createAt;
+
+  final subtasks = IsarLinks<SubTask>();
 
   Task({
+    required this.listId,
     required this.message,
-    required this.groupId,
-    this.dueDate,
-    this.isCompleted,
+    this.note,
+    this.reminder,
+    this.completed = false,
     this.createAt,
   });
 
-  @override
-  String toString() {
-    return 'Task(id: $id, groupId: $groupId, message: $message, dueDate: $dueDate,isCompleted: $isCompleted, createAt: $createAt)';
-  }
-
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'groupId': groupId,
-      'message': message,
-      'dueDate': dueDate?.toJson(),
-      'isCompleted': isCompleted?.microsecondsSinceEpoch,
-      'createAt': createAt?.microsecondsSinceEpoch,
-    };
-  }
-}
-
-@embedded
-class DueDate {
-  final DateTime? date;
-  final bool isReminder;
-
-  DueDate({
-    this.date,
-    this.isReminder = false,
-  });
-
-  DueDate copyWith({
-    DateTime? date,
-    bool? isReminder,
+  Task copyWith({
+    int? listId,
+    String? message,
+    String? note,
+    DateTime? reminder,
+    bool? completed,
+    DateTime? createAt,
   }) {
-    return DueDate(
-      date: date ?? this.date,
-      isReminder: isReminder ?? this.isReminder,
+    return Task(
+      listId: listId ?? this.listId,
+      message: message ?? this.message,
+      note: note ?? this.note,
+      reminder: reminder ?? this.reminder,
+      completed: completed ?? this.completed,
+      createAt: createAt ?? this.createAt,
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'date': date?.microsecondsSinceEpoch,
-      'isReminder': isReminder,
+      'id': id,
+      'listId': listId,
+      'message': message,
+      'note': note,
+      'reminder': reminder?.millisecondsSinceEpoch,
+      'completed': completed,
+      'createAt': createAt?.millisecondsSinceEpoch,
     };
   }
 }

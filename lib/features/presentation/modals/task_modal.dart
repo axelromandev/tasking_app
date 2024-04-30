@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/const/constants.dart';
-import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../domain/domain.dart';
 import '../providers/task_provider.dart';
@@ -52,11 +51,11 @@ class _BuilderModal extends ConsumerWidget {
           ListTile(
             contentPadding: const EdgeInsets.only(left: defaultPadding),
             title: Text(
-              task.isCompleted != null
+              task.completed
                   ? S.of(context).home_completed
                   : S.of(context).home_pending,
               style: TextStyle(
-                color: task.isCompleted != null ? colors.primary : null,
+                color: task.completed ? colors.primary : null,
               ),
             ),
             trailing: TextButton(
@@ -84,7 +83,7 @@ class _BuilderModal extends ConsumerWidget {
                 child: IconButton(
                   onPressed: notifier.onToggleComplete,
                   icon: Icon(
-                    task.isCompleted != null
+                    task.completed
                         ? BoxIcons.bx_check_circle
                         : BoxIcons.bx_circle,
                     color: colors.primary,
@@ -98,31 +97,22 @@ class _BuilderModal extends ConsumerWidget {
           Row(
             children: [
               TextButton.icon(
-                onPressed: task.dueDate?.date != null
+                onPressed: task.reminder != null
                     ? () => notifier.onEditDueDate(context)
                     : () => notifier.onAddDueDate(context),
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
                 ),
                 icon: Icon(
-                  task.dueDate?.date != null
-                      ? task.dueDate!.isReminder
-                          ? BoxIcons.bx_bell
-                          : BoxIcons.bx_calendar
-                      : BoxIcons.bx_plus,
+                  task.reminder != null ? BoxIcons.bx_bell : BoxIcons.bx_plus,
                   size: 18,
                   color: colors.primary,
                 ),
-                label: task.dueDate?.date != null
-                    ? Text(
-                        formatDate(
-                          task.dueDate!.date!,
-                          task.dueDate!.isReminder,
-                        ),
-                        style: style.bodyMedium)
+                label: task.reminder != null
+                    ? Text(task.reminder.toString(), style: style.bodyMedium)
                     : Text(S.of(context).button_add_due_date),
               ),
-              if (task.dueDate?.date != null)
+              if (task.reminder != null)
                 GestureDetector(
                   onTap: notifier.onRemoveDueDate,
                   child: Icon(BoxIcons.bx_x, color: colors.primary),

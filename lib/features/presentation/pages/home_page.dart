@@ -109,12 +109,9 @@ class _BuildTasks extends ConsumerWidget {
     final provider = ref.watch(homeProvider);
     final tasks = provider.tasks;
 
-    final listCompleted =
-        tasks.where((task) => task.isCompleted != null).toList();
-    listCompleted.sort((a, b) => b.isCompleted!.compareTo(a.isCompleted!));
+    final listCompleted = tasks.where((task) => task.completed).toList();
 
-    final listPending =
-        tasks.where((task) => task.isCompleted == null).toList();
+    final listPending = tasks.where((task) => !task.completed).toList();
 
     if (tasks.isEmpty) {
       return Center(

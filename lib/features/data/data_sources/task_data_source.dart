@@ -6,7 +6,7 @@ import '../../domain/domain.dart';
 abstract interface class ITaskDataSource {
   Future<Task> get(int id);
   Future<List<Task>> getAll();
-  Future<Task> add(int groupId, String name, [DueDate? dueDate]);
+  Future<Task> add(int groupId, String name, [DateTime? reminder]);
   Future<void> update(Task task);
   Future<void> delete(int id);
   Future<void> clearComplete(int groupId);
@@ -28,11 +28,11 @@ class TaskDataSource implements ITaskDataSource {
   }
 
   @override
-  Future<Task> add(int groupId, String value, [DueDate? dueDate]) async {
+  Future<Task> add(int groupId, String value, [DateTime? reminder]) async {
     final task = Task(
       message: value,
-      groupId: groupId,
-      dueDate: dueDate,
+      listId: groupId,
+      reminder: reminder,
       createAt: DateTime.now(),
     );
     final query = _isar.listTasks.where().filter().idEqualTo(groupId);
@@ -60,10 +60,10 @@ class TaskDataSource implements ITaskDataSource {
   }
 
   @override
-  Future<void> clearComplete(int groupId) async {
+  Future<void> clearComplete(int listId) async {
     await _isar.writeTxn(() async {
       final ref = _isar.tasks.filter();
-      final query = ref.groupIdEqualTo(groupId).isCompletedIsNotNull();
+      final query = ref.listIdEqualTo(listId).completedEqualTo(true);
       await query.deleteAll();
     });
   }

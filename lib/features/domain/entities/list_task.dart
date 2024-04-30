@@ -20,12 +20,12 @@ class ListTasks {
     this.icon,
   });
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'name': name,
       'password': password,
-      'icon': icon?.toJson(),
+      'icon': icon?.toMap(),
     };
   }
 }
@@ -55,7 +55,7 @@ class ListIconData {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'codePoint': codePoint,
       'fontFamily': fontFamily,

@@ -7,10 +7,8 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 
 import '../../../config/config.dart';
-import '../../../core/core.dart';
 import '../../../generated/l10n.dart';
 import '../../app.dart';
-import '../modals/select_date_time_modal.dart';
 
 final addTaskProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
@@ -28,7 +26,7 @@ class _Notifier extends StateNotifier<_State> {
     required this.getAll,
   }) : super(_State());
 
-  final _taskRepository = TaskRepository();
+  // final _taskRepository = TaskRepository();
 
   final focusNode = FocusNode();
   final controller = TextEditingController();
@@ -94,44 +92,44 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> _customDateTime(BuildContext context) async {
-    await showModalBottomSheet<DueDate?>(
-      context: context,
-      elevation: 0,
-      useSafeArea: true,
-      isScrollControlled: true,
-      backgroundColor: MyColors.backgroundDark,
-      builder: (_) => const SelectDateTimeModal(),
-    ).then((value) {
-      if (value != null) {
-        state = state.copyWith(
-          dueDate: value.date,
-          isReminder: value.isReminder,
-        );
-      }
-    });
+    // await showModalBottomSheet<DueDate?>(
+    //   context: context,
+    //   elevation: 0,
+    //   useSafeArea: true,
+    //   isScrollControlled: true,
+    //   backgroundColor: MyColors.backgroundDark,
+    //   builder: (_) => const SelectDateTimeModal(),
+    // ).then((value) {
+    //   if (value != null) {
+    //     state = state.copyWith(
+    //       dueDate: value.date,
+    //       isReminder: value.isReminder,
+    //     );
+    //   }
+    // });
   }
 
   Future<void> onEditDueDate(BuildContext context) async {
-    await showModalBottomSheet<DueDate?>(
-      context: context,
-      elevation: 0,
-      useSafeArea: true,
-      isScrollControlled: true,
-      backgroundColor: MyColors.backgroundDark,
-      builder: (_) => SelectDateTimeModal(
-        initialDueDate: DueDate(
-          date: state.dueDate!,
-          isReminder: state.isReminder,
-        ),
-      ),
-    ).then((value) {
-      if (value != null) {
-        state = state.copyWith(
-          dueDate: value.date,
-          isReminder: value.isReminder,
-        );
-      }
-    });
+    // await showModalBottomSheet<DueDate?>(
+    //   context: context,
+    //   elevation: 0,
+    //   useSafeArea: true,
+    //   isScrollControlled: true,
+    //   backgroundColor: MyColors.backgroundDark,
+    //   builder: (_) => SelectDateTimeModal(
+    //     initialDueDate: DueDate(
+    //       date: state.dueDate!,
+    //       isReminder: state.isReminder,
+    //     ),
+    //   ),
+    // ).then((value) {
+    //   if (value != null) {
+    //     state = state.copyWith(
+    //       dueDate: value.date,
+    //       isReminder: value.isReminder,
+    //     );
+    //   }
+    // });
   }
 
   void onRemoveDueDate() {
@@ -139,31 +137,31 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onSubmit(BuildContext context) async {
-    final name = state.name.trim();
-    if (name.isEmpty) return;
-    DueDate? dueDate;
-    if (state.dueDate != null) {
-      dueDate = DueDate(date: state.dueDate, isReminder: state.isReminder);
-    }
-    final task =
-        await _taskRepository.add(group.id, name, dueDate).then((task) {
-      controller.clear();
-      focusNode.requestFocus();
-      state = state.reset();
-      return task;
-    });
-    if (state.isReminder && state.dueDate != null) {
-      await NotificationService.showScheduleNotification(
-        id: task.id,
-        title: task.message,
-        body: DateFormat('E, d MMM y,')
-            .add_jm()
-            .format(task.dueDate!.date!)
-            .toString(),
-        scheduledDate: task.dueDate!.date!,
-      );
-    }
-    await getAll();
+    // final name = state.name.trim();
+    // if (name.isEmpty) return;
+    // DueDate? dueDate;
+    // if (state.dueDate != null) {
+    //   dueDate = DueDate(date: state.dueDate, isReminder: state.isReminder);
+    // }
+    // final task =
+    //     await _taskRepository.add(group.id, name, dueDate).then((task) {
+    //   controller.clear();
+    //   focusNode.requestFocus();
+    //   state = state.reset();
+    //   return task;
+    // });
+    // if (state.isReminder && state.dueDate != null) {
+    //   await NotificationService.showScheduleNotification(
+    //     id: task.id,
+    //     title: task.message,
+    //     body: DateFormat('E, d MMM y,')
+    //         .add_jm()
+    //         .format(task.reminder!.date!)
+    //         .toString(),
+    //     scheduledDate: task.reminder!.date!,
+    //   );
+    // }
+    // await getAll();
   }
 }
 

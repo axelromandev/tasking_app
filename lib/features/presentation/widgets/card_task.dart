@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
 class CardTask extends StatelessWidget {
@@ -29,12 +28,9 @@ class CardTask extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         onPressed: onCheckTask,
         icon: Icon(
-          task.isCompleted != null
-              ? BoxIcons.bx_check_circle
-              : BoxIcons.bx_circle,
-          color: task.isCompleted != null
-              ? colors.primary.withOpacity(.6)
-              : colors.primary,
+          task.completed ? BoxIcons.bx_check_circle : BoxIcons.bx_circle,
+          color:
+              task.completed ? colors.primary.withOpacity(.6) : colors.primary,
         ),
       ),
       visualDensity: VisualDensity.compact,
@@ -42,26 +38,24 @@ class CardTask extends StatelessWidget {
         task.message,
         style: style.titleMedium?.copyWith(
           fontWeight: FontWeight.w300,
-          color: task.isCompleted != null ? Colors.white30 : Colors.white,
+          color: task.completed ? Colors.white30 : Colors.white,
         ),
       ),
-      subtitle: task.dueDate?.date != null
+      subtitle: task.reminder != null
           ? Row(
               children: [
                 Icon(
-                  (task.dueDate?.isReminder ?? false)
-                      ? BoxIcons.bx_bell
-                      : BoxIcons.bx_calendar,
-                  color: task.isCompleted != null
+                  BoxIcons.bx_bell,
+                  color: task.completed
                       ? colors.primary.withOpacity(.3)
                       : colors.primary,
                   size: 14,
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  formatDate(task.dueDate?.date, task.dueDate!.isReminder),
+                  task.reminder.toString(),
                   style: style.bodyMedium?.copyWith(
-                    color: task.isCompleted != null
+                    color: task.completed
                         ? colors.primary.withOpacity(.3)
                         : colors.primary,
                     fontWeight: FontWeight.w300,

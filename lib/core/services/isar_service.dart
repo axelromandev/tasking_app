@@ -26,8 +26,8 @@ class IsarService {
       final groups = await isar.listTasks.where().findAll();
       final tasks = await isar.tasks.where().findAll();
       final data = {
-        'groups': groups.map((e) => e.toJson()).toList(),
-        'tasks': tasks.map((e) => e.toJson()).toList(),
+        'groups': groups.map((e) => e.toMap()).toList(),
+        'tasks': tasks.map((e) => e.toMap()).toList(),
       };
       return jsonEncode(data);
     } catch (e) {
@@ -53,16 +53,13 @@ class IsarService {
         await isar.tasks.clear();
         await isar.tasks.importJson(tasksJson);
       });
-      final groups = await isar.listTasks.where().findAll();
-      for (var group in groups) {
-        final tasks = await isar.tasks
-            .where()
-            .filter()
-            .groupIdEqualTo(group.id)
-            .findAll();
-        group.tasks.addAll(tasks);
+      final lists = await isar.listTasks.where().findAll();
+      for (var list in lists) {
+        final tasks =
+            await isar.tasks.where().filter().listIdEqualTo(list.id).findAll();
+        list.tasks.addAll(tasks);
         await isar.writeTxn(() async {
-          await group.tasks.save();
+          await list.tasks.save();
         });
       }
     } catch (e) {

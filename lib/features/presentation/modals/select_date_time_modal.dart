@@ -12,9 +12,9 @@ import '../../app.dart';
 import '../providers/notifications_provider.dart';
 
 class SelectDateTimeModal extends ConsumerStatefulWidget {
-  const SelectDateTimeModal({this.initialDueDate, super.key});
+  const SelectDateTimeModal({this.initialReminder, super.key});
 
-  final DueDate? initialDueDate;
+  final DateTime? initialReminder;
 
   @override
   ConsumerState<SelectDateTimeModal> createState() =>
@@ -28,16 +28,16 @@ class _SelectDateTimeModalState extends ConsumerState<SelectDateTimeModal> {
   DateTime? selectedDate;
   DateTime? selectedTime;
 
-  @override
-  void initState() {
-    if (widget.initialDueDate != null) {
-      isDateSelected = true;
-      selectedDate = widget.initialDueDate!.date;
-      isTimeSelected = widget.initialDueDate!.isReminder;
-      selectedTime = widget.initialDueDate!.date;
-    }
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   if (widget.initialReminder != null) {
+  //     isDateSelected = true;
+  //     isTimeSelected = true;
+  //     selectedDate = widget.initialReminder;
+  //     selectedTime = widget.initialReminder;
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,21 +78,22 @@ class _SelectDateTimeModalState extends ConsumerState<SelectDateTimeModal> {
                 ],
                 const Spacer(),
                 TextButton(
-                  onPressed: isDateSelected
-                      ? () {
-                          final dueDate = DueDate(
-                            date: DateTime(
-                              selectedDate!.year,
-                              selectedDate!.month,
-                              selectedDate!.day,
-                              selectedTime?.hour ?? 23,
-                              selectedTime?.minute ?? 59,
-                            ),
-                            isReminder: isTimeSelected,
-                          );
-                          Navigator.pop(context, dueDate);
-                        }
-                      : null,
+                  onPressed: null,
+                  // isDateSelected
+                  //     ? () {
+                  //         final dueDate = DueDate(
+                  //           date: DateTime(
+                  //             selectedDate!.year,
+                  //             selectedDate!.month,
+                  //             selectedDate!.day,
+                  //             selectedTime?.hour ?? 23,
+                  //             selectedTime?.minute ?? 59,
+                  //           ),
+                  //           isReminder: isTimeSelected,
+                  //         );
+                  //         Navigator.pop(context, dueDate);
+                  //       }
+                  // : null,
                   child: Text(S.of(context).button_save),
                 ),
               ],

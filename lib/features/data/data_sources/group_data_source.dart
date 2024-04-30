@@ -3,8 +3,9 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
+import '../../domain/entities/subtask.dart';
 
-abstract interface class IGroupDataSource {
+abstract interface class IListTasksDataSource {
   Future<List<ListTasks>> fetchAll();
   Future<ListTasks?> get(int id);
   Future<ListTasks> add(String name, IconData icon);
@@ -12,7 +13,7 @@ abstract interface class IGroupDataSource {
   Future<void> delete(int id);
 }
 
-class GroupDataSource implements IGroupDataSource {
+class ListTasksDataSource implements IListTasksDataSource {
   final Isar _isar = IsarService.isar;
 
   @override
@@ -53,7 +54,8 @@ class GroupDataSource implements IGroupDataSource {
   @override
   Future<void> delete(int id) async {
     await _isar.writeTxn(() async {
-      await _isar.tasks.filter().groupIdEqualTo(id).deleteAll();
+      await _isar.subTasks.filter().taskIdEqualTo(id).deleteAll();
+      await _isar.tasks.filter().listIdEqualTo(id).deleteAll();
       await _isar.listTasks.delete(id);
     });
   }

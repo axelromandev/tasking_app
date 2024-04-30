@@ -12,7 +12,7 @@ abstract interface class IGroupRepository {
 }
 
 class GroupRepository extends IGroupRepository {
-  final IGroupDataSource _dataSource = GroupDataSource();
+  final IListTasksDataSource _dataSource = ListTasksDataSource();
 
   @override
   Future<ListTasks> add(String name, IconData icon) {

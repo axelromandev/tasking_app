@@ -57,8 +57,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   Future<void> onToggleCheck(Task task) async {
-    task.isCompleted = task.isCompleted == null ? DateTime.now() : null;
-    await _taskRepository.update(task);
+    final newTask = task.copyWith(completed: !task.completed);
+    await _taskRepository.update(newTask);
     getAll();
   }
 
