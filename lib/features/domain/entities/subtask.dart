@@ -7,11 +7,13 @@ class SubTask {
   Id id = Isar.autoIncrement;
   final int taskId;
   final String message;
+  final int position;
   final bool completed;
 
   SubTask({
     required this.taskId,
     required this.message,
+    required this.position,
     this.completed = false,
   });
 
@@ -20,6 +22,7 @@ class SubTask {
       'id': id,
       'taskId': taskId,
       'message': message,
+      'position': position,
       'completed': completed,
     };
   }

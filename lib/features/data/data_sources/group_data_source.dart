@@ -32,6 +32,7 @@ class ListTasksDataSource implements IListTasksDataSource {
       final id = await _isar.listTasks.put(
         ListTasks(
           name: name,
+          position: 0,
           icon: ListIconData(
             codePoint: icon.codePoint,
             fontFamily: icon.fontFamily,

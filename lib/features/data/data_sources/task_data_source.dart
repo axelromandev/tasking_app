@@ -33,6 +33,7 @@ class TaskDataSource implements ITaskDataSource {
       message: value,
       listId: groupId,
       reminder: reminder,
+      position: 0,
       createAt: DateTime.now(),
     );
     final query = _isar.listTasks.where().filter().idEqualTo(groupId);

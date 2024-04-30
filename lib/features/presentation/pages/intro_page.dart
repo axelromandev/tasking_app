@@ -5,6 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
+import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
 class IntroPage extends ConsumerWidget {
@@ -73,7 +74,7 @@ class IntroPage extends ConsumerWidget {
               Text(S.of(context).page_intro_disclaimer),
               CustomFilledButton(
                 margin: const EdgeInsets.only(top: defaultPadding),
-                onPressed: () {},
+                onPressed: () => ref.read(introProvider).call(context),
                 textStyle: style.titleLarge,
                 child: Text(S.of(context).page_intro_button),
               ),

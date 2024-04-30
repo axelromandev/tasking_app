@@ -9,6 +9,7 @@ class Task {
   Id id = Isar.autoIncrement;
   final int listId;
   final String message;
+  final int position;
   final String? note;
   final DateTime? reminder;
   final bool completed;
@@ -19,6 +20,7 @@ class Task {
   Task({
     required this.listId,
     required this.message,
+    required this.position,
     this.note,
     this.reminder,
     this.completed = false,
@@ -28,6 +30,7 @@ class Task {
   Task copyWith({
     int? listId,
     String? message,
+    int? position,
     String? note,
     DateTime? reminder,
     bool? completed,
@@ -36,6 +39,7 @@ class Task {
     return Task(
       listId: listId ?? this.listId,
       message: message ?? this.message,
+      position: position ?? this.position,
       note: note ?? this.note,
       reminder: reminder ?? this.reminder,
       completed: completed ?? this.completed,
@@ -48,6 +52,7 @@ class Task {
       'id': id,
       'listId': listId,
       'message': message,
+      'position': position,
       'note': note,
       'reminder': reminder?.millisecondsSinceEpoch,
       'completed': completed,
