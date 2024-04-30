@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../app/app.dart';
+import '../../src/app.dart';
 
 class IsarService {
   static late Isar isar;
