@@ -7,8 +7,7 @@ abstract interface class IListTasksRepository {
   Future<List<ListTasks>> fetchAll();
   Future<ListTasks?> get(int id);
   Future<ListTasks> add(String name, Color color, [IconData? icon]);
-  Future<void> update(ListTasks group);
-  Future<void> delete(int id);
+  Future<void> update(ListTasks list);
 }
 
 class ListTasksRepository extends IListTasksRepository {
@@ -17,11 +16,6 @@ class ListTasksRepository extends IListTasksRepository {
   @override
   Future<ListTasks> add(String name, Color color, [IconData? icon]) {
     return _dataSource.add(name, color, icon);
-  }
-
-  @override
-  Future<void> delete(int id) {
-    return _dataSource.delete(id);
   }
 
   @override
@@ -35,7 +29,7 @@ class ListTasksRepository extends IListTasksRepository {
   }
 
   @override
-  Future<void> update(ListTasks group) {
-    return _dataSource.update(group);
+  Future<void> update(ListTasks list) {
+    return _dataSource.update(list);
   }
 }

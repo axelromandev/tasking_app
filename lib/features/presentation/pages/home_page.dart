@@ -8,6 +8,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../domain/domain.dart';
 import '../modals/add_list_tasks_modal.dart';
+import '../modals/update_list_tasks_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
@@ -25,7 +26,7 @@ class HomePage extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    final listId = ref.watch(selectListIdProvider);
+    final list = ref.watch(listTasksProvider);
 
     return Scaffold(
       key: keyScaffold,
@@ -36,18 +37,22 @@ class HomePage extends ConsumerWidget {
           onPressed: () => keyScaffold.currentState?.openDrawer(),
           icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
         ),
-        title: Text(listId == 0 ? 'ALL' : '', style: style.bodyLarge),
+        title: Text((list == null) ? 'ALL' : '', style: style.bodyLarge),
         centerTitle: true,
         actions: [
-          if (listId == 0)
+          if (list == null)
             IconButton(
               onPressed: () {},
               icon: Icon(BoxIcons.bx_cloud, color: colors.primary, size: 18),
             ),
-          if (listId != 0) ...[
+          if (list != null) ...[
             IconButton(
-              onPressed: () {},
-              icon: Icon(BoxIcons.bx_pin, color: colors.primary, size: 18),
+              onPressed: ref.read(listTasksProvider.notifier).onPinned,
+              icon: Icon(
+                list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
+                color: colors.primary,
+                size: 18,
+              ),
             ),
             IconButton(
               onPressed: () {},
@@ -57,11 +62,11 @@ class HomePage extends ConsumerWidget {
           ],
         ],
       ),
-      body: listId == 0 ? _BuildAllListTasks() : _BuildListTasks(),
+      body: (list == null) ? _BuildAllListTasks() : _BuildListTasks(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (listId == 0) {
+          if (list == null) {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
@@ -163,8 +168,7 @@ class _BuildAllListTasks extends ConsumerWidget {
 class _BuildListTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listId = ref.watch(selectListIdProvider);
-    final listTasks = ref.watch(listTasksProvider(listId));
+    final listTasks = ref.watch(listTasksProvider);
 
     if (listTasks == null) {
       return const SizedBox();
@@ -179,8 +183,13 @@ class _BuildListTasks extends ConsumerWidget {
           color: Colors.white.withOpacity(.06),
         ),
         ListTile(
-          onTap: () {
-            print('tap title');
+          onTap: () async {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              useSafeArea: true,
+              builder: (_) => UpdateListTasksModal(listTasks),
+            );
           },
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           leading: Icon(

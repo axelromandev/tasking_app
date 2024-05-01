@@ -1,14 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app.dart';
+import 'select_list_id_provider.dart';
 
-final listTasksProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, ListTasks?, int>((ref, listId) {
+final listTasksProvider =
+    StateNotifierProvider.autoDispose<_Notifier, ListTasks?>((ref) {
+  final listId = ref.watch(selectListIdProvider);
+
   return _Notifier(listId);
 });
 
 class _Notifier extends StateNotifier<ListTasks?> {
-  _Notifier(int listId) : super(null) {
+  final int listId;
+
+  _Notifier(this.listId) : super(null) {
     _load(listId);
   }
 
@@ -17,5 +22,16 @@ class _Notifier extends StateNotifier<ListTasks?> {
   Future<void> _load(int listId) async {
     final list = await _listTasksRepository.get(listId);
     state = list;
+  }
+
+  Future<void> refresh() async {
+    await _load(state!.id);
+  }
+
+  Future<void> onPinned() async {
+    if (state == null) return;
+    state!.isPinned = !state!.isPinned;
+    await _listTasksRepository.update(state!);
+    await _load(state!.id);
   }
 }

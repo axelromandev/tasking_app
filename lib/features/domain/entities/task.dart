@@ -7,13 +7,13 @@ part 'task.g.dart';
 @collection
 class Task {
   Id id = Isar.autoIncrement;
-  final int listId;
-  final String message;
-  final int position;
-  final String? note;
-  final DateTime? reminder;
-  final bool completed;
-  final DateTime? createAt;
+  int listId;
+  String message;
+  int position;
+  String? note;
+  DateTime? reminder;
+  bool completed;
+  DateTime? createAt;
 
   final subtasks = IsarLinks<SubTask>();
 
