@@ -55,7 +55,76 @@ class HomePage extends ConsumerWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (_) => SafeArea(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: defaultPadding,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: defaultPadding),
+                            child: const Text('List',
+                                style: TextStyle(color: Colors.white70)),
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(BoxIcons.bx_pencil, size: 18),
+                            title: const Text('Edit list'),
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(BoxIcons.bx_trash, size: 18),
+                            title: const Text('Delete list'),
+                          ),
+                          const Divider(),
+                          Container(
+                            margin: const EdgeInsets.only(left: defaultPadding),
+                            child: const Text('Tasks',
+                                style: TextStyle(color: Colors.white70)),
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(BoxIcons.bx_circle, size: 18),
+                            title: const Text('Incomplete all tasks'),
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            visualDensity: VisualDensity.compact,
+                            leading:
+                                const Icon(BoxIcons.bx_check_circle, size: 18),
+                            title: const Text('Complete all tasks'),
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            visualDensity: VisualDensity.compact,
+                            leading: const Icon(BoxIcons.bx_x_circle, size: 18),
+                            title: const Text('Delete all completed tasks'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
               icon: Icon(BoxIcons.bx_dots_horizontal_rounded,
                   color: colors.primary),
             ),
