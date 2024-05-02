@@ -14,6 +14,7 @@ import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
 import '../widgets/menu_drawer.dart';
+import '../widgets/modal_list_tasks_options.dart';
 import '../widgets/widgets.dart';
 
 final keyScaffold = GlobalKey<ScaffoldState>();
@@ -23,7 +24,6 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
     final list = ref.watch(listTasksProvider);
@@ -37,8 +37,6 @@ class HomePage extends ConsumerWidget {
           onPressed: () => keyScaffold.currentState?.openDrawer(),
           icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
         ),
-        title: Text((list == null) ? 'ALL' : '', style: style.bodyLarge),
-        centerTitle: true,
         actions: [
           if (list == null)
             IconButton(
@@ -46,87 +44,24 @@ class HomePage extends ConsumerWidget {
               icon: Icon(BoxIcons.bx_cloud, color: colors.primary, size: 18),
             ),
           if (list != null) ...[
-            IconButton(
-              onPressed: ref.read(listTasksProvider.notifier).onPinned,
-              icon: Icon(
-                list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
-                color: colors.primary,
-                size: 18,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (_) => SafeArea(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: defaultPadding,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: defaultPadding),
-                            child: const Text('List',
-                                style: TextStyle(color: Colors.white70)),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            visualDensity: VisualDensity.compact,
-                            leading: const Icon(BoxIcons.bx_pencil, size: 18),
-                            title: const Text('Edit list'),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            visualDensity: VisualDensity.compact,
-                            leading: const Icon(BoxIcons.bx_trash, size: 18),
-                            title: const Text('Delete list'),
-                          ),
-                          const Divider(),
-                          Container(
-                            margin: const EdgeInsets.only(left: defaultPadding),
-                            child: const Text('Tasks',
-                                style: TextStyle(color: Colors.white70)),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            visualDensity: VisualDensity.compact,
-                            leading: const Icon(BoxIcons.bx_circle, size: 18),
-                            title: const Text('Incomplete all tasks'),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            visualDensity: VisualDensity.compact,
-                            leading:
-                                const Icon(BoxIcons.bx_check_circle, size: 18),
-                            title: const Text('Complete all tasks'),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            visualDensity: VisualDensity.compact,
-                            leading: const Icon(BoxIcons.bx_x_circle, size: 18),
-                            title: const Text('Delete all completed tasks'),
-                          ),
-                        ],
-                      ),
-                    ),
+            list.isPinned
+                ? TextButton.icon(
+                    onPressed: ref.read(listTasksProvider.notifier).onPinned,
+                    icon: const Icon(BoxIcons.bxs_pin, size: 18),
+                    label: const Text('Pinned'),
+                  )
+                : IconButton(
+                    onPressed: ref.read(listTasksProvider.notifier).onPinned,
+                    color: colors.primary,
+                    icon: const Icon(BoxIcons.bx_pin, size: 18),
                   ),
-                );
-              },
-              icon: Icon(BoxIcons.bx_dots_horizontal_rounded,
-                  color: colors.primary),
+            IconButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                builder: (_) => const ModalListTasksOptions(),
+              ),
+              color: colors.primary,
+              icon: const Icon(BoxIcons.bx_dots_horizontal_rounded),
             ),
           ],
         ],
@@ -252,14 +187,12 @@ class _BuildListTasks extends ConsumerWidget {
           color: Colors.white.withOpacity(.06),
         ),
         ListTile(
-          onTap: () async {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              useSafeArea: true,
-              builder: (_) => UpdateListTasksModal(listTasks),
-            );
-          },
+          onTap: () => showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            builder: (_) => UpdateListTasksModal(listTasks),
+          ),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           leading: Icon(
             listTasks.icon?.iconData ?? BoxIcons.bxs_circle,
