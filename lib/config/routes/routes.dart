@@ -28,11 +28,6 @@ class Routes {
     routePath: '/settings/language',
     page: const LanguagePage(),
   );
-
-  static RoutePage about = RoutePage(
-    routePath: '/settings/about',
-    page: const AboutPage(),
-  );
 }
 
 // ---------------------------------------------------------

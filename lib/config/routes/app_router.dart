@@ -22,7 +22,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       Routes.settings,
       Routes.notifications,
       Routes.language,
-      Routes.about,
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(Keys.isFirstTime) == null) {

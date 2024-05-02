@@ -48,8 +48,6 @@
   "notification_enable_title_modal": "Notificaciones habilitadas",
   "page_about_author": "Ingedevs",
   "page_about_author_description": "Soy un desarrollador de software de México. Me encanta crear aplicaciones y aprender cosas nuevas.",
-  "page_about_built_part_1": "Hecho en ",
-  "page_about_built_part_2": " con mucho ",
   "page_about_description": "Tasking es una aplicación simple del administrador de tareas. Es gratis y de código abierto.",
   "page_intro_button": "Empezar",
   "page_intro_disclaimer": "*Esta aplicación todavía está en beta, espere el comportamiento inesperado y los cambios de la interfaz de usuario.*",

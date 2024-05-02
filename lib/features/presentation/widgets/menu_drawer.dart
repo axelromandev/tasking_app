@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../../config/config.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
 
@@ -77,7 +78,7 @@ class Menu extends ConsumerWidget {
             const Spacer(),
             const Divider(),
             ListTile(
-              onTap: () {},
+              onTap: () => context.push(Routes.settings.path),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(0),
               ),
