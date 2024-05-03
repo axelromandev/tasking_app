@@ -13,6 +13,7 @@ class ModalListTasksOptions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
     ListTasks? list = ref.watch(listTasksProvider);
@@ -47,7 +48,31 @@ class ModalListTasksOptions extends ConsumerWidget {
               title: const Text('Edit list'),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () => showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text('Do you want to delete this list?',
+                      style: style.titleLarge),
+                  content: Text('Delete this list will also delete the tasks',
+                      style: style.bodyLarge),
+                  actions: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('Cancel',
+                          style: style.bodyLarge?.copyWith(
+                            color: Colors.white,
+                          )),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('Delete',
+                          style: style.bodyLarge?.copyWith(
+                            color: Colors.redAccent,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               visualDensity: VisualDensity.compact,
