@@ -7,14 +7,14 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../domain/domain.dart';
-import '../modals/add_list_tasks_modal.dart';
+import '../modals/list_tasks_add_modal.dart';
+import '../modals/list_tasks_options_modal.dart';
 import '../modals/update_list_tasks_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
 import '../widgets/menu_drawer.dart';
-import '../widgets/modal_list_tasks_options.dart';
 import '../widgets/widgets.dart';
 
 final keyScaffold = GlobalKey<ScaffoldState>();
@@ -58,7 +58,7 @@ class HomePage extends ConsumerWidget {
             IconButton(
               onPressed: () => showModalBottomSheet(
                 context: context,
-                builder: (_) => const ModalListTasksOptions(),
+                builder: (_) => const ListTasksOptionsModal(),
               ),
               color: colors.primary,
               icon: const Icon(BoxIcons.bx_dots_horizontal_rounded),
@@ -75,7 +75,7 @@ class HomePage extends ConsumerWidget {
               context: context,
               isScrollControlled: true,
               useSafeArea: true,
-              builder: (_) => const AddListTasksModal(),
+              builder: (_) => const ListTasksAddModal(),
             );
           } else {
             print('add task');

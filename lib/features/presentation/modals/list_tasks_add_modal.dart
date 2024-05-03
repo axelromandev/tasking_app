@@ -8,8 +8,8 @@ import '../../../config/config.dart';
 import '../providers/add_list_tasks_modal_provider.dart';
 import '../widgets/widgets.dart';
 
-class AddListTasksModal extends ConsumerWidget {
-  const AddListTasksModal({super.key});
+class ListTasksAddModal extends ConsumerWidget {
+  const ListTasksAddModal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

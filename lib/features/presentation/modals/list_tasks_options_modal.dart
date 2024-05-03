@@ -6,11 +6,11 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../domain/domain.dart';
-import '../modals/update_list_tasks_modal.dart';
 import '../providers/list_tasks_provider.dart';
+import 'update_list_tasks_modal.dart';
 
-class ModalListTasksOptions extends ConsumerWidget {
-  const ModalListTasksOptions({super.key});
+class ListTasksOptionsModal extends ConsumerWidget {
+  const ListTasksOptionsModal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
