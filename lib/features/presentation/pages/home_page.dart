@@ -9,7 +9,8 @@ import '../../../config/config.dart';
 import '../../domain/domain.dart';
 import '../modals/list_tasks_add_modal.dart';
 import '../modals/list_tasks_options_modal.dart';
-import '../modals/update_list_tasks_modal.dart';
+import '../modals/list_tasks_update_modal.dart';
+import '../modals/task_add_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
@@ -78,7 +79,18 @@ class HomePage extends ConsumerWidget {
               builder: (_) => const ListTasksAddModal(),
             );
           } else {
-            print('add task');
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  child: const TaskAddModal(),
+                ),
+              ),
+            );
           }
         },
         child: const Icon(BoxIcons.bx_plus),
@@ -191,7 +203,7 @@ class _BuildListTasks extends ConsumerWidget {
             context: context,
             isScrollControlled: true,
             useSafeArea: true,
-            builder: (_) => UpdateListTasksModal(listTasks),
+            builder: (_) => ListTasksUpdateModal(listTasks),
           ),
           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           leading: Icon(

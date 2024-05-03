@@ -19,11 +19,6 @@ class Routes {
     page: const SettingsPage(),
   );
 
-  static RoutePage notifications = RoutePage(
-    routePath: '/settings/notifications',
-    page: const NotificationsPage(),
-  );
-
   static RoutePage language = RoutePage(
     routePath: '/settings/language',
     page: const LanguagePage(),

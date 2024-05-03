@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../app.dart';
+import '../../domain/domain.dart';
+import 'home_provider.dart';
 
 final backupProvider =
     StateNotifierProvider.autoDispose<_Notifier, bool>((ref) {

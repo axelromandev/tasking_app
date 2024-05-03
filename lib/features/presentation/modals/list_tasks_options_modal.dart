@@ -7,7 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../domain/domain.dart';
 import '../providers/list_tasks_provider.dart';
-import 'update_list_tasks_modal.dart';
+import 'list_tasks_update_modal.dart';
 
 class ListTasksOptionsModal extends ConsumerWidget {
   const ListTasksOptionsModal({super.key});
@@ -37,7 +37,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   context: context,
                   isScrollControlled: true,
                   useSafeArea: true,
-                  builder: (_) => UpdateListTasksModal(list!),
+                  builder: (_) => ListTasksUpdateModal(list!),
                 );
               },
               shape:

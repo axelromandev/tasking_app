@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/domain.dart';
 import 'list_tasks_provider.dart';
 
-final updateListTasksModalProvider = StateNotifierProvider.family
+final listTasksUpdateModalProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, ListTasks>((ref, list) {
   final refresh = ref.read(listTasksProvider.notifier).refresh;
 

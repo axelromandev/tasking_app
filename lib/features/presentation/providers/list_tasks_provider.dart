@@ -37,7 +37,7 @@ class _Notifier extends StateNotifier<ListTasks?> {
 
   Future<void> onDelete() async {
     if (state == null) return;
-    //TODO! check if list has tasks
+    //TODO: check if list has tasks
     await _listTasksRepository.delete(state!.id);
     state = null;
   }

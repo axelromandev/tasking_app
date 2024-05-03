@@ -74,7 +74,7 @@ class SettingsPage extends ConsumerWidget {
                       ),
                     ),
                     ListTile(
-                      onTap: () => context.push(Routes.notifications.path),
+                      onTap: () {},
                       visualDensity: VisualDensity.compact,
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_bell),

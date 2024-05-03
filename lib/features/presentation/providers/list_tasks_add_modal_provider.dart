@@ -7,7 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../domain/domain.dart';
 import 'show_list_tasks_provider.dart';
 
-final addListTasksModalProvider =
+final listTasksAddModalProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final refresh = ref.read(showListTasksProvider.notifier).refresh;
 

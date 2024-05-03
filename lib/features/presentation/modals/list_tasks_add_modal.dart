@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../../../config/config.dart';
-import '../providers/add_list_tasks_modal_provider.dart';
+import '../providers/list_tasks_add_modal_provider.dart';
 import '../widgets/widgets.dart';
 
 class ListTasksAddModal extends ConsumerWidget {
@@ -16,7 +16,7 @@ class ListTasksAddModal extends ConsumerWidget {
     final colors = Theme.of(context).colorScheme;
     final style = Theme.of(context).textTheme;
 
-    final provider = ref.watch(addListTasksModalProvider);
+    final provider = ref.watch(listTasksAddModalProvider);
 
     return Container(
       margin: const EdgeInsets.all(defaultPadding),
@@ -49,12 +49,12 @@ class ListTasksAddModal extends ConsumerWidget {
               ),
             ),
             onChanged:
-                ref.read(addListTasksModalProvider.notifier).onNameChanged,
+                ref.read(listTasksAddModalProvider.notifier).onNameChanged,
           ),
           const Gap(defaultPadding),
           ExpansionTile(
             controller: ref
-                .read(addListTasksModalProvider.notifier)
+                .read(listTasksAddModalProvider.notifier)
                 .expansionTileController,
             leading: ColorIndicator(
               width: 18,
@@ -94,14 +94,14 @@ class ListTasksAddModal extends ConsumerWidget {
                   ColorPickerType.primary: true,
                 },
                 onColorChanged:
-                    ref.read(addListTasksModalProvider.notifier).onColorChanged,
+                    ref.read(listTasksAddModalProvider.notifier).onColorChanged,
               ),
             ],
           ),
           const Gap(defaultPadding),
           CustomFilledButton(
             onPressed: () =>
-                ref.read(addListTasksModalProvider.notifier).onSubmit(context),
+                ref.read(listTasksAddModalProvider.notifier).onSubmit(context),
             child: const Text('Add'),
           ),
         ],

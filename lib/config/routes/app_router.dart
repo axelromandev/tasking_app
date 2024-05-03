@@ -20,7 +20,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       Routes.intro,
       Routes.home,
       Routes.settings,
-      Routes.notifications,
       Routes.language,
     ],
     redirect: (context, state) {

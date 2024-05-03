@@ -6,10 +6,10 @@ import 'package:gap/gap.dart';
 
 import '../../../config/config.dart';
 import '../../app.dart';
-import '../providers/update_list_tasks_modal_provider.dart';
+import '../providers/list_tasks_update_modal_provider.dart';
 
-class UpdateListTasksModal extends ConsumerWidget {
-  const UpdateListTasksModal(this.list, {super.key});
+class ListTasksUpdateModal extends ConsumerWidget {
+  const ListTasksUpdateModal(this.list, {super.key});
 
   final ListTasks list;
 
@@ -18,8 +18,8 @@ class UpdateListTasksModal extends ConsumerWidget {
     final colors = Theme.of(context).colorScheme;
     final style = Theme.of(context).textTheme;
 
-    final provider = ref.watch(updateListTasksModalProvider(list));
-    final notifier = ref.watch(updateListTasksModalProvider(list).notifier);
+    final provider = ref.watch(listTasksUpdateModalProvider(list));
+    final notifier = ref.watch(listTasksUpdateModalProvider(list).notifier);
 
     return Container(
       margin: const EdgeInsets.all(defaultPadding),
