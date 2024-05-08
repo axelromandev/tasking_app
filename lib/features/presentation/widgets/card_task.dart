@@ -1,47 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../domain/domain.dart';
+import '../../domain/entities/subtask.dart';
+import '../providers/task_provider.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends ConsumerWidget {
   const TaskCard(this.task, {super.key});
 
   final Task task;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final subtasks = task.subtasks.toList();
+    final provider = ref.watch(taskProvider(task));
+    final notifier = ref.read(taskProvider(task).notifier);
 
-    final completedSubtasks =
+    final List<SubTask> subtasks = task.subtasks.toList();
+    final List<SubTask> completedSubtasks =
         subtasks.where((subtask) => subtask.completed).toList();
 
+    final bool isCompleted = provider.task.completed;
+
     return ListTile(
+      key: Key('${provider.task.id}'),
       onTap: () {
         print('tap');
       },
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
-      iconColor: task.completed ? Colors.white70 : Colors.white,
+      iconColor: isCompleted ? Colors.white70 : Colors.white,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       leading: IconButton(
-        onPressed: () {
-          print('unmark');
-        },
+        onPressed: notifier.onToggleCompleted,
         icon: Icon(
-          task.completed ? BoxIcons.bx_check : BoxIcons.bx_circle,
+          isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
           size: 18,
         ),
       ),
       title: Text(
-        task.message,
-        style: task.completed
+        provider.task.message,
+        style: isCompleted
             ? style.bodyMedium?.copyWith(color: Colors.white70)
             : style.bodyLarge,
       ),
-      subtitle: (task.hasNote && task.subtasks.isNotEmpty)
+      subtitle: (provider.task.hasNote && task.subtasks.isNotEmpty)
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,12 +56,12 @@ class TaskCard extends StatelessWidget {
                     Icon(
                       BoxIcons.bx_file,
                       size: 12,
-                      color: task.completed ? Colors.white70 : Colors.white,
+                      color: isCompleted ? Colors.white70 : Colors.white,
                     ),
                     const Gap(4.0),
                     Text(task.note!,
                         style: style.bodySmall?.copyWith(
-                          color: task.completed ? Colors.white70 : Colors.white,
+                          color: isCompleted ? Colors.white70 : Colors.white,
                         )),
                   ],
                 ),
@@ -64,19 +70,19 @@ class TaskCard extends StatelessWidget {
                     Icon(
                       BoxIcons.bx_list_ol,
                       size: 12,
-                      color: task.completed ? Colors.white70 : Colors.white,
+                      color: isCompleted ? Colors.white70 : Colors.white,
                     ),
                     const Gap(4.0),
                     Text('${completedSubtasks.length}/${subtasks.length}',
                         style: style.bodySmall?.copyWith(
-                          color: task.completed ? Colors.white70 : Colors.white,
+                          color: isCompleted ? Colors.white70 : Colors.white,
                         )),
                   ],
                 ),
               ],
             )
           : null,
-      trailing: task.completed
+      trailing: isCompleted
           ? IconButton(
               onPressed: () {
                 print('delete');
