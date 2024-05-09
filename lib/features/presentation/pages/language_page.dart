@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/const/constants.dart';
 import '../../../generated/l10n.dart';
@@ -9,6 +11,7 @@ class LanguagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
     String language = Localizations.localeOf(context).languageCode == 'en'
@@ -17,11 +20,16 @@ class LanguagePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(BoxIcons.bx_chevron_left, size: 35),
+        ),
+        leadingWidth: 50,
         title: Text(
           S.of(context).language,
-          style: const TextStyle(color: Colors.white),
+          style: style.headlineMedium,
         ),
-        centerTitle: true,
+        centerTitle: false,
       ),
       body: Container(
         padding: const EdgeInsets.all(defaultPadding),
