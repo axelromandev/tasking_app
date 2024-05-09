@@ -3,7 +3,6 @@ import 'package:isar/isar.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
-import '../../domain/entities/subtask.dart';
 
 abstract interface class IListTasksDataSource {
   Future<List<ListTasks>> fetchAll();

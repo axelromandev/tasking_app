@@ -5,7 +5,6 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/app.dart';
-import '../../features/domain/entities/subtask.dart';
 import '../../generated/l10n.dart';
 
 class IsarService {
