@@ -17,6 +17,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
     final colors = Theme.of(context).colorScheme;
 
     ListTasks? list = ref.watch(listTasksProvider);
+    final notifier = ref.read(listTasksProvider.notifier);
 
     return SafeArea(
       child: Container(
@@ -69,7 +70,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   const Text('Tasks', style: TextStyle(color: Colors.white70)),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                context.pop();
+                notifier.onMarkIncompleteAllTasks();
+              },
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               visualDensity: VisualDensity.compact,
@@ -78,7 +82,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
               title: const Text('Incomplete all tasks'),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                context.pop();
+                notifier.onMarkCompleteAllTasks();
+              },
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               visualDensity: VisualDensity.compact,
@@ -87,7 +94,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
               title: const Text('Complete all tasks'),
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                context.pop();
+                notifier.onDeleteCompletedAllTasks();
+              },
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               visualDensity: VisualDensity.compact,

@@ -18,6 +18,7 @@ class _Notifier extends StateNotifier<ListTasks?> {
   }
 
   final _listTasksRepository = ListTasksRepository();
+  final _taskRepository = TaskRepository();
 
   Future<void> _load(int listId) async {
     final list = await _listTasksRepository.get(listId);
@@ -40,5 +41,37 @@ class _Notifier extends StateNotifier<ListTasks?> {
     //TODO: check if list has tasks
     await _listTasksRepository.delete(state!.id);
     state = null;
+  }
+
+  Future<void> onMarkIncompleteAllTasks() async {
+    if (state == null) return;
+    if (state?.tasks == null) return;
+    final tasks = state?.tasks.where((task) => task.completed).toList();
+    for (final task in tasks!) {
+      task.completed = false;
+      await _taskRepository.update(task);
+    }
+    await refresh();
+  }
+
+  Future<void> onMarkCompleteAllTasks() async {
+    if (state == null) return;
+    if (state?.tasks == null) return;
+    final tasks = state?.tasks.where((task) => !task.completed).toList();
+    for (final task in tasks!) {
+      task.completed = true;
+      await _taskRepository.update(task);
+    }
+    await refresh();
+  }
+
+  Future<void> onDeleteCompletedAllTasks() async {
+    if (state == null) return;
+    if (state?.tasks == null) return;
+    final tasks = state?.tasks.where((task) => task.completed).toList();
+    for (final task in tasks!) {
+      await _taskRepository.delete(task.id);
+    }
+    await refresh();
   }
 }
