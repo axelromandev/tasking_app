@@ -252,6 +252,8 @@ class _BuildTasks extends StatelessWidget {
           if (pendingTasks.isNotEmpty && completedTasks.isNotEmpty) ...[
             const Gap(defaultPadding),
             const Divider(height: 0),
+          ],
+          if (completedTasks.isNotEmpty) ...[
             ListTile(
               visualDensity: VisualDensity.compact,
               shape: const RoundedRectangleBorder(

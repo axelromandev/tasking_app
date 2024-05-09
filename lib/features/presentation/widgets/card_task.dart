@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../domain/domain.dart';
-import '../../domain/entities/subtask.dart';
 import '../providers/task_provider.dart';
 
 class TaskCard extends ConsumerWidget {
@@ -23,10 +22,10 @@ class TaskCard extends ConsumerWidget {
     final List<SubTask> completedSubtasks =
         subtasks.where((subtask) => subtask.completed).toList();
 
-    final bool isCompleted = provider.task.completed;
+    final bool isCompleted = provider.completed;
 
     return ListTile(
-      key: Key('${provider.task.id}'),
+      key: Key('${provider.id}'),
       onTap: () {
         print('tap');
       },
@@ -35,19 +34,19 @@ class TaskCard extends ConsumerWidget {
       iconColor: isCompleted ? Colors.white70 : Colors.white,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       leading: IconButton(
-        onPressed: notifier.onToggleCompleted,
+        onPressed: notifier.onToggleCompletedStatus,
         icon: Icon(
           isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
           size: 18,
         ),
       ),
       title: Text(
-        provider.task.message,
+        provider.message,
         style: isCompleted
             ? style.bodyMedium?.copyWith(color: Colors.white70)
             : style.bodyLarge,
       ),
-      subtitle: (provider.task.hasNote && task.subtasks.isNotEmpty)
+      subtitle: (provider.hasNote && task.subtasks.isNotEmpty)
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -84,9 +83,7 @@ class TaskCard extends ConsumerWidget {
           : null,
       trailing: isCompleted
           ? IconButton(
-              onPressed: () {
-                print('delete');
-              },
+              onPressed: notifier.onDeleteCompleted,
               icon: const Icon(BoxIcons.bx_x, size: 18),
             )
           : null,

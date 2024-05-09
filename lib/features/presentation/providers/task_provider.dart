@@ -1,35 +1,35 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/domain.dart';
+import 'list_tasks_provider.dart';
 
 final taskProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, _State, Task>((ref, task) {
-  return _Notifier(task);
+    .autoDispose<_Notifier, Task, Task>((ref, task) {
+  final refreshList = ref.read(listTasksProvider.notifier).refresh;
+
+  return _Notifier(task: task, refreshList: refreshList);
 });
 
-class _Notifier extends StateNotifier<_State> {
-  _Notifier(Task task) : super(_State(task: task));
+class _Notifier extends StateNotifier<Task> {
+  final Future<void> Function() refreshList;
+
+  _Notifier({
+    required Task task,
+    required this.refreshList,
+  }) : super(task);
 
   final _taskRepository = TaskRepository();
 
-  Future<void> onToggleCompleted() async {
-    final task = state.task;
-    final newTask = task.copyWith(completed: !task.completed);
-    await _taskRepository.update(newTask);
-    state = state.copyWith(task: newTask);
+  Future<void> onToggleCompletedStatus() async {
+    final task = state;
+    task.completed = !task.completed;
+    await _taskRepository.update(task);
+    refreshList();
   }
-}
 
-class _State {
-  final Task task;
-
-  _State({required this.task});
-
-  _State copyWith({
-    Task? task,
-  }) {
-    return _State(
-      task: task ?? this.task,
-    );
+  Future<void> onDeleteCompleted() async {
+    if (!state.completed) return;
+    await _taskRepository.delete(state.id);
+    refreshList();
   }
 }
