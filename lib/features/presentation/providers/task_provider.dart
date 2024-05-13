@@ -21,9 +21,8 @@ class _Notifier extends StateNotifier<Task> {
   final _taskRepository = TaskRepository();
 
   Future<void> onToggleCompletedStatus() async {
-    final task = state;
-    task.completed = !task.completed;
-    await _taskRepository.update(task);
+    state.completed = !state.completed;
+    await _taskRepository.update(state);
     refreshList();
   }
 

@@ -19,6 +19,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       Routes.intro,
       Routes.home,
+      Routes.task,
       Routes.settings,
       Routes.language,
     ],

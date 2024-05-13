@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../domain/domain.dart';
+import '../pages/task_page.dart';
 import '../providers/task_provider.dart';
 
 class TaskCard extends ConsumerWidget {
@@ -27,8 +28,14 @@ class TaskCard extends ConsumerWidget {
     return ListTile(
       key: Key('${provider.id}'),
       onTap: () {
-        print('tap');
+        showModalBottomSheet(
+          context: context,
+          useSafeArea: true,
+          isScrollControlled: true,
+          builder: (context) => TaskPage(task),
+        );
       },
+      // onTap: () => context.push(Routes.task.path, extra: provider),
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       iconColor: isCompleted ? Colors.white70 : Colors.white,

@@ -1,44 +1,33 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/app.dart';
 
 class Routes {
-  static RoutePage intro = RoutePage(
-    routePath: '/intro',
-    page: const IntroPage(),
+  static GoRoute intro = GoRoute(
+    path: '/intro',
+    builder: (context, state) => const IntroPage(),
   );
 
-  static RoutePage home = RoutePage(
-    routePath: '/',
-    page: const HomePage(),
+  static GoRoute home = GoRoute(
+    path: '/',
+    builder: (context, state) => const HomePage(),
   );
 
-  static RoutePage settings = RoutePage(
-    routePath: '/settings',
-    page: const SettingsPage(),
+  static GoRoute task = GoRoute(
+    path: '/task',
+    builder: (context, state) {
+      final task = state.extra as Task;
+      return TaskPage(task);
+    },
   );
 
-  static RoutePage language = RoutePage(
-    routePath: '/settings/language',
-    page: const LanguagePage(),
+  static GoRoute settings = GoRoute(
+    path: '/settings',
+    builder: (context, state) => const SettingsPage(),
   );
-}
 
-// ---------------------------------------------------------
-
-class RoutePage extends GoRoute {
-  final String _routePath;
-
-  @override
-  String get path => _routePath;
-
-  RoutePage({
-    required String routePath,
-    required Widget page,
-  })  : _routePath = routePath,
-        super(
-          path: routePath,
-          builder: (_, __) => page,
-        );
+  static GoRoute language = GoRoute(
+    path: '/settings/language',
+    builder: (context, state) => const LanguagePage(),
+  );
 }
