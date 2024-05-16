@@ -2,7 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   errors:
-    todo: warning
+    todo: info
     prefer_const_constructors: warning
     avoid_empty_else: error
 

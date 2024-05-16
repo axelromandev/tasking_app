@@ -18,7 +18,6 @@ dependencies:
     sdk: flutter
   flutter_advanced_avatar: ^1.5.0
   flutter_archive: ^6.0.0
-  flutter_dotenv: ^5.1.0
   flutter_local_notifications: ^16.3.2
   flutter_localizations:
     sdk: flutter
@@ -60,7 +59,6 @@ flutter:
   generate: true
 
   assets:
-    - .env
     - assets/img/
     - assets/svg/
 

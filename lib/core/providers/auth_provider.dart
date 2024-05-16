@@ -5,7 +5,6 @@ import 'dart:math' as m;
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -68,8 +67,9 @@ class _Notifier extends StateNotifier<_State> {
       final rawNonce = _generateNonce();
       final nonce = _sha256ofString(rawNonce);
       final webAuthenticationOptions = WebAuthenticationOptions(
-        clientId: dotenv.env['APPLE_SERVICE_ID'] ?? '',
-        redirectUri: Uri.parse(dotenv.env['APPLE_REDIRECT_URI'] ?? ''),
+        clientId: 'com.ingedevs.tasking-service',
+        redirectUri: Uri.parse(
+            'https://callbackssigninwithapple-ghl66f62mq-uc.a.run.app'),
       );
       UserCredential? credential;
       final apple = await SignInWithApple.getAppleIDCredential(
