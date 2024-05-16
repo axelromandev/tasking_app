@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -83,9 +86,10 @@ class Menu extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(0),
               ),
               visualDensity: VisualDensity.compact,
-              leading: const Icon(BoxIcons.bxs_cog, size: 16),
-              title: Text('Settings', style: style.bodyMedium),
+              leading: const Icon(BoxIcons.bxs_cog, size: 20),
+              title: Text('Settings', style: style.bodyLarge),
             ),
+            if (Platform.isAndroid) const Gap(defaultPadding),
           ],
         ),
       ),
