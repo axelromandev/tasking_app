@@ -23,6 +23,7 @@ class _Notifier extends StateNotifier<_State> {
   }) : super(_State(listId: listId));
 
   final controller = TextEditingController();
+  final focusNode = FocusNode();
 
   final _taskRepository = TaskRepository();
 
@@ -31,6 +32,19 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onSubmit() async {
+    if (state.name.trim().isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Please enter a task name.',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      return;
+    }
+
     try {
       await _taskRepository.add(state.listId, state.name);
       refresh();
