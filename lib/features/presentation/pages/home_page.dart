@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../../config/config.dart';
 import '../modals/list_tasks_add_modal.dart';
 import '../modals/list_tasks_options_modal.dart';
 import '../modals/task_add_modal.dart';
@@ -91,6 +92,8 @@ class HomePage extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
+              barrierColor: Colors.transparent,
+              backgroundColor: MyColors.cardDark,
               builder: (_) => SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(

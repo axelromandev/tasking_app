@@ -100,10 +100,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       elevation: 0,
       backgroundColor: MyColors.backgroundDark,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(defaultRadius),
-          topRight: Radius.circular(defaultRadius),
-        ),
+        borderRadius: BorderRadius.zero,
       ),
     ),
 
