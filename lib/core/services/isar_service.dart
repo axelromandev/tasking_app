@@ -138,7 +138,6 @@ class IsarService {
         final subtask1 = SubTask(
           taskId: taskWithAdditionalId,
           message: S.current.tutorial_task_5_subtask,
-          position: 0,
         );
         await isar.subTasks.put(subtask1);
         task5.subtasks.add(subtask1);
