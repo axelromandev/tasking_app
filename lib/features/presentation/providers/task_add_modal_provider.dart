@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../core/core.dart';
 import '../../domain/domain.dart';
 import 'list_tasks_provider.dart';
 import 'select_list_id_provider.dart';
@@ -33,15 +33,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit() async {
     if (state.name.trim().isEmpty) {
-      Fluttertoast.showToast(
-        msg: 'Please enter a task name.',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
+      MyToast.show('Please enter a task name.');
       return;
     }
 
@@ -49,35 +41,15 @@ class _Notifier extends StateNotifier<_State> {
       await _taskRepository.add(state.listId, state.name);
       refresh();
     } catch (e) {
-      _showToast(e.toString());
+      MyToast.show(e.toString());
     } finally {
       _clean();
-    }
-  }
-
-  Future<void> onMicrophone() async {
-    try {
-      //TODO: Implementar a funcionalidade de reconhecimento de voz
-    } catch (e) {
-      _showToast(e.toString());
     }
   }
 
   void _clean() {
     controller.clear();
     state = state.copyWith(name: '');
-  }
-
-  void _showToast(String e) {
-    Fluttertoast.showToast(
-      msg: e,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 }
 
