@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
@@ -14,7 +13,6 @@ final introProvider = Provider.autoDispose((ref) {
 
   Future<void> finish(BuildContext context) async {
     try {
-      await Permission.notification.request();
       await isarService.tutorial().then((status) {
         if (status) {
           prefs.setKeyValue<bool>(Keys.isFirstTime, true);

@@ -18,7 +18,6 @@ void main() async {
 
   await SharedPrefs.initialize();
   await IsarService.initialize();
-  await NotificationService.initialize();
 
   runApp(const ProviderScope(
     child: MainApp(),
