@@ -10,6 +10,7 @@ abstract interface class ITaskDataSource {
   Future<void> update(Task task);
   Future<void> delete(int id);
   Future<void> clearComplete(int groupId);
+  Future<void> changeList(int taskId, int newListId);
 }
 
 class TaskDataSource implements ITaskDataSource {
@@ -66,6 +67,21 @@ class TaskDataSource implements ITaskDataSource {
       final ref = _isar.tasks.filter();
       final query = ref.listIdEqualTo(listId).completedEqualTo(true);
       await query.deleteAll();
+    });
+  }
+
+  @override
+  Future<void> changeList(int taskId, int newListId) async {
+    await _isar.writeTxn(() async {
+      final task = await _isar.tasks.get(taskId);
+      final oldList = await _isar.listTasks.get(task!.listId);
+      final newList = await _isar.listTasks.get(newListId);
+      oldList!.tasks.remove(task);
+      newList!.tasks.add(task);
+      task.listId = newListId;
+      await _isar.tasks.put(task);
+      await oldList.tasks.save();
+      await newList.tasks.save();
     });
   }
 }

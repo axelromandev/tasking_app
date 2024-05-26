@@ -8,6 +8,7 @@ abstract interface class ITaskRepository {
   Future<void> update(Task task);
   Future<void> delete(int id);
   Future<void> clearComplete(int groupId);
+  Future<void> changeList(int taskId, int newListId);
 }
 
 class TaskRepository extends ITaskRepository {
@@ -41,5 +42,10 @@ class TaskRepository extends ITaskRepository {
   @override
   Future<void> update(Task task) {
     return _dataSource.update(task);
+  }
+
+  @override
+  Future<void> changeList(int taskId, int newListId) {
+    return _dataSource.changeList(taskId, newListId);
   }
 }

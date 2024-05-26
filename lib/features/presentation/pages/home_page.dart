@@ -92,7 +92,6 @@ class HomePage extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              barrierColor: Colors.transparent,
               backgroundColor: MyColors.cardDark,
               builder: (_) => SingleChildScrollView(
                 child: Container(

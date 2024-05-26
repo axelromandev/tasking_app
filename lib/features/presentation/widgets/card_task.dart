@@ -27,15 +27,10 @@ class TaskCard extends ConsumerWidget {
 
     return ListTile(
       key: Key('${provider.id}'),
-      onTap: () {
-        showModalBottomSheet(
-          context: context,
-          useSafeArea: true,
-          isScrollControlled: true,
-          builder: (context) => TaskPage(task),
-        );
-      },
-      // onTap: () => context.push(Routes.task.path, extra: provider),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => TaskPage(task),
+        fullscreenDialog: true,
+      )),
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       iconColor: isCompleted ? Colors.white70 : Colors.white,

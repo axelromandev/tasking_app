@@ -6,6 +6,7 @@ import '../../domain/domain.dart';
 abstract class ISubtasksDataSource {
   Future<SubTask> add(int taskId, String name);
   Future<void> update(SubTask subTask);
+  Future<void> delete(int id);
 }
 
 class SubtasksDataSource extends ISubtasksDataSource {
@@ -31,6 +32,13 @@ class SubtasksDataSource extends ISubtasksDataSource {
   Future<void> update(SubTask subTask) async {
     await _isar.writeTxn(() async {
       await _isar.subTasks.put(subTask);
+    });
+  }
+
+  @override
+  Future<void> delete(int id) async {
+    await _isar.writeTxn(() async {
+      await _isar.subTasks.delete(id);
     });
   }
 }
