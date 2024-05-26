@@ -8,7 +8,7 @@ use.
 
 **Client:** Flutter, Riverpod, Isar Database
 
-**Server:** Firebase
+<!-- **Server:** Firebase -->
 
 ## Configuration FVM and Flutter SDK
 
@@ -21,7 +21,7 @@ After installing the FVM, run the following command to install the Flutter SDK v
   fvm install
 ```
 
-## Configuration Firebase
+<!-- ## Configuration Firebase
 
 Install the FlutterFire CLI to configure Firebase for the project, follow the
 instructions on the official website: https://firebase.google.com/docs/flutter/setup
@@ -30,7 +30,7 @@ After installing the FlutterFire CLI, run the following command to configure Fir
 
 ```bash
   flutterfire configure -p firebase-project-id
-```
+``` -->
 
 ## Run Locally
 
