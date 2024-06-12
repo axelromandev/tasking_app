@@ -1,20 +1,68 @@
-include: package:flutter_lints/flutter.yaml
+include: package:lint/analysis_options.yaml
 
 analyzer:
   errors:
     todo: info
     prefer_const_constructors: warning
     avoid_empty_else: error
+    use_build_context_synchronously: ignore
 
 linter:
   rules:
-    - always_declare_return_types
-    - always_put_required_named_parameters_first
-    - prefer_relative_imports
-    - prefer_single_quotes
-    - annotate_overrides
-    - avoid_annotating_with_dynamic
-    - avoid_returning_null_for_void
-    - avoid_void_async
-    - empty_statements
-    - no_duplicate_case_values
+    # https://dart.dev/tools/linter-rules
+
+    # ---- Disable individual rules ------- #
+    #               ---                     #
+    # Turn off what you don't like,         #
+    # ------------------------------------- #
+
+    # Use parameter order as in json response
+    always_put_required_named_parameters_first: false
+
+    # Util classes are awesome
+    avoid_classes_with_only_static_members: false
+
+    # Avoid using package imports
+    always_use_package_imports: false
+
+    # Don't use obligatory types
+    always_specify_types: false
+
+    # ---- Enable individual rules -------- #
+    #               ---                     #
+    # These rules here are good but too     #
+    # opinionated to enable them by default #
+    # ------------------------------------- #
+
+    # Make constructors the first thing in every class
+    sort_constructors_first: true
+
+    # Use single quotes for strings
+    prefer_single_quotes: true
+
+    # Good packages document everything
+    # public_member_api_docs: true
+
+    # Avoid using dynamic
+    always_declare_return_types: true
+
+    # Use relative imports for files in the same package
+    prefer_relative_imports: true
+
+    # Avoid async functions that return void.
+    avoid_void_async: true
+
+    # Annotate overridden members.
+    annotate_overrides: true
+
+    # Avoid annotating with dynamic when not required.
+    avoid_annotating_with_dynamic: true
+
+    # Avoid returning null for void.
+    avoid_returning_null_for_void: true
+
+    # Avoid empty statements.
+    empty_statements: true
+
+    # Don't use more than one case with same value.
+    no_duplicate_case_values: true

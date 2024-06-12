@@ -38,10 +38,10 @@ dependencies:
 dev_dependencies:
   build_runner: any
   flutter_gen: any
-  flutter_lints: ^3.0.2
   flutter_test:
     sdk: flutter
   isar_generator: ^3.1.0+1
+  lint: any
 
 flutter:
   uses-material-design: true
