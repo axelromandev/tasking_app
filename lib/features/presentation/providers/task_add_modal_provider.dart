@@ -15,12 +15,12 @@ final taskAddModalProvider =
 });
 
 class _Notifier extends StateNotifier<_State> {
-  final Future<void> Function() refresh;
-
   _Notifier({
     required int listId,
     required this.refresh,
   }) : super(_State(listId: listId));
+
+  final Future<void> Function() refresh;
 
   final controller = TextEditingController();
   final focusNode = FocusNode();
@@ -54,13 +54,12 @@ class _Notifier extends StateNotifier<_State> {
 }
 
 class _State {
-  final int listId;
-  final String name;
-
   _State({
     required this.listId,
     this.name = '',
   });
+  final int listId;
+  final String name;
 
   _State copyWith({
     String? name,

@@ -15,14 +15,14 @@ String formatDate(DateTime? date, [bool isReminder = false]) {
   }
   if (date.year == now.year) {
     if (isReminder) {
-      return DateFormat('E, d MMM,').add_jm().format(date).toString();
+      return DateFormat('E, d MMM,').add_jm().format(date);
     } else {
-      return DateFormat('E, d MMM').format(date).toString();
+      return DateFormat('E, d MMM').format(date);
     }
   }
   if (isReminder) {
-    return DateFormat('E, d MMM y,').add_jm().format(date).toString();
+    return DateFormat('E, d MMM y,').add_jm().format(date);
   } else {
-    return DateFormat('E, d MMM y').format(date).toString();
+    return DateFormat('E, d MMM y').format(date);
   }
 }

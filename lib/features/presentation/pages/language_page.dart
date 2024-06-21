@@ -14,7 +14,7 @@ class LanguagePage extends StatelessWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    String language = Localizations.localeOf(context).languageCode == 'en'
+    final String language = Localizations.localeOf(context).languageCode == 'en'
         ? S.of(context).language_en
         : S.of(context).language_es;
 
@@ -40,16 +40,17 @@ class LanguagePage extends StatelessWidget {
             const Gap(defaultPadding / 2),
             Text.rich(
               TextSpan(
-                  text: S.of(context).page_language_description_2,
-                  children: [
-                    TextSpan(
-                      text: language,
-                      style: TextStyle(
-                        color: colors.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
+                text: S.of(context).page_language_description_2,
+                children: [
+                  TextSpan(
+                    text: language,
+                    style: TextStyle(
+                      color: colors.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ]),
+                  ),
+                ],
+              ),
             ),
             const Gap(defaultPadding),
             Text(S.of(context).page_language_description_3),

@@ -19,7 +19,7 @@ class SettingsPage extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
     final colors = Theme.of(context).colorScheme;
 
-    bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
+    final bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -49,10 +49,12 @@ class SettingsPage extends ConsumerWidget {
                   bottom: defaultPadding / 2,
                   left: 24.0,
                 ),
-                child: Text(S.of(context).settings_label_general,
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.grey,
-                    )),
+                child: Text(
+                  S.of(context).settings_label_general,
+                  style: style.bodyLarge?.copyWith(
+                    color: Colors.grey,
+                  ),
+                ),
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -64,8 +66,10 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_cloud),
                       title: const Text('Backup / Restore'),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(defaultRadius),
@@ -79,8 +83,10 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_bell),
                       title: Text(S.of(context).settings_general_notifications),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(defaultRadius),
@@ -97,10 +103,12 @@ class SettingsPage extends ConsumerWidget {
                   bottom: defaultPadding / 2,
                   left: 24.0,
                 ),
-                child: Text('Appearance',
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.grey,
-                    )),
+                child: Text(
+                  'Appearance',
+                  style: style.bodyLarge?.copyWith(
+                    color: Colors.grey,
+                  ),
+                ),
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -113,8 +121,10 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_world),
                       title: Text(S.of(context).language),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(defaultRadius),
@@ -131,10 +141,12 @@ class SettingsPage extends ConsumerWidget {
                   bottom: defaultPadding / 2,
                   left: 24.0,
                 ),
-                child: Text(S.of(context).settings_label_info,
-                    style: style.bodyLarge?.copyWith(
-                      color: Colors.grey,
-                    )),
+                child: Text(
+                  S.of(context).settings_label_info,
+                  style: style.bodyLarge?.copyWith(
+                    color: Colors.grey,
+                  ),
+                ),
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -146,8 +158,10 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_share_alt),
                       title: const Text('Compartir con amigos'),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(defaultRadius),
@@ -161,26 +175,32 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_star),
                       title: const Text('Calificar la app'),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(),
                     ),
                     ListTile(
                       onTap: () async {
-                        Uri uri = isEnglish
+                        final Uri uri = isEnglish
                             ? Uri.parse(Urls.enFeedback)
                             : Uri.parse(Urls.esFeedback);
                         if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
+                          Snackbar.show(
+                            'Could not launch $uri',
+                            type: SnackBarType.error,
+                          );
                         }
                       },
                       visualDensity: VisualDensity.compact,
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_envelope),
                       title: const Text('Send Feedback'),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(),
                     ),
                     ListTile(
@@ -189,8 +209,10 @@ class SettingsPage extends ConsumerWidget {
                       iconColor: colors.primary,
                       leading: const Icon(BoxIcons.bx_heart),
                       title: const Text('Support Developer'),
-                      trailing: const Icon(BoxIcons.bx_chevron_right,
-                          color: Colors.grey),
+                      trailing: const Icon(
+                        BoxIcons.bx_chevron_right,
+                        color: Colors.grey,
+                      ),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(defaultRadius),
@@ -216,12 +238,14 @@ class SettingsPage extends ConsumerWidget {
                     const Text('   •   ', style: TextStyle(color: Colors.grey)),
                     GestureDetector(
                       onTap: () async {
-                        Uri uri = isEnglish
+                        final Uri uri = isEnglish
                             ? Uri.parse(Urls.enPrivacyPolicy)
                             : Uri.parse(Urls.esPrivacyPolicy);
                         if (!await launchUrl(uri)) {
-                          Snackbar.show('Could not launch $uri',
-                              type: SnackBarType.error);
+                          Snackbar.show(
+                            'Could not launch $uri',
+                            type: SnackBarType.error,
+                          );
                         }
                       },
                       child: Text('Privacy Policy', style: style.bodySmall),
@@ -230,7 +254,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ),
               _MadeByLabel(),
-              const Gap(defaultPadding * 2)
+              const Gap(defaultPadding * 2),
             ],
           ),
         ),
@@ -300,8 +324,10 @@ class _MadeByLabel extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Made with ',
-              style: style.bodySmall?.copyWith(color: Colors.grey)),
+          Text(
+            'Made with ',
+            style: style.bodySmall?.copyWith(color: Colors.grey),
+          ),
           const Icon(BoxIcons.bxs_heart, color: Colors.redAccent, size: 16),
           Text(' by ', style: style.bodySmall?.copyWith(color: Colors.grey)),
           Text('@ingedevs', style: style.bodySmall),
@@ -327,7 +353,7 @@ class _BuildVersionLabelState extends State<_BuildVersionLabel> {
   }
 
   Future<void> getVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version = packageInfo.version;
       buildNumber = packageInfo.buildNumber;

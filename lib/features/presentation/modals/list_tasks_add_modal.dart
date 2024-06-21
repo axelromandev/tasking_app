@@ -37,13 +37,12 @@ class ListTasksAddModal extends ConsumerWidget {
               hintText: 'List name',
               filled: false,
               enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white12, width: 1),
+                borderSide: const BorderSide(color: Colors.white12),
                 borderRadius: BorderRadius.circular(defaultRadius),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: colors.primary.withOpacity(.5),
-                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(defaultRadius),
               ),
@@ -59,21 +58,18 @@ class ListTasksAddModal extends ConsumerWidget {
             leading: ColorIndicator(
               width: 18,
               height: 18,
-              borderRadius: 10,
               color: provider.color,
             ),
             iconColor: Colors.white70,
             shape: RoundedRectangleBorder(
               side: const BorderSide(
                 color: Colors.white12,
-                width: 1,
               ),
               borderRadius: BorderRadius.circular(defaultRadius),
             ),
             collapsedShape: RoundedRectangleBorder(
               side: const BorderSide(
                 color: Colors.white12,
-                width: 1,
               ),
               borderRadius: BorderRadius.circular(defaultRadius),
             ),

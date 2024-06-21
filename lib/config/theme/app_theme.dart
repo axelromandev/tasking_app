@@ -99,9 +99,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
       backgroundColor: MyColors.backgroundDark,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
+      shape: const RoundedRectangleBorder(),
     ),
 
     // inputDecorationTheme

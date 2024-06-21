@@ -17,11 +17,13 @@ class Snackbar {
     ScaffoldMessenger.of(_context).hideCurrentSnackBar();
     ScaffoldMessenger.of(_context).showSnackBar(
       SnackBar(
-        content: Text(message,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: textColor ?? (isDarkMode ? Colors.black : Colors.white),
-            )),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: textColor ?? (isDarkMode ? Colors.black : Colors.white),
+          ),
+        ),
         backgroundColor:
             backgroundColor ?? (isDarkMode ? Colors.white : Colors.black),
         behavior: SnackBarBehavior.floating,
@@ -36,11 +38,13 @@ class Snackbar {
     ScaffoldMessenger.of(_context).hideCurrentSnackBar();
     ScaffoldMessenger.of(_context).showSnackBar(
       SnackBar(
-        content: Text(message,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: _getTextColor(type),
-            )),
+        content: Text(
+          message,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: _getTextColor(type),
+          ),
+        ),
         backgroundColor: _getBackgroundColor(type),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(

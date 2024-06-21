@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomFilledButton extends StatelessWidget {
-  final VoidCallback? onPressed;
-  final Widget? icon;
-  final Color? backgroundColor, foregroundColor;
-  final Widget child;
-  final EdgeInsetsGeometry? margin, padding;
-  final double? elevation, height;
-  final TextStyle? textStyle;
-  final BorderSide? side;
-
   const CustomFilledButton({
     required this.onPressed,
     required this.child,
@@ -24,6 +15,18 @@ class CustomFilledButton extends StatelessWidget {
     this.side,
     super.key,
   });
+
+  final VoidCallback? onPressed;
+  final Widget? icon;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Widget child;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final double? elevation;
+  final double? height;
+  final TextStyle? textStyle;
+  final BorderSide? side;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class CustomFilledButton extends StatelessWidget {
         padding: padding,
         child: FilledButton.icon(
           onPressed: onPressed,
-          icon: icon!,
+          icon: icon,
           style: style,
           label: child,
         ),

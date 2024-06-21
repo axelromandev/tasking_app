@@ -30,12 +30,14 @@ class ListTasksDataSource implements IListTasksDataSource {
     return await _isar.writeTxn(() async {
       final groups = await _isar.listTasks.where().findAll();
       int lastPosition = groups.isEmpty ? 0 : groups.last.position;
-      final id = await _isar.listTasks.put(ListTasks(
-        name: name,
-        position: (lastPosition += 1),
-        color: color.value,
-        icon: ListIconData.fromIcon(icon),
-      ));
+      final id = await _isar.listTasks.put(
+        ListTasks(
+          name: name,
+          position: lastPosition += 1,
+          color: color.value,
+          icon: ListIconData.fromIcon(icon),
+        ),
+      );
       final list = await _isar.listTasks.get(id);
       return list!;
     });

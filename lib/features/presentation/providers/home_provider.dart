@@ -14,11 +14,11 @@ final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
 });
 
 class HomeNotifier extends StateNotifier<HomeState> {
-  final Ref ref;
-
   HomeNotifier(this.ref) : super(HomeState()) {
     initialize();
   }
+
+  final Ref ref;
 
   final _prefs = SharedPrefs();
   // final _localRepository = LocalRepository();
@@ -63,7 +63,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }
 
   Future<void> onRestore() async {
-    BuildContext context = navigatorGlobalKey.currentContext!;
+    final BuildContext context = navigatorGlobalKey.currentContext!;
     await showModalBottomSheet<bool?>(
       context: context,
       elevation: 0,
@@ -76,11 +76,13 @@ class HomeNotifier extends StateNotifier<HomeState> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(S.of(context).dialog_restore_title,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )),
+                Text(
+                  S.of(context).dialog_restore_title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: Text(
@@ -128,17 +130,16 @@ class HomeNotifier extends StateNotifier<HomeState> {
 }
 
 class HomeState {
-  final bool isShowCompleted;
-  final ListTasks? group;
-  final List<Task> tasks;
-  final DateTime? date;
-
   HomeState({
     this.isShowCompleted = false,
     this.group,
     this.tasks = const [],
     this.date,
   });
+  final bool isShowCompleted;
+  final ListTasks? group;
+  final List<Task> tasks;
+  final DateTime? date;
 
   HomeState copyWith({
     bool? isShowCompleted,

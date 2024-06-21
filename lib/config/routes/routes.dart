@@ -16,7 +16,7 @@ class Routes {
   static GoRoute task = GoRoute(
     path: '/task',
     builder: (context, state) {
-      final task = state.extra as Task;
+      final task = state.extra! as Task;
       return TaskPage(task);
     },
   );

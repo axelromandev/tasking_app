@@ -147,7 +147,8 @@ class TaskPage extends ConsumerWidget {
                   initialValue: subtask.message,
                   textInputAction: TextInputAction.done,
                   style: style.bodyLarge?.copyWith(
-                      color: subtask.completed ? Colors.white60 : Colors.white),
+                    color: subtask.completed ? Colors.white60 : Colors.white,
+                  ),
                   decoration: InputDecoration(
                     filled: false,
                     hintText: 'Subtask name',

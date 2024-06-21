@@ -168,13 +168,13 @@ class IsarService {
 
   Future<void> import(String jsonEncode) async {
     try {
-      final json = jsonDecode(jsonEncode);
-      List<Map<String, dynamic>> groupsJson = [];
-      List<Map<String, dynamic>> tasksJson = [];
-      for (var group in json['groups']) {
+      final json = jsonDecode(jsonEncode) as Map<String, dynamic>;
+      final List<Map<String, dynamic>> groupsJson = [];
+      final List<Map<String, dynamic>> tasksJson = [];
+      for (final group in json['groups'] as List<Map<String, dynamic>>) {
         groupsJson.add(group);
       }
-      for (var task in json['tasks']) {
+      for (final task in json['tasks'] as List<Map<String, dynamic>>) {
         tasksJson.add(task);
       }
       await isar.writeTxn(() async {
@@ -184,7 +184,7 @@ class IsarService {
         await isar.tasks.importJson(tasksJson);
       });
       final lists = await isar.listTasks.where().findAll();
-      for (var list in lists) {
+      for (final list in lists) {
         final tasks =
             await isar.tasks.where().filter().listIdEqualTo(list.id).findAll();
         list.tasks.addAll(tasks);
@@ -201,7 +201,7 @@ class IsarService {
   Future<void> restore(List<IsarCollection> collections) async {
     try {
       await isar.writeTxn(() async {
-        for (var collection in collections) {
+        for (final collection in collections) {
           await collection.clear();
         }
       });

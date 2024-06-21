@@ -31,7 +31,7 @@ class BuildListTasks extends ConsumerWidget {
             useSafeArea: true,
             builder: (_) => ListTasksUpdateModal(listTasks),
           ),
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          shape: const RoundedRectangleBorder(),
           leading: Icon(
             listTasks.icon?.iconData ?? BoxIcons.bxs_circle,
             color: Color(listTasks.color ?? 0xFF000000),
@@ -39,9 +39,10 @@ class BuildListTasks extends ConsumerWidget {
           ),
           title: Text(listTasks.name, style: style.bodyLarge),
         ),
-        listTasks.tasks.isEmpty
-            ? _EmptyTasks()
-            : _BuildTasks(listTasks.tasks.toList()),
+        if (listTasks.tasks.isEmpty)
+          _EmptyTasks()
+        else
+          _BuildTasks(listTasks.tasks.toList()),
       ],
     );
   }
@@ -82,9 +83,7 @@ class _BuildTasks extends StatelessWidget {
         if (completedTasks.isNotEmpty) ...[
           ListTile(
             visualDensity: VisualDensity.compact,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero,
-            ),
+            shape: const RoundedRectangleBorder(),
             title: Text(
               'Completed',
               style: style.bodySmall?.copyWith(color: Colors.white70),
@@ -128,15 +127,19 @@ class _EmptyTasks extends StatelessWidget {
             ),
           ),
           const Gap(defaultPadding),
-          Text('There is no task.',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  )),
+          Text(
+            'There is no task.',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
           const Gap(8.0),
-          Text('Press + to add the task',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Colors.white70,
-                  )),
+          Text(
+            'Press + to add the task',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.white70,
+                ),
+          ),
         ],
       ),
     );

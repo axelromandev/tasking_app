@@ -15,8 +15,6 @@ final taskProvider = StateNotifierProvider.family
 });
 
 class _Notifier extends StateNotifier<Task> {
-  final Future<void> Function() refreshList;
-
   _Notifier({
     required Task task,
     required this.refreshList,
@@ -28,6 +26,8 @@ class _Notifier extends StateNotifier<Task> {
       (i) => {subtasks[i].id: TextEditingController(text: subtasks[i].message)},
     );
   }
+
+  final Future<void> Function() refreshList;
 
   final _taskRepository = TaskRepository();
   final _subtasksRepository = SubtasksRepository();
@@ -64,7 +64,7 @@ class _Notifier extends StateNotifier<Task> {
 
   void onMessageChanged(String value) {
     _debouncer.run(() async {
-      String name = value.trim();
+      final String name = value.trim();
       if (name.isEmpty) return;
       if (state.message == name) return;
       state.message = value;
@@ -75,7 +75,7 @@ class _Notifier extends StateNotifier<Task> {
 
   void onNoteChanged(String value) {
     _debouncer.run(() async {
-      String note = value.trim();
+      final String note = value.trim();
       if (note.isEmpty) return;
       if (state.note == note) return;
       state.note = value;
@@ -92,7 +92,7 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   Future<void> onSubtaskAdd(String value) async {
-    String name = value.trim();
+    final String name = value.trim();
     if (name.isEmpty) return;
     subtaskAddController.clear();
     await _subtasksRepository.add(state.id, name);

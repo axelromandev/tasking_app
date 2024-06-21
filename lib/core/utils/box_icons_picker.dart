@@ -70,10 +70,12 @@ class _BuildIcons extends StatelessWidget {
     return Wrap(
       spacing: defaultPadding,
       children: icons
-          .map((e) => IconButton(
-                onPressed: () => Navigator.pop(context, e),
-                icon: Icon(e, color: colors.primary),
-              ))
+          .map(
+            (e) => IconButton(
+              onPressed: () => Navigator.pop(context, e),
+              icon: Icon(e, color: colors.primary),
+            ),
+          )
           .toList(),
     );
   }
@@ -234,7 +236,7 @@ class _Categories {
     BoxIcons.bx_happy,
     BoxIcons.bx_meh,
     BoxIcons.bx_sad,
-    BoxIcons.bx_bot
+    BoxIcons.bx_bot,
   ];
 
   static const filesAndFolders = [

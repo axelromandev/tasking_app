@@ -10,9 +10,9 @@ final backupProvider =
 });
 
 class _Notifier extends StateNotifier<bool> {
-  final void Function(ListTasks) onSelectGroup;
-
   _Notifier(this.onSelectGroup) : super(false);
+
+  final void Function(ListTasks) onSelectGroup;
 
   // final _groupRepository = GroupRepository();
   // final now = DateTime.now();

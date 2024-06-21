@@ -16,7 +16,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
 
-    ListTasks? list = ref.watch(listTasksProvider);
+    final ListTasks? list = ref.watch(listTasksProvider);
     final notifier = ref.read(listTasksProvider.notifier);
 
     return SafeArea(
@@ -41,8 +41,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   builder: (_) => ListTasksUpdateModal(list!),
                 );
               },
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
@@ -56,8 +55,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   builder: (context) => _DeleteDialog(),
                 );
               },
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
@@ -74,8 +72,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkIncompleteAllTasks();
               },
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
@@ -86,8 +83,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkCompleteAllTasks();
               },
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
@@ -98,8 +94,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onDeleteCompletedAllTasks();
               },
-              shape:
-                  const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: colors.primary,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
@@ -119,8 +114,10 @@ class _DeleteDialog extends ConsumerWidget {
 
     return AlertDialog(
       title: Text('Do you want to delete this list?', style: style.titleLarge),
-      content: Text('Delete this list will also delete the tasks',
-          style: style.bodyLarge),
+      content: Text(
+        'Delete this list will also delete the tasks',
+        style: style.bodyLarge,
+      ),
       actions: [
         Row(
           children: [

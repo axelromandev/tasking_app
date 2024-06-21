@@ -38,12 +38,17 @@ class Menu extends ConsumerWidget {
             const Divider(),
             ListTile(
               visualDensity: VisualDensity.compact,
-              leading: const Icon(BoxIcons.bx_list_ul,
-                  size: 16, color: Colors.white70),
-              title: Text('LIST',
-                  style: style.bodySmall?.copyWith(
-                    color: Colors.white70,
-                  )),
+              leading: const Icon(
+                BoxIcons.bx_list_ul,
+                size: 16,
+                color: Colors.white70,
+              ),
+              title: Text(
+                'LIST',
+                style: style.bodySmall?.copyWith(
+                  color: Colors.white70,
+                ),
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -70,10 +75,12 @@ class Menu extends ConsumerWidget {
                   ),
                   title: Text(list.name),
                   trailing: list.tasks.isNotEmpty
-                      ? Text(list.tasks.length.toString(),
+                      ? Text(
+                          list.tasks.length.toString(),
                           style: style.bodySmall?.copyWith(
                             color: Colors.white70,
-                          ))
+                          ),
+                        )
                       : null,
                 );
               },

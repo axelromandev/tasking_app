@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../config/config.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
-  final VoidCallback? onPressed;
-  final Widget? icon;
-  final Color? backgroundColor, foregroundColor;
-  final Widget child;
-  final EdgeInsetsGeometry? margin, padding;
-  final double? elevation;
-  final TextStyle? textStyle;
-
   const CustomOutlinedButton({
     required this.onPressed,
     required this.child,
@@ -23,6 +15,16 @@ class CustomOutlinedButton extends StatelessWidget {
     this.textStyle,
     super.key,
   });
+
+  final VoidCallback? onPressed;
+  final Widget? icon;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Widget child;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final double? elevation;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class CustomOutlinedButton extends StatelessWidget {
         padding: padding,
         child: OutlinedButton.icon(
           onPressed: onPressed,
-          icon: icon!,
+          icon: icon,
           style: style,
           label: child,
         ),

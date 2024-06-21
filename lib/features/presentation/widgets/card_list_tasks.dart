@@ -19,13 +19,13 @@ class ListTasksCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final length = list.tasks.length;
 
-    int maxLength = 5;
+    const int maxLength = 5;
 
-    List<Task> tasksLimit = length > maxLength
+    final List<Task> tasksLimit = length > maxLength
         ? list.tasks.take(maxLength).toList()
         : list.tasks.toList();
 
-    int tasksHideLength = length - maxLength;
+    final int tasksHideLength = length - maxLength;
 
     return GestureDetector(
       onTap: onTap,
@@ -55,7 +55,7 @@ class ListTasksCard extends StatelessWidget {
                 ],
               ),
             ),
-            for (var task in tasksLimit)
+            for (final task in tasksLimit)
               Container(
                 margin: const EdgeInsets.symmetric(
                   horizontal: defaultPadding,
@@ -88,11 +88,15 @@ class ListTasksCard extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text('+$tasksHideLength',
-                        style: const TextStyle(color: Colors.white70)),
+                    Text(
+                      '+$tasksHideLength',
+                      style: const TextStyle(color: Colors.white70),
+                    ),
                     const Gap(defaultPadding),
-                    const Text('Tasks',
-                        style: TextStyle(color: Colors.white70)),
+                    const Text(
+                      'Tasks',
+                      style: TextStyle(color: Colors.white70),
+                    ),
                   ],
                 ),
               ),

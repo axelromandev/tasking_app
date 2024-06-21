@@ -15,9 +15,9 @@ final listTasksAddModalProvider =
 });
 
 class _Notifier extends StateNotifier<_State> {
-  final Future<void> Function() refresh;
-
   _Notifier(this.refresh) : super(_State());
+
+  final Future<void> Function() refresh;
 
   final expansionTileController = ExpansionTileController();
 
@@ -53,15 +53,14 @@ class _Notifier extends StateNotifier<_State> {
 }
 
 class _State {
-  final String name;
-  final Color color;
-  final IconData icon;
-
   _State({
     this.name = '',
     this.color = Colors.amber,
     this.icon = BoxIcons.bx_list_ul,
   });
+  final String name;
+  final Color color;
+  final IconData icon;
 
   _State copyWith({
     String? name,

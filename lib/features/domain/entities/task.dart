@@ -6,6 +6,16 @@ part 'task.g.dart';
 
 @collection
 class Task {
+  Task({
+    required this.listId,
+    required this.message,
+    required this.position,
+    this.note,
+    this.reminder,
+    this.completed = false,
+    this.createAt,
+  });
+
   Id id = Isar.autoIncrement;
   int listId;
   String message;
@@ -18,16 +28,6 @@ class Task {
   final subtasks = IsarLinks<SubTask>();
 
   bool get hasNote => note != null && note!.isNotEmpty;
-
-  Task({
-    required this.listId,
-    required this.message,
-    required this.position,
-    this.note,
-    this.reminder,
-    this.completed = false,
-    this.createAt,
-  });
 
   Task copyWith({
     int? listId,

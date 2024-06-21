@@ -11,11 +11,11 @@ final listTasksProvider =
 });
 
 class _Notifier extends StateNotifier<ListTasks?> {
-  final int listId;
-
   _Notifier(this.listId) : super(null) {
     _load(listId);
   }
+
+  final int listId;
 
   final _listTasksRepository = ListTasksRepository();
   final _taskRepository = TaskRepository();

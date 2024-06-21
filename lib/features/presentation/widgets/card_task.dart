@@ -27,14 +27,16 @@ class TaskCard extends ConsumerWidget {
 
     return ListTile(
       key: Key('${provider.id}'),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => TaskPage(task),
-        fullscreenDialog: true,
-      )),
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => TaskPage(task),
+          fullscreenDialog: true,
+        ),
+      ),
       contentPadding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
       iconColor: isCompleted ? Colors.white70 : Colors.white,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(),
       leading: IconButton(
         onPressed: notifier.onToggleCompletedStatus,
         icon: Icon(
@@ -60,10 +62,12 @@ class TaskCard extends ConsumerWidget {
                       color: isCompleted ? Colors.white70 : Colors.white,
                     ),
                     const Gap(4.0),
-                    Text(task.note!,
-                        style: style.bodySmall?.copyWith(
-                          color: isCompleted ? Colors.white70 : Colors.white,
-                        )),
+                    Text(
+                      task.note!,
+                      style: style.bodySmall?.copyWith(
+                        color: isCompleted ? Colors.white70 : Colors.white,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -74,10 +78,12 @@ class TaskCard extends ConsumerWidget {
                       color: isCompleted ? Colors.white70 : Colors.white,
                     ),
                     const Gap(4.0),
-                    Text('${completedSubtasks.length}/${subtasks.length}',
-                        style: style.bodySmall?.copyWith(
-                          color: isCompleted ? Colors.white70 : Colors.white,
-                        )),
+                    Text(
+                      '${completedSubtasks.length}/${subtasks.length}',
+                      style: style.bodySmall?.copyWith(
+                        color: isCompleted ? Colors.white70 : Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ],

@@ -7,6 +7,15 @@ part 'list_task.g.dart';
 
 @collection
 class ListTasks {
+  ListTasks({
+    required this.name,
+    required this.position,
+    this.isPinned = false,
+    this.password,
+    this.icon,
+    this.color,
+  });
+
   Id id = Isar.autoIncrement;
   String name;
   int position;
@@ -16,15 +25,6 @@ class ListTasks {
   int? color;
 
   final tasks = IsarLinks<Task>();
-
-  ListTasks({
-    required this.name,
-    required this.position,
-    this.isPinned = false,
-    this.password,
-    this.icon,
-    this.color,
-  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -41,15 +41,14 @@ class ListTasks {
 
 @embedded
 class ListIconData {
-  final int? codePoint;
-  final String? fontFamily;
-  final String? fontPackage;
-
   const ListIconData({
     this.codePoint,
     this.fontFamily,
     this.fontPackage,
   });
+  final int? codePoint;
+  final String? fontFamily;
+  final String? fontPackage;
 
   @override
   String toString() =>

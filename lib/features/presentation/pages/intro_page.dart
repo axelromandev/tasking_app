@@ -9,9 +9,9 @@ import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
 class IntroPage extends ConsumerWidget {
-  static String routePage = '/intro';
-
   const IntroPage({super.key});
+
+  static String routePage = '/intro';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,11 +29,13 @@ class IntroPage extends ConsumerWidget {
                 children: [
                   Icon(BoxIcons.bxs_crown, color: colors.primary, size: 28),
                   const Gap(defaultPadding / 2),
-                  Text(S.of(context).app_name,
-                      style: style.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: colors.primary,
-                      )),
+                  Text(
+                    S.of(context).app_name,
+                    style: style.displaySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: colors.primary,
+                    ),
+                  ),
                 ],
               ),
               Container(
@@ -87,9 +89,8 @@ class IntroPage extends ConsumerWidget {
 }
 
 class _Leading extends StatelessWidget {
-  final IconData icon;
-
   const _Leading({required this.icon});
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {

@@ -37,10 +37,12 @@ class BuildAllListTasks extends ConsumerWidget {
               color: Colors.white38,
             ),
             minLeadingWidth: 0,
-            title: Text('Pinned',
-                style: style.bodySmall?.copyWith(
-                  color: Colors.white38,
-                )),
+            title: Text(
+              'Pinned',
+              style: style.bodySmall?.copyWith(
+                color: Colors.white38,
+              ),
+            ),
           ),
           MasonryGridView.count(
             itemCount: pinnedLists.length,
@@ -122,15 +124,19 @@ class _EmptyListTasks extends StatelessWidget {
                 ),
               ),
               const Gap(defaultPadding),
-              Text('There is no list.',
-                  style: style.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  )),
+              Text(
+                'There is no list.',
+                style: style.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const Gap(8.0),
-              Text('Press + to add the list',
-                  style: style.bodyMedium?.copyWith(
-                    color: Colors.white70,
-                  )),
+              Text(
+                'Press + to add the list',
+                style: style.bodyMedium?.copyWith(
+                  color: Colors.white70,
+                ),
+              ),
             ],
           ),
         ),

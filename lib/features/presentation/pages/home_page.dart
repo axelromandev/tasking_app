@@ -43,17 +43,18 @@ class HomePage extends ConsumerWidget {
         ),
         actions: [
           if (list != null) ...[
-            list.isPinned
-                ? TextButton.icon(
-                    onPressed: ref.read(listTasksProvider.notifier).onPinned,
-                    icon: const Icon(BoxIcons.bxs_pin, size: 18),
-                    label: const Text('Pinned'),
-                  )
-                : IconButton(
-                    onPressed: ref.read(listTasksProvider.notifier).onPinned,
-                    color: colors.primary,
-                    icon: const Icon(BoxIcons.bx_pin, size: 18),
-                  ),
+            if (list.isPinned)
+              TextButton.icon(
+                onPressed: ref.read(listTasksProvider.notifier).onPinned,
+                icon: const Icon(BoxIcons.bxs_pin, size: 18),
+                label: const Text('Pinned'),
+              )
+            else
+              IconButton(
+                onPressed: ref.read(listTasksProvider.notifier).onPinned,
+                color: colors.primary,
+                icon: const Icon(BoxIcons.bx_pin, size: 18),
+              ),
             IconButton(
               onPressed: () => showModalBottomSheet(
                 context: context,

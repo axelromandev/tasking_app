@@ -38,16 +38,12 @@ class SharedPrefs {
     switch (T) {
       case const (int):
         await _prefs.setInt(key, value as int);
-        break;
       case const (double):
         await _prefs.setDouble(key, value as double);
-        break;
       case const (String):
         await _prefs.setString(key, value as String);
-        break;
       case const (bool):
         await _prefs.setBool(key, value as bool);
-        break;
       default:
         throw UnimplementedError(
           'Set not implemented for type ${T.runtimeType}',
