@@ -18,7 +18,7 @@ class TaskPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final listTasks = ref.watch(listTasksProvider);
 
@@ -26,7 +26,7 @@ class TaskPage extends ConsumerWidget {
     final notifier = ref.read(taskProvider(task).notifier);
 
     final listTaskColor =
-        (listTasks?.color != null) ? Color(listTasks!.color!) : colors.primary;
+        (listTasks?.color != null) ? Color(listTasks!.color!) : colorPrimary;
 
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +80,7 @@ class TaskPage extends ConsumerWidget {
                         onTap: () => notifier.onDeleteTask(context).then((_) {
                           Navigator.pop(context);
                         }),
-                        iconColor: colors.primary,
+                        iconColor: Colors.redAccent,
                         leading: const Icon(BoxIcons.bx_trash, size: 20),
                         title: const Text('Delete task'),
                       ),

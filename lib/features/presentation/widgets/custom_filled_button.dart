@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomFilledButton extends StatelessWidget {
+import '../../../config/config.dart';
+
+class CustomFilledButton extends ConsumerWidget {
   const CustomFilledButton({
     required this.onPressed,
     required this.child,
@@ -29,13 +32,11 @@ class CustomFilledButton extends StatelessWidget {
   final BorderSide? side;
 
   @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = FilledButton.styleFrom(
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
-      backgroundColor: backgroundColor ?? colors.primary,
+      backgroundColor: backgroundColor ?? ref.watch(colorThemeProvider),
       foregroundColor: foregroundColor,
       side: side,
     );

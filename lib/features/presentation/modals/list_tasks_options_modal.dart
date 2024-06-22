@@ -14,7 +14,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).colorScheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final ListTasks? list = ref.watch(listTasksProvider);
     final notifier = ref.read(listTasksProvider.notifier);
@@ -43,7 +43,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colors.primary,
+              iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
               title: const Text('Edit list'),
             ),
@@ -57,7 +57,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colors.primary,
+              iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
               title: const Text('Delete list'),
             ),
@@ -74,7 +74,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colors.primary,
+              iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
               title: const Text('Incomplete all tasks'),
             ),
@@ -85,7 +85,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colors.primary,
+              iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
               title: const Text('Complete all tasks'),
             ),
@@ -96,7 +96,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colors.primary,
+              iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
               title: const Text('Delete all completed tasks'),
             ),

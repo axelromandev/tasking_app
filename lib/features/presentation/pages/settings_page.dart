@@ -17,7 +17,7 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
@@ -63,7 +63,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () {},
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_cloud),
                       title: const Text('Backup / Restore'),
                       trailing: const Icon(
@@ -80,7 +80,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () {},
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_bell),
                       title: Text(S.of(context).settings_general_notifications),
                       trailing: const Icon(
@@ -118,7 +118,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () => context.push(Routes.language.path),
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_world),
                       title: Text(S.of(context).language),
                       trailing: const Icon(
@@ -155,7 +155,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () {},
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_share_alt),
                       title: const Text('Compartir con amigos'),
                       trailing: const Icon(
@@ -172,7 +172,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () {},
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_star),
                       title: const Text('Calificar la app'),
                       trailing: const Icon(
@@ -194,7 +194,7 @@ class SettingsPage extends ConsumerWidget {
                         }
                       },
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_envelope),
                       title: const Text('Send Feedback'),
                       trailing: const Icon(
@@ -206,7 +206,7 @@ class SettingsPage extends ConsumerWidget {
                     ListTile(
                       onTap: () {},
                       visualDensity: VisualDensity.compact,
-                      iconColor: colors.primary,
+                      iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_heart),
                       title: const Text('Support Developer'),
                       trailing: const Icon(
@@ -276,7 +276,7 @@ class _ExpansionThemeSelectedState
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     return ExpansionTile(
       controller: controller,
@@ -286,7 +286,7 @@ class _ExpansionThemeSelectedState
       collapsedShape: const RoundedRectangleBorder(),
       shape: const RoundedRectangleBorder(),
       visualDensity: VisualDensity.compact,
-      leading: Icon(BoxIcons.bx_palette, color: colors.primary),
+      leading: Icon(BoxIcons.bx_palette, color: colorPrimary),
       title: const Text('Themes', style: TextStyle(color: Colors.white)),
       trailing: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

@@ -18,8 +18,6 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).colorScheme;
-
     final list = ref.watch(listTasksProvider);
 
     return Scaffold(
@@ -39,28 +37,27 @@ class HomePage extends ConsumerWidget {
         surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => keyScaffold.currentState?.openDrawer(),
-          icon: Icon(BoxIcons.bx_menu_alt_left, color: colors.primary),
+          icon: Icon(
+            BoxIcons.bx_menu_alt_left,
+            color: ref.watch(colorThemeProvider),
+          ),
         ),
         actions: [
           if (list != null) ...[
-            if (list.isPinned)
-              TextButton.icon(
-                onPressed: ref.read(listTasksProvider.notifier).onPinned,
-                icon: const Icon(BoxIcons.bxs_pin, size: 18),
-                label: const Text('Pinned'),
-              )
-            else
-              IconButton(
-                onPressed: ref.read(listTasksProvider.notifier).onPinned,
-                color: colors.primary,
-                icon: const Icon(BoxIcons.bx_pin, size: 18),
+            IconButton(
+              onPressed: ref.read(listTasksProvider.notifier).onPinned,
+              color: ref.watch(colorThemeProvider),
+              icon: Icon(
+                list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
+                size: 18,
               ),
+            ),
             IconButton(
               onPressed: () => showModalBottomSheet(
                 context: context,
                 builder: (_) => const ListTasksOptionsModal(),
               ),
-              color: colors.primary,
+              color: ref.watch(colorThemeProvider),
               icon: const Icon(BoxIcons.bx_dots_horizontal_rounded),
             ),
           ],

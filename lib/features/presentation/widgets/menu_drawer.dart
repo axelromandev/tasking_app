@@ -17,7 +17,6 @@ class Menu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
 
     final listId = ref.watch(selectListIdProvider);
     final lists = ref.watch(showListTasksProvider);
@@ -29,8 +28,11 @@ class Menu extends ConsumerWidget {
           children: [
             ListTile(
               visualDensity: VisualDensity.compact,
-              leading:
-                  Icon(BoxIcons.bxs_crown, color: colors.primary, size: 22),
+              leading: Icon(
+                BoxIcons.bxs_crown,
+                color: ref.watch(colorThemeProvider),
+                size: 22,
+              ),
               title: Text('Tasking', style: style.titleMedium),
             ),
             const Divider(),
