@@ -13,8 +13,9 @@ class ListTasksAddModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).colorScheme;
     final style = Theme.of(context).textTheme;
+
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(listTasksAddModalProvider);
 
@@ -42,7 +43,7 @@ class ListTasksAddModal extends ConsumerWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: colors.primary.withOpacity(.5),
+                  color: colorPrimary.withOpacity(.5),
                 ),
                 borderRadius: BorderRadius.circular(defaultRadius),
               ),

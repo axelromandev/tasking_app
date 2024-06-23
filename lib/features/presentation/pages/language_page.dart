@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../config/const/constants.dart';
+import '../../../config/config.dart';
 import '../../../generated/l10n.dart';
 
-class LanguagePage extends StatelessWidget {
+class LanguagePage extends ConsumerWidget {
   const LanguagePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
+
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final String language = Localizations.localeOf(context).languageCode == 'en'
         ? S.of(context).language_en
@@ -45,7 +47,7 @@ class LanguagePage extends StatelessWidget {
                   TextSpan(
                     text: language,
                     style: TextStyle(
-                      color: colors.primary,
+                      color: colorPrimary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

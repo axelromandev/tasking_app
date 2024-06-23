@@ -94,11 +94,12 @@ class BuildAllListTasks extends ConsumerWidget {
   }
 }
 
-class _EmptyListTasks extends StatelessWidget {
+class _EmptyListTasks extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
 
     return Stack(
       children: [
@@ -120,7 +121,7 @@ class _EmptyListTasks extends StatelessWidget {
                 child: Icon(
                   BoxIcons.bxs_inbox,
                   size: 38.0,
-                  color: colors.primary,
+                  color: colorPrimary,
                 ),
               ),
               const Gap(defaultPadding),

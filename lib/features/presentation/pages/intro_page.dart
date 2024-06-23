@@ -15,8 +15,9 @@ class IntroPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final style = Theme.of(context).textTheme;
-    final colors = Theme.of(context).colorScheme;
 
     return Scaffold(
       body: SafeArea(
@@ -27,13 +28,13 @@ class IntroPage extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  Icon(BoxIcons.bxs_crown, color: colors.primary, size: 28),
+                  Icon(BoxIcons.bxs_crown, color: colorPrimary, size: 28),
                   const Gap(defaultPadding / 2),
                   Text(
                     S.of(context).app_name,
                     style: style.displaySmall?.copyWith(
                       fontWeight: FontWeight.w500,
-                      color: colors.primary,
+                      color: colorPrimary,
                     ),
                   ),
                 ],
