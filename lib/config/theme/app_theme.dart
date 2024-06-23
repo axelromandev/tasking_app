@@ -58,6 +58,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // AppBar
     appBarTheme: AppBarTheme(
       backgroundColor: MyColors.backgroundDark,
+      surfaceTintColor: Colors.transparent,
       centerTitle: true,
     ),
 

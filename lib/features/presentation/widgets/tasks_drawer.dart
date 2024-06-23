@@ -11,8 +11,8 @@ import '../../../config/config.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
 
-class Menu extends ConsumerWidget {
-  const Menu({super.key});
+class TasksDrawer extends ConsumerWidget {
+  const TasksDrawer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,16 +26,6 @@ class Menu extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              visualDensity: VisualDensity.compact,
-              leading: Icon(
-                BoxIcons.bxs_crown,
-                color: ref.watch(colorThemeProvider),
-                size: 22,
-              ),
-              title: Text('Tasking', style: style.titleMedium),
-            ),
-            const Divider(),
             _ListTitleShowAll(current: listId),
             const Divider(),
             ListTile(

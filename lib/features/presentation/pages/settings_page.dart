@@ -23,240 +23,222 @@ class SettingsPage extends ConsumerWidget {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Gap(defaultPadding),
-              Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: defaultPadding / 2,
+                bottom: defaultPadding / 2,
+                left: 24.0,
+              ),
+              child: Text(
+                S.settings_label_general,
+                style: style.bodyLarge?.copyWith(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () => context.pop(),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: Icon(BoxIcons.bx_chevron_left, size: 35),
+                  ListTile(
+                    onTap: () {},
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_cloud),
+                    title: const Text('Backup / Restore'),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(defaultRadius),
+                        topRight: Radius.circular(defaultRadius),
+                      ),
                     ),
                   ),
-                  Text(
-                    S.settings_title,
-                    style: style.headlineMedium,
+                  ListTile(
+                    onTap: () {},
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_bell),
+                    title: Text(S.settings_general_notifications),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(defaultRadius),
+                        bottomRight: Radius.circular(defaultRadius),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: defaultPadding * 2,
-                  bottom: defaultPadding / 2,
-                  left: 24.0,
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                top: defaultPadding * 2,
+                bottom: defaultPadding / 2,
+                left: 24.0,
+              ),
+              child: Text(
+                'Appearance',
+                style: style.bodyLarge?.copyWith(
+                  color: Colors.grey,
                 ),
-                child: Text(
-                  S.settings_label_general,
-                  style: style.bodyLarge?.copyWith(
-                    color: Colors.grey,
+              ),
+            ),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Column(
+                children: [
+                  _ExpansionThemeSelected(),
+                  ListTile(
+                    onTap: () => context.push(Routes.language.path),
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_world),
+                    title: Text(S.language),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(defaultRadius),
+                        bottomRight: Radius.circular(defaultRadius),
+                      ),
+                    ),
                   ),
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                top: defaultPadding * 2,
+                bottom: defaultPadding / 2,
+                left: 24.0,
+              ),
+              child: Text(
+                S.settings_label_info,
+                style: style.bodyLarge?.copyWith(
+                  color: Colors.grey,
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: () {},
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_cloud),
-                      title: const Text('Backup / Restore'),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
+            ),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Column(
+                children: [
+                  ListTile(
+                    onTap: () {},
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_share_alt),
+                    title: const Text('Compartir con amigos'),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(defaultRadius),
+                        topRight: Radius.circular(defaultRadius),
                       ),
                     ),
-                    ListTile(
-                      onTap: () {},
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_bell),
-                      title: Text(S.settings_general_notifications),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: defaultPadding * 2,
-                  bottom: defaultPadding / 2,
-                  left: 24.0,
-                ),
-                child: Text(
-                  'Appearance',
-                  style: style.bodyLarge?.copyWith(
-                    color: Colors.grey,
                   ),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Column(
-                  children: [
-                    _ExpansionThemeSelected(),
-                    ListTile(
-                      onTap: () => context.push(Routes.language.path),
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_world),
-                      title: Text(S.language),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
+                  ListTile(
+                    onTap: () {},
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_star),
+                    title: const Text('Calificar la app'),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: defaultPadding * 2,
-                  bottom: defaultPadding / 2,
-                  left: 24.0,
-                ),
-                child: Text(
-                  S.settings_label_info,
-                  style: style.bodyLarge?.copyWith(
-                    color: Colors.grey,
+                    shape: const RoundedRectangleBorder(),
                   ),
-                ),
+                  ListTile(
+                    onTap: () async {
+                      final Uri uri = isEnglish
+                          ? Uri.parse(Urls.enFeedback)
+                          : Uri.parse(Urls.esFeedback);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show(
+                          'Could not launch $uri',
+                          type: SnackBarType.error,
+                        );
+                      }
+                    },
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_envelope),
+                    title: const Text('Send Feedback'),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(),
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    visualDensity: VisualDensity.compact,
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_heart),
+                    title: const Text('Support Developer'),
+                    trailing: const Icon(
+                      BoxIcons.bx_chevron_right,
+                      color: Colors.grey,
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(defaultRadius),
+                        bottomRight: Radius.circular(defaultRadius),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: () {},
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_share_alt),
-                      title: const Text('Compartir con amigos'),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(defaultRadius),
-                          topRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_star),
-                      title: const Text('Calificar la app'),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(),
-                    ),
-                    ListTile(
-                      onTap: () async {
-                        final Uri uri = isEnglish
-                            ? Uri.parse(Urls.enFeedback)
-                            : Uri.parse(Urls.esFeedback);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show(
-                            'Could not launch $uri',
-                            type: SnackBarType.error,
-                          );
-                        }
-                      },
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_envelope),
-                      title: const Text('Send Feedback'),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      visualDensity: VisualDensity.compact,
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_heart),
-                      title: const Text('Support Developer'),
-                      trailing: const Icon(
-                        BoxIcons.bx_chevron_right,
-                        color: Colors.grey,
-                      ),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(defaultRadius),
-                          bottomRight: Radius.circular(defaultRadius),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            ),
+            const Gap(defaultPadding),
+            Container(
+              margin: const EdgeInsets.only(top: defaultPadding),
+              alignment: Alignment.center,
+              child: _BuildVersionLabel(),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Terms of Service', style: style.bodySmall),
+                  const Text('   •   ', style: TextStyle(color: Colors.grey)),
+                  GestureDetector(
+                    onTap: () async {
+                      final Uri uri = isEnglish
+                          ? Uri.parse(Urls.enPrivacyPolicy)
+                          : Uri.parse(Urls.esPrivacyPolicy);
+                      if (!await launchUrl(uri)) {
+                        Snackbar.show(
+                          'Could not launch $uri',
+                          type: SnackBarType.error,
+                        );
+                      }
+                    },
+                    child: Text('Privacy Policy', style: style.bodySmall),
+                  ),
+                ],
               ),
-              const Gap(defaultPadding),
-              Container(
-                margin: const EdgeInsets.only(top: defaultPadding),
-                alignment: Alignment.center,
-                child: _BuildVersionLabel(),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Terms of Service', style: style.bodySmall),
-                    const Text('   •   ', style: TextStyle(color: Colors.grey)),
-                    GestureDetector(
-                      onTap: () async {
-                        final Uri uri = isEnglish
-                            ? Uri.parse(Urls.enPrivacyPolicy)
-                            : Uri.parse(Urls.esPrivacyPolicy);
-                        if (!await launchUrl(uri)) {
-                          Snackbar.show(
-                            'Could not launch $uri',
-                            type: SnackBarType.error,
-                          );
-                        }
-                      },
-                      child: Text('Privacy Policy', style: style.bodySmall),
-                    ),
-                  ],
-                ),
-              ),
-              _MadeByLabel(),
-              const Gap(defaultPadding * 2),
-            ],
-          ),
+            ),
+            _MadeByLabel(),
+            const Gap(defaultPadding * 2),
+          ],
         ),
       ),
     );

@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/domain.dart';
-import 'home_provider.dart';
+import 'tasks_provider.dart';
 
 final backupProvider =
     StateNotifierProvider.autoDispose<_Notifier, bool>((ref) {
-  final onSelectGroup = ref.read(homeProvider.notifier).onSelectGroup;
+  final onSelectGroup = ref.read(tasksProvider.notifier).onSelectGroup;
   return _Notifier(onSelectGroup);
 });
 
