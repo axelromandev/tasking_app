@@ -1,17 +1,17 @@
 import 'package:intl/intl.dart';
 
-import '../../generated/l10n.dart';
+import '../../generated/strings.g.dart';
 
 String formatDate(DateTime? date, [bool isReminder = false]) {
   final now = DateTime.now();
   if (date == null) {
-    return S.current.button_add_due_date;
+    return S.button_add_due_date;
   }
   if (date.day == now.day && date.month == now.month) {
-    return S.current.calendar_today;
+    return S.calendar_today;
   }
   if (date.day == now.day + 1 && date.month == now.month) {
-    return S.current.calendar_tomorrow;
+    return S.calendar_tomorrow;
   }
   if (date.year == now.year) {
     if (isReminder) {

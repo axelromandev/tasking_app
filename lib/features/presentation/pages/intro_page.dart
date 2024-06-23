@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
+import '../../../generated/strings.g.dart';
 import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -31,7 +31,7 @@ class IntroPage extends ConsumerWidget {
                   Icon(BoxIcons.bxs_crown, color: colorPrimary, size: 28),
                   const Gap(defaultPadding / 2),
                   Text(
-                    S.of(context).app_name,
+                    S.app_name,
                     style: style.displaySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: colorPrimary,
@@ -42,7 +42,7 @@ class IntroPage extends ConsumerWidget {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Text(
-                  S.of(context).page_intro_subtitle,
+                  S.page_intro_subtitle,
                   style: style.titleLarge?.copyWith(color: Colors.white),
                 ),
               ),
@@ -50,36 +50,36 @@ class IntroPage extends ConsumerWidget {
                 contentPadding: EdgeInsets.zero,
                 leading: const _Leading(icon: BoxIcons.bx_time),
                 textColor: Colors.white,
-                title: Text(S.of(context).page_intro_feature_1),
+                title: Text(S.page_intro_feature_1),
               ),
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const _Leading(icon: BoxIcons.bx_devices),
                 textColor: Colors.white,
-                title: Text(S.of(context).page_intro_feature_2),
+                title: Text(S.page_intro_feature_2),
               ),
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const _Leading(icon: BoxIcons.bx_shield),
                 textColor: Colors.white,
-                title: Text(S.of(context).page_intro_feature_3),
+                title: Text(S.page_intro_feature_3),
               ),
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: const _Leading(icon: BoxIcons.bx_bell),
                 textColor: Colors.white,
-                title: Text(S.of(context).page_intro_feature_4),
+                title: Text(S.page_intro_feature_4),
               ),
               const Spacer(),
-              Text(S.of(context).page_intro_disclaimer),
+              Text(S.page_intro_disclaimer),
               CustomFilledButton(
                 margin: const EdgeInsets.only(top: defaultPadding),
                 onPressed: () => ref.read(introProvider).call(context),
                 textStyle: style.titleLarge,
-                child: Text(S.of(context).page_intro_button),
+                child: Text(S.page_intro_button),
               ),
             ],
           ),

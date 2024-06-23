@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
+import '../../../generated/strings.g.dart';
 
 class LanguagePage extends ConsumerWidget {
   const LanguagePage({super.key});
@@ -17,8 +17,8 @@ class LanguagePage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final String language = Localizations.localeOf(context).languageCode == 'en'
-        ? S.of(context).language_en
-        : S.of(context).language_es;
+        ? S.language_en
+        : S.language_es;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +28,7 @@ class LanguagePage extends ConsumerWidget {
         ),
         leadingWidth: 50,
         title: Text(
-          S.of(context).language,
+          S.language,
           style: style.headlineMedium,
         ),
         centerTitle: false,
@@ -38,11 +38,11 @@ class LanguagePage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(S.of(context).page_language_description_1),
+            Text(S.page_language_description_1),
             const Gap(defaultPadding / 2),
             Text.rich(
               TextSpan(
-                text: S.of(context).page_language_description_2,
+                text: S.page_language_description_2,
                 children: [
                   TextSpan(
                     text: language,
@@ -55,15 +55,15 @@ class LanguagePage extends ConsumerWidget {
               ),
             ),
             const Gap(defaultPadding),
-            Text(S.of(context).page_language_description_3),
+            Text(S.page_language_description_3),
             const Gap(defaultPadding),
-            Text(S.of(context).page_language_step_1),
-            Text(S.of(context).page_language_step_2),
-            Text(S.of(context).page_language_step_3),
-            Text(S.of(context).page_language_step_4),
-            Text(S.of(context).page_language_step_5),
+            Text(S.page_language_step_1),
+            Text(S.page_language_step_2),
+            Text(S.page_language_step_3),
+            Text(S.page_language_step_4),
+            Text(S.page_language_step_5),
             const Gap(defaultPadding),
-            Text(S.of(context).page_language_description_4),
+            Text(S.page_language_description_4),
           ],
         ),
       ),

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
-import '../../../generated/l10n.dart';
+import '../../../generated/strings.g.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -38,7 +38,7 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    S.of(context).settings_title,
+                    S.settings_title,
                     style: style.headlineMedium,
                   ),
                 ],
@@ -50,7 +50,7 @@ class SettingsPage extends ConsumerWidget {
                   left: 24.0,
                 ),
                 child: Text(
-                  S.of(context).settings_label_general,
+                  S.settings_label_general,
                   style: style.bodyLarge?.copyWith(
                     color: Colors.grey,
                   ),
@@ -82,7 +82,7 @@ class SettingsPage extends ConsumerWidget {
                       visualDensity: VisualDensity.compact,
                       iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_bell),
-                      title: Text(S.of(context).settings_general_notifications),
+                      title: Text(S.settings_general_notifications),
                       trailing: const Icon(
                         BoxIcons.bx_chevron_right,
                         color: Colors.grey,
@@ -120,7 +120,7 @@ class SettingsPage extends ConsumerWidget {
                       visualDensity: VisualDensity.compact,
                       iconColor: colorPrimary,
                       leading: const Icon(BoxIcons.bx_world),
-                      title: Text(S.of(context).language),
+                      title: Text(S.language),
                       trailing: const Icon(
                         BoxIcons.bx_chevron_right,
                         color: Colors.grey,
@@ -142,7 +142,7 @@ class SettingsPage extends ConsumerWidget {
                   left: 24.0,
                 ),
                 child: Text(
-                  S.of(context).settings_label_info,
+                  S.settings_label_info,
                   style: style.bodyLarge?.copyWith(
                     color: Colors.grey,
                   ),

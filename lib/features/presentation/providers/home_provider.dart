@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
-import '../../../generated/l10n.dart';
+import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
 import '../widgets/widgets.dart';
 
@@ -77,7 +77,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  S.of(context).dialog_restore_title,
+                  S.dialog_restore_title,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -86,7 +86,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: Text(
-                    S.of(context).dialog_restore_subtitle,
+                    S.dialog_restore_subtitle,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -95,7 +95,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
                   onPressed: () => context.pop(true),
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
-                  child: Text(S.of(context).settings_button_restore_app),
+                  child: Text(S.settings_button_restore_app),
                 ),
               ],
             ),
@@ -113,15 +113,15 @@ class HomeNotifier extends StateNotifier<HomeState> {
     // await NotificationService.cancelAll();
     // await _localRepository.restore();
     // final group = await _groupRepository.add(
-    //   S.current.default_group_1,
+    //   S..default_group_1,
     //   BoxIcons.bx_list_ul,
     // );
     // await _groupRepository.add(
-    //   S.current.default_group_2,
+    //   S..default_group_2,
     //   BoxIcons.bx_cart,
     // );
     // await _groupRepository.add(
-    //   S.current.default_group_3,
+    //   S..default_group_3,
     //   BoxIcons.bx_briefcase,
     // );
     // _prefs.setKeyValue<int>(Keys.groupId, group.id);

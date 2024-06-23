@@ -1,7 +1,6 @@
 {
-  "@@locale": "en",
   "app_name": "Tasking",
-  "buttom_reminder": "Reminder",
+  "button_reminder": "Reminder",
   "button_add_due_date": "Add Due Date",
   "button_cancel": "Cancel",
   "button_clear": "Clear",

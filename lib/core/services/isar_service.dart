@@ -5,7 +5,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../features/app.dart';
-import '../../generated/l10n.dart';
+import '../../generated/strings.g.dart';
 
 class IsarService {
   static late Isar isar;
@@ -48,61 +48,61 @@ class IsarService {
 
         final task1 = Task(
           listId: listId,
-          message: S.current.tutorial_task_1,
+          message: S.tutorial_task_1,
           position: 0,
         );
         final task2 = Task(
           listId: listId,
-          message: S.current.tutorial_task_2,
+          message: S.tutorial_task_2,
           position: 1,
           completed: true,
         );
         final task3 = Task(
           listId: listId,
-          message: S.current.tutorial_task_3,
+          message: S.tutorial_task_3,
           position: 2,
           completed: true,
         );
         final task4 = Task(
           listId: listId,
-          message: S.current.tutorial_task_4,
+          message: S.tutorial_task_4,
           position: 3,
           completed: true,
         );
         final task5 = Task(
           listId: listId,
-          message: S.current.tutorial_task_5,
-          note: S.current.tutorial_task_5_note,
+          message: S.tutorial_task_5,
+          note: S.tutorial_task_5_note,
           position: 4,
           completed: true,
         );
         final task6 = Task(
           listId: listId,
-          message: S.current.tutorial_task_6,
+          message: S.tutorial_task_6,
           position: 5,
           completed: true,
         );
         final task7 = Task(
           listId: listId,
-          message: S.current.tutorial_task_7,
+          message: S.tutorial_task_7,
           position: 6,
           completed: true,
         );
         final task8 = Task(
           listId: listId,
-          message: S.current.tutorial_task_8,
+          message: S.tutorial_task_8,
           position: 7,
           completed: true,
         );
         final task9 = Task(
           listId: listId,
-          message: S.current.tutorial_task_9,
+          message: S.tutorial_task_9,
           position: 8,
           completed: true,
         );
         final task10 = Task(
           listId: listId,
-          message: S.current.tutorial_task_10,
+          message: S.tutorial_task_10,
           position: 9,
           completed: true,
         );
@@ -137,7 +137,7 @@ class IsarService {
         // add subtasks to task4
         final subtask1 = SubTask(
           taskId: taskWithAdditionalId,
-          message: S.current.tutorial_task_5_subtask,
+          message: S.tutorial_task_5_subtask,
         );
         await isar.subTasks.put(subtask1);
         task5.subtasks.add(subtask1);

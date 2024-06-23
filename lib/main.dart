@@ -5,10 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'config/config.dart';
 import 'core/core.dart';
-import 'generated/l10n.dart';
+import 'generated/strings.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  LocaleSettings.useDeviceLocale();
 
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
@@ -21,8 +23,8 @@ void main() async {
   await IsarService.initialize();
 
   runApp(
-    const ProviderScope(
-      child: MainApp(),
+    ProviderScope(
+      child: TranslationProvider(child: const MainApp()),
     ),
   );
 }
@@ -39,13 +41,9 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       theme: appTheme,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
     );
   }
 }

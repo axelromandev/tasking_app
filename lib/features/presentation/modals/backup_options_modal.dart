@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/l10n.dart';
+import '../../../generated/strings.g.dart';
 import '../providers/backup_provider.dart';
 
 class BackupOptionsModal extends ConsumerWidget {
@@ -30,13 +30,13 @@ class BackupOptionsModal extends ConsumerWidget {
                 enabled: !isLoading,
                 onTap: notifier.exportToDevice,
                 leading: const Icon(BoxIcons.bx_export),
-                title: Text(S.of(context).modal_backup_export),
+                title: Text(S.modal_backup_export),
               ),
               ListTile(
                 enabled: !isLoading,
                 onTap: notifier.importFromDevice,
                 leading: const Icon(BoxIcons.bx_import),
-                title: Text(S.of(context).modal_backup_import),
+                title: Text(S.modal_backup_import),
               ),
               if (Platform.isAndroid) const Gap(defaultPadding),
             ],
