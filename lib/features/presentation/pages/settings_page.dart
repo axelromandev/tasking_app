@@ -2,13 +2,10 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../config/config.dart';
-import '../../../core/core.dart';
 import '../../../generated/strings.g.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -18,8 +15,6 @@ class SettingsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
-
-    final bool isEnglish = Localizations.localeOf(context).languageCode == 'en';
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -33,7 +28,7 @@ class SettingsPage extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                S.settings_label_general,
+                S.pages.settings.general.title,
                 style: style.bodyLarge?.copyWith(
                   color: Colors.grey,
                 ),
@@ -48,7 +43,7 @@ class SettingsPage extends ConsumerWidget {
                     visualDensity: VisualDensity.compact,
                     iconColor: colorPrimary,
                     leading: const Icon(BoxIcons.bx_cloud),
-                    title: const Text('Backup / Restore'),
+                    title: Text(S.pages.settings.general.backup),
                     trailing: const Icon(
                       BoxIcons.bx_chevron_right,
                       color: Colors.grey,
@@ -65,7 +60,7 @@ class SettingsPage extends ConsumerWidget {
                     visualDensity: VisualDensity.compact,
                     iconColor: colorPrimary,
                     leading: const Icon(BoxIcons.bx_bell),
-                    title: Text(S.settings_general_notifications),
+                    title: Text(S.pages.settings.general.notifications),
                     trailing: const Icon(
                       BoxIcons.bx_chevron_right,
                       color: Colors.grey,
@@ -87,7 +82,7 @@ class SettingsPage extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                'Appearance',
+                S.pages.settings.appearance.title,
                 style: style.bodyLarge?.copyWith(
                   color: Colors.grey,
                 ),
@@ -99,11 +94,44 @@ class SettingsPage extends ConsumerWidget {
                 children: [
                   _ExpansionThemeSelected(),
                   ListTile(
-                    onTap: () => context.push(Routes.language.path),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        backgroundColor: MyColors.cardDark,
+                        child: Container(
+                          padding: const EdgeInsets.all(defaultPadding),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                S.dialogs.language.title,
+                                style: style.bodyLarge,
+                              ),
+                              const Gap(defaultPadding),
+                              Text.rich(
+                                TextSpan(
+                                  text: S.dialogs.language.subtitle,
+                                  style: style.bodyLarge,
+                                  children: [
+                                    TextSpan(
+                                      text: S.commons.language,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: colorPrimary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     visualDensity: VisualDensity.compact,
                     iconColor: colorPrimary,
                     leading: const Icon(BoxIcons.bx_world),
-                    title: Text(S.language),
+                    title: Text(S.pages.settings.appearance.language),
                     trailing: const Icon(
                       BoxIcons.bx_chevron_right,
                       color: Colors.grey,
@@ -125,7 +153,7 @@ class SettingsPage extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                S.settings_label_info,
+                S.pages.settings.moreInformation.title,
                 style: style.bodyLarge?.copyWith(
                   color: Colors.grey,
                 ),
@@ -139,8 +167,8 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {},
                     visualDensity: VisualDensity.compact,
                     iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_share_alt),
-                    title: const Text('Compartir con amigos'),
+                    leading: const Icon(BoxIcons.bx_info_circle),
+                    title: Text(S.pages.settings.moreInformation.about),
                     trailing: const Icon(
                       BoxIcons.bx_chevron_right,
                       color: Colors.grey,
@@ -156,42 +184,8 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {},
                     visualDensity: VisualDensity.compact,
                     iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_star),
-                    title: const Text('Calificar la app'),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(),
-                  ),
-                  ListTile(
-                    onTap: () async {
-                      final Uri uri = isEnglish
-                          ? Uri.parse(Urls.enFeedback)
-                          : Uri.parse(Urls.esFeedback);
-                      if (!await launchUrl(uri)) {
-                        Snackbar.show(
-                          'Could not launch $uri',
-                          type: SnackBarType.error,
-                        );
-                      }
-                    },
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_envelope),
-                    title: const Text('Send Feedback'),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_heart),
-                    title: const Text('Support Developer'),
+                    leading: const Icon(BoxIcons.bx_shield),
+                    title: Text(S.pages.settings.moreInformation.privacyPolicy),
                     trailing: const Icon(
                       BoxIcons.bx_chevron_right,
                       color: Colors.grey,
@@ -211,30 +205,6 @@ class SettingsPage extends ConsumerWidget {
               margin: const EdgeInsets.only(top: defaultPadding),
               alignment: Alignment.center,
               child: _BuildVersionLabel(),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Terms of Service', style: style.bodySmall),
-                  const Text('   •   ', style: TextStyle(color: Colors.grey)),
-                  GestureDetector(
-                    onTap: () async {
-                      final Uri uri = isEnglish
-                          ? Uri.parse(Urls.enPrivacyPolicy)
-                          : Uri.parse(Urls.esPrivacyPolicy);
-                      if (!await launchUrl(uri)) {
-                        Snackbar.show(
-                          'Could not launch $uri',
-                          type: SnackBarType.error,
-                        );
-                      }
-                    },
-                    child: Text('Privacy Policy', style: style.bodySmall),
-                  ),
-                ],
-              ),
             ),
             _MadeByLabel(),
             const Gap(defaultPadding * 2),
@@ -269,7 +239,10 @@ class _ExpansionThemeSelectedState
       shape: const RoundedRectangleBorder(),
       visualDensity: VisualDensity.compact,
       leading: Icon(BoxIcons.bx_palette, color: colorPrimary),
-      title: const Text('Themes', style: TextStyle(color: Colors.white)),
+      title: Text(
+        S.pages.settings.appearance.theme,
+        style: const TextStyle(color: Colors.white),
+      ),
       trailing: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         child: Icon(

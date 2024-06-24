@@ -25,7 +25,7 @@ class HomeDrawer extends ConsumerWidget {
                 color: ref.watch(colorThemeProvider),
                 size: 22,
               ),
-              title: Text(S.app_name, style: style.titleLarge),
+              title: Text(S.commons.appName, style: style.titleLarge),
             ),
             const Gap(8.0),
             ...pages.map((page) {

@@ -17,40 +17,6 @@ class TasksPage extends ConsumerWidget {
     final list = ref.watch(listTasksProvider);
 
     return Scaffold(
-      // drawer: const TasksDrawer(),
-      // appBar: AppBar(
-      //   title: Row(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       if (list == null)
-      //         Text(
-      //           'All Tasks',
-      //           style: Theme.of(context).textTheme.titleLarge,
-      //         ),
-      //     ],
-      //   ),
-      //   surfaceTintColor: Colors.transparent,
-      //   actions: [
-      //     if (list != null) ...[
-      //       IconButton(
-      //         onPressed: ref.read(listTasksProvider.notifier).onPinned,
-      //         color: ref.watch(colorThemeProvider),
-      //         icon: Icon(
-      //           list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
-      //           size: 18,
-      //         ),
-      //       ),
-      //       IconButton(
-      //         onPressed: () => showModalBottomSheet(
-      //           context: context,
-      //           builder: (_) => const ListTasksOptionsModal(),
-      //         ),
-      //         color: ref.watch(colorThemeProvider),
-      //         icon: const Icon(BoxIcons.bx_dots_horizontal_rounded),
-      //       ),
-      //     ],
-      //   ],
-      // ),
       body: Column(
         children: [
           Container(
@@ -71,7 +37,6 @@ class TasksPage extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              useSafeArea: true,
               builder: (_) => const ListTasksAddModal(),
             );
           } else {

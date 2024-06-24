@@ -28,7 +28,6 @@ class BuildListTasks extends ConsumerWidget {
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            useSafeArea: true,
             builder: (_) => ListTasksUpdateModal(listTasks),
           ),
           shape: const RoundedRectangleBorder(),
@@ -76,10 +75,6 @@ class _BuildTasks extends StatelessWidget {
             return TaskCard(task);
           },
         ),
-        if (pendingTasks.isNotEmpty && completedTasks.isNotEmpty) ...[
-          const Gap(defaultPadding),
-          const Divider(height: 0),
-        ],
         if (completedTasks.isNotEmpty) ...[
           ListTile(
             visualDensity: VisualDensity.compact,

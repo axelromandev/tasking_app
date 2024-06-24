@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/strings.g.dart';
 import '../providers/task_add_modal_provider.dart';
 
 class TaskAddModal extends ConsumerWidget {
@@ -36,7 +37,7 @@ class TaskAddModal extends ConsumerWidget {
             },
             decoration: InputDecoration(
               filled: false,
-              hintText: 'new task',
+              hintText: S.modals.taskAdd.placeholder,
               suffixIcon: (provider.name.isNotEmpty)
                   ? GestureDetector(
                       onTap: () {

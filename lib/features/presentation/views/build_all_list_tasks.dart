@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/strings.g.dart';
 import '../providers/select_list_id_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
@@ -38,7 +39,7 @@ class BuildAllListTasks extends ConsumerWidget {
             ),
             minLeadingWidth: 0,
             title: Text(
-              'Pinned',
+              S.pages.listTasks.alertPinned,
               style: style.bodySmall?.copyWith(
                 color: Colors.white38,
               ),
@@ -126,14 +127,14 @@ class _EmptyListTasks extends ConsumerWidget {
               ),
               const Gap(defaultPadding),
               Text(
-                'There is no list.',
+                S.pages.listTasks.emptyListTasks.title,
                 style: style.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const Gap(8.0),
               Text(
-                'Press + to add the list',
+                S.pages.listTasks.emptyListTasks.subtitle,
                 style: style.bodyMedium?.copyWith(
                   color: Colors.white70,
                 ),

@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
-import '../widgets/widgets.dart';
 
 final tasksProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier(ref);
@@ -62,52 +57,52 @@ class _Notifier extends StateNotifier<_State> {
     getAll();
   }
 
-  Future<void> onRestore() async {
-    final BuildContext context = navigatorGlobalKey.currentContext!;
-    await showModalBottomSheet<bool?>(
-      context: context,
-      elevation: 0,
-      builder: (_) => Card(
-        margin: EdgeInsets.zero,
-        child: Container(
-          margin: const EdgeInsets.all(24),
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  S.dialog_restore_title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    S.dialog_restore_subtitle,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-                const Gap(defaultPadding),
-                CustomFilledButton(
-                  onPressed: () => context.pop(true),
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                  child: Text(S.settings_button_restore_app),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ).then((value) async {
-      if (value == null) return;
-      _restore();
-      context.pop();
-    });
-  }
+  // Future<void> onRestore() async {
+  //   final BuildContext context = navigatorGlobalKey.currentContext!;
+  //   await showModalBottomSheet<bool?>(
+  //     context: context,
+  //     elevation: 0,
+  //     builder: (_) => Card(
+  //       margin: EdgeInsets.zero,
+  //       child: Container(
+  //         margin: const EdgeInsets.all(24),
+  //         child: SafeArea(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Text(
+  //                 S.dialog_restore_title,
+  //                 style: const TextStyle(
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //               Container(
+  //                 margin: const EdgeInsets.only(top: 8),
+  //                 child: Text(
+  //                   S.dialog_restore_subtitle,
+  //                   style: const TextStyle(fontSize: 16),
+  //                 ),
+  //               ),
+  //               const Gap(defaultPadding),
+  //               CustomFilledButton(
+  //                 onPressed: () => context.pop(true),
+  //                 backgroundColor: Colors.red,
+  //                 foregroundColor: Colors.white,
+  //                 child: Text(S.settings_button_restore_app),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   ).then((value) async {
+  //     if (value == null) return;
+  //     _restore();
+  //     context.pop();
+  //   });
+  // }
 
   Future<void> _restore() async {
     // await NotificationService.cancelAll();

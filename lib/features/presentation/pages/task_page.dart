@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/show_list_tasks_provider.dart';
@@ -21,7 +22,6 @@ class TaskPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final listTasks = ref.watch(listTasksProvider);
-
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
 
@@ -39,6 +39,7 @@ class TaskPage extends ConsumerWidget {
             context: context,
             builder: (context) => _ChangeListTasks(
               onListTasksChanged: (value) {
+                //TODO: Change list tasks selected
                 notifier.onListTasksChanged(value);
                 Navigator.pop(context);
               },
@@ -60,7 +61,7 @@ class TaskPage extends ConsumerWidget {
                 color: listTaskColor,
               ),
               const Gap(8.0),
-              Text(listTasks?.name ?? 'List'),
+              Text('${listTasks?.name}'),
             ],
           ),
         ),
@@ -82,7 +83,7 @@ class TaskPage extends ConsumerWidget {
                         }),
                         iconColor: Colors.redAccent,
                         leading: const Icon(BoxIcons.bx_trash, size: 20),
-                        title: const Text('Delete task'),
+                        title: Text(S.buttons.delete),
                       ),
                     ],
                   ),
@@ -102,8 +103,8 @@ class TaskPage extends ConsumerWidget {
               initialValue: provider.message,
               style: style.titleLarge,
               maxLines: null,
-              decoration: const InputDecoration(
-                hintText: 'Task name',
+              decoration: InputDecoration(
+                hintText: S.pages.task.placeholderTask,
                 filled: false,
               ),
               onChanged: notifier.onMessageChanged,
@@ -115,7 +116,7 @@ class TaskPage extends ConsumerWidget {
             child: TextFormField(
               controller: notifier.noteController,
               decoration: InputDecoration(
-                hintText: 'Add note',
+                hintText: S.pages.task.placeholderNote,
                 filled: false,
                 prefixIcon: Icon(
                   BoxIcons.bx_note,
@@ -151,7 +152,7 @@ class TaskPage extends ConsumerWidget {
                   ),
                   decoration: InputDecoration(
                     filled: false,
-                    hintText: 'Subtask name',
+                    hintText: S.pages.task.placeholderSubtask,
                     prefixIcon: IconButton(
                       onPressed: () =>
                           notifier.onSubtaskToggleCompleted(subtask),
@@ -177,11 +178,11 @@ class TaskPage extends ConsumerWidget {
             child: TextFormField(
               controller: notifier.subtaskAddController,
               onFieldSubmitted: notifier.onSubtaskAdd,
-              decoration: const InputDecoration(
-                hintText: 'Add subtask',
+              decoration: InputDecoration(
+                hintText: S.pages.task.placeholderSubtaskAdd,
                 filled: false,
                 prefixIcon:
-                    Icon(BoxIcons.bx_plus, size: 20, color: Colors.white),
+                    const Icon(BoxIcons.bx_plus, size: 20, color: Colors.white),
               ),
             ),
           ),
@@ -203,34 +204,29 @@ class _ChangeListTasks extends ConsumerWidget {
 
     return Container(
       margin: const EdgeInsets.all(defaultPadding),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text('Change list', style: TextStyle(fontSize: 20)),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: allListTasks.length,
-            itemBuilder: (_, index) {
-              final listTasks = allListTasks[index];
-              return ListTile(
-                onTap: () {
-                  onListTasksChanged?.call(listTasks.id);
-                  Navigator.pop(context);
-                },
-                tileColor: listTasks.id == selectId
-                    ? MyColors.cardDark
-                    : Colors.transparent,
-                leading: ColorIndicator(
-                  width: 12,
-                  height: 12,
-                  borderRadius: 30,
-                  color: Color(listTasks.color!),
-                ),
-                title: Text(listTasks.name),
-              );
+      child: ListView.separated(
+        shrinkWrap: true,
+        separatorBuilder: (_, __) => const Gap(8.0),
+        itemCount: allListTasks.length,
+        itemBuilder: (_, index) {
+          final listTasks = allListTasks[index];
+          return ListTile(
+            onTap: () {
+              onListTasksChanged?.call(listTasks.id);
+              Navigator.pop(context);
             },
-          ),
-        ],
+            tileColor: listTasks.id == selectId
+                ? MyColors.cardDark
+                : Colors.transparent,
+            leading: ColorIndicator(
+              width: 12,
+              height: 12,
+              borderRadius: 30,
+              color: Color(listTasks.color!),
+            ),
+            title: Text(listTasks.name),
+          );
+        },
       ),
     );
   }

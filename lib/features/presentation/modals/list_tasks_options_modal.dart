@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
 import '../providers/list_tasks_provider.dart';
 import 'list_tasks_update_modal.dart';
@@ -28,8 +29,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
           children: [
             Container(
               margin: const EdgeInsets.only(left: defaultPadding),
-              child:
-                  const Text('List', style: TextStyle(color: Colors.white70)),
+              child: Text(
+                S.modals.listTasksOptions.list.title,
+                style: const TextStyle(color: Colors.white70),
+              ),
             ),
             ListTile(
               onTap: () {
@@ -37,7 +40,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  useSafeArea: true,
                   builder: (_) => ListTasksUpdateModal(list!),
                 );
               },
@@ -45,7 +47,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
-              title: const Text('Edit list'),
+              title: Text(S.modals.listTasksOptions.list.edit),
             ),
             ListTile(
               onTap: () {
@@ -59,13 +61,15 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
-              title: const Text('Delete list'),
+              title: Text(S.modals.listTasksOptions.list.delete),
             ),
             const Divider(),
             Container(
               margin: const EdgeInsets.only(left: defaultPadding),
-              child:
-                  const Text('Tasks', style: TextStyle(color: Colors.white70)),
+              child: Text(
+                S.modals.listTasksOptions.tasks.title,
+                style: const TextStyle(color: Colors.white70),
+              ),
             ),
             ListTile(
               onTap: () {
@@ -76,7 +80,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
-              title: const Text('Incomplete all tasks'),
+              title: Text(S.modals.listTasksOptions.tasks.incompleteAllTasks),
             ),
             ListTile(
               onTap: () {
@@ -87,7 +91,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
-              title: const Text('Complete all tasks'),
+              title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
             ListTile(
               onTap: () {
@@ -98,7 +102,8 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: colorPrimary,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
-              title: const Text('Delete all completed tasks'),
+              title:
+                  Text(S.modals.listTasksOptions.tasks.deleteAllCompletedTasks),
             ),
           ],
         ),
@@ -113,9 +118,9 @@ class _DeleteDialog extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
 
     return AlertDialog(
-      title: Text('Do you want to delete this list?', style: style.titleLarge),
+      title: Text(S.dialogs.listTasksDelete.title, style: style.titleLarge),
       content: Text(
-        'Delete this list will also delete the tasks',
+        S.dialogs.listTasksDelete.subtitle,
         style: style.bodyLarge,
       ),
       actions: [
@@ -130,7 +135,7 @@ class _DeleteDialog extends ConsumerWidget {
                     backgroundColor: Colors.white10,
                     foregroundColor: Colors.white,
                   ),
-                  child: const Text('Cancel'),
+                  child: Text(S.buttons.cancel),
                 ),
               ),
             ),
@@ -146,7 +151,7 @@ class _DeleteDialog extends ConsumerWidget {
                   style: FilledButton.styleFrom(
                     backgroundColor: Colors.redAccent,
                   ),
-                  child: const Text('Delete'),
+                  child: Text(S.buttons.delete),
                 ),
               ),
             ),

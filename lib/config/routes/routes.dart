@@ -25,9 +25,4 @@ class Routes {
     path: '/settings',
     builder: (context, state) => const SettingsPage(),
   );
-
-  static GoRoute language = GoRoute(
-    path: '/settings/language',
-    builder: (context, state) => const LanguagePage(),
-  );
 }

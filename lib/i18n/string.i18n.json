@@ -1,97 +1,113 @@
 {
-  "app_name": "Tasking",
-  "button_reminder": "Reminder",
-  "button_add_due_date": "Add Due Date",
-  "button_cancel": "Cancel",
-  "button_clear": "Clear",
-  "button_continue": "Continue",
-  "button_delete": "Delete",
-  "button_delete_task": "Delete Task",
-  "button_hide_completed": "Hide Completed",
-  "button_remove": "Remove",
-  "button_save": "Save",
-  "button_show_completed": "Show Completed",
-  "calendar_custom": "Custom",
-  "calendar_today": "Today",
-  "calendar_tomorrow": "Tomorrow",
-  "coming_soon_subtitle_modal": "This feature is not yet available, but we are working on it.",
-  "coming_soon_title_modal": "Coming soon",
-  "default_group_1": "ToDo",
-  "default_group_2": "Shopping",
-  "default_group_3": "Work",
-  "dialog_delete_subtitle": "You won´t be able to undo this action.",
-  "dialog_delete_title": "Will be permanently deleted.",
-  "dialog_restore_subtitle": "Are you sure you want to restore the data app? This action cannot be undone.",
-  "dialog_restore_title": "Restore App",
-  "group_delete_confirm_description": "Are you sure to eliminate this group? All the tasks it contains will be eliminated and they cannot be recovered.",
-  "group_options_delete_subtitle": "You can´t delete the selected group",
-  "group_options_delete_title": "Delete group",
-  "group_options_edit": "Edit group",
-  "group_select_subtitle": "Keep for more options",
-  "group_select_title": "Select group",
-  "home_completed": "Completed",
-  "home_empty_tasks": "No tasks yet",
-  "home_pending": "Pending",
-  "home_title": "Your tasks",
-  "label_date": "Date",
-  "label_time": "Time",
-  "language": "Language",
-  "language_en": "English",
-  "language_es": "Spanish",
-  "modal_backup_export": "Export on the device",
-  "modal_backup_import": "Import from the device",
-  "page_about_author": "Ingedevs",
-  "page_about_author_description": "I´m a software developer from México. I love to create apps and learn new things.",
-  "page_about_description": "Tasking is a simple task manager app. It´s free and open source.",
-  "page_intro_button": "Get started",
-  "page_intro_disclaimer": "*This app still in beta, expect the unexpected behavior and UI changes*",
-  "page_intro_feature_1": "Manage your time efficiently",
-  "page_intro_feature_2": "Local storage on the device",
-  "page_intro_feature_3": "Your data is private and secure",
-  "page_intro_feature_4": "Personalized reminders and notifications",
-  "page_intro_step3_notification_title": "Hey! We need your permission",
-  "page_intro_step_1_description": "Sync your tasks across all devices, anywhere, anytime. Offline support included.",
-  "page_intro_step_1_title": "Cloud Sync",
-  "page_intro_step_3_notification_body": "Enable notifications to receive reminders of your tasks.You can change this in the configuration of your device.",
-  "page_intro_subtitle": "A simple way to control your digital life",
-  "page_language_description_1": "The tasking application uses the same language you have configured on the device.",
-  "page_language_description_2": "The language that is configured on your device is: ",
-  "page_language_description_3": "If you want to change the application of the application, follow these steps:",
-  "page_language_description_4": "When you change the configured language, the tasking application will automatically update the new language.",
-  "page_language_step_1": "•  Go to your device´s home screen.",
-  "page_language_step_2": "•  Open the device settings.",
-  "page_language_step_3": "•  Look for language adjustments.",
-  "page_language_step_4": "•  Choose a language from the list.",
-  "page_language_step_5": "•  Confirm your choice.",
-  "page_notifications_description": "Set a time to show a notification when there are all-day reminders (with no specified time).",
-  "page_notifications_error_permission": "Notifications are disabled: You must activate them from the settings.",
-  "page_notifications_label": "ALL-DAY REMINDERS",
-  "page_notifications_title": "Today notification",
-  "reminder_notification_title": "You have a pending task",
-  "settings_about_app": "About Tasking",
-  "settings_button_restore_app": "Restore App",
-  "settings_custom_theme": "Theme App",
-  "settings_general_notifications": "Notifications",
-  "settings_general_reminders": "Reminders",
-  "settings_label_about": "About",
-  "settings_label_general": "General",
-  "settings_label_info": "More information",
-  "settings_label_restore": "Danger Zone",
-  "settings_legal_privacy_policy": "Privacy Policy",
-  "settings_support_contact": "Contact Us",
-  "settings_title": "Settings",
-  "task_empty_subtitle": "Go back to home and add a new task",
-  "task_empty_title": "Ups! Task not found",
-  "tutorial_task_1": "Tap the left checkbox to check",
-  "tutorial_task_10": "Thank you for using this app!",
-  "tutorial_task_2": "Tap the left checkbox to remove the check",
-  "tutorial_task_3": "Tap the right × to delete this task",
-  "tutorial_task_4": "Tap the bottom right + to add a task",
-  "tutorial_task_5": "Tap to edit this task",
-  "tutorial_task_5_note": "You can write notes here",
-  "tutorial_task_5_subtask": "You can add subtasks here",
-  "tutorial_task_6": "Long tap to drag this task",
-  "tutorial_task_7": "Tap the upper right ⁝ to edit or delete this list",
-  "tutorial_task_8": "There are other easy-to-use features, so please try them out!",
-  "tutorial_task_9": "That´s it for the tutorial. I hope this app will be useful to you"
+  "commons": {
+    "appName": "Tasking",
+    "language": "English"
+  },
+  "buttons": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "update": "Update"
+  },
+  "pages": {
+    "intro": {
+      "title": "A simple way to control your digital life",
+      "feature1": "Manage your time efficiently",
+      "feature2": "Local storage on the device",
+      "feature3": "Your data is private and secure",
+      "feature4": "Personalized reminders and notifications",
+      "disclaimer": "*This app still in beta, expect the unexpected behavior and UI changes*",
+      "button": "Get started",
+      "tutorial": {
+        "task1": "Tap the left checkbox to check",
+        "task2": "Tap the left checkbox to remove the check",
+        "task3": "Swipe left to delete this task",
+        "task4": "Tap the bottom right + to add a task",
+        "task5": "Tap to edit this task",
+        "task5note": "You can write notes here",
+        "task5subtask": "You can add subtasks here",
+        "task6": "Long tap to drag this task",
+        "task7": "Tap the upper right ⁝ to edit or delete this list",
+        "task8": "There are other easy-to-use features, so please try them out!",
+        "task9": "That´s it for the tutorial. I hope this app will be useful to you",
+        "task10": "Thank you for using this app!"
+      }
+    },
+    "home": {
+      "drawer": {
+        "tasks": "Tasks",
+        "settings": "Settings"
+      }
+    },
+    "listTasks": {
+      "emptyListTasks": {
+        "title": "There is no list",
+        "subtitle": "Press + to add the list"
+      },
+      "alertPinned": "Pinned",
+      "alertUnpinned": "Unpinned"
+    },
+    "task": {
+      "placeholderTask": "Task name",
+      "placeholderNote": "Add note",
+      "placeholderSubtask": "Subtask name",
+      "placeholderSubtaskAdd": "Add subtask"
+    },
+    "settings": {
+      "general": {
+        "title": "General",
+        "backup": "Backup / Restore",
+        "notifications": "Notifications"
+      },
+      "appearance": {
+        "title": "Appearance",
+        "theme": "Themes",
+        "language": "Language"
+      },
+      "moreInformation": {
+        "title": "More information",
+        "about": "About Tasking",
+        "privacyPolicy": "Privacy Policy"
+      }
+    }
+  },
+  "modals": {
+    "listTasksAdd": {
+      "title": "Add a new list",
+      "placeholder": "Enter the name of the list",
+      "errorEmptyName": "Please enter a list name."
+    },
+    "listTasksUpdate": {
+      "title": "Edit list",
+      "placeholder": "Enter the name of the list",
+      "errorEmptyName": "Please enter a list name."
+    },
+    "listTasksOptions": {
+      "list": {
+        "title": "List",
+        "edit": "Edit list",
+        "delete": "Delete list"
+      },
+      "tasks": {
+        "title": "Tasks",
+        "incompleteAllTasks": "Incomplete all tasks",
+        "completeAllTasks": "Complete all tasks",
+        "deleteAllCompletedTasks": "Delete all completed task"
+      }
+    },
+    "taskAdd": {
+      "placeholder": "new task",
+      "errorEmptyName": "Please enter a task."
+    }
+  },
+  "dialogs": {
+    "listTasksDelete": {
+      "title": "Do you want to delete this list?",
+      "subtitle": "Delete this list will also delete the tasks"
+    },
+    "language": {
+      "title": "The tasking application uses the same language you have configured on the device.",
+      "subtitle": "The language that is configured on your device is: "
+    }
+  }
 }

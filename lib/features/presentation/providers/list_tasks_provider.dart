@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../core/core.dart';
+import '../../../generated/strings.g.dart';
 import '../../app.dart';
 import 'select_list_id_provider.dart';
 
@@ -32,6 +35,17 @@ class _Notifier extends StateNotifier<ListTasks?> {
   Future<void> onPinned() async {
     if (state == null) return;
     state!.isPinned = !state!.isPinned;
+    if (state!.isPinned) {
+      MyToast.show(
+        S.pages.listTasks.alertPinned,
+        ToastGravity.SNACKBAR,
+      );
+    } else {
+      MyToast.show(
+        S.pages.listTasks.alertUnpinned,
+        ToastGravity.SNACKBAR,
+      );
+    }
     await _listTasksRepository.update(state!);
     await _load(state!.id);
   }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:isar/isar.dart';
@@ -48,61 +47,61 @@ class IsarService {
 
         final task1 = Task(
           listId: listId,
-          message: S.tutorial_task_1,
+          message: S.pages.intro.tutorial.task1,
           position: 0,
         );
         final task2 = Task(
           listId: listId,
-          message: S.tutorial_task_2,
+          message: S.pages.intro.tutorial.task2,
           position: 1,
           completed: true,
         );
         final task3 = Task(
           listId: listId,
-          message: S.tutorial_task_3,
+          message: S.pages.intro.tutorial.task3,
           position: 2,
           completed: true,
         );
         final task4 = Task(
           listId: listId,
-          message: S.tutorial_task_4,
+          message: S.pages.intro.tutorial.task4,
           position: 3,
           completed: true,
         );
         final task5 = Task(
           listId: listId,
-          message: S.tutorial_task_5,
-          note: S.tutorial_task_5_note,
+          message: S.pages.intro.tutorial.task5,
+          note: S.pages.intro.tutorial.task5note,
           position: 4,
           completed: true,
         );
         final task6 = Task(
           listId: listId,
-          message: S.tutorial_task_6,
+          message: S.pages.intro.tutorial.task6,
           position: 5,
           completed: true,
         );
         final task7 = Task(
           listId: listId,
-          message: S.tutorial_task_7,
+          message: S.pages.intro.tutorial.task7,
           position: 6,
           completed: true,
         );
         final task8 = Task(
           listId: listId,
-          message: S.tutorial_task_8,
+          message: S.pages.intro.tutorial.task8,
           position: 7,
           completed: true,
         );
         final task9 = Task(
           listId: listId,
-          message: S.tutorial_task_9,
+          message: S.pages.intro.tutorial.task9,
           position: 8,
           completed: true,
         );
         final task10 = Task(
           listId: listId,
-          message: S.tutorial_task_10,
+          message: S.pages.intro.tutorial.task10,
           position: 9,
           completed: true,
         );
@@ -137,7 +136,7 @@ class IsarService {
         // add subtasks to task4
         final subtask1 = SubTask(
           taskId: taskWithAdditionalId,
-          message: S.tutorial_task_5_subtask,
+          message: S.pages.intro.tutorial.task5subtask,
         );
         await isar.subTasks.put(subtask1);
         task5.subtasks.add(subtask1);
@@ -151,65 +150,65 @@ class IsarService {
     }
   }
 
-  Future<String> export() async {
-    try {
-      final groups = await isar.listTasks.where().findAll();
-      final tasks = await isar.tasks.where().findAll();
-      final data = {
-        'groups': groups.map((e) => e.toMap()).toList(),
-        'tasks': tasks.map((e) => e.toMap()).toList(),
-      };
-      return jsonEncode(data);
-    } catch (e) {
-      log('Error', name: 'IsarService', error: e);
-      rethrow;
-    }
-  }
+  // Future<String> export() async {
+  //   try {
+  //     final groups = await isar.listTasks.where().findAll();
+  //     final tasks = await isar.tasks.where().findAll();
+  //     final data = {
+  //       'groups': groups.map((e) => e.toMap()).toList(),
+  //       'tasks': tasks.map((e) => e.toMap()).toList(),
+  //     };
+  //     return jsonEncode(data);
+  //   } catch (e) {
+  //     log('Error', name: 'IsarService', error: e);
+  //     rethrow;
+  //   }
+  // }
 
-  Future<void> import(String jsonEncode) async {
-    try {
-      final json = jsonDecode(jsonEncode) as Map<String, dynamic>;
-      final List<Map<String, dynamic>> groupsJson = [];
-      final List<Map<String, dynamic>> tasksJson = [];
-      for (final group in json['groups'] as List<Map<String, dynamic>>) {
-        groupsJson.add(group);
-      }
-      for (final task in json['tasks'] as List<Map<String, dynamic>>) {
-        tasksJson.add(task);
-      }
-      await isar.writeTxn(() async {
-        await isar.listTasks.clear();
-        await isar.listTasks.importJson(groupsJson);
-        await isar.tasks.clear();
-        await isar.tasks.importJson(tasksJson);
-      });
-      final lists = await isar.listTasks.where().findAll();
-      for (final list in lists) {
-        final tasks =
-            await isar.tasks.where().filter().listIdEqualTo(list.id).findAll();
-        list.tasks.addAll(tasks);
-        await isar.writeTxn(() async {
-          await list.tasks.save();
-        });
-      }
-    } catch (e) {
-      log('Error', name: 'IsarService', error: e);
-      rethrow;
-    }
-  }
+  // Future<void> import(String jsonEncode) async {
+  //   try {
+  //     final json = jsonDecode(jsonEncode) as Map<String, dynamic>;
+  //     final List<Map<String, dynamic>> groupsJson = [];
+  //     final List<Map<String, dynamic>> tasksJson = [];
+  //     for (final group in json['groups'] as List<Map<String, dynamic>>) {
+  //       groupsJson.add(group);
+  //     }
+  //     for (final task in json['tasks'] as List<Map<String, dynamic>>) {
+  //       tasksJson.add(task);
+  //     }
+  //     await isar.writeTxn(() async {
+  //       await isar.listTasks.clear();
+  //       await isar.listTasks.importJson(groupsJson);
+  //       await isar.tasks.clear();
+  //       await isar.tasks.importJson(tasksJson);
+  //     });
+  //     final lists = await isar.listTasks.where().findAll();
+  //     for (final list in lists) {
+  //       final tasks =
+  //           await isar.tasks.where().filter().listIdEqualTo(list.id).findAll();
+  //       list.tasks.addAll(tasks);
+  //       await isar.writeTxn(() async {
+  //         await list.tasks.save();
+  //       });
+  //     }
+  //   } catch (e) {
+  //     log('Error', name: 'IsarService', error: e);
+  //     rethrow;
+  //   }
+  // }
 
-  Future<void> restore(List<IsarCollection> collections) async {
-    try {
-      await isar.writeTxn(() async {
-        for (final collection in collections) {
-          await collection.clear();
-        }
-      });
-    } catch (e) {
-      log('Error', name: 'IsarService', error: e);
-      rethrow;
-    }
-  }
+  // Future<void> restore(List<IsarCollection> collections) async {
+  //   try {
+  //     await isar.writeTxn(() async {
+  //       for (final collection in collections) {
+  //         await collection.clear();
+  //       }
+  //     });
+  //   } catch (e) {
+  //     log('Error', name: 'IsarService', error: e);
+  //     rethrow;
+  //   }
+  // }
 
   Future<void> clear() async {
     try {

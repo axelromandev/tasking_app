@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../../../generated/strings.g.dart';
 import '../pages/settings_page.dart';
 import '../pages/tasks_page.dart';
 
@@ -18,12 +19,12 @@ class _Notifier extends StateNotifier<int> {
 
   final List<_Page> pages = [
     _Page(
-      title: 'Tasks',
+      title: S.pages.home.drawer.tasks,
       icon: BoxIcons.bx_task,
       child: const TasksPage(),
     ),
     _Page(
-      title: 'Settings',
+      title: S.pages.home.drawer.settings,
       icon: BoxIcons.bx_cog,
       child: const SettingsPage(),
     ),

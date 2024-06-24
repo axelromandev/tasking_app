@@ -1,97 +1,113 @@
 {
-  "app_name": "Tasking",
-  "button_reminder": "Recordatorio",
-  "button_add_due_date": "Fecha de vencimiento",
-  "button_cancel": "Cancelar",
-  "button_clear": "Limpiar",
-  "button_continue": "Continuar",
-  "button_delete": "Eliminar",
-  "button_delete_task": "Eliminar tarea",
-  "button_hide_completed": "Ocultar Completado",
-  "button_remove": "Eliminar",
-  "button_save": "Guardar",
-  "button_show_completed": "Mostrar Completado",
-  "calendar_custom": "Otro día",
-  "calendar_today": "Hoy",
-  "calendar_tomorrow": "Mañana",
-  "coming_soon_subtitle_modal": "Esta característica aún no está disponible, pero estamos trabajando en ello.",
-  "coming_soon_title_modal": "Muy pronto",
-  "default_group_1": "Tareas",
-  "default_group_2": "Compras",
-  "default_group_3": "Trabajo",
-  "dialog_delete_subtitle": "No podrás deshacer esta acción.",
-  "dialog_delete_title": "Se eliminará permanentemente.",
-  "dialog_restore_subtitle": "¿Estás seguro de que quieres restaurar la aplicación de datos?Esta acción no se puede deshacer.",
-  "dialog_restore_title": "Restaurar la aplicación",
-  "group_delete_confirm_description": "¿Estás seguro de eliminar este grupo?, se eliminarán todas las tareas que contiene y no se podrán recuperar.",
-  "group_options_delete_subtitle": "No puedes eliminar el grupo seleccionado",
-  "group_options_delete_title": "Eliminar grupo",
-  "group_options_edit": "Editar grupo",
-  "group_select_subtitle": "Mantén para más opciones",
-  "group_select_title": "Seleccionar grupo",
-  "home_completed": "Completado",
-  "home_empty_tasks": "No hay tareas",
-  "home_pending": "Pendiente",
-  "home_title": "Tus tareas",
-  "label_date": "Fecha",
-  "label_time": "Tiempo",
-  "language": "Idioma",
-  "language_en": "Ingles",
-  "language_es": "Español",
-  "modal_backup_export": "Exportar en el dispositivo",
-  "modal_backup_import": "Importar desde el dispositivo",
-  "page_about_author": "Ingedevs",
-  "page_about_author_description": "Soy un desarrollador de software de México. Me encanta crear aplicaciones y aprender cosas nuevas.",
-  "page_about_description": "Tasking es una aplicación simple del administrador de tareas. Es gratis y de código abierto.",
-  "page_intro_button": "Empezar",
-  "page_intro_disclaimer": "*Esta aplicación todavía está en beta, espere el comportamiento inesperado y los cambios de la interfaz de usuario.*",
-  "page_intro_feature_1": "Administra tu tiempo de forma eficiente",
-  "page_intro_feature_2": "Almacenamiento local en el dispositivo",
-  "page_intro_feature_3": "Sus datos son privados y seguros",
-  "page_intro_feature_4": "Recordatorios y notificaciones personalizadas",
-  "page_intro_step3_notification_title": "Ey! Necesitamos tu permiso",
-  "page_intro_step_1_description": "Sincroniza tus tareas en todos los dispositivos, en cualquier lugar y en cualquier momento. Soporte sin conexión incluido.",
-  "page_intro_step_1_title": "Sincronización en la nube",
-  "page_intro_step_3_notification_body": "Habilite las notificaciones para recibir recordatorios de sus tareas. Puede cambiar esto en la configuración de su dispositivo.",
-  "page_intro_subtitle": "Una forma simple de controlar su vida digital",
-  "page_language_description_1": "La aplicación de Tasking usa el mismo idioma que tengas configurado en el dispositivo.",
-  "page_language_description_2": "El idioma que esta configurado en tu dispositivo es: ",
-  "page_language_description_3": "Si deseas cambiar el idioma de la aplicación, sigue estos pasos:",
-  "page_language_description_4": "Cuando cambies el idioma configurado, la aplicación de Tasking se actualizara automáticamente al nuevo idioma.",
-  "page_language_step_1": "•  Ve a la pantalla de inicio de tu dispositivo.",
-  "page_language_step_2": "•  Abre los ajustes del dispositivo.",
-  "page_language_step_3": "•  Busca los ajustes de idioma.",
-  "page_language_step_4": "•  Elige un idioma de la lista.",
-  "page_language_step_5": "•  Confirma tu elección.",
-  "page_notifications_description": "Establezca una hora para mostrar una notificación cuando haya recordatorios de todo el día (sin hora especificada).",
-  "page_notifications_error_permission": "Las notificaciones están desactivadas: Debes activarlas desde la configuración.",
-  "page_notifications_label": "RECORDATORIOS DE TODO EL DÍA",
-  "page_notifications_title": "Notificaciones de hoy",
-  "reminder_notification_title": "Tienes una tarea pendiente",
-  "settings_about_app": "Acerca de Tasking",
-  "settings_button_restore_app": "Restablecer la aplicación",
-  "settings_custom_theme": "Tema de la aplicación",
-  "settings_general_notifications": "Notificaciones",
-  "settings_general_reminders": "Recordatorios",
-  "settings_label_about": "Acerca de",
-  "settings_label_general": "General",
-  "settings_label_info": "Más información",
-  "settings_label_restore": "Zona peligrosa",
-  "settings_legal_privacy_policy": "Política de privacidad",
-  "settings_support_contact": "Contáctenos",
-  "settings_title": "Configuración",
-  "task_empty_subtitle": "Vuelve al inicio y agrega una nueva tarea",
-  "task_empty_title": "Ups! Tarea no encontrada",
-  "tutorial_task_1": "Toque la casilla de verificación izquierda para marcar",
-  "tutorial_task_10": "¡Gracias por usar esta aplicación!",
-  "tutorial_task_2": "Toca la casilla de verificación de la izquierda para eliminar la marca.",
-  "tutorial_task_3": "Toca la × derecha para eliminar esta tarea",
-  "tutorial_task_4": "Toca la parte inferior derecha + para agregar una tarea",
-  "tutorial_task_5": "Toca para editar esta tarea",
-  "tutorial_task_5_note": "Puedes escribir notas aquí.",
-  "tutorial_task_5_subtask": "Puedes agregar sub tareas aquí",
-  "tutorial_task_6": "Toque prolongado para arrastrar esta tarea",
-  "tutorial_task_7": "Toca la esquina superior derecha ⁝ para editar o eliminar esta lista",
-  "tutorial_task_8": "Hay otras funciones fáciles de usar, ¡pruébalas!",
-  "tutorial_task_9": "Eso es todo por el tutorial. Espero que esta aplicación te sea útil."
+  "commons": {
+    "appName": "Tasking",
+    "language": "Español"
+  },
+  "buttons": {
+    "add": "Agregar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "update": "Actualizar"
+  },
+  "pages": {
+    "intro": {
+      "title": "Una forma simple de controlar su vida digital",
+      "feature1": "Administre su tiempo de manera eficiente",
+      "feature2": "Almacenamiento local en el dispositivo",
+      "feature3": "Sus datos son privados y seguros",
+      "feature4": "Recordatorios y notificaciones personalizados",
+      "disclaimer": "*Esta aplicación todavía está en beta, espere el comportamiento inesperado y los cambios de la interfaz de usuario.*",
+      "button": "Empezar",
+      "tutorial": {
+        "task1": "Toque la casilla de verificación izquierda para marcar",
+        "task2": "Toca la casilla de verificación de la izquierda para eliminar la marca.",
+        "task3": "Toca la × derecha para eliminar esta tarea",
+        "task4": "Toca la parte inferior derecha + para agregar una tarea",
+        "task5": "Toca para editar esta tarea",
+        "task5note": "Puedes escribir notas aquí.",
+        "task5subtask": "Puedes agregar sub tareas aquí",
+        "task6": "Toque prolongado para arrastrar esta tarea",
+        "task7": "Toca la esquina superior derecha ⁝ para editar o eliminar esta lista",
+        "task8": "Hay otras funciones fáciles de usar, ¡pruébalas!",
+        "task9": "Eso es todo por el tutorial. Espero que esta aplicación te sea útil.",
+        "task10": "¡Gracias por usar esta aplicación!"
+      }
+    },
+    "home": {
+      "drawer": {
+        "tasks": "Tareas",
+        "settings": "Configuración"
+      }
+    },
+    "listTasks": {
+      "emptyListTasks": {
+        "title": "No hay listas",
+        "subtitle": "Presione + para agregar una lista"
+      },
+      "alertPinned": "Anclado",
+      "alertUnpinned": "Desanclar"
+    },
+    "task": {
+      "placeholderTask": "Nombre de la tarea",
+      "placeholderNote": "Añadir una nota",
+      "placeholderSubtask": "Tarea secundaria",
+      "placeholderSubtaskAdd": "Añadir una tarea secundaria"
+    },
+    "settings": {
+      "general": {
+        "title": "general",
+        "backup": "Copia de seguridad",
+        "notifications": "Notificaciones"
+      },
+      "appearance": {
+        "title": "Apariencia",
+        "theme": "Temas",
+        "language": "Idioma"
+      },
+      "moreInformation": {
+        "title": "Más información",
+        "about": "Acerca de",
+        "privacyPolicy": "Política de privacidad"
+      }
+    }
+  },
+  "modals": {
+    "listTasksAdd": {
+      "title": "Agregar una nueva lista",
+      "placeholder": "Ingrese el nombre de la lista",
+      "errorEmptyName": "Ingrese un nombre de lista."
+    },
+    "listTasksUpdate": {
+      "title": "Editar lista",
+      "placeholder": "Ingrese el nombre de la lista",
+      "errorEmptyName": "Ingrese un nombre de lista."
+    },
+    "listTasksOptions": {
+      "list": {
+        "title": "Lista",
+        "edit": "Editar lista",
+        "delete": "Eliminar lista"
+      },
+      "tasks": {
+        "title": "Tareas",
+        "incompleteAllTasks": "Marcar todas las tareas como incompletas",
+        "completeAllTasks": "Marcar todas las tareas como completadas",
+        "deleteAllCompletedTasks": "Eliminar todas las tareas completadas"
+      }
+    },
+    "taskAdd": {
+      "placeholder": "nueva tarea",
+      "errorEmptyName": "Ingrese una tarea."
+    }
+  },
+  "dialogs": {
+    "listTasksDelete": {
+      "title": "¿Quieres eliminar esta lista?",
+      "subtitle": "Eliminar esta lista también eliminará las tareas"
+    },
+    "language": {
+      "title": "La aplicación Tasking utiliza el mismo idioma que ha configurado en el dispositivo.",
+      "subtitle": "El lenguaje configurado en su dispositivo es: "
+    }
+  }
 }
