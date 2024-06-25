@@ -11,6 +11,7 @@ class TasksActions extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final list = ref.watch(listTasksProvider);
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -20,7 +21,7 @@ class TasksActions extends ConsumerWidget {
             ref.read(selectListIdProvider.notifier).change(0);
           },
           iconSize: 18.0,
-          color: ref.watch(colorThemeProvider),
+          color: colorPrimary,
           icon: Icon(
             ref.watch(listTasksProvider) == null
                 ? BoxIcons.bxs_grid_alt
@@ -30,7 +31,7 @@ class TasksActions extends ConsumerWidget {
         if (list != null)
           IconButton(
             onPressed: ref.read(listTasksProvider.notifier).onPinned,
-            color: ref.watch(colorThemeProvider),
+            color: colorPrimary,
             icon: Icon(
               list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
               size: 18,
@@ -43,7 +44,7 @@ class TasksActions extends ConsumerWidget {
               builder: (_) => const ListTasksOptionsModal(),
             ),
             iconSize: 18.0,
-            color: ref.watch(colorThemeProvider),
+            color: colorPrimary,
             icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
           ),
       ],

@@ -49,10 +49,9 @@ class _Notifier extends StateNotifier<Task> {
     refreshList();
   }
 
-  Future<void> onDeleteTask(BuildContext context) async {
+  Future<void> onDeleteTask() async {
     await _taskRepository.delete(state.id).then((_) {
       refreshList();
-      Navigator.pop(context);
     });
   }
 

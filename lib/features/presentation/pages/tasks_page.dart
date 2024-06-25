@@ -15,6 +15,7 @@ class TasksPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final list = ref.watch(listTasksProvider);
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
       body: Column(
@@ -32,6 +33,7 @@ class TasksPage extends ConsumerWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: colorPrimary,
         onPressed: () {
           if (list == null) {
             showModalBottomSheet(

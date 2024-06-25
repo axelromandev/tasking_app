@@ -19,14 +19,14 @@ class TaskPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-    final colorPrimary = ref.watch(colorThemeProvider);
 
-    final listTasks = ref.watch(listTasksProvider);
+    final list = ref.watch(listTasksProvider);
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
 
-    final listTaskColor =
-        (listTasks?.color != null) ? Color(listTasks!.color!) : colorPrimary;
+    final color = list?.color != null
+        ? Color(list!.color!)
+        : ref.watch(colorThemeProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +39,6 @@ class TaskPage extends ConsumerWidget {
             context: context,
             builder: (context) => _ChangeListTasks(
               onListTasksChanged: (value) {
-                //TODO: Change list tasks selected
                 notifier.onListTasksChanged(value);
                 Navigator.pop(context);
               },
@@ -58,10 +57,10 @@ class TaskPage extends ConsumerWidget {
                 width: 10,
                 height: 10,
                 borderRadius: 30,
-                color: listTaskColor,
+                color: color,
               ),
               const Gap(8.0),
-              Text('${listTasks?.name}'),
+              Text('${list?.name}'),
             ],
           ),
         ),
@@ -71,14 +70,15 @@ class TaskPage extends ConsumerWidget {
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (_) => SafeArea(
+              builder: (contextModel) => SafeArea(
                 child: Container(
                   margin: const EdgeInsets.all(8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListTile(
-                        onTap: () => notifier.onDeleteTask(context).then((_) {
+                        onTap: () => notifier.onDeleteTask().then((_) {
+                          Navigator.pop(contextModel);
                           Navigator.pop(context);
                         }),
                         iconColor: Colors.redAccent,
@@ -121,9 +121,8 @@ class TaskPage extends ConsumerWidget {
                 prefixIcon: Icon(
                   BoxIcons.bx_note,
                   size: 20,
-                  color: (provider.note?.isEmpty ?? true)
-                      ? Colors.white
-                      : listTaskColor,
+                  color:
+                      (provider.note?.isEmpty ?? true) ? Colors.white : color,
                 ),
                 suffixIcon: (provider.note?.isNotEmpty ?? false)
                     ? IconButton(

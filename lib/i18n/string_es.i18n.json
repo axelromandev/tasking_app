@@ -7,7 +7,8 @@
     "add": "Agregar",
     "cancel": "Cancelar",
     "delete": "Eliminar",
-    "update": "Actualizar"
+    "update": "Actualizar",
+    "confirm": "Confirmar"
   },
   "pages": {
     "intro": {
@@ -104,6 +105,10 @@
     "listTasksDelete": {
       "title": "¿Quieres eliminar esta lista?",
       "subtitle": "Eliminar esta lista también eliminará las tareas"
+    },
+    "delete": {
+      "title": "Do you want to delete?",
+      "subtitle": "This action cannot be undone"
     },
     "language": {
       "title": "La aplicación Tasking utiliza el mismo idioma que ha configurado en el dispositivo.",
