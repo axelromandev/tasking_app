@@ -4,10 +4,10 @@ import '../domain.dart';
 abstract interface class ITaskRepository {
   Future<Task> get(int id);
   Future<List<Task>> getAll();
-  Future<Task> add(int groupId, String name, [DateTime? reminder]);
+  Future<Task> add(int listId, String name, [DateTime? reminder]);
   Future<void> update(Task task);
   Future<void> delete(int id);
-  Future<void> clearComplete(int groupId);
+  Future<void> clearComplete(int listId);
   Future<void> changeList(int taskId, int newListId);
 }
 
@@ -15,13 +15,13 @@ class TaskRepository extends ITaskRepository {
   final ITaskDataSource _dataSource = TaskDataSource();
 
   @override
-  Future<Task> add(int groupId, String name, [DateTime? reminder]) {
-    return _dataSource.add(groupId, name, reminder);
+  Future<Task> add(int listId, String name, [DateTime? reminder]) {
+    return _dataSource.add(listId, name, reminder);
   }
 
   @override
-  Future<void> clearComplete(int groupId) {
-    return _dataSource.clearComplete(groupId);
+  Future<void> clearComplete(int listId) {
+    return _dataSource.clearComplete(listId);
   }
 
   @override

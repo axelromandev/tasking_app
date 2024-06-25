@@ -16,34 +16,30 @@ class _Notifier extends StateNotifier<_State> {
   final Ref ref;
 
   final _prefs = SharedPrefs();
-  // final _localRepository = LocalRepository();
-  final _groupRepository = ListTasksRepository();
+  final _listRepository = ListTasksRepository();
   final _taskRepository = TaskRepository();
 
   Future<void> initialize() async {
-    final groupId = _prefs.getValue<int>(Keys.groupId);
-    final group = await _groupRepository.get(groupId!);
-    state = state.copyWith(
-      group: group,
-      tasks: group!.tasks.toList(),
-    );
+    final listId = _prefs.getValue<int>(Keys.listId);
+    final list = await _listRepository.get(listId!);
+    state = state.copyWith(list: list, tasks: list!.tasks.toList());
   }
 
-  void onSelectGroup(ListTasks group) {
-    _prefs.setKeyValue<int>(Keys.groupId, group.id);
-    state = state.copyWith(group: group, tasks: group.tasks.toList());
+  void onSelectListTasks(ListTasks list) {
+    _prefs.setKeyValue<int>(Keys.listId, list.id);
+    state = state.copyWith(list: list, tasks: list.tasks.toList());
   }
 
   Future<void> getAll() async {
-    final group = await _groupRepository.get(state.group!.id);
-    final tasks = group!.tasks.toList();
+    final list = await _listRepository.get(state.list!.id);
+    final tasks = list!.tasks.toList();
     state = state.copyWith(tasks: tasks);
   }
 
   Future<void> onClearCompleted() async {
     state = state.copyWith(isShowCompleted: false);
-    final groupId = state.group!.id;
-    await _taskRepository.clearComplete(groupId);
+    final listId = state.list!.id;
+    await _taskRepository.clearComplete(listId);
     getAll();
   }
 
@@ -127,25 +123,25 @@ class _Notifier extends StateNotifier<_State> {
 class _State {
   _State({
     this.isShowCompleted = false,
-    this.group,
+    this.list,
     this.tasks = const [],
     this.date,
   });
 
   final bool isShowCompleted;
-  final ListTasks? group;
+  final ListTasks? list;
   final List<Task> tasks;
   final DateTime? date;
 
   _State copyWith({
     bool? isShowCompleted,
-    ListTasks? group,
+    ListTasks? list,
     List<Task>? tasks,
     DateTime? date,
   }) {
     return _State(
       isShowCompleted: isShowCompleted ?? this.isShowCompleted,
-      group: group ?? this.group,
+      list: list ?? this.list,
       tasks: tasks ?? this.tasks,
       date: date,
     );

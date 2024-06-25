@@ -5,14 +5,14 @@ import 'tasks_provider.dart';
 
 final backupProvider =
     StateNotifierProvider.autoDispose<_Notifier, bool>((ref) {
-  final onSelectGroup = ref.read(tasksProvider.notifier).onSelectGroup;
-  return _Notifier(onSelectGroup);
+  final onSelectList = ref.read(tasksProvider.notifier).onSelectListTasks;
+  return _Notifier(onSelectList);
 });
 
 class _Notifier extends StateNotifier<bool> {
-  _Notifier(this.onSelectGroup) : super(false);
+  _Notifier(this.onSelectList) : super(false);
 
-  final void Function(ListTasks) onSelectGroup;
+  final void Function(ListTasks) onSelectList;
 
   // final _groupRepository = GroupRepository();
   // final now = DateTime.now();

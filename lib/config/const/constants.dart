@@ -22,7 +22,7 @@ class Urls {
 
 class Keys {
   static String isFirstTime = 'isFirstTime';
-  static String groupId = 'groupId';
+  static String listId = 'listId';
   static String colorSeed = 'colorSeed';
   static String authProvider = 'authProvider';
   static String showCurrentListTasks = 'showCurrentListTasks';

@@ -6,10 +6,10 @@ import '../../domain/domain.dart';
 abstract interface class ITaskDataSource {
   Future<Task> get(int id);
   Future<List<Task>> getAll();
-  Future<Task> add(int groupId, String name, [DateTime? reminder]);
+  Future<Task> add(int listId, String name, [DateTime? reminder]);
   Future<void> update(Task task);
   Future<void> delete(int id);
-  Future<void> clearComplete(int groupId);
+  Future<void> clearComplete(int listId);
   Future<void> changeList(int taskId, int newListId);
 }
 
@@ -29,20 +29,20 @@ class TaskDataSource implements ITaskDataSource {
   }
 
   @override
-  Future<Task> add(int groupId, String value, [DateTime? reminder]) async {
+  Future<Task> add(int listId, String value, [DateTime? reminder]) async {
     final task = Task(
       message: value,
-      listId: groupId,
+      listId: listId,
       reminder: reminder,
       position: 0,
       createAt: DateTime.now(),
     );
-    final query = _isar.listTasks.where().filter().idEqualTo(groupId);
-    final group = await query.findFirst();
-    group!.tasks.add(task);
+    final query = _isar.listTasks.where().filter().idEqualTo(listId);
+    final list = await query.findFirst();
+    list!.tasks.add(task);
     await _isar.writeTxn(() async {
       task.id = await _isar.tasks.put(task);
-      await group.tasks.save();
+      await list.tasks.save();
     });
     return task;
   }

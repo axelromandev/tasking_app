@@ -4,19 +4,18 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../domain/domain.dart';
+import '../../app.dart';
 import '../modals/list_tasks_update_modal.dart';
 import '../providers/list_tasks_provider.dart';
-import '../widgets/card_task.dart';
 
 class BuildListTasks extends ConsumerWidget {
   const BuildListTasks({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listTasks = ref.watch(listTasksProvider);
+    final list = ref.watch(listTasksProvider);
 
-    if (listTasks == null) {
+    if (list == null) {
       return const SizedBox();
     }
 
@@ -28,20 +27,20 @@ class BuildListTasks extends ConsumerWidget {
           onTap: () => showModalBottomSheet(
             context: context,
             isScrollControlled: true,
-            builder: (_) => ListTasksUpdateModal(listTasks),
+            builder: (_) => ListTasksUpdateModal(list),
           ),
           shape: const RoundedRectangleBorder(),
           leading: Icon(
-            listTasks.icon?.iconData ?? BoxIcons.bxs_circle,
-            color: Color(listTasks.color ?? 0xFF000000),
+            list.icon?.iconData ?? BoxIcons.bxs_circle,
+            color: Color(list.color ?? 0xFF000000),
             size: 18,
           ),
-          title: Text(listTasks.name, style: style.bodyLarge),
+          title: Text(list.name, style: style.bodyLarge),
         ),
-        if (listTasks.tasks.isEmpty)
+        if (list.tasks.isEmpty)
           _EmptyTasks()
         else
-          _BuildTasks(listTasks.tasks.toList()),
+          _BuildTasks(list.tasks.toList()),
       ],
     );
   }

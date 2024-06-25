@@ -18,9 +18,9 @@ The information stored in the Tasking Application is used solely for the purpose
 
 The Tasking Application offers the functionality to export and import task and setting data. This data is generated and stored locally on the user's device and is not shared with third parties unless the user explicitly chooses to share the generated files.
 
-## Task Groups
+## Task Lists
 
-Tasking allows users to organize their tasks by creating task groups. These groups are exclusively local and are not shared with other users or transmitted to external servers.
+Tasking allows users to organize their tasks by creating task lists. These lists are exclusively local and are not shared with other users or transmitted to external servers.
 
 ## Changes to the Privacy Policy
 

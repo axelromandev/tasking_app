@@ -52,7 +52,7 @@ class ListIconData {
 
   @override
   String toString() =>
-      'GroupIcon(codePoint: $codePoint, fontFamily: $fontFamily, fontPackage: $fontPackage)';
+      'ListIconData(codePoint: $codePoint, fontFamily: $fontFamily, fontPackage: $fontPackage)';
 
   @ignore
   IconData get iconData {

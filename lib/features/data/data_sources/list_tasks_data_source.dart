@@ -28,8 +28,8 @@ class ListTasksDataSource implements IListTasksDataSource {
   @override
   Future<ListTasks> add(String name, Color color, [IconData? icon]) async {
     return await _isar.writeTxn(() async {
-      final groups = await _isar.listTasks.where().findAll();
-      int lastPosition = groups.isEmpty ? 0 : groups.last.position;
+      final lists = await _isar.listTasks.where().findAll();
+      int lastPosition = lists.isEmpty ? 0 : lists.last.position;
       final id = await _isar.listTasks.put(
         ListTasks(
           name: name,
