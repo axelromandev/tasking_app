@@ -56,16 +56,20 @@ class _State {
   _State({
     required this.listId,
     this.name = '',
+    this.reminder,
   });
   final int listId;
   final String name;
+  final DateTime? reminder;
 
   _State copyWith({
     String? name,
+    DateTime? reminder,
   }) {
     return _State(
       listId: listId,
       name: name ?? this.name,
+      reminder: reminder ?? this.reminder,
     );
   }
 }
