@@ -17,16 +17,12 @@ class TasksActions extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
-          onPressed: () {
-            ref.read(selectListIdProvider.notifier).change(0);
-          },
+          onPressed: (list != null)
+              ? () => ref.read(selectListIdProvider.notifier).change(0)
+              : null,
           iconSize: 18.0,
           color: colorPrimary,
-          icon: Icon(
-            ref.watch(listTasksProvider) == null
-                ? BoxIcons.bxs_grid_alt
-                : BoxIcons.bx_grid_alt,
-          ),
+          icon: const Icon(BoxIcons.bxs_grid_alt),
         ),
         if (list != null)
           IconButton(

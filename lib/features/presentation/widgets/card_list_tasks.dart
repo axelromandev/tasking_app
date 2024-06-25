@@ -31,7 +31,10 @@ class ListTasksCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.06),
+          color: Color(list.color ?? 0xFF000000).withOpacity(.02),
+          border: Border.all(
+            color: Color(list.color ?? 0xFF000000),
+          ),
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Column(

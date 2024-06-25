@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
@@ -14,6 +13,7 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
@@ -38,38 +38,26 @@ class SettingsPage extends ConsumerWidget {
               margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
                 children: [
-                  ListTile(
-                    onTap: () {},
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_cloud),
-                    title: Text(S.pages.settings.general.backup),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(defaultRadius),
-                        topRight: Radius.circular(defaultRadius),
-                      ),
+                  _ListTile(
+                    onTap: () {
+                      // TODO: Implement backup
+                    },
+                    icon: BoxIcons.bx_cloud,
+                    title: S.pages.settings.general.backup,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(defaultRadius),
+                      topRight: Radius.circular(defaultRadius),
                     ),
                   ),
-                  ListTile(
-                    onTap: () {},
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_bell),
-                    title: Text(S.pages.settings.general.notifications),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(defaultRadius),
-                        bottomRight: Radius.circular(defaultRadius),
-                      ),
+                  _ListTile(
+                    onTap: () {
+                      // TODO: Implement notifications
+                    },
+                    icon: BoxIcons.bx_bell,
+                    title: S.pages.settings.general.notifications,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(defaultRadius),
+                      bottomRight: Radius.circular(defaultRadius),
                     ),
                   ),
                 ],
@@ -93,7 +81,7 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ExpansionThemeSelected(),
-                  ListTile(
+                  _ListTile(
                     onTap: () => showDialog(
                       context: context,
                       builder: (_) => Dialog(
@@ -128,19 +116,11 @@ class SettingsPage extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_world),
-                    title: Text(S.pages.settings.appearance.language),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(defaultRadius),
-                        bottomRight: Radius.circular(defaultRadius),
-                      ),
+                    icon: BoxIcons.bx_world,
+                    title: S.pages.settings.appearance.language,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(defaultRadius),
+                      bottomRight: Radius.circular(defaultRadius),
                     ),
                   ),
                 ],
@@ -163,53 +143,64 @@ class SettingsPage extends ConsumerWidget {
               margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
                 children: [
-                  ListTile(
-                    onTap: () {},
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_info_circle),
-                    title: Text(S.pages.settings.moreInformation.about),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(defaultRadius),
-                        topRight: Radius.circular(defaultRadius),
-                      ),
+                  _ListTile(
+                    onTap: () {
+                      // TODO: Implement about
+                    },
+                    icon: BoxIcons.bx_info_circle,
+                    title: S.pages.settings.moreInformation.about,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(defaultRadius),
+                      topRight: Radius.circular(defaultRadius),
                     ),
                   ),
-                  ListTile(
-                    onTap: () {},
-                    visualDensity: VisualDensity.compact,
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_shield),
-                    title: Text(S.pages.settings.moreInformation.privacyPolicy),
-                    trailing: const Icon(
-                      BoxIcons.bx_chevron_right,
-                      color: Colors.grey,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(defaultRadius),
-                        bottomRight: Radius.circular(defaultRadius),
-                      ),
+                  _ListTile(
+                    onTap: () {
+                      // TODO: Implement privacy policy
+                    },
+                    icon: BoxIcons.bx_shield,
+                    title: S.pages.settings.moreInformation.privacyPolicy,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(defaultRadius),
+                      bottomRight: Radius.circular(defaultRadius),
                     ),
                   ),
                 ],
               ),
             ),
-            const Gap(defaultPadding),
-            Container(
-              margin: const EdgeInsets.only(top: defaultPadding),
-              alignment: Alignment.center,
-              child: _BuildVersionLabel(),
-            ),
-            _MadeByLabel(),
-            const Gap(defaultPadding * 2),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ListTile extends ConsumerWidget {
+  const _ListTile({
+    required this.onTap,
+    required this.icon,
+    required this.title,
+    this.borderRadius = BorderRadius.zero,
+  });
+
+  final VoidCallback onTap;
+  final IconData icon;
+  final String title;
+  final BorderRadiusGeometry borderRadius;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return ListTile(
+      onTap: onTap,
+      visualDensity: VisualDensity.compact,
+      iconColor: colorPrimary,
+      leading: Icon(icon),
+      title: Text(title),
+      trailing: const Icon(BoxIcons.bx_chevron_right, color: Colors.grey),
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius,
       ),
     );
   }
@@ -265,63 +256,6 @@ class _ExpansionThemeSelectedState
           },
         ),
       ],
-    );
-  }
-}
-
-class _MadeByLabel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-
-    return Container(
-      margin: const EdgeInsets.only(top: defaultPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Made with ',
-            style: style.bodySmall?.copyWith(color: Colors.grey),
-          ),
-          const Icon(BoxIcons.bxs_heart, color: Colors.redAccent, size: 16),
-          Text(' by ', style: style.bodySmall?.copyWith(color: Colors.grey)),
-          Text('@ingedevs', style: style.bodySmall),
-        ],
-      ),
-    );
-  }
-}
-
-class _BuildVersionLabel extends StatefulWidget {
-  @override
-  State<_BuildVersionLabel> createState() => _BuildVersionLabelState();
-}
-
-class _BuildVersionLabelState extends State<_BuildVersionLabel> {
-  String version = '?';
-  String buildNumber = '';
-
-  @override
-  void initState() {
-    super.initState();
-    getVersion();
-  }
-
-  Future<void> getVersion() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    setState(() {
-      version = packageInfo.version;
-      buildNumber = packageInfo.buildNumber;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-
-    return Text(
-      'Version $version ($buildNumber)',
-      style: style.bodySmall?.copyWith(color: Colors.grey),
     );
   }
 }

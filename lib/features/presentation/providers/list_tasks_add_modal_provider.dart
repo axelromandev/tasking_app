@@ -6,19 +6,23 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../core/core.dart';
 import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
-import 'show_list_tasks_provider.dart';
+import 'select_list_id_provider.dart';
 
 final listTasksAddModalProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  final refresh = ref.read(showListTasksProvider.notifier).refresh;
+  final changeListId = ref.read(selectListIdProvider.notifier).change;
 
-  return _Notifier(refresh);
+  return _Notifier(
+    changeListId: changeListId,
+  );
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(this.refresh) : super(_State());
+  _Notifier({
+    required this.changeListId,
+  }) : super(_State());
 
-  final Future<void> Function() refresh;
+  final void Function(int) changeListId;
 
   final expansionTileController = ExpansionTileController();
   final _listTasksRepository = ListTasksRepository();
@@ -42,12 +46,11 @@ class _Notifier extends StateNotifier<_State> {
       MyToast.show(S.modals.listTasksAdd.errorEmptyName);
       return;
     }
-
     await _listTasksRepository
         .add(state.name, state.color, BoxIcons.bxs_circle)
-        .then((_) {
-      refresh();
+        .then((list) {
       context.pop();
+      changeListId(list.id);
     });
   }
 }

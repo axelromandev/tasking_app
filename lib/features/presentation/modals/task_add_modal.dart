@@ -13,43 +13,40 @@ class TaskAddModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
-
     final provider = ref.watch(taskAddModalProvider);
     final notifier = ref.read(taskAddModalProvider.notifier);
 
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextFormField(
-            autofocus: true,
-            onChanged: notifier.onNameChanged,
-            controller: notifier.controller,
-            focusNode: notifier.focusNode,
-            textInputAction: TextInputAction.done,
-            style: const TextStyle(fontSize: 16),
-            maxLines: null,
-            autocorrect: false,
-            cursorColor: colorPrimary,
-            onFieldSubmitted: (value) {
-              notifier.onSubmit();
-              notifier.focusNode.requestFocus();
-            },
-            decoration: InputDecoration(
-              filled: false,
-              hintText: S.modals.taskAdd.placeholder,
-              suffixIcon: (provider.name.isNotEmpty)
-                  ? GestureDetector(
-                      onTap: () {
-                        HapticFeedback.mediumImpact();
-                        notifier.onSubmit();
-                      },
-                      child: Icon(BoxIcons.bx_plus, color: colorPrimary),
-                    )
-                  : null,
-            ),
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: TextFormField(
+          autofocus: true,
+          onChanged: notifier.onNameChanged,
+          controller: notifier.controller,
+          focusNode: notifier.focusNode,
+          textInputAction: TextInputAction.done,
+          style: const TextStyle(fontSize: 16),
+          cursorColor: colorPrimary,
+          onFieldSubmitted: (value) {
+            notifier.onSubmit();
+            notifier.focusNode.requestFocus();
+          },
+          decoration: InputDecoration(
+            filled: false,
+            hintText: S.modals.taskAdd.placeholder,
+            suffixIcon: (provider.name.isNotEmpty)
+                ? GestureDetector(
+                    onTap: () {
+                      HapticFeedback.mediumImpact();
+                      notifier.onSubmit();
+                    },
+                    child: Icon(BoxIcons.bx_plus, color: colorPrimary),
+                  )
+                : null,
           ),
-        ],
+        ),
       ),
     );
   }
