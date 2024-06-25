@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../core/core.dart';
 import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
+import '../dialogs/task_delete_dialog.dart';
 import '../pages/task_page.dart';
 import '../providers/task_provider.dart';
 
@@ -65,27 +66,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
       confirmDismiss: (DismissDirection direction) async {
         return await showDialog(
           context: context,
-          builder: (_) => AlertDialog(
-            title: Text(S.dialogs.delete.title, style: style.titleLarge),
-            content: Text(S.dialogs.delete.subtitle, style: style.bodyLarge),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                style: FilledButton.styleFrom(
-                  foregroundColor: Colors.white,
-                ),
-                child: Text(S.buttons.cancel),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.pop(context, true),
-                style: FilledButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.red,
-                ),
-                child: Text(S.buttons.delete),
-              ),
-            ],
-          ),
+          builder: (_) => TaskDeleteDialog(),
         );
       },
       child: ListTile(

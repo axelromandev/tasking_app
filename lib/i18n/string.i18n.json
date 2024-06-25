@@ -27,11 +27,10 @@
         "task5": "Tap to edit this task",
         "task5note": "You can write notes here",
         "task5subtask": "You can add subtasks here",
-        "task6": "Long tap to drag this task",
-        "task7": "Tap the upper right ⁝ to edit or delete this list",
-        "task8": "There are other easy-to-use features, so please try them out!",
-        "task9": "That´s it for the tutorial. I hope this app will be useful to you",
-        "task10": "Thank you for using this app!"
+        "task6": "Tap the upper right ⁝ to edit or delete this list",
+        "task7": "There are other easy-to-use features, so please try them out!",
+        "task8": "That´s it for the tutorial. I hope this app will be useful to you",
+        "task9": "Thank you for using this app!"
       }
     },
     "home": {
@@ -49,10 +48,8 @@
       "alertUnpinned": "Unpinned"
     },
     "task": {
-      "placeholderTask": "Task name",
-      "placeholderNote": "Add note",
-      "placeholderSubtask": "Subtask name",
-      "placeholderSubtaskAdd": "Add subtask"
+      "placeholderTitle": "Title",
+      "placeholderNote": "Note"
     },
     "settings": {
       "general": {

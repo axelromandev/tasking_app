@@ -34,7 +34,6 @@ class ListTasksAddModal extends ConsumerWidget {
               TextField(
                 autofocus: true,
                 style: style.bodyLarge,
-                maxLength: 30,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],
@@ -85,6 +84,11 @@ class ListTasksAddModal extends ConsumerWidget {
                 childrenPadding: EdgeInsets.zero,
                 children: [
                   ColorPicker(
+                    padding: const EdgeInsets.only(
+                      left: defaultPadding,
+                      right: defaultPadding,
+                      bottom: defaultPadding,
+                    ),
                     color: provider.color,
                     enableShadesSelection: false,
                     borderRadius: 20,
@@ -104,20 +108,27 @@ class ListTasksAddModal extends ConsumerWidget {
                 ],
               ),
               const Spacer(),
-              CustomFilledButton(
-                onPressed: () => ref
-                    .read(listTasksAddModalProvider.notifier)
-                    .onSubmit(context),
-                child: Text(S.buttons.add),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomFilledButton(
+                      onPressed: () => Navigator.pop(context),
+                      backgroundColor: AppColors.card,
+                      foregroundColor: Colors.white,
+                      child: Text(S.buttons.cancel),
+                    ),
+                  ),
+                  const Gap(defaultPadding),
+                  Expanded(
+                    child: CustomFilledButton(
+                      onPressed: () => ref
+                          .read(listTasksAddModalProvider.notifier)
+                          .onSubmit(context),
+                      child: Text(S.buttons.add),
+                    ),
+                  ),
+                ],
               ),
-              const Gap(defaultPadding),
-              CustomFilledButton(
-                onPressed: () => Navigator.pop(context),
-                backgroundColor: AppColors.card,
-                foregroundColor: Colors.white,
-                child: Text(S.buttons.cancel),
-              ),
-              const Gap(defaultPadding),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -18,7 +19,10 @@ class TasksActions extends ConsumerWidget {
       children: [
         IconButton(
           onPressed: (list != null)
-              ? () => ref.read(selectListIdProvider.notifier).change(0)
+              ? () {
+                  HapticFeedback.lightImpact();
+                  ref.read(selectListIdProvider.notifier).change(0);
+                }
               : null,
           iconSize: 18.0,
           color: colorPrimary,
@@ -26,7 +30,10 @@ class TasksActions extends ConsumerWidget {
         ),
         if (list != null)
           IconButton(
-            onPressed: ref.read(listTasksProvider.notifier).onPinned,
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              ref.read(listTasksProvider.notifier).onPinned();
+            },
             color: colorPrimary,
             icon: Icon(
               list.isPinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,

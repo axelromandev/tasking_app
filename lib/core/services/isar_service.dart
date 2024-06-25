@@ -99,12 +99,6 @@ class IsarService {
           position: 8,
           completed: true,
         );
-        final task10 = Task(
-          listId: listId,
-          message: S.pages.intro.tutorial.task10,
-          position: 9,
-          completed: true,
-        );
 
         // save all tasks
         await isar.tasks.put(task1);
@@ -116,7 +110,6 @@ class IsarService {
         await isar.tasks.put(task7);
         await isar.tasks.put(task8);
         await isar.tasks.put(task9);
-        await isar.tasks.put(task10);
 
         // link tasks to the list
         list1.tasks.addAll([
@@ -129,7 +122,6 @@ class IsarService {
           task7,
           task8,
           task9,
-          task10,
         ]);
         await list1.tasks.save();
 

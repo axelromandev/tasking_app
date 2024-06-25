@@ -1,14 +1,12 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
-import '../providers/list_tasks_provider.dart';
-import '../providers/show_list_tasks_provider.dart';
+import '../dialogs/task_delete_dialog.dart';
+import '../modals/reminder_options_modal.dart';
 import '../providers/task_provider.dart';
 
 class TaskPage extends ConsumerWidget {
@@ -20,142 +18,131 @@ class TaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final list = ref.watch(listTasksProvider);
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
 
-    final color = list?.color != null
-        ? Color(list!.color!)
-        : ref.watch(colorThemeProvider);
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(BoxIcons.bx_x),
+          icon: const Icon(BoxIcons.bx_arrow_back),
+          color: colorPrimary,
           onPressed: () => Navigator.pop(context),
         ),
-        title: TextButton(
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            builder: (context) => _ChangeListTasks(
-              onListTasksChanged: (value) {
-                notifier.onListTasksChanged(value);
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          style: TextButton.styleFrom(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            visualDensity: VisualDensity.compact,
-            foregroundColor: Colors.white,
-            side: const BorderSide(color: Colors.white10),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ColorIndicator(
-                width: 10,
-                height: 10,
-                borderRadius: 30,
-                color: color,
-              ),
-              const Gap(8.0),
-              Text('${list?.name}'),
-            ],
-          ),
-        ),
-        centerTitle: true,
         actions: [
-          const Gap(defaultPadding),
+          IconButton(
+            onPressed: () {},
+            iconSize: 20.0,
+            color: colorPrimary,
+            icon: const Icon(BoxIcons.bx_pin),
+          ),
+          IconButton(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (_) => const ReminderOptionsModal(),
+            ),
+            iconSize: 20.0,
+            color: colorPrimary,
+            icon: const Icon(BoxIcons.bx_bell),
+          ),
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (contextModel) => SafeArea(
-                child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        onTap: () => notifier.onDeleteTask().then((_) {
-                          Navigator.pop(contextModel);
-                          Navigator.pop(context);
-                        }),
-                        iconColor: Colors.redAccent,
-                        leading: const Icon(BoxIcons.bx_trash, size: 20),
-                        title: Text(S.buttons.delete),
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      // onTap: () => notifier.onDeleteTask().then((_) {
+                      //   Navigator.pop(contextModel);
+                      //   Navigator.pop(context);
+                      // }),
+                      onTap: () async {
+                        Navigator.pop(contextModel);
+                        await showDialog(
+                          context: context,
+                          builder: (_) => TaskDeleteDialog(),
+                        );
+                      },
+                      shape: const RoundedRectangleBorder(),
+                      iconColor: colorPrimary,
+                      leading: const Icon(BoxIcons.bx_trash),
+                      title: Text(S.buttons.delete),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      shape: const RoundedRectangleBorder(),
+                      iconColor: colorPrimary,
+                      leading: const Icon(BoxIcons.bx_copy),
+                      title: const Text('Make a copy'),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      shape: const RoundedRectangleBorder(),
+                      iconColor: colorPrimary,
+                      leading: const Icon(BoxIcons.bx_archive),
+                      title: const Text('Archive'),
+                    ),
+                  ],
                 ),
               ),
             ),
-            icon: const Icon(BoxIcons.bx_dots_vertical_rounded, size: 20),
+            iconSize: 20.0,
+            color: colorPrimary,
+            icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
           ),
         ],
-        surfaceTintColor: Colors.transparent,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              initialValue: provider.message,
-              style: style.titleLarge,
-              maxLines: null,
-              decoration: InputDecoration(
-                hintText: S.pages.task.placeholderTask,
-                filled: false,
-              ),
-              onChanged: notifier.onMessageChanged,
+          TextFormField(
+            initialValue: provider.message,
+            style: style.titleLarge,
+            autocorrect: false,
+            maxLines: null,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              hintText: S.pages.task.placeholderTitle,
+              filled: false,
             ),
+            onChanged: notifier.onTitleChanged,
           ),
-          const Divider(height: 0),
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: notifier.noteController,
-              decoration: InputDecoration(
-                hintText: S.pages.task.placeholderNote,
-                filled: false,
-                prefixIcon: Icon(
-                  BoxIcons.bx_note,
-                  size: 20,
-                  color:
-                      (provider.note?.isEmpty ?? true) ? Colors.white : color,
-                ),
-                suffixIcon: (provider.note?.isNotEmpty ?? false)
-                    ? IconButton(
-                        onPressed: notifier.onNoteDeleted,
-                        color: Colors.grey,
-                        icon: const Icon(BoxIcons.bx_x, size: 20),
-                      )
-                    : null,
-              ),
-              onChanged: notifier.onNoteChanged,
+          TextFormField(
+            initialValue: provider.note,
+            maxLines: null,
+            autocorrect: false,
+            decoration: InputDecoration(
+              hintText: S.pages.task.placeholderNote,
+              filled: false,
             ),
+            onChanged: notifier.onNoteChanged,
           ),
-          const Divider(height: 0),
-          if (provider.subtasks.isNotEmpty)
+          if (task.subtasks.isNotEmpty)
             ListView.builder(
               shrinkWrap: true,
               itemCount: provider.subtasks.length,
-              padding: const EdgeInsets.all(8.0),
-              itemBuilder: (_, index) {
+              itemBuilder: (context, index) {
                 final subtask = provider.subtasks.toList()[index];
                 return TextFormField(
                   initialValue: subtask.message,
-                  textInputAction: TextInputAction.done,
+                  autocorrect: false,
+                  textInputAction: TextInputAction.next,
                   style: style.bodyLarge?.copyWith(
                     color: subtask.completed ? Colors.white60 : Colors.white,
+                    decoration: subtask.completed
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                    decorationColor: Colors.white60,
                   ),
                   decoration: InputDecoration(
+                    hintText: 'Subtask',
                     filled: false,
-                    hintText: S.pages.task.placeholderSubtask,
                     prefixIcon: IconButton(
                       onPressed: () =>
                           notifier.onSubtaskToggleCompleted(subtask),
-                      iconSize: 20,
+                      iconSize: 20.0,
                       color: subtask.completed ? Colors.white60 : Colors.white,
                       icon: subtask.completed
                           ? const Icon(BoxIcons.bx_check_circle)
@@ -163,68 +150,43 @@ class TaskPage extends ConsumerWidget {
                     ),
                     suffixIcon: IconButton(
                       onPressed: () => notifier.onSubtaskDelete(subtask),
+                      iconSize: 20.0,
+                      color: subtask.completed ? Colors.white60 : Colors.white,
                       icon: const Icon(BoxIcons.bx_x),
-                      iconSize: 20,
-                      color: Colors.grey,
                     ),
                   ),
                 );
               },
             ),
-          if (provider.subtasks.isNotEmpty) const Divider(height: 0),
-          Container(
-            margin: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: notifier.subtaskAddController,
-              onFieldSubmitted: notifier.onSubtaskAdd,
-              decoration: InputDecoration(
-                hintText: S.pages.task.placeholderSubtaskAdd,
-                filled: false,
-                prefixIcon:
-                    const Icon(BoxIcons.bx_plus, size: 20, color: Colors.white),
+          TextFormField(
+            autocorrect: false,
+            onFieldSubmitted: notifier.onSubtaskAdd,
+            decoration: InputDecoration(
+              hintText: 'Subtasks',
+              filled: false,
+              prefixIcon: IconButton(
+                onPressed: () {},
+                iconSize: 20.0,
+                color: Colors.white70,
+                icon: const Icon(BoxIcons.bx_circle),
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ChangeListTasks extends ConsumerWidget {
-  const _ChangeListTasks({this.onListTasksChanged});
-
-  final void Function(int listTasksId)? onListTasksChanged;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final allListTasks = ref.watch(showListTasksProvider);
-    final selectId = ref.watch(listTasksProvider)!.id;
-
-    return Container(
-      margin: const EdgeInsets.all(defaultPadding),
-      child: ListView.separated(
-        shrinkWrap: true,
-        separatorBuilder: (_, __) => const Gap(8.0),
-        itemCount: allListTasks.length,
-        itemBuilder: (_, index) {
-          final listTasks = allListTasks[index];
-          return ListTile(
-            onTap: () {
-              onListTasksChanged?.call(listTasks.id);
-              Navigator.pop(context);
-            },
-            tileColor:
-                listTasks.id == selectId ? AppColors.card : Colors.transparent,
-            leading: ColorIndicator(
-              width: 12,
-              height: 12,
-              borderRadius: 30,
-              color: Color(listTasks.color!),
+      bottomNavigationBar: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              //TODO: Add date time edited
+              'Edited 2:07 PM *',
+              style: style.bodySmall?.copyWith(
+                color: Colors.white60,
+              ),
             ),
-            title: Text(listTasks.name),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

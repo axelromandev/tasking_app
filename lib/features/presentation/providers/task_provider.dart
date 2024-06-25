@@ -18,14 +18,7 @@ class _Notifier extends StateNotifier<Task> {
   _Notifier({
     required Task task,
     required this.refreshList,
-  }) : super(task) {
-    noteController = TextEditingController(text: task.note);
-    final subtasks = task.subtasks.toList();
-    subtasksControllers = List.generate(
-      subtasks.length,
-      (i) => {subtasks[i].id: TextEditingController(text: subtasks[i].message)},
-    );
-  }
+  }) : super(task);
 
   final Future<void> Function() refreshList;
 
@@ -33,10 +26,7 @@ class _Notifier extends StateNotifier<Task> {
   final _subtasksRepository = SubtasksRepository();
   final _debouncer = Debouncer();
 
-  final subtaskAddController = TextEditingController();
-
-  late TextEditingController noteController;
-  late List<Map<int, TextEditingController>> subtasksControllers;
+  TextEditingController subtaskAddController = TextEditingController();
 
   Future<void> _refresh() async {
     final task = await _taskRepository.get(state.id);
@@ -55,13 +45,7 @@ class _Notifier extends StateNotifier<Task> {
     });
   }
 
-  Future<void> onDeleteCompleted() async {
-    if (!state.completed) return;
-    await _taskRepository.delete(state.id);
-    refreshList();
-  }
-
-  void onMessageChanged(String value) {
+  void onTitleChanged(String value) {
     _debouncer.run(() async {
       final String name = value.trim();
       if (name.isEmpty) return;
@@ -83,13 +67,6 @@ class _Notifier extends StateNotifier<Task> {
     });
   }
 
-  Future<void> onNoteDeleted() async {
-    state.note = null;
-    noteController.clear();
-    await _taskRepository.update(state);
-    refreshList();
-  }
-
   Future<void> onSubtaskAdd(String value) async {
     final String name = value.trim();
     if (name.isEmpty) return;
@@ -109,11 +86,6 @@ class _Notifier extends StateNotifier<Task> {
   Future<void> onSubtaskDelete(SubTask subtask) async {
     await _subtasksRepository.delete(subtask.id);
     _refresh();
-    refreshList();
-  }
-
-  Future<void> onListTasksChanged(int newListTaskId) async {
-    await _taskRepository.changeList(state.id, newListTaskId);
     refreshList();
   }
 }
