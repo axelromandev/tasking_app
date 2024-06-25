@@ -12,7 +12,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     brightness: Brightness.dark,
     fontFamily: 'Lexend',
     colorSchemeSeed: colorSeed,
-    scaffoldBackgroundColor: MyColors.backgroundDark,
+    scaffoldBackgroundColor: AppColors.background,
 
     // PageTransitions
     pageTransitionsTheme: const PageTransitionsTheme(
@@ -57,14 +57,14 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     // AppBar
     appBarTheme: AppBarTheme(
-      backgroundColor: MyColors.backgroundDark,
+      backgroundColor: AppColors.background,
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
     ),
 
     // Card
     cardTheme: CardTheme(
-      color: MyColors.cardDark,
+      color: AppColors.card,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
@@ -92,21 +92,21 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // DialogTheme
     dialogTheme: DialogTheme(
       elevation: 0,
-      backgroundColor: MyColors.backgroundDark,
+      backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
     bottomSheetTheme: BottomSheetThemeData(
       elevation: 0,
-      backgroundColor: MyColors.backgroundDark,
+      backgroundColor: AppColors.background,
       shape: const RoundedRectangleBorder(),
     ),
 
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: MyColors.cardDark,
+      fillColor: AppColors.card,
       contentPadding: const EdgeInsets.all(defaultPadding),
       iconColor: Colors.white,
       hintStyle: const TextStyle(
@@ -138,7 +138,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     // drawerThemeData
     drawerTheme: DrawerThemeData(
       elevation: 0,
-      backgroundColor: MyColors.backgroundDark,
+      backgroundColor: AppColors.background,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(defaultRadius),

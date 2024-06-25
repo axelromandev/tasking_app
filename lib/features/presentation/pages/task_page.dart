@@ -214,9 +214,8 @@ class _ChangeListTasks extends ConsumerWidget {
               onListTasksChanged?.call(listTasks.id);
               Navigator.pop(context);
             },
-            tileColor: listTasks.id == selectId
-                ? MyColors.cardDark
-                : Colors.transparent,
+            tileColor:
+                listTasks.id == selectId ? AppColors.card : Colors.transparent,
             leading: ColorIndicator(
               width: 12,
               height: 12,

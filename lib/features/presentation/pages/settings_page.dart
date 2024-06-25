@@ -97,7 +97,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () => showDialog(
                       context: context,
                       builder: (_) => Dialog(
-                        backgroundColor: MyColors.cardDark,
+                        backgroundColor: AppColors.card,
                         child: Container(
                           padding: const EdgeInsets.all(defaultPadding),
                           child: Column(

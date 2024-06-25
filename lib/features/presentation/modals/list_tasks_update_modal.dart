@@ -105,7 +105,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
               const Gap(defaultPadding),
               CustomFilledButton(
                 onPressed: () => Navigator.pop(context),
-                backgroundColor: MyColors.cardDark,
+                backgroundColor: AppColors.card,
                 foregroundColor: Colors.white,
                 child: Text(S.buttons.cancel),
               ),

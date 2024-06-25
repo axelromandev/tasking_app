@@ -45,7 +45,7 @@ class TasksPage extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              backgroundColor: MyColors.cardDark,
+              backgroundColor: AppColors.card,
               builder: (_) => SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.only(
