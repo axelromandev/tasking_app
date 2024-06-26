@@ -9,9 +9,7 @@ import 'generated/strings.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   LocaleSettings.useDeviceLocale();
-
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
@@ -19,8 +17,9 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
 
+  final DatabaseHelper databaseHelper = DatabaseHelper();
+  await databaseHelper.initDatabase();
   await SharedPrefs.initialize();
-  await IsarService.initialize();
 
   runApp(
     ProviderScope(
