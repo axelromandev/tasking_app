@@ -1,82 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
-
 import 'task.dart';
 
-part 'list_task.g.dart';
-
-@collection
 class ListTasks {
   ListTasks({
-    required this.name,
-    required this.position,
-    this.isPinned = false,
+    required this.id,
+    required this.title,
     this.password,
-    this.icon,
     this.color,
+    this.pinned = false,
+    this.archived = false,
+    required this.createdAt,
   });
 
-  Id id = Isar.autoIncrement;
-  String name;
-  int position;
-  bool isPinned;
-  String? password;
-  ListIconData? icon;
-  int? color;
-
-  final tasks = IsarLinks<Task>();
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'position': position,
-      'isPinned': isPinned,
-      'password': password,
-      'icon': icon?.toMap(),
-      'color': color,
-    };
-  }
-}
-
-@embedded
-class ListIconData {
-  const ListIconData({
-    this.codePoint,
-    this.fontFamily,
-    this.fontPackage,
-  });
-  final int? codePoint;
-  final String? fontFamily;
-  final String? fontPackage;
-
-  @override
-  String toString() =>
-      'ListIconData(codePoint: $codePoint, fontFamily: $fontFamily, fontPackage: $fontPackage)';
-
-  @ignore
-  IconData get iconData {
-    return IconData(
-      codePoint!,
-      fontFamily: fontFamily,
-      fontPackage: fontPackage,
+  factory ListTasks.fromMap(Map<String, dynamic> map) {
+    return ListTasks(
+      id: map['id'] as int,
+      title: map['title'] as String,
+      password: map['password'] as String?,
+      color: map['color'] as int?,
+      pinned: map['pinned'] == 1,
+      archived: map['archived'] == 1,
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 
-  static ListIconData? fromIcon(IconData? icon) {
-    if (icon == null) return null;
-    return ListIconData(
-      codePoint: icon.codePoint,
-      fontFamily: icon.fontFamily,
-      fontPackage: icon.fontPackage,
-    );
-  }
+  ListTasks.empty() : this(id: 0, title: '', createdAt: DateTime.now());
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'codePoint': codePoint,
-      'fontFamily': fontFamily,
-      'fontPackage': fontPackage,
-    };
+  final int id;
+  final String title;
+  final String? password;
+  final int? color;
+  final bool pinned;
+  final bool archived;
+  final DateTime createdAt;
+
+  List<Task> tasks = <Task>[];
+
+  ListTasks copyWith({
+    int? id,
+    String? title,
+    String? password,
+    int? color,
+    bool? pinned,
+    bool? archived,
+    DateTime? createdAt,
+    List<Task>? tasks,
+  }) {
+    return ListTasks(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      password: password ?? this.password,
+      color: color ?? this.color,
+      pinned: pinned ?? this.pinned,
+      archived: archived ?? this.archived,
+      createdAt: createdAt ?? this.createdAt,
+    )..tasks = tasks ?? this.tasks;
   }
 }

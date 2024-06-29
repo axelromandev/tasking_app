@@ -4,24 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/core.dart';
 import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
+import 'all_list_tasks_provider.dart';
 import 'list_tasks_provider.dart';
-import 'select_list_id_provider.dart';
 
-final taskAddModalProvider =
-    StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  final listId = ref.read(selectListIdProvider);
-  final refresh = ref.read(listTasksProvider.notifier).refresh;
+final taskAddModalProvider = StateNotifierProvider.family
+    .autoDispose<_Notifier, _State, int>((ref, listId) {
+  final refreshAll = ref.read(allListTasksProvider.notifier).refreshAll;
+  final refreshList = ref.read(listTasksProvider(listId).notifier).refresh;
 
-  return _Notifier(listId: listId, refresh: refresh);
+  return _Notifier(listId, refreshAll, refreshList);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier({
-    required int listId,
-    required this.refresh,
-  }) : super(_State(listId: listId));
+  _Notifier(
+    int listId,
+    this.refreshAll,
+    this.refreshList,
+  ) : super(_State(listId: listId));
 
-  final Future<void> Function() refresh;
+  final Future<void> Function() refreshAll;
+  final Future<void> Function() refreshList;
 
   final controller = TextEditingController();
   final focusNode = FocusNode();
@@ -38,7 +40,8 @@ class _Notifier extends StateNotifier<_State> {
     }
     try {
       await _taskRepository.add(state.listId, state.name);
-      refresh();
+      refreshList();
+      refreshAll();
     } catch (e) {
       MyToast.show(e.toString());
     } finally {

@@ -1,64 +1,36 @@
-import 'package:isar/isar.dart';
-
-import 'subtask.dart';
-
-part 'task.g.dart';
-
-@collection
 class Task {
   Task({
-    required this.listId,
-    required this.message,
-    required this.position,
+    required this.id,
+    required this.title,
     this.note,
-    this.reminder,
     this.completed = false,
-    this.createAt,
+    this.reminder,
+    required this.listId,
+    required this.updatedAt,
+    required this.createdAt,
   });
 
-  Id id = Isar.autoIncrement;
-  int listId;
-  String message;
-  int position;
-  String? note;
-  DateTime? reminder;
-  bool completed;
-  DateTime? createAt;
-
-  final subtasks = IsarLinks<SubTask>();
-
-  bool get hasNote => note != null && note!.isNotEmpty;
-
-  Task copyWith({
-    int? listId,
-    String? message,
-    int? position,
-    String? note,
-    DateTime? reminder,
-    bool? completed,
-    DateTime? createAt,
-  }) {
+  factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
-      listId: listId ?? this.listId,
-      message: message ?? this.message,
-      position: position ?? this.position,
-      note: note ?? this.note,
-      reminder: reminder ?? this.reminder,
-      completed: completed ?? this.completed,
-      createAt: createAt ?? this.createAt,
+      id: map['id'] as int,
+      title: map['title'] as String,
+      note: map['note'] as String?,
+      completed: map['completed'] == 1,
+      reminder: map['reminder'] != null
+          ? DateTime.parse(map['reminder'] as String)
+          : null,
+      listId: map['list_id'] as int,
+      updatedAt: DateTime.parse(map['updated_at'] as String),
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'listId': listId,
-      'message': message,
-      'position': position,
-      'note': note,
-      'reminder': reminder?.millisecondsSinceEpoch,
-      'completed': completed,
-      'createAt': createAt?.millisecondsSinceEpoch,
-    };
-  }
+  final int id;
+  final String title;
+  final String? note;
+  final bool completed;
+  final DateTime? reminder;
+  final int listId;
+  final DateTime updatedAt;
+  final DateTime createdAt;
 }

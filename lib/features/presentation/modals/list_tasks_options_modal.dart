@@ -10,13 +10,17 @@ import '../providers/list_tasks_provider.dart';
 import 'list_tasks_update_modal.dart';
 
 class ListTasksOptionsModal extends ConsumerWidget {
-  const ListTasksOptionsModal({super.key});
+  const ListTasksOptionsModal(this.contextPage, this.listId, {super.key});
+
+  final BuildContext contextPage;
+  final int listId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorPrimary = ref.watch(colorThemeProvider);
-    final list = ref.watch(listTasksProvider);
-    final notifier = ref.read(listTasksProvider.notifier);
+    final list = ref.watch(listTasksProvider(listId));
+    final notifier = ref.read(listTasksProvider(listId).notifier);
+
+    final color = Color(list.color ?? 0xFF000000);
 
     return SafeArea(
       child: Container(
@@ -33,31 +37,34 @@ class ListTasksOptionsModal extends ConsumerWidget {
               ),
             ),
             ListTile(
-              onTap: () {
+              onTap: () async {
                 context.pop();
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (_) => ListTasksUpdateModal(list!),
+                  builder: (_) => ListTasksUpdateModal(list),
                 );
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colorPrimary,
+              iconColor: color,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
               title: Text(S.modals.listTasksOptions.list.edit),
             ),
             ListTile(
-              onTap: () {
+              onTap: () async {
                 context.pop();
-                showDialog(
+                final result = await showDialog<bool?>(
                   context: context,
-                  builder: (context) => _DeleteDialog(),
+                  builder: (_) => _DeleteDialog(),
                 );
+                if (result != null && result) {
+                  notifier.onDelete(contextPage);
+                }
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colorPrimary,
+              iconColor: color,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
               title: Text(S.modals.listTasksOptions.list.delete),
             ),
@@ -74,10 +81,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkIncompleteAllTasks();
               },
-              enabled: list?.tasks.isNotEmpty ?? false,
+              enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colorPrimary,
+              iconColor: color,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
               title: Text(S.modals.listTasksOptions.tasks.incompleteAllTasks),
             ),
@@ -86,10 +93,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkCompleteAllTasks();
               },
-              enabled: list?.tasks.isNotEmpty ?? false,
+              enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colorPrimary,
+              iconColor: color,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
               title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
@@ -98,10 +105,10 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onDeleteCompletedAllTasks();
               },
-              enabled: list?.tasks.isNotEmpty ?? false,
+              enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: colorPrimary,
+              iconColor: color,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
               title:
                   Text(S.modals.listTasksOptions.tasks.deleteAllCompletedTasks),
@@ -126,17 +133,14 @@ class _DeleteDialog extends ConsumerWidget {
       ),
       actions: [
         TextButton(
-          onPressed: () => context.pop(),
+          onPressed: () => Navigator.pop(context, false),
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
           ),
           child: Text(S.buttons.cancel),
         ),
         FilledButton(
-          onPressed: () {
-            context.pop();
-            ref.read(listTasksProvider.notifier).onDelete();
-          },
+          onPressed: () => Navigator.pop(context, true),
           style: FilledButton.styleFrom(
             foregroundColor: Colors.white,
             backgroundColor: Colors.red,

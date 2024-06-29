@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
+import '../../../core/core.dart';
 import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
 import '../dialogs/task_delete_dialog.dart';
-import '../modals/reminder_options_modal.dart';
+import '../providers/list_tasks_provider.dart';
 import '../providers/task_provider.dart';
 
 class TaskPage extends ConsumerWidget {
@@ -18,32 +19,26 @@ class TaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final list = ref.watch(listTasksProvider(task.listId));
+    final color = Color(list.color!);
+
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
-
-    final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(BoxIcons.bx_arrow_back),
-          color: colorPrimary,
+          color: color,
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              //TODO: update reminder
+            },
             iconSize: 20.0,
-            color: colorPrimary,
-            icon: const Icon(BoxIcons.bx_pin),
-          ),
-          IconButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (_) => const ReminderOptionsModal(),
-            ),
-            iconSize: 20.0,
-            color: colorPrimary,
+            color: color,
             icon: const Icon(BoxIcons.bx_bell),
           ),
           IconButton(
@@ -54,42 +49,28 @@ class TaskPage extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ListTile(
-                      // onTap: () => notifier.onDeleteTask().then((_) {
-                      //   Navigator.pop(contextModel);
-                      //   Navigator.pop(context);
-                      // }),
                       onTap: () async {
                         Navigator.pop(contextModel);
-                        await showDialog(
+                        final result = await showDialog<bool?>(
                           context: context,
                           builder: (_) => TaskDeleteDialog(),
                         );
+                        if (result != null && result) {
+                          await notifier.onDeleteTask();
+                          Navigator.pop(context);
+                        }
                       },
                       shape: const RoundedRectangleBorder(),
-                      iconColor: colorPrimary,
+                      iconColor: color,
                       leading: const Icon(BoxIcons.bx_trash),
                       title: Text(S.buttons.delete),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      shape: const RoundedRectangleBorder(),
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_copy),
-                      title: const Text('Make a copy'),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      shape: const RoundedRectangleBorder(),
-                      iconColor: colorPrimary,
-                      leading: const Icon(BoxIcons.bx_archive),
-                      title: const Text('Archive'),
                     ),
                   ],
                 ),
               ),
             ),
             iconSize: 20.0,
-            color: colorPrimary,
+            color: color,
             icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
           ),
         ],
@@ -98,10 +79,11 @@ class TaskPage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-            initialValue: provider.message,
+            initialValue: provider.title,
             style: style.titleLarge,
             autocorrect: false,
             maxLines: null,
+            cursorColor: color,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               hintText: S.pages.task.placeholderTitle,
@@ -113,65 +95,31 @@ class TaskPage extends ConsumerWidget {
             initialValue: provider.note,
             maxLines: null,
             autocorrect: false,
+            cursorColor: color,
             decoration: InputDecoration(
               hintText: S.pages.task.placeholderNote,
               filled: false,
             ),
             onChanged: notifier.onNoteChanged,
           ),
-          if (task.subtasks.isNotEmpty)
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: provider.subtasks.length,
-              itemBuilder: (context, index) {
-                final subtask = provider.subtasks.toList()[index];
-                return TextFormField(
-                  initialValue: subtask.message,
-                  autocorrect: false,
-                  textInputAction: TextInputAction.next,
-                  style: style.bodyLarge?.copyWith(
-                    color: subtask.completed ? Colors.white60 : Colors.white,
-                    decoration: subtask.completed
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                    decorationColor: Colors.white60,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Subtask',
-                    filled: false,
-                    prefixIcon: IconButton(
-                      onPressed: () =>
-                          notifier.onSubtaskToggleCompleted(subtask),
-                      iconSize: 20.0,
-                      color: subtask.completed ? Colors.white60 : Colors.white,
-                      icon: subtask.completed
-                          ? const Icon(BoxIcons.bx_check_circle)
-                          : const Icon(BoxIcons.bx_circle),
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () => notifier.onSubtaskDelete(subtask),
-                      iconSize: 20.0,
-                      color: subtask.completed ? Colors.white60 : Colors.white,
-                      icon: const Icon(BoxIcons.bx_x),
-                    ),
-                  ),
-                );
-              },
-            ),
-          TextFormField(
-            autocorrect: false,
-            onFieldSubmitted: notifier.onSubtaskAdd,
-            decoration: InputDecoration(
-              hintText: 'Subtasks',
-              filled: false,
-              prefixIcon: IconButton(
-                onPressed: () {},
-                iconSize: 20.0,
-                color: Colors.white70,
-                icon: const Icon(BoxIcons.bx_circle),
+          if (task.reminder != null)
+            Container(
+              margin: const EdgeInsets.only(
+                left: defaultPadding,
+                top: defaultPadding,
+              ),
+              child: FilledButton(
+                onPressed: () {
+                  //TODO: update reminder
+                },
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.card,
+                  foregroundColor: Colors.white,
+                  textStyle: style.bodyMedium,
+                ),
+                child: Text(HumanFormat.datetime(task.reminder)),
               ),
             ),
-          ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -179,8 +127,7 @@ class TaskPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              //TODO: Add date time edited
-              'Edited 2:07 PM *',
+              '${S.commons.edited}: ${HumanFormat.time(task.updatedAt)}',
               style: style.bodySmall?.copyWith(
                 color: Colors.white60,
               ),

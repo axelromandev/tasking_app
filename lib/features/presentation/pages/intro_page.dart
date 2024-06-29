@@ -11,7 +11,7 @@ import '../widgets/widgets.dart';
 class IntroPage extends ConsumerWidget {
   const IntroPage({super.key});
 
-  static String routePage = '/intro';
+  static String routePath = '/intro';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

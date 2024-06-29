@@ -3,29 +3,68 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
-import '../providers/select_list_id_provider.dart';
-import '../providers/show_list_tasks_provider.dart';
+import '../modals/list_tasks_add_modal.dart';
+import '../providers/all_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
+import 'list_tasks_page.dart';
 
-class BuildAllListTasks extends ConsumerWidget {
-  const BuildAllListTasks({super.key});
+class AllListTasksPage extends ConsumerWidget {
+  const AllListTasksPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lists = ref.watch(showListTasksProvider);
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            height: 1.5,
+            color: Colors.white.withOpacity(.06),
+          ),
+          Expanded(
+            child: _ListsTasksView(),
+          ),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: colorPrimary,
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          builder: (_) => const ListTasksAddModal(),
+        ),
+        child: const Icon(BoxIcons.bx_plus),
+      ),
+    );
+  }
+}
+
+class _ListsTasksView extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lists = ref.watch(allListTasksProvider).lists;
 
     if (lists.isEmpty) {
       return _EmptyListTasks();
     }
 
-    final pinnedLists = lists.where((list) => list.isPinned).toList();
-    final unpinnedLists = lists.where((list) => !list.isPinned).toList();
+    final pinnedLists = lists.where((list) => list.pinned).toList();
+    final unpinnedLists = lists.where((list) => !list.pinned).toList();
 
     final style = Theme.of(context).textTheme;
+
+    void push(int listId) {
+      HapticFeedback.mediumImpact();
+      final String path = ListTasksPage.routePath.replaceAll(':id', '$listId');
+      context.push(path);
+    }
 
     return ListView(
       children: [
@@ -39,7 +78,7 @@ class BuildAllListTasks extends ConsumerWidget {
             ),
             minLeadingWidth: 0,
             title: Text(
-              S.pages.listTasks.alertPinned,
+              'Pinned',
               style: style.bodySmall?.copyWith(
                 color: Colors.white38,
               ),
@@ -53,23 +92,12 @@ class BuildAllListTasks extends ConsumerWidget {
             crossAxisSpacing: 12.0,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final list = pinnedLists[index];
-              return ListTasksCard(
-                onTap: () {
-                  HapticFeedback.mediumImpact();
-                  ref.read(selectListIdProvider.notifier).change(list.id);
-                },
-                list: list,
-              );
-            },
+            itemBuilder: (_, i) => ListTasksCard(
+              onTap: () => push(pinnedLists[i].id),
+              list: pinnedLists[i],
+            ),
           ),
           const Gap(defaultPadding),
-          if (unpinnedLists.isNotEmpty)
-            Container(
-              height: 1.5,
-              color: Colors.white.withOpacity(.06),
-            ),
         ],
         MasonryGridView.count(
           itemCount: unpinnedLists.length,
@@ -79,16 +107,10 @@ class BuildAllListTasks extends ConsumerWidget {
           crossAxisSpacing: 12.0,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            final list = unpinnedLists[index];
-            return ListTasksCard(
-              onTap: () {
-                HapticFeedback.mediumImpact();
-                ref.read(selectListIdProvider.notifier).change(list.id);
-              },
-              list: list,
-            );
-          },
+          itemBuilder: (_, i) => ListTasksCard(
+            onTap: () => push(unpinnedLists[i].id),
+            list: unpinnedLists[i],
+          ),
         ),
       ],
     );
@@ -116,7 +138,7 @@ class _EmptyListTasks extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(defaultPadding),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.06),
+                  color: colorPrimary.withOpacity(.06),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(

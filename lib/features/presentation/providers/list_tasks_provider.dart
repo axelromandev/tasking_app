@@ -1,90 +1,88 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
-import '../../app.dart';
-import 'select_list_id_provider.dart';
+import '../../domain/domain.dart';
+import 'all_list_tasks_provider.dart';
 
-final listTasksProvider =
-    StateNotifierProvider.autoDispose<_Notifier, ListTasks?>((ref) {
-  final listId = ref.watch(selectListIdProvider);
+final listTasksProvider = StateNotifierProvider.family
+    .autoDispose<_Notifier, ListTasks, int>((ref, listId) {
+  final refreshAll = ref.read(allListTasksProvider.notifier).refreshAll;
 
-  return _Notifier(listId);
+  return _Notifier(listId, refreshAll);
 });
 
-class _Notifier extends StateNotifier<ListTasks?> {
-  _Notifier(this.listId) : super(null) {
-    _load(listId);
+class _Notifier extends StateNotifier<ListTasks> {
+  _Notifier(this.listId, this.refreshAll) : super(ListTasks.empty()) {
+    refresh();
   }
 
-  final int listId;
+  late int listId;
+  final Future<void> Function() refreshAll;
 
+  final _tasksRepository = TaskRepository();
   final _listTasksRepository = ListTasksRepository();
-  final _taskRepository = TaskRepository();
-
-  Future<void> _load(int listId) async {
-    final list = await _listTasksRepository.get(listId);
-    state = list;
-  }
 
   Future<void> refresh() async {
-    await _load(state!.id);
+    _listTasksRepository.get(listId).then((value) {
+      final list = value!;
+      _tasksRepository.getByListId(list.id).then((tasks) {
+        list.tasks = tasks;
+      });
+      super.state = list;
+    });
   }
 
-  Future<void> onPinned() async {
-    if (state == null) return;
-    state!.isPinned = !state!.isPinned;
-    if (state!.isPinned) {
-      MyToast.show(
-        S.pages.listTasks.alertPinned,
-        ToastGravity.SNACKBAR,
-      );
-    } else {
-      MyToast.show(
-        S.pages.listTasks.alertUnpinned,
-        ToastGravity.SNACKBAR,
-      );
-    }
-    await _listTasksRepository.update(state!);
-    await _load(state!.id);
+  void onPinned() {
+    _listTasksRepository.updatePinned(listId, !state.pinned).then((_) {
+      refresh();
+      refreshAll();
+    });
   }
 
-  Future<void> onDelete() async {
-    if (state == null) return;
-    await _listTasksRepository.delete(state!.id);
-    state = null;
+  void onArchived() {
+    _listTasksRepository.updateArchived(listId, !state.archived).then((_) {
+      refresh();
+      refreshAll();
+    });
   }
 
-  Future<void> onMarkIncompleteAllTasks() async {
-    if (state == null) return;
-    if (state?.tasks == null) return;
-    final tasks = state?.tasks.where((task) => task.completed).toList();
-    for (final task in tasks!) {
-      task.completed = false;
-      await _taskRepository.update(task);
-    }
-    await refresh();
+  void onDelete(BuildContext contextPage) {
+    _listTasksRepository.delete(state.id).then((_) {
+      refreshAll();
+      contextPage.pop();
+    });
   }
 
-  Future<void> onMarkCompleteAllTasks() async {
-    if (state == null) return;
-    if (state?.tasks == null) return;
-    final tasks = state?.tasks.where((task) => !task.completed).toList();
-    for (final task in tasks!) {
-      task.completed = true;
-      await _taskRepository.update(task);
-    }
-    await refresh();
+  void onMarkIncompleteAllTasks() {
+    // if (state.selected == null) return;
+    // if (state.selected!.tasks.isEmpty) return;
+    // final tasks = state?.tasks.where((task) => task.completed).toList();
+    // for (final task in tasks!) {
+    //   task.completed = false;
+    //   await _taskRepository.update(task);
+    // }
+    // await refresh();
   }
 
-  Future<void> onDeleteCompletedAllTasks() async {
-    if (state == null) return;
-    if (state?.tasks == null) return;
-    final tasks = state?.tasks.where((task) => task.completed).toList();
-    for (final task in tasks!) {
-      await _taskRepository.delete(task.id);
-    }
-    await refresh();
+  void onMarkCompleteAllTasks() {
+    // if (state.selected == null) return;
+    // if (state.selected!.tasks.isEmpty) return;
+    // final tasks = state?.tasks.where((task) => !task.completed).toList();
+    // for (final task in tasks!) {
+    //   task.completed = true;
+    //   await _taskRepository.update(task);
+    // }
+    // await refresh();
+  }
+
+  void onDeleteCompletedAllTasks() {
+    // if (state == null) return;
+    // if (state?.tasks == null) return;
+    // final tasks = state?.tasks.where((task) => task.completed).toList();
+    // for (final task in tasks!) {
+    //   await _taskRepository.delete(task.id);
+    // }
+    // await refresh();
   }
 }

@@ -1,7 +1,23 @@
 {
   "commons": {
     "appName": "Tasking",
-    "language": "Español"
+    "language": "Español",
+    "edited": "Editado",
+    "shortDays": ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+    "shortMonths": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ]
   },
   "buttons": {
     "add": "Agregar",
@@ -26,7 +42,6 @@
         "task4": "Toca la parte inferior derecha + para agregar una tarea",
         "task5": "Toca para editar esta tarea",
         "task5note": "Puedes escribir notas aquí.",
-        "task5subtask": "Puedes agregar sub tareas aquí",
         "task6": "Toca la esquina superior derecha ⁝ para editar o eliminar esta lista",
         "task7": "Hay otras funciones fáciles de usar, ¡pruébalas!",
         "task8": "Eso es todo por el tutorial. Espero que esta aplicación te sea útil.",
@@ -36,6 +51,8 @@
     "home": {
       "drawer": {
         "tasks": "Tareas",
+        "reminders": "Recordatorios",
+        "archived": "Archivado",
         "settings": "Configuración"
       }
     },
@@ -44,8 +61,14 @@
         "title": "No hay listas",
         "subtitle": "Presione + para agregar una lista"
       },
-      "alertPinned": "Anclado",
-      "alertUnpinned": "Desanclar"
+      "emptyTasks": {
+        "title": "No hay tareas",
+        "subtitle": "Presione + para agregar una tarea"
+      },
+      "emptyArchived": {
+        "title": "Archivo está vacío",
+        "subtitle": "Todavía no tienes listas archivadas."
+      }
     },
     "task": {
       "placeholderTitle": "Título",
@@ -84,7 +107,8 @@
       "list": {
         "title": "Lista",
         "edit": "Editar lista",
-        "delete": "Eliminar lista"
+        "delete": "Eliminar lista",
+        "archived": "Archivar lista"
       },
       "tasks": {
         "title": "Tareas",

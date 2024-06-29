@@ -4,24 +4,26 @@ import '../../data/data.dart';
 import '../domain.dart';
 
 abstract interface class IListTasksRepository {
-  Future<List<ListTasks>> fetchAll();
+  Future<List<ListTasks>> getAll();
   Future<ListTasks?> get(int id);
-  Future<ListTasks> add(String name, Color color, [IconData? icon]);
+  Future<ListTasks> add(String name, Color color);
   Future<void> delete(int id);
-  Future<void> update(ListTasks list);
+  Future<void> update(int id, String title, Color color);
+  Future<void> updatePinned(int id, bool pinned);
+  Future<void> updateArchived(int id, bool archived);
 }
 
 class ListTasksRepository extends IListTasksRepository {
   final IListTasksDataSource _dataSource = ListTasksDataSource();
 
   @override
-  Future<ListTasks> add(String name, Color color, [IconData? icon]) {
-    return _dataSource.add(name, color, icon);
+  Future<List<ListTasks>> getAll() {
+    return _dataSource.getAll();
   }
 
   @override
-  Future<List<ListTasks>> fetchAll() {
-    return _dataSource.fetchAll();
+  Future<ListTasks> add(String name, Color color) {
+    return _dataSource.add(name, color);
   }
 
   @override
@@ -30,12 +32,22 @@ class ListTasksRepository extends IListTasksRepository {
   }
 
   @override
-  Future<void> update(ListTasks list) {
-    return _dataSource.update(list);
+  Future<void> update(int id, String title, Color color) {
+    return _dataSource.update(id, title, color);
   }
 
   @override
   Future<void> delete(int id) {
     return _dataSource.delete(id);
+  }
+
+  @override
+  Future<void> updatePinned(int id, bool pinned) {
+    return _dataSource.updatePinned(id, pinned);
+  }
+
+  @override
+  Future<void> updateArchived(int id, bool archived) {
+    return _dataSource.updateArchived(id, archived);
   }
 }

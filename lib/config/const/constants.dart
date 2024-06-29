@@ -4,8 +4,8 @@ const double defaultPadding = 16.0;
 const double defaultRadius = 16.0;
 
 class AppColors {
-  static Color card = const Color(0xFF21222D);
-  static Color background = const Color(0xFF171821);
+  static const Color card = Color(0xFF21222D);
+  static const Color background = Color(0xFF171821);
 }
 
 class Keys {

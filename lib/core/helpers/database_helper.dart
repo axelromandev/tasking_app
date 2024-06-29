@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -18,7 +16,6 @@ class DatabaseHelper {
 
   Future<Database> initDatabase() async {
     final String path = join(await getDatabasesPath(), 'tasking.db');
-    log(path, name: 'Database Path');
     return await openDatabase(
       path,
       version: 1,
@@ -29,6 +26,7 @@ class DatabaseHelper {
               title TEXT NOT NULL,
               password TEXT,
               color INTEGER NOT NULL,
+              pinned INTEGER DEFAULT 0,
               archived INTEGER DEFAULT 0,
               created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
@@ -39,23 +37,11 @@ class DatabaseHelper {
               title TEXT NOT NULL,
               note TEXT,
               completed INTEGER DEFAULT 0,
-              pinned INTEGER DEFAULT 0,
-              archived INTEGER DEFAULT 0,
               reminder DATETIME,
-              update_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-              created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+              updated_at DATETIME NOT NULL,
+              created_at DATETIME NOT NULL,
               list_id INTEGER NOT NULL,
               FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
-            );
-        ''');
-        await db.execute('''
-            CREATE TABLE subtasks(
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              title TEXT NOT NULL,
-              completed INTEGER DEFAULT 0,
-              update_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-              task_id INTEGER NOT NULL,
-              FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
             );
         ''');
       },
@@ -64,39 +50,37 @@ class DatabaseHelper {
 
   Future<void> insertTutorialList() async {
     final Database db = await database;
+    final String now = DateTime.now().toIso8601String();
     await db.transaction((txn) async {
       final int listId = await txn.rawInsert(
         "INSERT INTO lists (title, color) VALUES ('Tutorial', 4294951175)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task1}', $listId)",
+        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task1}', '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task2}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task2}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task3}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task3}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task4}', $listId)",
-      );
-      final int task5Id = await txn.rawInsert(
-        "INSERT INTO tasks (title, note, list_id) VALUES ('${S.pages.intro.tutorial.task5}', '${S.pages.intro.tutorial.task5note}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task4}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO subtasks (title, task_id) VALUES ('${S.pages.intro.tutorial.task5subtask}', $task5Id)",
+        "INSERT INTO tasks (title, completed, note, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task5}', 1, '${S.pages.intro.tutorial.task5note}', '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task6}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task6}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task7}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task7}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task8}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task8}', 1, '$now', '$now', $listId)",
       );
       await txn.rawInsert(
-        "INSERT INTO tasks (title, list_id) VALUES ('${S.pages.intro.tutorial.task9}', $listId)",
+        "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task9}', 1, '$now', '$now', $listId)",
       );
     });
   }

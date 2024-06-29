@@ -6,19 +6,20 @@ import 'package:go_router/go_router.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
+import '../pages/list_tasks_page.dart';
+import '../presentation.dart';
 
 final introProvider = Provider.autoDispose((ref) {
   final prefs = SharedPrefs();
-  final isarService = IsarService();
+  final dbHelper = DatabaseHelper();
 
   Future<void> finish(BuildContext context) async {
     try {
-      await isarService.tutorial().then((status) {
-        if (status) {
-          prefs.setKeyValue<bool>(Keys.isFirstTime, true);
-          prefs.setKeyValue<int>(Keys.showCurrentListTasks, 1);
-          context.go(Routes.home.path);
-        }
+      await dbHelper.insertTutorialList().then((_) {
+        prefs.setKeyValue<bool>(Keys.isFirstTime, true);
+        prefs.setKeyValue<int>(Keys.showCurrentListTasks, 1);
+        context.go(HomePage.routePath);
+        context.push(ListTasksPage.routePath.replaceFirst(':id', '1'));
       });
     } catch (e) {
       log('$e', name: 'IntroProvider');

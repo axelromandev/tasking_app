@@ -9,28 +9,25 @@ import 'list_tasks_provider.dart';
 
 final listTasksUpdateModalProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, ListTasks>((ref, list) {
-  final refresh = ref.read(listTasksProvider.notifier).refresh;
+  final refreshList = ref.read(listTasksProvider(list.id).notifier).refresh;
 
-  return _Notifier(list: list, refresh: refresh);
+  return _Notifier(list, refreshList);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier({
-    required this.list,
-    required this.refresh,
-  }) : super(_State()) {
+  _Notifier(this.list, this.refreshList) : super(_State()) {
     state = state.init(list);
   }
 
   final ListTasks list;
-  final Future<void> Function() refresh;
+  final Future<void> Function() refreshList;
 
   final expansionTileController = ExpansionTileController();
 
   final _listTasksRepository = ListTasksRepository();
 
   void onNameChanged(String value) {
-    state = state.copyWith(name: value);
+    state = state.copyWith(title: value.trim());
   }
 
   Future<void> onColorChanged(Color value) async {
@@ -40,16 +37,15 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onSubmit(BuildContext context) async {
-    if (state.name.trim().isEmpty) {
+    if (state.title.isEmpty) {
       MyToast.show(S.modals.listTasksUpdate.errorEmptyName);
       return;
     }
 
-    list.name = state.name;
-    list.color = state.color.value;
-
-    await _listTasksRepository.update(list).then((_) {
-      refresh();
+    await _listTasksRepository
+        .update(list.id, state.title, state.color)
+        .then((_) {
+      refreshList();
       context.pop();
     });
   }
@@ -57,25 +53,25 @@ class _Notifier extends StateNotifier<_State> {
 
 class _State {
   _State({
-    this.name = '',
+    this.title = '',
     this.color = Colors.amber,
   });
-  final String name;
+  final String title;
   final Color color;
 
   _State copyWith({
-    String? name,
+    String? title,
     Color? color,
   }) {
     return _State(
-      name: name ?? this.name,
+      title: title ?? this.title,
       color: color ?? this.color,
     );
   }
 
   _State init(ListTasks list) {
     return _State(
-      name: list.name,
+      title: list.title,
       color: Color(list.color!),
     );
   }

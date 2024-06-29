@@ -1,87 +1,124 @@
-import 'package:isar/isar.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
 abstract interface class ITaskDataSource {
   Future<Task> get(int id);
-  Future<List<Task>> getAll();
-  Future<Task> add(int listId, String name, [DateTime? reminder]);
-  Future<void> update(Task task);
+  Future<List<Task>> getByListId(int id);
+  Future<Task> add(int listId, String title);
+  Future<void> updateCompleted(int id, bool completed);
+  Future<void> updateTitle(int id, String title);
+  Future<void> updateNote(int id, String note);
   Future<void> delete(int id);
   Future<void> clearComplete(int listId);
   Future<void> changeList(int taskId, int newListId);
 }
 
 class TaskDataSource implements ITaskDataSource {
-  final Isar _isar = IsarService.isar;
+  final dbHelper = DatabaseHelper();
 
   @override
   Future<Task> get(int id) async {
-    final task = await _isar.tasks.get(id);
-    if (task == null) throw Exception('Task not found');
-    return task;
+    throw UnimplementedError();
   }
 
   @override
-  Future<List<Task>> getAll() async {
-    return await _isar.tasks.where().findAll();
+  Future<List<Task>> getByListId(int id) async {
+    try {
+      final Database db = await dbHelper.database;
+      final data = await db.rawQuery(
+        'SELECT * FROM tasks WHERE list_id = ?',
+        [id],
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      return <Task>[];
+    }
   }
 
   @override
-  Future<Task> add(int listId, String value, [DateTime? reminder]) async {
-    final task = Task(
-      message: value,
-      listId: listId,
-      reminder: reminder,
-      position: 0,
-      createAt: DateTime.now(),
-    );
-    final query = _isar.listTasks.where().filter().idEqualTo(listId);
-    final list = await query.findFirst();
-    list!.tasks.add(task);
-    await _isar.writeTxn(() async {
-      task.id = await _isar.tasks.put(task);
-      await list.tasks.save();
-    });
-    return task;
+  Future<Task> add(int listId, String title) async {
+    try {
+      final Database db = await dbHelper.database;
+      final id = await db.rawInsert(
+        'INSERT INTO tasks(title, list_id) VALUES(?, ?)',
+        [title, listId],
+      );
+      final data = await db.rawQuery(
+        'SELECT * FROM tasks WHERE id = ?',
+        [id],
+      );
+      return Task.fromMap(data.first);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> delete(int id) async {
-    await _isar.writeTxn(() async {
-      await _isar.tasks.delete(id);
-    });
+    try {
+      final Database db = await dbHelper.database;
+      await db.rawDelete(
+        'DELETE FROM tasks WHERE id = ?',
+        [id],
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
-  Future<void> update(Task task) async {
-    await _isar.writeTxn(() async {
-      await _isar.tasks.put(task);
-    });
+  Future<void> updateCompleted(int id, bool completed) async {
+    try {
+      final Database db = await dbHelper.database;
+      final int value = completed ? 1 : 0;
+      final String now = DateTime.now().toIso8601String();
+      await db.rawUpdate(
+        'UPDATE tasks SET completed = ?, updated_at = ? WHERE id = ?',
+        [value, now, id],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateNote(int id, String note) async {
+    try {
+      final Database db = await dbHelper.database;
+      final String now = DateTime.now().toIso8601String();
+      await db.rawUpdate(
+        'UPDATE tasks SET note = ?, updated_at = ? WHERE id = ?',
+        [note, now, id],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateTitle(int id, String title) async {
+    try {
+      final Database db = await dbHelper.database;
+      final String now = DateTime.now().toIso8601String();
+      await db.rawUpdate(
+        'UPDATE tasks SET title = ?, updated_at = ? WHERE id = ?',
+        [title, now, id],
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<void> clearComplete(int listId) async {
-    await _isar.writeTxn(() async {
-      final ref = _isar.tasks.filter();
-      final query = ref.listIdEqualTo(listId).completedEqualTo(true);
-      await query.deleteAll();
-    });
+    throw UnimplementedError();
   }
 
   @override
   Future<void> changeList(int taskId, int newListId) async {
-    await _isar.writeTxn(() async {
-      final task = await _isar.tasks.get(taskId);
-      final oldList = await _isar.listTasks.get(task!.listId);
-      final newList = await _isar.listTasks.get(newListId);
-      oldList!.tasks.remove(task);
-      newList!.tasks.add(task);
-      task.listId = newListId;
-      await _isar.tasks.put(task);
-      await oldList.tasks.save();
-      await newList.tasks.save();
-    });
+    throw UnimplementedError();
   }
 }

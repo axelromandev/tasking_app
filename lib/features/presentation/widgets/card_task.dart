@@ -36,10 +36,6 @@ class _TaskCardState extends ConsumerState<TaskCard> {
     final provider = ref.watch(taskProvider(widget.task));
     final notifier = ref.read(taskProvider(widget.task).notifier);
 
-    final List<SubTask> subtasks = widget.task.subtasks.toList();
-    final List<SubTask> completedSubtasks =
-        subtasks.where((subtask) => subtask.completed).toList();
-
     final bool isCompleted = provider.completed;
 
     return Dismissible(
@@ -80,53 +76,32 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         iconColor: isCompleted ? Colors.white70 : Colors.white,
         shape: const RoundedRectangleBorder(),
         leading: GestureDetector(
-          onTap: notifier.onToggleCompletedStatus,
+          onTap: notifier.onToggleCompleted,
           child: Icon(
             isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
             size: 18,
           ),
         ),
         title: Text(
-          provider.message,
+          provider.title,
           style: isCompleted
               ? style.bodyMedium?.copyWith(color: Colors.white70)
               : style.bodyLarge,
         ),
-        subtitle: (provider.hasNote && widget.task.subtasks.isNotEmpty)
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        subtitle: (provider.note?.isNotEmpty ?? false)
+            ? Row(
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        BoxIcons.bx_file,
-                        size: 12,
-                        color: isCompleted ? Colors.white70 : Colors.white,
-                      ),
-                      const Gap(4.0),
-                      Text(
-                        widget.task.note!,
-                        style: style.bodySmall?.copyWith(
-                          color: isCompleted ? Colors.white70 : Colors.white,
-                        ),
-                      ),
-                    ],
+                  Icon(
+                    BoxIcons.bx_file,
+                    size: 12,
+                    color: isCompleted ? Colors.white70 : Colors.white,
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        BoxIcons.bx_list_ol,
-                        size: 12,
-                        color: isCompleted ? Colors.white70 : Colors.white,
-                      ),
-                      const Gap(4.0),
-                      Text(
-                        '${completedSubtasks.length}/${subtasks.length}',
-                        style: style.bodySmall?.copyWith(
-                          color: isCompleted ? Colors.white70 : Colors.white,
-                        ),
-                      ),
-                    ],
+                  const Gap(4.0),
+                  Text(
+                    widget.task.note!,
+                    style: style.bodySmall?.copyWith(
+                      color: isCompleted ? Colors.white70 : Colors.white,
+                    ),
                   ),
                 ],
               )

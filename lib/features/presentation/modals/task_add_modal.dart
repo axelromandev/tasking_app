@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
+import '../providers/list_tasks_provider.dart';
 import '../providers/task_add_modal_provider.dart';
 
 class TaskAddModal extends ConsumerWidget {
-  const TaskAddModal({super.key});
+  const TaskAddModal(this.listId, {super.key});
+
+  final int listId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorPrimary = ref.watch(colorThemeProvider);
-    final provider = ref.watch(taskAddModalProvider);
-    final notifier = ref.read(taskAddModalProvider.notifier);
+    final list = ref.watch(listTasksProvider(listId));
+    final color = Color(list.color!);
+
+    final provider = ref.watch(taskAddModalProvider(listId));
+    final notifier = ref.read(taskAddModalProvider(listId).notifier);
 
     return SingleChildScrollView(
       child: Container(
@@ -23,12 +27,13 @@ class TaskAddModal extends ConsumerWidget {
         child: TextFormField(
           autofocus: true,
           maxLines: null,
+          autocorrect: false,
           onChanged: notifier.onNameChanged,
           controller: notifier.controller,
           focusNode: notifier.focusNode,
           textInputAction: TextInputAction.done,
           style: const TextStyle(fontSize: 16),
-          cursorColor: colorPrimary,
+          cursorColor: color,
           onFieldSubmitted: (value) {
             notifier.onSubmit();
             notifier.focusNode.requestFocus();
@@ -42,7 +47,7 @@ class TaskAddModal extends ConsumerWidget {
                       notifier.onSubmit();
                       notifier.focusNode.requestFocus();
                     },
-                    color: colorPrimary,
+                    color: color,
                     icon: const Icon(BoxIcons.bx_send),
                   )
                 : null,

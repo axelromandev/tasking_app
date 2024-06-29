@@ -56,7 +56,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
 
     // AppBar
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.background,
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
@@ -97,10 +97,10 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         borderRadius: BorderRadius.circular(defaultRadius),
       ),
     ),
-    bottomSheetTheme: BottomSheetThemeData(
+    bottomSheetTheme: const BottomSheetThemeData(
       elevation: 0,
       backgroundColor: AppColors.background,
-      shape: const RoundedRectangleBorder(),
+      shape: RoundedRectangleBorder(),
     ),
 
     // inputDecorationTheme
@@ -136,10 +136,10 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
 
     // drawerThemeData
-    drawerTheme: DrawerThemeData(
+    drawerTheme: const DrawerThemeData(
       elevation: 0,
       backgroundColor: AppColors.background,
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(defaultRadius),
           bottomRight: Radius.circular(defaultRadius),

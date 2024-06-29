@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../generated/strings.g.dart';
+import '../pages/all_list_tasks_page.dart';
+import '../pages/list_tasks_archived_page.dart';
 import '../pages/settings_page.dart';
-import '../pages/tasks_page.dart';
 
 final homeScaffoldKeyProvider = Provider<GlobalKey<ScaffoldState>>((ref) {
   return GlobalKey<ScaffoldState>();
@@ -21,7 +22,17 @@ class _Notifier extends StateNotifier<int> {
     _Page(
       title: S.pages.home.drawer.tasks,
       icon: BoxIcons.bx_task,
-      child: const TasksPage(),
+      child: const AllListTasksPage(),
+    ),
+    _Page(
+      title: S.pages.home.drawer.reminders,
+      icon: BoxIcons.bx_bell,
+      child: const Placeholder(),
+    ),
+    _Page(
+      title: S.pages.home.drawer.archived,
+      icon: BoxIcons.bx_archive,
+      child: const ListTasksArchivedPage(),
     ),
     _Page(
       title: S.pages.home.drawer.settings,

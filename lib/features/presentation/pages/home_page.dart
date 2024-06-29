@@ -6,10 +6,11 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../providers/home_provider.dart';
 import '../widgets/home_drawer.dart';
-import '../widgets/tasks_actions.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
+
+  static String routePath = '/';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,9 +43,6 @@ class HomePage extends ConsumerWidget {
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,
-        actions: [
-          if (currentIndex == 0) TasksActions(),
-        ],
       ),
       drawer: HomeDrawer(),
       body: pages[currentIndex].child,

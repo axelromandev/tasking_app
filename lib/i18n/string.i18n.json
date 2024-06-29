@@ -1,7 +1,23 @@
 {
   "commons": {
     "appName": "Tasking",
-    "language": "English"
+    "language": "English",
+    "edited": "Edited",
+    "shortDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "shortMonths": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
   },
   "buttons": {
     "add": "Add",
@@ -26,7 +42,6 @@
         "task4": "Tap the bottom right + to add a task",
         "task5": "Tap to edit this task",
         "task5note": "You can write notes here",
-        "task5subtask": "You can add subtasks here",
         "task6": "Tap the upper right ⁝ to edit or delete this list",
         "task7": "There are other easy-to-use features, so please try them out!",
         "task8": "That´s it for the tutorial. I hope this app will be useful to you",
@@ -36,16 +51,24 @@
     "home": {
       "drawer": {
         "tasks": "Tasks",
+        "reminders": "Reminders",
+        "archived": "Archived",
         "settings": "Settings"
       }
     },
     "listTasks": {
       "emptyListTasks": {
-        "title": "There is no list",
+        "title": "There is no lists",
         "subtitle": "Press + to add the list"
       },
-      "alertPinned": "Pinned",
-      "alertUnpinned": "Unpinned"
+      "emptyTasks": {
+        "title": "There is no tasks",
+        "subtitle": "Press + to add the task"
+      },
+      "emptyArchived": {
+        "title": "Archived is empty",
+        "subtitle": "You don't have any archived lists yet."
+      }
     },
     "task": {
       "placeholderTitle": "Title",
@@ -84,7 +107,8 @@
       "list": {
         "title": "List",
         "edit": "Edit list",
-        "delete": "Delete list"
+        "delete": "Delete list",
+        "archived": "Archived list"
       },
       "tasks": {
         "title": "Tasks",

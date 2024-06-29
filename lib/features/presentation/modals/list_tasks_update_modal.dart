@@ -39,7 +39,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
               ),
               TextFormField(
                 style: style.bodyLarge,
-                initialValue: provider.name,
+                initialValue: provider.title,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(30),
                 ],

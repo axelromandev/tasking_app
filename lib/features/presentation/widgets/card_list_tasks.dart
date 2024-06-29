@@ -17,15 +17,17 @@ class ListTasksCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final length = list.tasks.length;
-
     const int maxLength = 5;
 
-    final List<Task> tasksLimit = length > maxLength
-        ? list.tasks.take(maxLength).toList()
-        : list.tasks.toList();
+    final tasks = list.tasks.where((task) => !task.completed).toList();
 
-    final int tasksHideLength = length - maxLength;
+    final List<Task> tasksLimit = tasks.length > maxLength
+        ? tasks.take(maxLength).toList()
+        : tasks.toList();
+
+    final int tasksHideLength = tasks.length - maxLength;
+
+    final color = Color(list.color ?? 0xFF000000);
 
     return GestureDetector(
       onTap: onTap,
@@ -33,7 +35,7 @@ class ListTasksCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(list.color ?? 0xFF000000).withOpacity(.02),
           border: Border.all(
-            color: Color(list.color ?? 0xFF000000),
+            color: list.archived ? color.withOpacity(.4) : color,
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -44,23 +46,23 @@ class ListTasksCard extends StatelessWidget {
                 top: defaultPadding,
                 left: defaultPadding,
                 right: defaultPadding,
-                bottom: 8.0,
               ),
               child: Row(
                 children: [
                   Icon(
-                    list.icon?.iconData ?? BoxIcons.bxs_circle,
-                    color: Color(list.color ?? 0xFF000000),
+                    BoxIcons.bxs_circle,
+                    color: list.archived ? color.withOpacity(.8) : color,
                     size: 18,
                   ),
                   const Gap(defaultPadding),
-                  Flexible(child: Text(list.name)),
+                  Flexible(child: Text(list.title)),
                 ],
               ),
             ),
+            if (tasksLimit.isNotEmpty) const Gap(8.0),
             for (final task in tasksLimit)
               Container(
-                margin: const EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: defaultPadding,
                   vertical: 4.0,
                 ),
@@ -75,7 +77,7 @@ class ListTasksCard extends StatelessWidget {
                     SizedBox(
                       width: 100,
                       child: Text(
-                        task.message,
+                        task.title,
                         maxLines: 1,
                         style: const TextStyle(color: Colors.white70),
                       ),
@@ -83,7 +85,7 @@ class ListTasksCard extends StatelessWidget {
                   ],
                 ),
               ),
-            if (length > maxLength)
+            if (tasks.length > maxLength)
               Container(
                 margin: const EdgeInsets.symmetric(
                   horizontal: defaultPadding,

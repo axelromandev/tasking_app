@@ -5,87 +5,71 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
+import 'all_list_tasks_provider.dart';
 import 'list_tasks_provider.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, Task, Task>((ref, task) {
-  final refreshList = ref.read(listTasksProvider.notifier).refresh;
+  final refreshAll = ref.read(allListTasksProvider.notifier).refreshAll;
+  final refreshList = ref.read(listTasksProvider(task.listId).notifier).refresh;
 
-  return _Notifier(task: task, refreshList: refreshList);
+  return _Notifier(
+    task: task,
+    refreshAll: refreshAll,
+    refreshList: refreshList,
+  );
 });
 
 class _Notifier extends StateNotifier<Task> {
   _Notifier({
     required Task task,
+    required this.refreshAll,
     required this.refreshList,
   }) : super(task);
 
+  final Future<void> Function() refreshAll;
   final Future<void> Function() refreshList;
 
   final _taskRepository = TaskRepository();
-  final _subtasksRepository = SubtasksRepository();
-  final _debouncer = Debouncer();
+  final _debouncer = Debouncer(
+    delay: const Duration(milliseconds: 300),
+  );
 
   TextEditingController subtaskAddController = TextEditingController();
 
-  Future<void> _refresh() async {
-    final task = await _taskRepository.get(state.id);
-    state = task;
-  }
-
-  Future<void> onToggleCompletedStatus() async {
-    state.completed = !state.completed;
-    await _taskRepository.update(state);
-    refreshList();
-  }
-
   Future<void> onDeleteTask() async {
     await _taskRepository.delete(state.id).then((_) {
+      refreshAll();
+      refreshList();
+    });
+  }
+
+  void onToggleCompleted() {
+    _taskRepository.updateCompleted(state.id, !state.completed).then((_) {
+      refreshAll();
       refreshList();
     });
   }
 
   void onTitleChanged(String value) {
-    _debouncer.run(() async {
-      final String name = value.trim();
-      if (name.isEmpty) return;
-      if (state.message == name) return;
-      state.message = value;
-      await _taskRepository.update(state);
-      refreshList();
+    _debouncer.run(() {
+      final String title = value.trim();
+      if (title.isEmpty || state.title == title) return;
+      _taskRepository.updateTitle(state.id, title).then((_) {
+        refreshAll();
+        refreshList();
+      });
     });
   }
 
   void onNoteChanged(String value) {
     _debouncer.run(() async {
       final String note = value.trim();
-      if (note.isEmpty) return;
       if (state.note == note) return;
-      state.note = value;
-      await _taskRepository.update(state);
-      refreshList();
+      _taskRepository.updateNote(state.id, note).then((_) {
+        refreshAll();
+        refreshList();
+      });
     });
-  }
-
-  Future<void> onSubtaskAdd(String value) async {
-    final String name = value.trim();
-    if (name.isEmpty) return;
-    subtaskAddController.clear();
-    await _subtasksRepository.add(state.id, name);
-    _refresh();
-    refreshList();
-  }
-
-  void onSubtaskToggleCompleted(SubTask subtask) {
-    subtask.completed = !subtask.completed;
-    _subtasksRepository.update(subtask);
-    _refresh();
-    refreshList();
-  }
-
-  Future<void> onSubtaskDelete(SubTask subtask) async {
-    await _subtasksRepository.delete(subtask.id);
-    _refresh();
-    refreshList();
   }
 }
