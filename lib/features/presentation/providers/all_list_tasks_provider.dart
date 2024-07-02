@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../app.dart';
+import '../../domain/domain.dart';
 
 final allListTasksProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier();
@@ -13,7 +11,6 @@ class _Notifier extends StateNotifier<_State> {
     _load();
   }
 
-  final _prefs = SharedPrefs();
   final _listTasksRepository = ListTasksRepository();
   final _taskRepository = TaskRepository();
 
@@ -38,11 +35,6 @@ class _Notifier extends StateNotifier<_State> {
   Future<void> refreshAll() async {
     await _load();
   }
-
-  void onShowListTasks() {
-    _prefs.removeKey(Keys.showCurrentListTasks);
-    state = state.reset();
-  }
 }
 
 class _State {
@@ -62,9 +54,5 @@ class _State {
       lists: lists ?? this.lists,
       listsArchived: listsArchived ?? this.listsArchived,
     );
-  }
-
-  _State reset() {
-    return _State(lists: lists);
   }
 }

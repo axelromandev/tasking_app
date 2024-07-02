@@ -88,8 +88,23 @@ class _TaskCardState extends ConsumerState<TaskCard> {
               ? style.bodyMedium?.copyWith(color: Colors.white70)
               : style.bodyLarge,
         ),
-        subtitle: (provider.note?.isNotEmpty ?? false)
-            ? Row(
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (widget.task.reminder != null)
+              Row(
+                children: [
+                  const Icon(BoxIcons.bx_bell, size: 12),
+                  const Gap(4.0),
+                  Text(
+                    HumanFormat.datetime(widget.task.reminder),
+                    style: style.bodySmall,
+                  ),
+                ],
+              ),
+            if (widget.task.note != null)
+              Row(
                 children: [
                   Icon(
                     BoxIcons.bx_file,
@@ -104,8 +119,9 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                     ),
                   ),
                 ],
-              )
-            : null,
+              ),
+          ],
+        ),
       ),
     );
   }

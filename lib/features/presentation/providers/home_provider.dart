@@ -25,11 +25,6 @@ class _Notifier extends StateNotifier<int> {
       child: const AllListTasksPage(),
     ),
     _Page(
-      title: S.pages.home.drawer.reminders,
-      icon: BoxIcons.bx_bell,
-      child: const Placeholder(),
-    ),
-    _Page(
       title: S.pages.home.drawer.archived,
       icon: BoxIcons.bx_archive,
       child: const ListTasksArchivedPage(),

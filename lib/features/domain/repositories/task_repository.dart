@@ -2,9 +2,10 @@ import '../../data/data.dart';
 import '../domain.dart';
 
 abstract interface class ITaskRepository {
-  Future<Task> get(int id);
   Future<List<Task>> getByListId(int id);
+  Future<List<Task>> getReminders();
   Future<Task> add(int listId, String title);
+  Future<void> updateReminder(int id, DateTime reminder);
   Future<void> updateCompleted(int id, bool completed);
   Future<void> updateTitle(int id, String title);
   Future<void> updateNote(int id, String note);
@@ -32,11 +33,6 @@ class TaskRepository extends ITaskRepository {
   }
 
   @override
-  Future<Task> get(int id) {
-    return _dataSource.get(id);
-  }
-
-  @override
   Future<List<Task>> getByListId(int id) {
     return _dataSource.getByListId(id);
   }
@@ -59,5 +55,15 @@ class TaskRepository extends ITaskRepository {
   @override
   Future<void> changeList(int taskId, int newListId) {
     return _dataSource.changeList(taskId, newListId);
+  }
+
+  @override
+  Future<void> updateReminder(int id, DateTime reminder) {
+    return _dataSource.updateReminder(id, reminder);
+  }
+
+  @override
+  Future<List<Task>> getReminders() {
+    return _dataSource.getReminders();
   }
 }

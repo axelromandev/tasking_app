@@ -4,9 +4,10 @@ import '../../../core/core.dart';
 import '../../domain/domain.dart';
 
 abstract interface class ITaskDataSource {
-  Future<Task> get(int id);
   Future<List<Task>> getByListId(int id);
+  Future<List<Task>> getReminders();
   Future<Task> add(int listId, String title);
+  Future<void> updateReminder(int id, DateTime reminder);
   Future<void> updateCompleted(int id, bool completed);
   Future<void> updateTitle(int id, String title);
   Future<void> updateNote(int id, String note);
@@ -17,11 +18,6 @@ abstract interface class ITaskDataSource {
 
 class TaskDataSource implements ITaskDataSource {
   final dbHelper = DatabaseHelper();
-
-  @override
-  Future<Task> get(int id) async {
-    throw UnimplementedError();
-  }
 
   @override
   Future<List<Task>> getByListId(int id) async {
@@ -42,9 +38,11 @@ class TaskDataSource implements ITaskDataSource {
   Future<Task> add(int listId, String title) async {
     try {
       final Database db = await dbHelper.database;
+      final now = DateTime.now().toIso8601String();
+
       final id = await db.rawInsert(
-        'INSERT INTO tasks(title, list_id) VALUES(?, ?)',
-        [title, listId],
+        'INSERT INTO tasks(title, updated_at, created_at, list_id) VALUES(?, ?, ?, ?)',
+        [title, now, now, listId],
       );
       final data = await db.rawQuery(
         'SELECT * FROM tasks WHERE id = ?',
@@ -120,5 +118,33 @@ class TaskDataSource implements ITaskDataSource {
   @override
   Future<void> changeList(int taskId, int newListId) async {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateReminder(int id, DateTime reminder) async {
+    try {
+      final Database db = await dbHelper.database;
+      final String strReminder = reminder.toIso8601String();
+      await db.rawUpdate(
+        'UPDATE tasks SET reminder = ? WHERE id = ?',
+        [strReminder, id],
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<Task>> getReminders() async {
+    try {
+      final Database db = await dbHelper.database;
+      final data = await db.rawQuery(
+        'SELECT * FROM tasks WHERE reminder IS NOT NULL',
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      return <Task>[];
+    }
   }
 }

@@ -2,7 +2,6 @@
   "commons": {
     "appName": "Tasking",
     "language": "Español",
-    "edited": "Editado",
     "shortDays": ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
     "shortMonths": [
       "Ene",
@@ -25,6 +24,18 @@
     "delete": "Eliminar",
     "update": "Actualizar",
     "confirm": "Confirmar"
+  },
+  "utils": {
+    "dateTimePicker": {
+      "option1": "Mañana por la mañana",
+      "option2": "Mañana por la tarde",
+      "option3": "Lunes por la mañana",
+      "option4": "Elija una fecha y hora"
+    },
+    "notifications": {
+      "title": "Pending task",
+      "isDenied": "Disabled notifications"
+    }
   },
   "pages": {
     "intro": {
@@ -51,7 +62,6 @@
     "home": {
       "drawer": {
         "tasks": "Tareas",
-        "reminders": "Recordatorios",
         "archived": "Archivado",
         "settings": "Configuración"
       }
@@ -72,7 +82,8 @@
     },
     "task": {
       "placeholderTitle": "Título",
-      "placeholderNote": "Nota"
+      "placeholderNote": "Nota",
+      "edited": "Editado $time"
     },
     "settings": {
       "general": {

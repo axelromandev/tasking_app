@@ -4,8 +4,9 @@ class HumanFormat {
   static String datetime(DateTime? dateTime) {
     if (dateTime == null) return '';
 
-    final String hour = dateTime.hour.toString();
-    final String minute = dateTime.minute.toString();
+    final String hour =
+        (dateTime.hour % 12 == 0 ? 12 : dateTime.hour % 12).toString();
+    final String minute = dateTime.minute.toString().padLeft(2, '0');
     final String period = dateTime.hour < 12 ? 'AM' : 'PM';
     final String time = '$hour:$minute $period';
 

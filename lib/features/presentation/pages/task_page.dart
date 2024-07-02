@@ -34,12 +34,14 @@ class TaskPage extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              //TODO: update reminder
-            },
+            onPressed: () => notifier.onUpdateReminder(context),
             iconSize: 20.0,
             color: color,
-            icon: const Icon(BoxIcons.bx_bell),
+            icon: Icon(
+              (provider.reminder != null)
+                  ? BoxIcons.bxs_bell
+                  : BoxIcons.bx_bell,
+            ),
           ),
           IconButton(
             onPressed: () => showModalBottomSheet(
@@ -103,22 +105,9 @@ class TaskPage extends ConsumerWidget {
             onChanged: notifier.onNoteChanged,
           ),
           if (task.reminder != null)
-            Container(
-              margin: const EdgeInsets.only(
-                left: defaultPadding,
-                top: defaultPadding,
-              ),
-              child: FilledButton(
-                onPressed: () {
-                  //TODO: update reminder
-                },
-                style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.card,
-                  foregroundColor: Colors.white,
-                  textStyle: style.bodyMedium,
-                ),
-                child: Text(HumanFormat.datetime(task.reminder)),
-              ),
+            _ReminderSchedule(
+              onPressed: () => notifier.onUpdateReminder(context),
+              reminder: provider.reminder!,
             ),
         ],
       ),
@@ -127,13 +116,54 @@ class TaskPage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${S.commons.edited}: ${HumanFormat.time(task.updatedAt)}',
+              S.pages.task.edited(time: HumanFormat.time(task.updatedAt)),
               style: style.bodySmall?.copyWith(
                 color: Colors.white60,
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ReminderSchedule extends StatelessWidget {
+  const _ReminderSchedule({
+    required this.onPressed,
+    required this.reminder,
+  });
+
+  final VoidCallback onPressed;
+  final DateTime reminder;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+
+    Color colorStatus() {
+      final now = DateTime.now();
+      final different = now.difference(reminder);
+      if (different.inSeconds > 0) {
+        return Colors.white60;
+      } else {
+        return Colors.white;
+      }
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(
+        left: defaultPadding,
+        top: defaultPadding,
+      ),
+      child: FilledButton(
+        onPressed: onPressed,
+        style: FilledButton.styleFrom(
+          backgroundColor: AppColors.card,
+          foregroundColor: colorStatus(),
+          textStyle: style.bodyMedium,
+        ),
+        child: Text(HumanFormat.datetime(reminder)),
       ),
     );
   }

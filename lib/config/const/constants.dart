@@ -10,9 +10,7 @@ class AppColors {
 
 class Keys {
   static String isFirstTime = 'isFirstTime';
-  static String listId = 'listId';
   static String colorSeed = 'colorSeed';
-  static String showCurrentListTasks = 'showCurrentListTasks';
 }
 
 class Assets {

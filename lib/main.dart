@@ -17,9 +17,9 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
 
-  final DatabaseHelper databaseHelper = DatabaseHelper();
-  await databaseHelper.initDatabase();
+  await DatabaseHelper().initDatabase();
   await SharedPrefs.initialize();
+  await NotificationService.initialize();
 
   runApp(
     ProviderScope(

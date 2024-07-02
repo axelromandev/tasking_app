@@ -29,7 +29,7 @@ class Task {
   final String title;
   final String? note;
   final bool completed;
-  final DateTime? reminder;
+  DateTime? reminder;
   final int listId;
   final DateTime updatedAt;
   final DateTime createdAt;

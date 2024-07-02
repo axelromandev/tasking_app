@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/core.dart';
+import '../../../generated/strings.g.dart';
 import '../../domain/domain.dart';
 import 'all_list_tasks_provider.dart';
 import 'list_tasks_provider.dart';
@@ -71,5 +73,41 @@ class _Notifier extends StateNotifier<Task> {
         refreshList();
       });
     });
+  }
+
+  Future<void> onUpdateReminder(BuildContext context) async {
+    final status = await Permission.notification.status;
+    if (status.isPermanentlyDenied) {
+      MyToast.show(S.utils.notifications.isDenied);
+      return;
+    }
+    if (status.isDenied) {
+      final request = await Permission.notification.request();
+      if (request.isPermanentlyDenied) {
+        MyToast.show(S.utils.notifications.isDenied);
+        return;
+      }
+    }
+
+    final reminder = await DatTimePicker.show(context);
+    if (reminder == null) return;
+
+    try {
+      await NotificationService.show(
+        id: state.id,
+        title: S.utils.notifications.title,
+        body: state.title,
+        dateTime: reminder,
+      );
+
+      _taskRepository.updateReminder(state.id, reminder).then((_) {
+        refreshAll();
+        refreshList();
+
+        state.reminder = reminder;
+      });
+    } catch (e) {
+      MyToast.show('$e');
+    }
   }
 }

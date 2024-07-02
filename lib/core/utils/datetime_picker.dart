@@ -14,6 +14,7 @@ class DatTimePicker {
     );
     if (result.runtimeType == bool) {
       final style = Theme.of(context).textTheme;
+      final now = DateTime.now().add(const Duration(minutes: 1));
       return await p.DatePicker.showDateTimePicker(
         context,
         theme: p.DatePickerTheme(
@@ -23,9 +24,9 @@ class DatTimePicker {
           cancelStyle: style.bodyLarge!,
         ),
         locale: _getLocaleType(context),
-        minTime: DateTime.now(),
+        minTime: now,
         maxTime: DateTime(2100),
-        currentTime: DateTime.now(),
+        currentTime: now,
       );
     }
     return result as DateTime?;
@@ -40,65 +41,75 @@ class DatTimePicker {
   }
 }
 
-class _ReminderOptionsModal extends StatelessWidget {
+class _ReminderOptionsModal extends StatefulWidget {
+  @override
+  State<_ReminderOptionsModal> createState() => _ReminderOptionsModalState();
+}
+
+class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
+  late DateTime now;
+  late DateTime tomorrowMorning;
+  late DateTime tomorrowEvening;
+  late DateTime monday;
+
+  @override
+  void initState() {
+    now = DateTime.now();
+    tomorrowMorning = DateTime(now.year, now.month, now.day + 1, 8);
+    tomorrowEvening = DateTime(now.year, now.month, now.day + 1, 18);
+    int daysToAdd = (DateTime.monday - now.weekday) % 7;
+    if (daysToAdd == 0) {
+      daysToAdd = 7;
+    }
+    final nextMonday = now.add(Duration(days: daysToAdd));
+    monday = DateTime(
+      nextMonday.year,
+      nextMonday.month,
+      nextMonday.day,
+      8,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
+
+    final tomorrowDay = S.commons.shortDays[tomorrowMorning.weekday + 1];
 
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            onTap: () {
-              final now = DateTime.now();
-              final date = DateTime(now.year, now.month, now.day + 1, 8);
-              Navigator.pop(context, date);
-            },
+            onTap: () => Navigator.pop(context, tomorrowMorning),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: const Text('Tomorrow morning'),
-            trailing: Text('8:00 AM', style: style.bodyLarge),
+            title: Text(S.utils.dateTimePicker.option1),
+            trailing: Text(
+              '$tomorrowDay 8:00 AM',
+              style: style.bodyLarge,
+            ),
           ),
           ListTile(
-            onTap: () {
-              final now = DateTime.now();
-              final date = DateTime(now.year, now.month, now.day + 1, 18);
-              Navigator.pop(context, date);
-            },
+            onTap: () => Navigator.pop(context, tomorrowEvening),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: const Text('Tomorrow evening'),
-            trailing: Text('6:00 PM', style: style.bodyLarge),
+            title: Text(S.utils.dateTimePicker.option2),
+            trailing: Text('$tomorrowDay 6:00 PM', style: style.bodyLarge),
           ),
           ListTile(
-            onTap: () {
-              final now = DateTime.now();
-              int daysToAdd = (DateTime.monday - now.weekday) % 7;
-              if (daysToAdd == 0) {
-                daysToAdd = 7;
-              }
-              final nextMonday = now.add(Duration(days: daysToAdd));
-              final date = DateTime(
-                nextMonday.year,
-                nextMonday.month,
-                nextMonday.day,
-                8,
-              );
-              Navigator.pop(context, date);
-            },
+            onTap: () => Navigator.pop(context, monday),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: const Text('Monday morning'),
+            title: Text(S.utils.dateTimePicker.option3),
             trailing: Text('Mon 8:00 AM', style: style.bodyLarge),
           ),
           ListTile(
-            onTap: () {
-              Navigator.pop(context, true);
-            },
+            onTap: () => Navigator.pop(context, true),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: const Text('Pick a date & time'),
+            title: Text(S.utils.dateTimePicker.option4),
           ),
         ],
       ),
