@@ -35,15 +35,15 @@ class _Notifier extends StateNotifier<ListTasks> {
 
   void onPinned() {
     _listTasksRepository.updatePinned(listId, !state.pinned).then((_) {
-      refresh();
       refreshAll();
+      refresh();
     });
   }
 
   void onArchived() {
     _listTasksRepository.updateArchived(listId, !state.archived).then((_) {
-      refresh();
       refreshAll();
+      refresh();
     });
   }
 
@@ -54,35 +54,31 @@ class _Notifier extends StateNotifier<ListTasks> {
     });
   }
 
-  void onMarkIncompleteAllTasks() {
-    // if (state.selected == null) return;
-    // if (state.selected!.tasks.isEmpty) return;
-    // final tasks = state?.tasks.where((task) => task.completed).toList();
-    // for (final task in tasks!) {
-    //   task.completed = false;
-    //   await _taskRepository.update(task);
-    // }
-    // await refresh();
+  Future<void> onMarkIncompleteAllTasks() async {
+    final tasks = state.tasks.where((task) => task.completed).toList();
+    for (final task in tasks) {
+      await _tasksRepository.updateCompleted(task.id, false);
+    }
+    refreshAll();
+    refresh();
   }
 
-  void onMarkCompleteAllTasks() {
-    // if (state.selected == null) return;
-    // if (state.selected!.tasks.isEmpty) return;
-    // final tasks = state?.tasks.where((task) => !task.completed).toList();
-    // for (final task in tasks!) {
-    //   task.completed = true;
-    //   await _taskRepository.update(task);
-    // }
-    // await refresh();
+  Future<void> onMarkCompleteAllTasks() async {
+    final tasks = state.tasks.where((task) => !task.completed).toList();
+    for (final task in tasks) {
+      await _tasksRepository.updateCompleted(task.id, true);
+    }
+    refreshAll();
+    refresh();
   }
 
-  void onDeleteCompletedAllTasks() {
-    // if (state == null) return;
-    // if (state?.tasks == null) return;
-    // final tasks = state?.tasks.where((task) => task.completed).toList();
-    // for (final task in tasks!) {
-    //   await _taskRepository.delete(task.id);
-    // }
-    // await refresh();
+  Future<void> onDeleteCompletedAllTasks() async {
+    final tasks = state.tasks.where((task) => task.completed).toList();
+    if (tasks.isEmpty) return;
+    for (final task in tasks) {
+      await _tasksRepository.delete(task.id);
+    }
+    refreshAll();
+    refresh();
   }
 }
