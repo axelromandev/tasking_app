@@ -62,9 +62,9 @@
     "home": {
       "drawer": {
         "tasks": "Tareas",
-        "archived": "Archivado",
-        "settings": "Configuración"
-      }
+        "archived": "Archivado"
+      },
+      "settings": "Ajustes"
     },
     "listTasks": {
       "emptyListTasks": {
@@ -141,10 +141,6 @@
     "delete": {
       "title": "Do you want to delete?",
       "subtitle": "This action cannot be undone"
-    },
-    "language": {
-      "title": "La aplicación Tasking utiliza el mismo idioma que ha configurado en el dispositivo.",
-      "subtitle": "El lenguaje configurado en su dispositivo es: "
     }
   }
 }

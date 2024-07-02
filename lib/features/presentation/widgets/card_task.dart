@@ -88,40 +88,42 @@ class _TaskCardState extends ConsumerState<TaskCard> {
               ? style.bodyMedium?.copyWith(color: Colors.white70)
               : style.bodyLarge,
         ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (widget.task.reminder != null)
-              Row(
+        subtitle: ((widget.task.reminder != null) && (widget.task.note != null))
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(BoxIcons.bx_bell, size: 12),
-                  const Gap(4.0),
-                  Text(
-                    HumanFormat.datetime(widget.task.reminder),
-                    style: style.bodySmall,
-                  ),
-                ],
-              ),
-            if (widget.task.note != null)
-              Row(
-                children: [
-                  Icon(
-                    BoxIcons.bx_file,
-                    size: 12,
-                    color: isCompleted ? Colors.white70 : Colors.white,
-                  ),
-                  const Gap(4.0),
-                  Text(
-                    widget.task.note!,
-                    style: style.bodySmall?.copyWith(
-                      color: isCompleted ? Colors.white70 : Colors.white,
+                  if (widget.task.reminder != null)
+                    Row(
+                      children: [
+                        const Icon(BoxIcons.bx_bell, size: 12),
+                        const Gap(4.0),
+                        Text(
+                          HumanFormat.datetime(widget.task.reminder),
+                          style: style.bodySmall,
+                        ),
+                      ],
                     ),
-                  ),
+                  if (widget.task.note != null)
+                    Row(
+                      children: [
+                        Icon(
+                          BoxIcons.bx_file,
+                          size: 12,
+                          color: isCompleted ? Colors.white70 : Colors.white,
+                        ),
+                        const Gap(4.0),
+                        Text(
+                          widget.task.note!,
+                          style: style.bodySmall?.copyWith(
+                            color: isCompleted ? Colors.white70 : Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
-              ),
-          ],
-        ),
+              )
+            : null,
       ),
     );
   }

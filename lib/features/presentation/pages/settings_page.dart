@@ -2,13 +2,17 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
+
+  static String routePath = '/settings';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,6 +21,25 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () => context.pop(),
+              child: Icon(
+                BoxIcons.bx_chevron_left,
+                size: 30.0,
+                color: ref.watch(colorThemeProvider),
+              ),
+            ),
+            const Gap(16.0),
+            Text(S.pages.home.settings, style: style.bodyLarge),
+          ],
+        ),
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,21 +67,7 @@ class SettingsPage extends ConsumerWidget {
                     },
                     icon: BoxIcons.bx_cloud,
                     title: S.pages.settings.general.backup,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(defaultRadius),
-                      topRight: Radius.circular(defaultRadius),
-                    ),
-                  ),
-                  _ListTile(
-                    onTap: () {
-                      // TODO: Implement notifications
-                    },
-                    icon: BoxIcons.bx_bell,
-                    title: S.pages.settings.general.notifications,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(defaultRadius),
-                      bottomRight: Radius.circular(defaultRadius),
-                    ),
+                    borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                 ],
               ),
@@ -81,46 +90,13 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ExpansionThemeSelected(),
-                  _ListTile(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (_) => Dialog(
-                        backgroundColor: AppColors.card,
-                        child: Container(
-                          padding: const EdgeInsets.all(defaultPadding),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                S.dialogs.language.title,
-                                style: style.bodyLarge,
-                              ),
-                              const Gap(defaultPadding),
-                              Text.rich(
-                                TextSpan(
-                                  text: S.dialogs.language.subtitle,
-                                  style: style.bodyLarge,
-                                  children: [
-                                    TextSpan(
-                                      text: S.commons.language,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: colorPrimary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    icon: BoxIcons.bx_world,
-                    title: S.pages.settings.appearance.language,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(defaultRadius),
-                      bottomRight: Radius.circular(defaultRadius),
+                  ListTile(
+                    iconColor: colorPrimary,
+                    leading: const Icon(BoxIcons.bx_world),
+                    title: Text(S.pages.settings.appearance.language),
+                    trailing: Text(
+                      S.commons.language,
+                      style: style.bodyMedium?.copyWith(color: Colors.grey),
                     ),
                   ),
                 ],
@@ -160,11 +136,8 @@ class SettingsPage extends ConsumerWidget {
                     },
                     icon: BoxIcons.bx_shield,
                     title: S.pages.settings.moreInformation.privacyPolicy,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(defaultRadius),
-                      bottomRight: Radius.circular(defaultRadius),
-                    ),
                   ),
+                  _BuildVersionLabel(),
                 ],
               ),
             ),
@@ -256,6 +229,47 @@ class _ExpansionThemeSelectedState
           },
         ),
       ],
+    );
+  }
+}
+
+class _BuildVersionLabel extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<_BuildVersionLabel> createState() => _BuildVersionLabelState();
+}
+
+class _BuildVersionLabelState extends ConsumerState<_BuildVersionLabel> {
+  String version = '?';
+  String buildNumber = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getVersion();
+  }
+
+  Future<void> getVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+      buildNumber = packageInfo.buildNumber;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return ListTile(
+      iconColor: colorPrimary,
+      leading: const Icon(BoxIcons.bx_badge_check),
+      title: Text('Version', style: style.bodyLarge),
+      trailing: Text(
+        '$version ($buildNumber)',
+        style: style.bodyMedium?.copyWith(color: Colors.grey),
+      ),
     );
   }
 }

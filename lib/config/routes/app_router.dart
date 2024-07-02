@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
 import '../../features/app.dart';
-import '../../features/presentation/pages/list_tasks_page.dart';
 import '../const/constants.dart';
 
 final navigatorGlobalKey = GlobalKey<NavigatorState>();
@@ -19,19 +18,23 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: navigatorGlobalKey,
     routes: [
       GoRoute(
-        path: '/intro',
+        path: IntroPage.routePath,
         builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
-        path: '/',
+        path: HomePage.routePath,
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
-        path: '/list/:id',
+        path: ListTasksPage.routePath,
         builder: (_, state) {
           final listId = int.parse(state.pathParameters['id']!);
           return ListTasksPage(listId);
         },
+      ),
+      GoRoute(
+        path: SettingsPage.routePath,
+        builder: (_, __) => const SettingsPage(),
       ),
     ],
     redirect: (context, state) {

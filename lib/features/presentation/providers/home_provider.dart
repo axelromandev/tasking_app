@@ -5,7 +5,6 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../generated/strings.g.dart';
 import '../pages/all_list_tasks_page.dart';
 import '../pages/list_tasks_archived_page.dart';
-import '../pages/settings_page.dart';
 
 final homeScaffoldKeyProvider = Provider<GlobalKey<ScaffoldState>>((ref) {
   return GlobalKey<ScaffoldState>();
@@ -29,11 +28,11 @@ class _Notifier extends StateNotifier<int> {
       icon: BoxIcons.bx_archive,
       child: const ListTasksArchivedPage(),
     ),
-    _Page(
-      title: S.pages.home.drawer.settings,
-      icon: BoxIcons.bx_cog,
-      child: const SettingsPage(),
-    ),
+    // _Page(
+    //   title: S.pages.home.drawer.settings,
+    //   icon: BoxIcons.bx_cog,
+    //   child: const SettingsPage(),
+    // ),
   ];
 
   // ignore: use_setters_to_change_properties

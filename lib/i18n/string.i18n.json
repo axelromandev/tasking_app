@@ -62,9 +62,9 @@
     "home": {
       "drawer": {
         "tasks": "Tasks",
-        "archived": "Archived",
-        "settings": "Settings"
-      }
+        "archived": "Archived"
+      },
+      "settings": "Settings"
     },
     "listTasks": {
       "emptyListTasks": {
@@ -141,10 +141,6 @@
     "delete": {
       "title": "Do you want to delete?",
       "subtitle": "This action cannot be undone"
-    },
-    "language": {
-      "title": "The tasking application uses the same language you have configured on the device.",
-      "subtitle": "The language that is configured on your device is: "
     }
   }
 }
