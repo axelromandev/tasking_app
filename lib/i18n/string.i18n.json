@@ -23,7 +23,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "update": "Update",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "restore": "Restore"
   },
   "utils": {
     "dateTimePicker": {
@@ -100,6 +101,10 @@
         "title": "More information",
         "about": "About Tasking",
         "privacyPolicy": "Privacy Policy"
+      },
+      "dangerZone": {
+        "title": "Danger Zone",
+        "restoreApp": "Restore App"
       }
     }
   },
@@ -141,6 +146,10 @@
     "delete": {
       "title": "Do you want to delete?",
       "subtitle": "This action cannot be undone"
+    },
+    "restoreApp": {
+      "title": "¿Restore App?",
+      "subtitle": "The information will be deleted and restored as if it were the first time it is installed."
     }
   }
 }

@@ -50,6 +50,10 @@ class DatabaseHelper {
 
   Future<void> insertTutorialList() async {
     final Database db = await database;
+    await _tutorialListQuery(db);
+  }
+
+  Future<void> _tutorialListQuery(Database db) async {
     final String now = DateTime.now().toIso8601String();
     await db.transaction((txn) async {
       final int listId = await txn.rawInsert(
@@ -83,5 +87,14 @@ class DatabaseHelper {
         "INSERT INTO tasks (title, completed, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task9}', 1, '$now', '$now', $listId)",
       );
     });
+  }
+
+  Future<void> restore() async {
+    final Database db = await database;
+    await db.transaction((txn) async {
+      await txn.rawDelete('DELETE FROM tasks');
+      await txn.rawDelete('DELETE FROM lists');
+    });
+    await _tutorialListQuery(db);
   }
 }

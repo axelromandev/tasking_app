@@ -23,7 +23,8 @@
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "update": "Actualizar",
-    "confirm": "Confirmar"
+    "confirm": "Confirmar",
+    "restore": "Restaurar"
   },
   "utils": {
     "dateTimePicker": {
@@ -100,6 +101,10 @@
         "title": "Más información",
         "about": "Acerca de",
         "privacyPolicy": "Política de privacidad"
+      },
+      "dangerZone": {
+        "title": "Zona peligrosa",
+        "restoreApp": "Restaurar aplicación"
       }
     }
   },
@@ -141,6 +146,10 @@
     "delete": {
       "title": "Do you want to delete?",
       "subtitle": "This action cannot be undone"
+    },
+    "restoreApp": {
+      "title": "¿Restablecer aplicación?",
+      "subtitle": "La información sera borrada y restablecida como si fuera la primera vez que se instala."
     }
   }
 }
