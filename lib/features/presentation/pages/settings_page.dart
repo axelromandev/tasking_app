@@ -1,4 +1,3 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -8,11 +7,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
+import '../dialogs/restore_app_dialog.dart';
+import '../modals/theme_color_select_modal.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
-
-  static String routePath = '/settings';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,6 +52,7 @@ class SettingsPage extends ConsumerWidget {
               child: Text(
                 S.pages.settings.general.title,
                 style: style.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w300,
                   color: Colors.grey,
                 ),
               ),
@@ -62,11 +62,10 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () {
-                      // TODO: Implement backup
-                    },
+                    onTap: () {},
                     icon: BoxIcons.bx_cloud,
-                    title: S.pages.settings.general.backup,
+                    // title: S.pages.settings.general.backup,
+                    title: 'Backup Information',
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                 ],
@@ -81,6 +80,7 @@ class SettingsPage extends ConsumerWidget {
               child: Text(
                 S.pages.settings.appearance.title,
                 style: style.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w300,
                   color: Colors.grey,
                 ),
               ),
@@ -89,7 +89,18 @@ class SettingsPage extends ConsumerWidget {
               margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
                 children: [
-                  _ExpansionThemeSelected(),
+                  _ListTile(
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (context) => ThemeColorSelectModal(),
+                    ),
+                    icon: BoxIcons.bx_palette,
+                    title: S.pages.settings.appearance.theme,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(defaultRadius),
+                      topRight: Radius.circular(defaultRadius),
+                    ),
+                  ),
                   ListTile(
                     iconColor: colorPrimary,
                     leading: const Icon(BoxIcons.bx_world),
@@ -111,6 +122,7 @@ class SettingsPage extends ConsumerWidget {
               child: Text(
                 S.pages.settings.moreInformation.title,
                 style: style.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w300,
                   color: Colors.grey,
                 ),
               ),
@@ -139,6 +151,37 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   _BuildVersionLabel(),
                 ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(
+                top: defaultPadding * 2,
+                bottom: defaultPadding / 2,
+                left: 24.0,
+              ),
+              child: Text(
+                S.pages.settings.dangerZone.title,
+                style: style.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w300,
+                  color: Colors.red.withOpacity(.8),
+                ),
+              ),
+            ),
+            Card(
+              color: Colors.red.withOpacity(.08),
+              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: ListTile(
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => RestoreAppDialog(
+                    contextPreviousPage: context,
+                  ),
+                ),
+                visualDensity: VisualDensity.compact,
+                iconColor: Colors.redAccent,
+                textColor: Colors.redAccent,
+                leading: const Icon(BoxIcons.bx_reset),
+                title: Text(S.pages.settings.dangerZone.restoreApp),
               ),
             ),
           ],
@@ -175,60 +218,6 @@ class _ListTile extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
       ),
-    );
-  }
-}
-
-class _ExpansionThemeSelected extends ConsumerStatefulWidget {
-  @override
-  ConsumerState<_ExpansionThemeSelected> createState() =>
-      _ExpansionThemeSelectedState();
-}
-
-class _ExpansionThemeSelectedState
-    extends ConsumerState<_ExpansionThemeSelected> {
-  final controller = ExpansionTileController();
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorPrimary = ref.watch(colorThemeProvider);
-
-    return ExpansionTile(
-      controller: controller,
-      onExpansionChanged: (value) {
-        setState(() => isExpanded = value);
-      },
-      collapsedShape: const RoundedRectangleBorder(),
-      shape: const RoundedRectangleBorder(),
-      visualDensity: VisualDensity.compact,
-      leading: Icon(BoxIcons.bx_palette, color: colorPrimary),
-      title: Text(
-        S.pages.settings.appearance.theme,
-        style: const TextStyle(color: Colors.white),
-      ),
-      trailing: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        child: Icon(
-          isExpanded ? BoxIcons.bx_chevron_down : BoxIcons.bx_chevron_right,
-          color: Colors.grey,
-        ),
-      ),
-      children: [
-        ColorPicker(
-          pickersEnabled: const <ColorPickerType, bool>{
-            ColorPickerType.primary: true,
-            ColorPickerType.accent: false,
-          },
-          enableShadesSelection: false,
-          color: ref.watch(colorThemeProvider),
-          onColorChanged: (color) async {
-            ref.read(colorThemeProvider.notifier).setColor(color);
-            await Future.delayed(const Duration(milliseconds: 100));
-            controller.collapse();
-          },
-        ),
-      ],
     );
   }
 }

@@ -5,11 +5,12 @@ import 'package:go_router/go_router.dart';
 import '../../core/core.dart';
 import '../../features/app.dart';
 import '../const/constants.dart';
+import 'routes.dart';
 
 final navigatorGlobalKey = GlobalKey<NavigatorState>();
 
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final initialLocation = HomePage.routePath;
+  final initialLocation = Routes.home;
 
   final pref = SharedPrefs();
 
@@ -18,22 +19,22 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: navigatorGlobalKey,
     routes: [
       GoRoute(
-        path: IntroPage.routePath,
+        path: Routes.intro,
         builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
-        path: HomePage.routePath,
+        path: Routes.home,
         builder: (_, __) => const HomePage(),
       ),
       GoRoute(
-        path: ListTasksPage.routePath,
+        path: Routes.listTasks,
         builder: (_, state) {
           final listId = int.parse(state.pathParameters['id']!);
           return ListTasksPage(listId);
         },
       ),
       GoRoute(
-        path: SettingsPage.routePath,
+        path: Routes.settings,
         builder: (_, __) => const SettingsPage(),
       ),
     ],

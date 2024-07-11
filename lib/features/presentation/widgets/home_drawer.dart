@@ -5,9 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../config/theme/color_theme.dart';
+import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
-import '../../app.dart';
 import '../providers/home_provider.dart';
 
 class HomeDrawer extends ConsumerWidget {
@@ -51,7 +50,7 @@ class HomeDrawer extends ConsumerWidget {
               onTap: () {
                 HapticFeedback.lightImpact();
                 Navigator.pop(context);
-                context.push(SettingsPage.routePath);
+                context.push(Routes.settings);
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,

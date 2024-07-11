@@ -10,8 +10,6 @@ import '../widgets/home_drawer.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
-  static String routePath = '/';
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;

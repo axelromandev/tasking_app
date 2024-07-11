@@ -28,11 +28,6 @@ class _Notifier extends StateNotifier<int> {
       icon: BoxIcons.bx_archive,
       child: const ListTasksArchivedPage(),
     ),
-    // _Page(
-    //   title: S.pages.home.drawer.settings,
-    //   icon: BoxIcons.bx_cog,
-    //   child: const SettingsPage(),
-    // ),
   ];
 
   // ignore: use_setters_to_change_properties
