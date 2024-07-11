@@ -17,3 +17,9 @@ class Assets {
   static const String _svg = 'assets/svg';
   static String logo = '$_svg/logo.svg';
 }
+
+class Urls {
+  static String repo = 'https://github.com/ingedevs/tasking_app';
+  static String privacyPolicy =
+      'https://raw.githubusercontent.com/ingedevs/tasking_app/main/privacy-policy.md';
+}

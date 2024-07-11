@@ -9,6 +9,7 @@ import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
 import '../dialogs/restore_app_dialog.dart';
 import '../modals/theme_color_select_modal.dart';
+import 'webview_page.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -144,7 +145,15 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   _ListTile(
                     onTap: () {
-                      // TODO: Implement privacy policy
+                      //TODO: Change url privacy policy
+
+                      final child = WebViewPage(
+                        title: S.pages.settings.moreInformation.privacyPolicy,
+                        url: Uri.parse(Urls.privacyPolicy),
+                      );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => child),
+                      );
                     },
                     icon: BoxIcons.bx_shield,
                     title: S.pages.settings.moreInformation.privacyPolicy,

@@ -1,6 +1,6 @@
 # Tasking Privacy Policy
 
-**Last updated:** 30.01.2024
+**Last updated:** 11/07/2024
 
 ## Introduction
 
@@ -21,10 +21,6 @@ The Tasking Application offers the functionality to export and import task and s
 ## Task Lists
 
 Tasking allows users to organize their tasks by creating task lists. These lists are exclusively local and are not shared with other users or transmitted to external servers.
-
-## Changes to the Privacy Policy
-
-We reserve the right to update our Privacy Policy as necessary to reflect changes in our information practices. We will notify you of any changes by posting the new Privacy Policy on this page.
 
 ## Contact
 
