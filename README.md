@@ -6,7 +6,7 @@ use.
 
 ## Tech Stack
 
-**Client:** Flutter, Riverpod, Isar Database
+**Client:** Flutter, Riverpod, Sqflite
 
 <!-- **Server:** Firebase -->
 
@@ -21,33 +21,10 @@ After installing the FVM, run the following command to install the Flutter SDK v
   fvm install
 ```
 
-<!-- ## Configuration Firebase
-
-Install the FlutterFire CLI to configure Firebase for the project, follow the
-instructions on the official website: https://firebase.google.com/docs/flutter/setup
-
-After installing the FlutterFire CLI, run the following command to configure Firebase for the project:
-
-```bash
-  flutterfire configure -p firebase-project-id
-``` -->
-
 ## Run Locally
 
 First you need to install the dependencies:
 
 ```bash
   fvm flutter pub get
-```
-
-Need to generate the database files:
-
-```bash
-  fvm dart run build_runner build
-```
-
-## Create Icon Launcher
-
-```bash
-  fvm dart run icons_launcher:create --path
 ```
