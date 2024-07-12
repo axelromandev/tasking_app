@@ -8,7 +8,7 @@ import '../../domain/domain.dart';
 
 abstract interface class IListTasksDataSource {
   Future<List<ListTasks>> getAll();
-  Future<ListTasks?> get(int id);
+  Future<ListTasks> get(int id);
   Future<ListTasks> add(String name, Color color);
   Future<void> delete(int id);
   Future<void> update(int id, String title, Color color);
@@ -32,18 +32,18 @@ class ListTasksDataSource implements IListTasksDataSource {
   }
 
   @override
-  Future<ListTasks?> get(int id) async {
+  Future<ListTasks> get(int id) async {
     try {
       final Database db = await dbHelper.database;
       final data = await db.rawQuery(
         'SELECT * FROM lists WHERE id = ?',
         [id],
       );
-      if (data.isEmpty) return null;
+      if (data.isEmpty) throw Exception('not found');
       return ListTasks.fromMap(data.first);
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.get');
-      return null;
+      rethrow;
     }
   }
 

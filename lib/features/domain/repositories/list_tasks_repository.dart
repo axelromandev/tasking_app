@@ -5,7 +5,7 @@ import '../domain.dart';
 
 abstract interface class IListTasksRepository {
   Future<List<ListTasks>> getAll();
-  Future<ListTasks?> get(int id);
+  Future<ListTasks> get(int id);
   Future<ListTasks> add(String name, Color color);
   Future<void> delete(int id);
   Future<void> update(int id, String title, Color color);
@@ -27,7 +27,7 @@ class ListTasksRepository extends IListTasksRepository {
   }
 
   @override
-  Future<ListTasks?> get(int id) {
+  Future<ListTasks> get(int id) {
     return _dataSource.get(id);
   }
 

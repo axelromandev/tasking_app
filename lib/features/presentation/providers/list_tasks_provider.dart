@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/core.dart';
 import '../../domain/domain.dart';
 import 'all_list_tasks_provider.dart';
 
@@ -24,13 +25,14 @@ class _Notifier extends StateNotifier<ListTasks> {
   final _listTasksRepository = ListTasksRepository();
 
   Future<void> refresh() async {
-    _listTasksRepository.get(listId).then((value) {
-      final list = value!;
-      _tasksRepository.getByListId(list.id).then((tasks) {
-        list.tasks = tasks;
-      });
-      super.state = list;
-    });
+    try {
+      final ListTasks list = await _listTasksRepository.get(listId);
+      final tasks = await _tasksRepository.getByListId(list.id);
+      list.tasks.addAll(tasks);
+      state = list;
+    } catch (e) {
+      MyToast.show(e.toString());
+    }
   }
 
   void onPinned() {
