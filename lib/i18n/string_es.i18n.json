@@ -99,13 +99,18 @@
       },
       "moreInformation": {
         "title": "Más información",
-        "about": "Acerca de",
-        "privacyPolicy": "Política de privacidad"
+        "about": "Acerca de"
       },
       "dangerZone": {
         "title": "Zona peligrosa",
         "restoreApp": "Restaurar aplicación"
       }
+    },
+    "about": {
+      "title": "Tasking App",
+      "description": "Esta es una aplicación gratuita de código abierto desarrollada para la comunidad, centrada en la gestión de tareas/notas/recordatorios de manera simple y sin muchas funciones adicionales.",
+      "policyPrivacy": "Políticas de Privacidad",
+      "repo": "Github Repositorio"
     }
   },
   "modals": {

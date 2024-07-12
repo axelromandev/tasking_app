@@ -37,6 +37,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: Routes.settings,
         builder: (_, __) => const SettingsPage(),
       ),
+      GoRoute(
+        path: Routes.about,
+        builder: (_, __) => const AboutPage(),
+      ),
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(Keys.isFirstTime) == null) {

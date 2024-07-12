@@ -19,6 +19,7 @@ class Assets {
 }
 
 class Urls {
+  static String linkedin = 'https://www.linkedin.com/in/ingedevs';
   static String repo = 'https://github.com/ingedevs/tasking_app';
   static String privacyPolicy =
       'https://raw.githubusercontent.com/ingedevs/tasking_app/main/privacy-policy.md';

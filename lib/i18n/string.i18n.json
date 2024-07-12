@@ -99,13 +99,18 @@
       },
       "moreInformation": {
         "title": "More information",
-        "about": "About Tasking",
-        "privacyPolicy": "Privacy Policy"
+        "about": "About Tasking"
       },
       "dangerZone": {
         "title": "Danger Zone",
         "restoreApp": "Restore App"
       }
+    },
+    "about": {
+      "title": "Tasking App",
+      "description": "This is a free open source application developed for the community, focused on the management of tasks/notes/reminders in a simple way and without many additional functions.",
+      "policyPrivacy": "Privacy Policies",
+      "repo": "GitHub repository"
     }
   },
   "modals": {

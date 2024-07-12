@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -9,7 +8,7 @@ import '../../../config/config.dart';
 import '../../../generated/strings.g.dart';
 import '../dialogs/restore_app_dialog.dart';
 import '../modals/theme_color_select_modal.dart';
-import 'webview_page.dart';
+import '../widgets/app_bar_page.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -21,24 +20,8 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: () => context.pop(),
-              child: Icon(
-                BoxIcons.bx_chevron_left,
-                size: 30.0,
-                color: ref.watch(colorThemeProvider),
-              ),
-            ),
-            const Gap(16.0),
-            Text(S.pages.home.settings, style: style.bodyLarge),
-          ],
-        ),
-        centerTitle: false,
-        automaticallyImplyLeading: false,
+      appBar: AppBarPage(
+        title: S.pages.home.settings,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -63,10 +46,11 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      // TODO: implement backup
+                    },
                     icon: BoxIcons.bx_cloud,
-                    // title: S.pages.settings.general.backup,
-                    title: 'Backup Information',
+                    title: S.pages.settings.general.backup,
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                 ],
@@ -133,30 +117,13 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () {
-                      // TODO: Implement about
-                    },
+                    onTap: () => context.push(Routes.about),
                     icon: BoxIcons.bx_info_circle,
                     title: S.pages.settings.moreInformation.about,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(defaultRadius),
                       topRight: Radius.circular(defaultRadius),
                     ),
-                  ),
-                  _ListTile(
-                    onTap: () {
-                      //TODO: Change url privacy policy
-
-                      final child = WebViewPage(
-                        title: S.pages.settings.moreInformation.privacyPolicy,
-                        url: Uri.parse(Urls.privacyPolicy),
-                      );
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => child),
-                      );
-                    },
-                    icon: BoxIcons.bx_shield,
-                    title: S.pages.settings.moreInformation.privacyPolicy,
                   ),
                   _BuildVersionLabel(),
                 ],
