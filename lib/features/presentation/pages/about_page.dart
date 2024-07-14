@@ -35,9 +35,10 @@ class AboutPage extends ConsumerWidget {
           ),
           const Gap(defaultPadding),
           Text(S.pages.about.title, style: style.headlineSmall),
-          const Gap(defaultPadding),
-          Text(S.pages.about.description, textAlign: TextAlign.center),
-          const Gap(defaultPadding),
+          Padding(
+            padding: const EdgeInsets.all(defaultPadding),
+            child: Text(S.pages.about.description, textAlign: TextAlign.center),
+          ),
           const Text.rich(
             TextSpan(
               text: 'Made by ',

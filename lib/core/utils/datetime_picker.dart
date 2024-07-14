@@ -75,7 +75,7 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final tomorrowDay = S.commons.shortDays[tomorrowMorning.weekday + 1];
+    final tomorrowDay = S.commons.shortDays[tomorrowMorning.weekday - 1];
 
     return SafeArea(
       child: Column(

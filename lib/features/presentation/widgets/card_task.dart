@@ -88,7 +88,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
               ? style.bodyMedium?.copyWith(color: Colors.white70)
               : style.bodyLarge,
         ),
-        subtitle: ((widget.task.reminder != null) && (widget.task.note != null))
+        subtitle: ((widget.task.reminder != null) || (widget.task.note != null))
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,

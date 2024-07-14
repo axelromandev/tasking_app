@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -25,6 +26,7 @@ class HomePage extends ConsumerWidget {
           children: [
             GestureDetector(
               onTap: () {
+                HapticFeedback.lightImpact();
                 ref.read(homeScaffoldKeyProvider).currentState!.openDrawer();
               },
               child: Icon(

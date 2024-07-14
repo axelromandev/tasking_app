@@ -16,7 +16,10 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> _load() async {
     final lists = await _listTasksRepository.getAll();
-    if (lists.isEmpty) return;
+    if (lists.isEmpty) {
+      state = state.empty();
+      return;
+    }
 
     final listsArchived = lists.where((list) => list.archived).toList();
     final listNotArchived = lists.where((list) => !list.archived).toList();
@@ -54,5 +57,9 @@ class _State {
       lists: lists ?? this.lists,
       listsArchived: listsArchived ?? this.listsArchived,
     );
+  }
+
+  _State empty() {
+    return _State(lists: [], listsArchived: []);
   }
 }

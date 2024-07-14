@@ -18,7 +18,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final colorPrimary = ref.watch(colorThemeProvider);
+    final color = Color(list.color ?? 0xFF000000);
 
     final provider = ref.watch(listTasksUpdateModalProvider(list));
     final notifier = ref.watch(listTasksUpdateModalProvider(list).notifier);
@@ -52,7 +52,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: colorPrimary.withOpacity(.5),
+                      color: color.withOpacity(.5),
                     ),
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
@@ -120,6 +120,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                   Expanded(
                     child: CustomFilledButton(
                       onPressed: () => notifier.onSubmit(context),
+                      backgroundColor: color,
                       child: Text(S.buttons.update),
                     ),
                   ),
