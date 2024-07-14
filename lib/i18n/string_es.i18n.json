@@ -141,6 +141,10 @@
     "taskAdd": {
       "placeholder": "nueva tarea",
       "errorEmptyName": "Ingrese una tarea."
+    },
+    "taskReminder": {
+      "change": "Cambiar recordatorio",
+      "remove": "Eliminar recordatorio"
     }
   },
   "dialogs": {
@@ -149,8 +153,8 @@
       "subtitle": "Eliminar esta lista también eliminará las tareas"
     },
     "delete": {
-      "title": "Do you want to delete?",
-      "subtitle": "This action cannot be undone"
+      "title": "¿Quieres eliminar esto?",
+      "subtitle": "Esta acción no se puede deshacer"
     },
     "restoreApp": {
       "title": "¿Restablecer aplicación?",

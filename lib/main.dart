@@ -19,7 +19,9 @@ void main() async {
 
   await DatabaseHelper().initDatabase();
   await SharedPrefs.initialize();
-  await NotificationService.initialize();
+
+  final notification = NotificationService();
+  await notification.initialize();
 
   runApp(
     ProviderScope(

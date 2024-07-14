@@ -1,7 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/core.dart';
@@ -32,6 +32,7 @@ class _Notifier extends StateNotifier<Task> {
   final Future<void> Function() refreshAll;
   final Future<void> Function() refreshList;
 
+  final _notificationService = NotificationService();
   final _taskRepository = TaskRepository();
   final _debouncer = Debouncer(
     delay: const Duration(milliseconds: 300),
@@ -76,6 +77,55 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   Future<void> onUpdateReminder(BuildContext context) async {
+    if (state.reminder != null) {
+      showModalBottomSheet(
+        context: context,
+        builder: (contextModal) => SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () async {
+                  contextModal.pop();
+                  await _dateTimePicker(context);
+                },
+                shape: const RoundedRectangleBorder(),
+                leading: const Icon(BoxIcons.bx_shuffle),
+                title: Text(S.modals.taskReminder.change),
+              ),
+              ListTile(
+                onTap: () async {
+                  contextModal.pop();
+                  await _removeReminder();
+                },
+                shape: const RoundedRectangleBorder(),
+                iconColor: Colors.redAccent,
+                leading: const Icon(BoxIcons.bx_bell_off),
+                title: Text(S.modals.taskReminder.remove),
+              ),
+            ],
+          ),
+        ),
+      );
+      return;
+    }
+    await _dateTimePicker(context);
+  }
+
+  Future<void> _removeReminder() async {
+    try {
+      await _notificationService.remove(state.id);
+      _taskRepository.deleteReminder(state.id).then((_) {
+        refreshAll();
+        refreshList();
+        state.reminder = null;
+      });
+    } catch (e) {
+      MyToast.show(e.toString());
+    }
+  }
+
+  Future<void> _dateTimePicker(BuildContext context) async {
     final status = await Permission.notification.status;
     if (status.isPermanentlyDenied) {
       MyToast.show(S.utils.notifications.isDenied);
@@ -93,7 +143,7 @@ class _Notifier extends StateNotifier<Task> {
     if (reminder == null) return;
 
     try {
-      await NotificationService.show(
+      await _notificationService.show(
         id: state.id,
         title: S.utils.notifications.title,
         body: state.title,
@@ -103,7 +153,6 @@ class _Notifier extends StateNotifier<Task> {
       _taskRepository.updateReminder(state.id, reminder).then((_) {
         refreshAll();
         refreshList();
-
         state.reminder = reminder;
       });
     } catch (e) {

@@ -12,8 +12,7 @@ abstract interface class ITaskDataSource {
   Future<void> updateTitle(int id, String title);
   Future<void> updateNote(int id, String note);
   Future<void> delete(int id);
-  Future<void> clearComplete(int listId);
-  Future<void> changeList(int taskId, int newListId);
+  Future<void> deleteReminder(int id);
 }
 
 class TaskDataSource implements ITaskDataSource {
@@ -111,16 +110,6 @@ class TaskDataSource implements ITaskDataSource {
   }
 
   @override
-  Future<void> clearComplete(int listId) async {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> changeList(int taskId, int newListId) async {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> updateReminder(int id, DateTime reminder) async {
     try {
       final Database db = await dbHelper.database;
@@ -145,6 +134,19 @@ class TaskDataSource implements ITaskDataSource {
       return data.map((e) => Task.fromMap(e)).toList();
     } catch (e) {
       return <Task>[];
+    }
+  }
+
+  @override
+  Future<void> deleteReminder(int id) async {
+    try {
+      final Database db = await dbHelper.database;
+      await db.rawUpdate(
+        'UPDATE tasks SET reminder = ? WHERE id = ?',
+        [null, id],
+      );
+    } catch (e) {
+      rethrow;
     }
   }
 }

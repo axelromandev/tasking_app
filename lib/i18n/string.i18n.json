@@ -141,6 +141,10 @@
     "taskAdd": {
       "placeholder": "new task",
       "errorEmptyName": "Please enter a task."
+    },
+    "taskReminder": {
+      "change": "Change reminder",
+      "remove": "Remove reminder"
     }
   },
   "dialogs": {

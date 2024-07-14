@@ -10,8 +10,7 @@ abstract interface class ITaskRepository {
   Future<void> updateTitle(int id, String title);
   Future<void> updateNote(int id, String note);
   Future<void> delete(int id);
-  Future<void> clearComplete(int listId);
-  Future<void> changeList(int taskId, int newListId);
+  Future<void> deleteReminder(int id);
 }
 
 class TaskRepository extends ITaskRepository {
@@ -20,11 +19,6 @@ class TaskRepository extends ITaskRepository {
   @override
   Future<Task> add(int listId, String title) {
     return _dataSource.add(listId, title);
-  }
-
-  @override
-  Future<void> clearComplete(int listId) {
-    return _dataSource.clearComplete(listId);
   }
 
   @override
@@ -53,11 +47,6 @@ class TaskRepository extends ITaskRepository {
   }
 
   @override
-  Future<void> changeList(int taskId, int newListId) {
-    return _dataSource.changeList(taskId, newListId);
-  }
-
-  @override
   Future<void> updateReminder(int id, DateTime reminder) {
     return _dataSource.updateReminder(id, reminder);
   }
@@ -65,5 +54,10 @@ class TaskRepository extends ITaskRepository {
   @override
   Future<List<Task>> getReminders() {
     return _dataSource.getReminders();
+  }
+
+  @override
+  Future<void> deleteReminder(int id) {
+    return _dataSource.deleteReminder(id);
   }
 }
