@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../app.dart';
 import '../providers/list_tasks_update_modal_provider.dart';
 
@@ -33,7 +33,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
               Container(
                 margin: const EdgeInsets.only(bottom: defaultPadding),
                 child: Text(
-                  S.modals.listTasksUpdate.title,
+                  S.common.modals.listTasksUpdate.title,
                   style: style.bodyLarge,
                 ),
               ),
@@ -44,7 +44,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                   LengthLimitingTextInputFormatter(30),
                 ],
                 decoration: InputDecoration(
-                  hintText: S.modals.listTasksUpdate.placeholder,
+                  hintText: S.common.modals.listTasksUpdate.placeholder,
                   filled: false,
                   enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white12),
@@ -113,7 +113,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                       onPressed: () => Navigator.pop(context),
                       backgroundColor: AppColors.card,
                       foregroundColor: Colors.white,
-                      child: Text(S.buttons.cancel),
+                      child: Text(S.common.buttons.cancel),
                     ),
                   ),
                   const Gap(defaultPadding),
@@ -121,7 +121,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                     child: CustomFilledButton(
                       onPressed: () => notifier.onSubmit(context),
                       backgroundColor: color,
-                      child: Text(S.buttons.update),
+                      child: Text(S.common.buttons.update),
                     ),
                   ),
                 ],

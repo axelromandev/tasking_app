@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/intro_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -31,7 +31,7 @@ class IntroPage extends ConsumerWidget {
                   Icon(BoxIcons.bxs_crown, color: colorPrimary, size: 28),
                   const Gap(defaultPadding / 2),
                   Text(
-                    S.commons.appName,
+                    S.common.labels.appName,
                     style: style.displaySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: colorPrimary,

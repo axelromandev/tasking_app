@@ -4,7 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import '../dialogs/task_delete_dialog.dart';
 import '../providers/list_tasks_provider.dart';
@@ -65,7 +65,7 @@ class TaskPage extends ConsumerWidget {
                       shape: const RoundedRectangleBorder(),
                       iconColor: color,
                       leading: const Icon(BoxIcons.bx_trash),
-                      title: Text(S.buttons.delete),
+                      title: Text(S.common.buttons.delete),
                     ),
                   ],
                 ),

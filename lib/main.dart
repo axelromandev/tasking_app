@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'config/config.dart';
 import 'core/core.dart';
-import 'generated/strings.g.dart';
+import 'i18n/generated/translations.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/list_tasks_add_modal_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -28,8 +28,10 @@ class ListTasksAddModal extends ConsumerWidget {
               const Gap(defaultPadding * 2),
               Container(
                 margin: const EdgeInsets.only(bottom: defaultPadding),
-                child:
-                    Text(S.modals.listTasksAdd.title, style: style.bodyLarge),
+                child: Text(
+                  S.common.modals.listTasksAdd.title,
+                  style: style.bodyLarge,
+                ),
               ),
               TextField(
                 autofocus: true,
@@ -38,7 +40,7 @@ class ListTasksAddModal extends ConsumerWidget {
                   LengthLimitingTextInputFormatter(30),
                 ],
                 decoration: InputDecoration(
-                  hintText: S.modals.listTasksAdd.placeholder,
+                  hintText: S.common.modals.listTasksAdd.placeholder,
                   filled: false,
                   enabledBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white12),
@@ -115,7 +117,7 @@ class ListTasksAddModal extends ConsumerWidget {
                       onPressed: () => Navigator.pop(context),
                       backgroundColor: AppColors.card,
                       foregroundColor: Colors.white,
-                      child: Text(S.buttons.cancel),
+                      child: Text(S.common.buttons.cancel),
                     ),
                   ),
                   const Gap(defaultPadding),
@@ -124,7 +126,7 @@ class ListTasksAddModal extends ConsumerWidget {
                       onPressed: () => ref
                           .read(listTasksAddModalProvider.notifier)
                           .onSubmit(context),
-                      child: Text(S.buttons.add),
+                      child: Text(S.common.buttons.add),
                     ),
                   ),
                 ],

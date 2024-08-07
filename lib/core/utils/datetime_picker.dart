@@ -4,7 +4,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../config/const/constants.dart';
-import '../../generated/strings.g.dart';
+import '../../i18n/generated/translations.g.dart';
 
 class DatTimePicker {
   static Future<DateTime?> show(BuildContext context) async {
@@ -75,7 +75,7 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final tomorrowDay = S.commons.shortDays[tomorrowMorning.weekday - 1];
+    final tomorrowDay = S.common.labels.shortDays[tomorrowMorning.weekday - 1];
 
     return SafeArea(
       child: Column(
@@ -85,7 +85,7 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
             onTap: () => Navigator.pop(context, tomorrowMorning),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: Text(S.utils.dateTimePicker.option1),
+            title: Text(S.common.utils.dateTimePicker.option1),
             trailing: Text(
               '$tomorrowDay 8:00 AM',
               style: style.bodyLarge,
@@ -95,21 +95,21 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
             onTap: () => Navigator.pop(context, tomorrowEvening),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: Text(S.utils.dateTimePicker.option2),
+            title: Text(S.common.utils.dateTimePicker.option2),
             trailing: Text('$tomorrowDay 6:00 PM', style: style.bodyLarge),
           ),
           ListTile(
             onTap: () => Navigator.pop(context, monday),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: Text(S.utils.dateTimePicker.option3),
+            title: Text(S.common.utils.dateTimePicker.option3),
             trailing: Text('Mon 8:00 AM', style: style.bodyLarge),
           ),
           ListTile(
             onTap: () => Navigator.pop(context, true),
             shape: const RoundedRectangleBorder(),
             leading: const Icon(BoxIcons.bx_time),
-            title: Text(S.utils.dateTimePicker.option4),
+            title: Text(S.common.utils.dateTimePicker.option4),
           ),
         ],
       ),

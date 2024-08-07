@@ -5,7 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import 'all_list_tasks_provider.dart';
 import 'list_tasks_provider.dart';
@@ -91,7 +91,7 @@ class _Notifier extends StateNotifier<Task> {
                 },
                 shape: const RoundedRectangleBorder(),
                 leading: const Icon(BoxIcons.bx_shuffle),
-                title: Text(S.modals.taskReminder.change),
+                title: Text(S.common.modals.taskReminder.change),
               ),
               ListTile(
                 onTap: () async {
@@ -101,7 +101,7 @@ class _Notifier extends StateNotifier<Task> {
                 shape: const RoundedRectangleBorder(),
                 iconColor: Colors.redAccent,
                 leading: const Icon(BoxIcons.bx_bell_off),
-                title: Text(S.modals.taskReminder.remove),
+                title: Text(S.common.modals.taskReminder.remove),
               ),
             ],
           ),
@@ -128,13 +128,13 @@ class _Notifier extends StateNotifier<Task> {
   Future<void> _dateTimePicker(BuildContext context) async {
     final status = await Permission.notification.status;
     if (status.isPermanentlyDenied) {
-      MyToast.show(S.utils.notifications.isDenied);
+      MyToast.show(S.common.utils.notifications.isDenied);
       return;
     }
     if (status.isDenied) {
       final request = await Permission.notification.request();
       if (request.isPermanentlyDenied) {
-        MyToast.show(S.utils.notifications.isDenied);
+        MyToast.show(S.common.utils.notifications.isDenied);
         return;
       }
     }
@@ -145,7 +145,7 @@ class _Notifier extends StateNotifier<Task> {
     try {
       await _notificationService.show(
         id: state.id,
-        title: S.utils.notifications.title,
+        title: S.common.utils.notifications.title,
         body: state.title,
         dateTime: reminder,
       );

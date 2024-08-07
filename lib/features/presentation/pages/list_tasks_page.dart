@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import '../modals/list_tasks_options_modal.dart';
 import '../modals/list_tasks_update_modal.dart';

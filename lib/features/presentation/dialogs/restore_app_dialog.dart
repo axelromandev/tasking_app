@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/restore_app_provider.dart';
 
 class RestoreAppDialog extends ConsumerWidget {
@@ -18,15 +18,15 @@ class RestoreAppDialog extends ConsumerWidget {
     final notifier = ref.read(restoreAppProvider.notifier);
 
     return AlertDialog(
-      title: Text(S.dialogs.restoreApp.title),
-      content: Text(S.dialogs.restoreApp.subtitle),
+      title: Text(S.common.dialogs.restoreApp.title),
+      content: Text(S.common.dialogs.restoreApp.subtitle),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8.0),
           child: TextButton(
             onPressed: () => context.pop(),
             style: TextButton.styleFrom(foregroundColor: Colors.white),
-            child: Text(S.buttons.cancel),
+            child: Text(S.common.buttons.cancel),
           ),
         ),
         FilledButton(
@@ -38,7 +38,7 @@ class RestoreAppDialog extends ConsumerWidget {
             backgroundColor: Colors.redAccent,
             foregroundColor: Colors.white,
           ),
-          child: Text(S.buttons.restore),
+          child: Text(S.common.buttons.restore),
         ),
       ],
     );

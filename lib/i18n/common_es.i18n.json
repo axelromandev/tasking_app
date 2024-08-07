@@ -1,0 +1,89 @@
+{
+  "labels": {
+    "appName": "Tasking",
+    "language": "Español",
+    "shortDays": ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+    "shortMonths": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ]
+  },
+  "buttons": {
+    "add": "Agregar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "update": "Actualizar",
+    "confirm": "Confirmar",
+    "restore": "Restaurar"
+  },
+  "utils": {
+    "dateTimePicker": {
+      "option1": "Mañana por la mañana",
+      "option2": "Mañana por la tarde",
+      "option3": "Lunes por la mañana",
+      "option4": "Elija una fecha y hora"
+    },
+    "notifications": {
+      "title": "Pending task",
+      "isDenied": "Disabled notifications"
+    }
+  },
+  "modals": {
+    "listTasksAdd": {
+      "title": "Agregar una nueva lista",
+      "placeholder": "Ingrese el nombre de la lista",
+      "errorEmptyName": "Ingrese un nombre de lista."
+    },
+    "listTasksUpdate": {
+      "title": "Editar lista",
+      "placeholder": "Ingrese el nombre de la lista",
+      "errorEmptyName": "Ingrese un nombre de lista."
+    },
+    "listTasksOptions": {
+      "list": {
+        "title": "Lista",
+        "edit": "Editar lista",
+        "delete": "Eliminar lista",
+        "archived": "Archivar lista"
+      },
+      "tasks": {
+        "title": "Tareas",
+        "incompleteAllTasks": "Marcar todas las tareas como incompletas",
+        "completeAllTasks": "Marcar todas las tareas como completadas",
+        "deleteAllCompletedTasks": "Eliminar todas las tareas completadas"
+      }
+    },
+    "taskAdd": {
+      "placeholder": "nueva tarea",
+      "errorEmptyName": "Ingrese una tarea."
+    },
+    "taskReminder": {
+      "change": "Cambiar recordatorio",
+      "remove": "Eliminar recordatorio"
+    }
+  },
+  "dialogs": {
+    "listTasksDelete": {
+      "title": "¿Quieres eliminar esta lista?",
+      "subtitle": "Eliminar esta lista también eliminará las tareas"
+    },
+    "delete": {
+      "title": "¿Quieres eliminar esto?",
+      "subtitle": "Esta acción no se puede deshacer"
+    },
+    "restoreApp": {
+      "title": "¿Restablecer aplicación?",
+      "subtitle": "La información sera borrada y restablecida como si fuera la primera vez que se instala."
+    }
+  }
+}

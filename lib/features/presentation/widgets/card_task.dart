@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import '../dialogs/task_delete_dialog.dart';
 import '../pages/task_page.dart';
@@ -54,7 +54,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
               color: Colors.white,
             ),
             const Gap(8.0),
-            Text(S.buttons.delete, style: style.bodyLarge),
+            Text(S.common.buttons.delete, style: style.bodyLarge),
           ],
         ),
       ),

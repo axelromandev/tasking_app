@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/all_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
 import 'list_tasks_page.dart';

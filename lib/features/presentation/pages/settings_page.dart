@@ -5,7 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../dialogs/restore_app_dialog.dart';
 import '../modals/theme_color_select_modal.dart';
 import '../widgets/app_bar_page.dart';
@@ -91,7 +91,7 @@ class SettingsPage extends ConsumerWidget {
                     leading: const Icon(BoxIcons.bx_world),
                     title: Text(S.pages.settings.appearance.language),
                     trailing: Text(
-                      S.commons.language,
+                      S.common.labels.language,
                       style: style.bodyMedium?.copyWith(color: Colors.grey),
                     ),
                   ),

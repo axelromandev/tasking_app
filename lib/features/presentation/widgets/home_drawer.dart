@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/home_provider.dart';
 
 class HomeDrawer extends ConsumerWidget {
@@ -27,7 +27,7 @@ class HomeDrawer extends ConsumerWidget {
                 color: ref.watch(colorThemeProvider),
                 size: 22,
               ),
-              title: Text(S.commons.appName, style: style.titleLarge),
+              title: Text(S.common.labels.appName, style: style.titleLarge),
             ),
             const Gap(8.0),
             ...pages.map((page) {

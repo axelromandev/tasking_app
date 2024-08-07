@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import 'all_list_tasks_provider.dart';
 
@@ -39,7 +39,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit(BuildContext context) async {
     if (state.name.trim().isEmpty) {
-      MyToast.show(S.modals.listTasksAdd.errorEmptyName);
+      MyToast.show(S.common.modals.listTasksAdd.errorEmptyName);
       return;
     }
     await _listTasksRepository.add(state.name, state.color).then((list) {

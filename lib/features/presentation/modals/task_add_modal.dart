@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/task_add_modal_provider.dart';
 
@@ -40,7 +40,7 @@ class TaskAddModal extends ConsumerWidget {
           },
           decoration: InputDecoration(
             filled: false,
-            hintText: S.modals.taskAdd.placeholder,
+            hintText: S.common.modals.taskAdd.placeholder,
             suffixIcon: (provider.name.isNotEmpty)
                 ? IconButton(
                     onPressed: () {

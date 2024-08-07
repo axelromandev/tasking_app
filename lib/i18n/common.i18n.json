@@ -1,0 +1,89 @@
+{
+  "labels": {
+    "appName": "Tasking",
+    "language": "English",
+    "shortDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "shortMonths": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+  },
+  "buttons": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "update": "Update",
+    "confirm": "Confirm",
+    "restore": "Restore"
+  },
+  "utils": {
+    "dateTimePicker": {
+      "option1": "Tomorrow morning",
+      "option2": "Tomorrow evening",
+      "option3": "Monday morning",
+      "option4": "Pick a date & time"
+    },
+    "notifications": {
+      "title": "Tarea Pendiente",
+      "isDenied": "Notificaciones deshabilitadas"
+    }
+  },
+  "modals": {
+    "listTasksAdd": {
+      "title": "Add a new list",
+      "placeholder": "Enter the name of the list",
+      "errorEmptyName": "Please enter a list name."
+    },
+    "listTasksUpdate": {
+      "title": "Edit list",
+      "placeholder": "Enter the name of the list",
+      "errorEmptyName": "Please enter a list name."
+    },
+    "listTasksOptions": {
+      "list": {
+        "title": "List",
+        "edit": "Edit list",
+        "delete": "Delete list",
+        "archived": "Archived list"
+      },
+      "tasks": {
+        "title": "Tasks",
+        "incompleteAllTasks": "Incomplete all tasks",
+        "completeAllTasks": "Complete all tasks",
+        "deleteAllCompletedTasks": "Delete all completed task"
+      }
+    },
+    "taskAdd": {
+      "placeholder": "new task",
+      "errorEmptyName": "Please enter a task."
+    },
+    "taskReminder": {
+      "change": "Change reminder",
+      "remove": "Remove reminder"
+    }
+  },
+  "dialogs": {
+    "listTasksDelete": {
+      "title": "Do you want to delete this list?",
+      "subtitle": "Delete this list will also delete the tasks"
+    },
+    "delete": {
+      "title": "Do you want to delete?",
+      "subtitle": "This action cannot be undone"
+    },
+    "restoreApp": {
+      "title": "¿Restore App?",
+      "subtitle": "The information will be deleted and restored as if it were the first time it is installed."
+    }
+  }
+}

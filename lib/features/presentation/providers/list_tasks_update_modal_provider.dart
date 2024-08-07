@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/core.dart';
-import '../../../generated/strings.g.dart';
+import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import 'list_tasks_provider.dart';
 
@@ -38,7 +38,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit(BuildContext context) async {
     if (state.title.isEmpty) {
-      MyToast.show(S.modals.listTasksUpdate.errorEmptyName);
+      MyToast.show(S.common.modals.listTasksUpdate.errorEmptyName);
       return;
     }
 

@@ -1,4 +1,4 @@
-import '../../generated/strings.g.dart';
+import '../../i18n/generated/translations.g.dart';
 
 class HumanFormat {
   static String datetime(DateTime? dateTime) {
@@ -12,8 +12,8 @@ class HumanFormat {
 
     final String day = dateTime.weekday.toString();
     final String month = dateTime.month.toString();
-    final String dayStr = S.commons.shortDays[int.parse(day) - 1];
-    final String monthStr = S.commons.shortMonths[int.parse(month) - 1];
+    final String dayStr = S.common.labels.shortDays[int.parse(day) - 1];
+    final String monthStr = S.common.labels.shortMonths[int.parse(month) - 1];
 
     return '$dayStr $day $monthStr, $time';
   }
