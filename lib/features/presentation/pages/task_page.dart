@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../core/core.dart';
 import '../../../i18n/generated/translations.g.dart';
-import '../../domain/domain.dart';
+import '../../app.dart';
 import '../dialogs/task_delete_dialog.dart';
 import '../providers/list_tasks_provider.dart';
 import '../providers/task_provider.dart';
@@ -44,37 +47,52 @@ class TaskPage extends ConsumerWidget {
             ),
           ),
           IconButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (contextModel) => SafeArea(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      onTap: () async {
-                        Navigator.pop(contextModel);
-                        final result = await showDialog<bool?>(
-                          context: context,
-                          builder: (_) => TaskDeleteDialog(),
-                        );
-                        if (result != null && result) {
-                          await notifier.onDeleteTask();
-                          Navigator.pop(context);
-                        }
-                      },
-                      shape: const RoundedRectangleBorder(),
-                      iconColor: color,
-                      leading: const Icon(BoxIcons.bx_trash),
-                      title: Text(S.common.buttons.delete),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            onPressed: () async {
+              final result = await showDialog<bool?>(
+                context: context,
+                builder: (_) => TaskDeleteDialog(),
+              );
+              if (result != null && result) {
+                await notifier.onDeleteTask();
+                Navigator.pop(context);
+              }
+            },
             iconSize: 20.0,
             color: color,
-            icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
+            icon: const Icon(BoxIcons.bx_trash),
           ),
+          // IconButton(
+          //   onPressed: () => showModalBottomSheet(
+          //     context: context,
+          //     builder: (contextModel) => SafeArea(
+          //       child: Column(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           ListTile(
+          //             onTap: () async {
+          //               Navigator.pop(contextModel);
+          //               final result = await showDialog<bool?>(
+          //                 context: context,
+          //                 builder: (_) => TaskDeleteDialog(),
+          //               );
+          //               if (result != null && result) {
+          //                 await notifier.onDeleteTask();
+          //                 Navigator.pop(context);
+          //               }
+          //             },
+          //             shape: const RoundedRectangleBorder(),
+          //             iconColor: color,
+          //             leading: const Icon(BoxIcons.bx_trash),
+          //             title: Text(S.common.buttons.delete),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          //   iconSize: 20.0,
+          //   color: color,
+          //   icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
+          // ),
         ],
       ),
       body: Column(
@@ -112,15 +130,14 @@ class TaskPage extends ConsumerWidget {
         ],
       ),
       bottomNavigationBar: SafeArea(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               S.pages.task.edited(time: HumanFormat.time(task.updatedAt)),
-              style: style.bodySmall?.copyWith(
-                color: Colors.white60,
-              ),
+              style: style.bodySmall?.copyWith(color: Colors.white60),
             ),
+            if (Platform.isAndroid) const Gap(defaultPadding),
           ],
         ),
       ),

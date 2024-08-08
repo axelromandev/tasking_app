@@ -77,9 +77,9 @@
       "title": "¿Quieres eliminar esta lista?",
       "subtitle": "Eliminar esta lista también eliminará las tareas"
     },
-    "delete": {
-      "title": "¿Quieres eliminar esto?",
-      "subtitle": "Esta acción no se puede deshacer"
+    "deleteTask": {
+      "title": "¿Eliminar tarea?",
+      "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
     },
     "restoreApp": {
       "title": "¿Restablecer aplicación?",
