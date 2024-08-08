@@ -74,8 +74,8 @@
   },
   "dialogs": {
     "listTasksDelete": {
-      "title": "¿Quieres eliminar esta lista?",
-      "subtitle": "Eliminar esta lista también eliminará las tareas"
+      "title": "¿Eliminar lista?",
+      "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
     },
     "deleteTask": {
       "title": "¿Eliminar tarea?",

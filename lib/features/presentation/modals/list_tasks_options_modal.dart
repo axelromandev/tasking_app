@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
+import '../dialogs/list_tasks_delete_dialog.dart';
 import '../providers/list_tasks_provider.dart';
 import 'list_tasks_update_modal.dart';
 
@@ -56,7 +57,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 final result = await showDialog<bool?>(
                   context: context,
-                  builder: (_) => _DeleteDialog(),
+                  builder: (_) => ListTaskDeleteDialog(),
                 );
                 if (result != null && result) {
                   notifier.onDelete(contextPage);
@@ -120,39 +121,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _DeleteDialog extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-
-    return AlertDialog(
-      title:
-          Text(S.common.dialogs.listTasksDelete.title, style: style.titleLarge),
-      content: Text(
-        S.common.dialogs.listTasksDelete.subtitle,
-        style: style.bodyLarge,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, false),
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.white,
-          ),
-          child: Text(S.common.buttons.cancel),
-        ),
-        FilledButton(
-          onPressed: () => Navigator.pop(context, true),
-          style: FilledButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.red,
-          ),
-          child: Text(S.common.buttons.delete),
-        ),
-      ],
     );
   }
 }
