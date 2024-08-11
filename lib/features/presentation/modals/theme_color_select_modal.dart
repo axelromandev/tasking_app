@@ -10,7 +10,9 @@ import '../../../i18n/generated/translations.g.dart';
 class ThemeColorSelectModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+      margin: const EdgeInsets.only(bottom: defaultPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
