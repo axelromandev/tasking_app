@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -31,17 +33,22 @@ class HomePage extends ConsumerWidget {
           Expanded(child: pages[currentIndex].child),
         ],
       ),
-      bottomNavigationBar: SalomonBottomBar(
-        selectedItemColor: ref.read(colorThemeProvider),
-        margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-        currentIndex: currentIndex,
-        onTap: notifier.onChangeIndex,
-        items: pages.map((e) {
-          return SalomonBottomBarItem(
-            icon: Icon(e.icon),
-            title: Text(e.title),
-          );
-        }).toList(),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.only(
+          bottom: Platform.isAndroid ? defaultPadding : 0,
+        ),
+        child: SalomonBottomBar(
+          selectedItemColor: ref.read(colorThemeProvider),
+          margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          currentIndex: currentIndex,
+          onTap: notifier.onChangeIndex,
+          items: pages.map((e) {
+            return SalomonBottomBarItem(
+              icon: Icon(e.icon),
+              title: Text(e.title),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
