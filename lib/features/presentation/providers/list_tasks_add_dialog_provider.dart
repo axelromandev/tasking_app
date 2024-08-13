@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 
 import '../../../core/core.dart';
 import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
 import 'all_list_tasks_provider.dart';
 
-final listTasksAddModalProvider =
+final listTasksAddDialogProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final refresh = ref.read(allListTasksProvider.notifier).refreshAll;
 
@@ -20,25 +19,18 @@ class _Notifier extends StateNotifier<_State> {
 
   final Future<void> Function() refresh;
 
-  final expansionTileController = ExpansionTileController();
   final _listTasksRepository = ListTasksRepository();
 
   void onNameChanged(String value) {
-    state = state.copyWith(name: value);
+    state = state.copyWith(name: value.trim());
   }
 
-  Future<void> onColorChanged(Color color) async {
+  void onColorChanged(Color color) {
     state = state.copyWith(color: color);
-    await Future.delayed(const Duration(milliseconds: 100));
-    expansionTileController.collapse();
-  }
-
-  void onIconChanged(IconData icon) {
-    state = state.copyWith(icon: icon);
   }
 
   Future<void> onSubmit(BuildContext context) async {
-    if (state.name.trim().isEmpty) {
+    if (state.name.isEmpty) {
       MyToast.show(S.common.modals.listTasksAdd.errorEmptyName);
       return;
     }
@@ -52,22 +44,19 @@ class _Notifier extends StateNotifier<_State> {
 class _State {
   _State({
     this.name = '',
-    this.color = Colors.amber,
-    this.icon = BoxIcons.bx_list_ul,
+    this.color = const Color(0xffffc107),
   });
+
   final String name;
   final Color color;
-  final IconData icon;
 
   _State copyWith({
     String? name,
     Color? color,
-    IconData? icon,
   }) {
     return _State(
       name: name ?? this.name,
       color: color ?? this.color,
-      icon: icon ?? this.icon,
     );
   }
 }

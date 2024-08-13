@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/core.dart';
 import '../../features/app.dart';
-import '../../features/presentation/pages/list_tasks_add_page.dart';
 import '../const/constants.dart';
 import 'routes.dart';
 
@@ -26,10 +25,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.home,
         builder: (_, __) => const HomePage(),
-      ),
-      GoRoute(
-        path: Routes.listTasksAdd,
-        builder: (_, __) => const ListTasksAddPage(),
       ),
       GoRoute(
         path: Routes.listTasks,
