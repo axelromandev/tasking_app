@@ -35,17 +35,8 @@ class TaskPage extends ConsumerWidget {
           color: color,
           onPressed: () => Navigator.pop(context),
         ),
+        title: Text(list.title, style: style.bodyLarge),
         actions: [
-          IconButton(
-            onPressed: () => notifier.onUpdateReminder(context),
-            iconSize: 20.0,
-            color: color,
-            icon: Icon(
-              (provider.reminder != null)
-                  ? BoxIcons.bxs_bell
-                  : BoxIcons.bx_bell,
-            ),
-          ),
           IconButton(
             onPressed: () async {
               final result = await showDialog<bool?>(
@@ -61,38 +52,6 @@ class TaskPage extends ConsumerWidget {
             color: color,
             icon: const Icon(BoxIcons.bx_trash),
           ),
-          // IconButton(
-          //   onPressed: () => showModalBottomSheet(
-          //     context: context,
-          //     builder: (contextModel) => SafeArea(
-          //       child: Column(
-          //         mainAxisSize: MainAxisSize.min,
-          //         children: [
-          //           ListTile(
-          //             onTap: () async {
-          //               Navigator.pop(contextModel);
-          //               final result = await showDialog<bool?>(
-          //                 context: context,
-          //                 builder: (_) => TaskDeleteDialog(),
-          //               );
-          //               if (result != null && result) {
-          //                 await notifier.onDeleteTask();
-          //                 Navigator.pop(context);
-          //               }
-          //             },
-          //             shape: const RoundedRectangleBorder(),
-          //             iconColor: color,
-          //             leading: const Icon(BoxIcons.bx_trash),
-          //             title: Text(S.common.buttons.delete),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          //   iconSize: 20.0,
-          //   color: color,
-          //   icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
-          // ),
         ],
       ),
       body: Column(
@@ -106,10 +65,45 @@ class TaskPage extends ConsumerWidget {
             cursorColor: color,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
+              prefixIcon: IconButton(
+                onPressed: () {},
+                color: Colors.white60,
+                icon: const Icon(BoxIcons.bx_circle),
+              ),
               hintText: S.pages.task.placeholderTitle,
               filled: false,
             ),
             onChanged: notifier.onTitleChanged,
+          ),
+          TextButton.icon(
+            onPressed: () {}, //TODO: add more steps tasks
+            style: TextButton.styleFrom(foregroundColor: color),
+            icon: const Icon(BoxIcons.bx_plus),
+            label: const Text('Add a step'),
+          ),
+          if (task.reminder != null)
+            ListTile(
+              contentPadding: const EdgeInsets.only(left: defaultPadding),
+              leading: Icon(BoxIcons.bx_bell, color: color, size: 20),
+              title: Text(HumanFormat.datetime(task.reminder)),
+              trailing: IconButton(
+                onPressed: () {}, //TODO: remove reminder
+                color: Colors.white54,
+                icon: const Icon(BoxIcons.bx_x),
+              ),
+            )
+          else
+            TextButton.icon(
+              onPressed: () => notifier.onUpdateReminder(context),
+              style: TextButton.styleFrom(foregroundColor: color),
+              icon: const Icon(BoxIcons.bx_bell, size: 20),
+              label: const Text('Remind me'),
+            ),
+          TextButton.icon(
+            onPressed: () {},
+            style: TextButton.styleFrom(foregroundColor: color),
+            icon: const Icon(BoxIcons.bx_calendar, size: 20),
+            label: const Text('Add due date'),
           ),
           TextFormField(
             initialValue: provider.note,
@@ -122,11 +116,6 @@ class TaskPage extends ConsumerWidget {
             ),
             onChanged: notifier.onNoteChanged,
           ),
-          if (task.reminder != null)
-            _ReminderSchedule(
-              onPressed: () => notifier.onUpdateReminder(context),
-              reminder: provider.reminder!,
-            ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -140,47 +129,6 @@ class TaskPage extends ConsumerWidget {
             if (Platform.isAndroid) const Gap(defaultPadding),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ReminderSchedule extends StatelessWidget {
-  const _ReminderSchedule({
-    required this.onPressed,
-    required this.reminder,
-  });
-
-  final VoidCallback onPressed;
-  final DateTime reminder;
-
-  @override
-  Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-
-    Color colorStatus() {
-      final now = DateTime.now();
-      final different = now.difference(reminder);
-      if (different.inSeconds > 0) {
-        return Colors.white60;
-      } else {
-        return Colors.white;
-      }
-    }
-
-    return Container(
-      margin: const EdgeInsets.only(
-        left: defaultPadding,
-        top: defaultPadding,
-      ),
-      child: FilledButton(
-        onPressed: onPressed,
-        style: FilledButton.styleFrom(
-          backgroundColor: AppColors.card,
-          foregroundColor: colorStatus(),
-          textStyle: style.bodyMedium,
-        ),
-        child: Text(HumanFormat.datetime(reminder)),
       ),
     );
   }

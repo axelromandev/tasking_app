@@ -8,7 +8,6 @@ import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
 import '../dialogs/restore_app_dialog.dart';
 import '../modals/theme_color_select_modal.dart';
-import '../widgets/app_bar_page.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -20,16 +19,13 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
-      appBar: AppBarPage(
-        title: S.pages.home.settings,
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               margin: const EdgeInsets.only(
-                top: defaultPadding / 2,
+                top: defaultPadding,
                 bottom: defaultPadding / 2,
                 left: 24.0,
               ),
@@ -49,7 +45,7 @@ class SettingsPage extends ConsumerWidget {
                     onTap: () {
                       // TODO: implement backup
                     },
-                    icon: BoxIcons.bx_cloud,
+                    icon: BoxIcons.bx_reset,
                     title: S.pages.settings.general.backup,
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),

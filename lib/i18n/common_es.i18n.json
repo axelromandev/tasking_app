@@ -64,7 +64,7 @@
       }
     },
     "taskAdd": {
-      "placeholder": "nueva tarea",
+      "placeholder": "Agregar una tarea",
       "errorEmptyName": "Ingrese una tarea."
     },
     "taskReminder": {

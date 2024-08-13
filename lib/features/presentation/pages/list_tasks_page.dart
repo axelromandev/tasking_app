@@ -93,15 +93,20 @@ class ListTasksPage extends ConsumerWidget {
             _BuildTasks(list.tasks.toList()),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: color,
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          builder: (_) => TaskAddModal(list.id),
+      bottomNavigationBar: Container(
+        color: AppColors.card,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: SafeArea(
+          child: ListTile(
+            onTap: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => TaskAddModal(list.id),
+            ),
+            leading: const Icon(BoxIcons.bx_plus),
+            title: Text(S.common.modals.taskAdd.placeholder),
+          ),
         ),
-        child: const Icon(BoxIcons.bx_plus),
       ),
     );
   }

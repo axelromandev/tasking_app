@@ -9,8 +9,8 @@ import '../../../i18n/generated/translations.g.dart';
 import '../providers/list_tasks_add_modal_provider.dart';
 import '../widgets/widgets.dart';
 
-class ListTasksAddModal extends ConsumerWidget {
-  const ListTasksAddModal({super.key});
+class ListTasksAddPage extends ConsumerWidget {
+  const ListTasksAddPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,19 +20,20 @@ class ListTasksAddModal extends ConsumerWidget {
     final provider = ref.watch(listTasksAddModalProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          S.common.modals.listTasksAdd.title,
+          style: style.bodyLarge,
+        ),
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: Container(
-          margin: const EdgeInsets.all(defaultPadding),
+          margin: const EdgeInsets.symmetric(
+            horizontal: defaultPadding,
+          ),
           child: Column(
             children: [
-              const Gap(defaultPadding * 2),
-              Container(
-                margin: const EdgeInsets.only(bottom: defaultPadding),
-                child: Text(
-                  S.common.modals.listTasksAdd.title,
-                  style: style.bodyLarge,
-                ),
-              ),
               TextField(
                 autofocus: true,
                 style: style.bodyLarge,
@@ -48,7 +49,7 @@ class ListTasksAddModal extends ConsumerWidget {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: colorPrimary.withOpacity(.5),
+                      color: colorPrimary,
                     ),
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
@@ -58,6 +59,7 @@ class ListTasksAddModal extends ConsumerWidget {
               ),
               const Gap(defaultPadding),
               ExpansionTile(
+                initiallyExpanded: true,
                 controller: ref
                     .read(listTasksAddModalProvider.notifier)
                     .expansionTileController,
@@ -109,7 +111,7 @@ class ListTasksAddModal extends ConsumerWidget {
                   ),
                 ],
               ),
-              const Spacer(),
+              const Gap(defaultPadding),
               Row(
                 children: [
                   Expanded(

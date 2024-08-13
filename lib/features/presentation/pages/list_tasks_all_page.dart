@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
-import '../modals/list_tasks_add_modal.dart';
 import '../providers/all_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
 import 'list_tasks_page.dart';
@@ -21,25 +18,11 @@ class AllListTasksPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 1.5,
-            color: Colors.white.withOpacity(.06),
-          ),
-          Expanded(
-            child: _ListsTasksView(),
-          ),
-        ],
-      ),
+      body: _ListsTasksView(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorPrimary,
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          builder: (_) => const ListTasksAddModal(),
-        ),
+        onPressed: () => context.push(Routes.listTasksAdd),
         child: const Icon(BoxIcons.bx_plus),
       ),
     );
@@ -58,55 +41,29 @@ class _ListsTasksView extends ConsumerWidget {
     final pinnedLists = lists.where((list) => list.pinned).toList();
     final unpinnedLists = lists.where((list) => !list.pinned).toList();
 
-    final style = Theme.of(context).textTheme;
-
     void push(int listId) {
-      HapticFeedback.mediumImpact();
       final String path = ListTasksPage.routePath.replaceAll(':id', '$listId');
       context.push(path);
     }
 
     return ListView(
       children: [
+        const Gap(defaultPadding / 2),
         if (pinnedLists.isNotEmpty) ...[
-          ListTile(
-            visualDensity: VisualDensity.compact,
-            leading: const Icon(
-              BoxIcons.bxs_pin,
-              size: 16,
-              color: Colors.white38,
-            ),
-            minLeadingWidth: 0,
-            title: Text(
-              'Pinned',
-              style: style.bodySmall?.copyWith(
-                color: Colors.white38,
-              ),
-            ),
-          ),
-          MasonryGridView.count(
-            itemCount: pinnedLists.length,
-            crossAxisCount: 2,
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            mainAxisSpacing: 12.0,
-            crossAxisSpacing: 12.0,
+          ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            itemCount: pinnedLists.length,
             itemBuilder: (_, i) => ListTasksCard(
               onTap: () => push(pinnedLists[i].id),
               list: pinnedLists[i],
             ),
           ),
-          const Gap(defaultPadding),
         ],
-        MasonryGridView.count(
-          itemCount: unpinnedLists.length,
-          crossAxisCount: 2,
-          padding: const EdgeInsets.all(defaultPadding),
-          mainAxisSpacing: 12.0,
-          crossAxisSpacing: 12.0,
+        ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          itemCount: unpinnedLists.length,
           itemBuilder: (_, i) => ListTasksCard(
             onTap: () => push(unpinnedLists[i].id),
             list: unpinnedLists[i],

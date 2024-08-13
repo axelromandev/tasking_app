@@ -64,7 +64,7 @@
       }
     },
     "taskAdd": {
-      "placeholder": "new task",
+      "placeholder": "Add a task",
       "errorEmptyName": "Please enter a task."
     },
     "taskReminder": {

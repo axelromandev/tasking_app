@@ -1,47 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../providers/all_list_tasks_provider.dart';
-import '../widgets/card_list_tasks.dart';
-import 'list_tasks_page.dart';
 
-class ListTasksArchivedPage extends ConsumerWidget {
-  const ListTasksArchivedPage({super.key});
+class MyDayTasks extends ConsumerWidget {
+  const MyDayTasks({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lists = ref.watch(allListTasksProvider).listsArchived;
+    //TODO: build tasks in my day
 
-    if (lists.isEmpty) {
-      return _EmptyListTasks();
-    }
-
-    void push(int listId) {
-      HapticFeedback.mediumImpact();
-      final String path = ListTasksPage.routePath.replaceAll(':id', '$listId');
-      context.push(path);
-    }
-
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: lists.length,
-        padding: const EdgeInsets.only(top: defaultPadding / 2),
-        itemBuilder: (_, i) => ListTasksCard(
-          onTap: () => push(lists[i].id),
-          list: lists[i],
-        ),
-      ),
-    );
+    return _EmptyTasks();
   }
 }
 
-class _EmptyListTasks extends ConsumerWidget {
+class _EmptyTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
@@ -60,21 +35,21 @@ class _EmptyListTasks extends ConsumerWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                BoxIcons.bx_archive,
+                BoxIcons.bx_sun,
                 size: 38.0,
                 color: colorPrimary,
               ),
             ),
             const Gap(defaultPadding),
             Text(
-              S.pages.listTasks.emptyArchived.title,
+              'My Day is nice',
               style: style.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
             const Gap(8.0),
             Text(
-              S.pages.listTasks.emptyArchived.subtitle,
+              "You don't have any tasks today.",
               style: style.bodyMedium?.copyWith(
                 color: Colors.white70,
               ),
