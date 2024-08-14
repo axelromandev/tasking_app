@@ -24,11 +24,10 @@ class DatabaseHelper {
             CREATE TABLE lists(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               title TEXT NOT NULL,
-              password TEXT,
               color INTEGER NOT NULL,
               pinned INTEGER DEFAULT 0,
               archived INTEGER DEFAULT 0,
-              created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         ''');
         await db.execute('''
@@ -37,11 +36,22 @@ class DatabaseHelper {
               title TEXT NOT NULL,
               note TEXT,
               completed INTEGER DEFAULT 0,
-              reminder DATETIME,
-              updated_at DATETIME NOT NULL,
-              created_at DATETIME NOT NULL,
+              reminder TIMESTAMP,
+              dueDate TIMESTAMP,
+              updated_at TIMESTAMP NOT NULL,
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
               list_id INTEGER NOT NULL,
               FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
+            );
+        ''');
+        await db.execute('''
+            CREATE TABLE steps(
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              title TEXT NOT NULL,
+              completed INTEGER DEFAULT 0,
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              task_id INTEGER NOT NULL,
+              FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
             );
         ''');
       },

@@ -2,9 +2,10 @@ class Task {
   Task({
     required this.id,
     required this.title,
-    this.note,
+    this.note = '',
     this.completed = false,
     this.reminder,
+    this.dueDate,
     required this.listId,
     required this.updatedAt,
     required this.createdAt,
@@ -14,7 +15,7 @@ class Task {
     return Task(
       id: map['id'] as int,
       title: map['title'] as String,
-      note: map['note'] as String?,
+      note: map['note'] as String? ?? '',
       completed: map['completed'] == 1,
       reminder: map['reminder'] != null
           ? DateTime.parse(map['reminder'] as String)
@@ -27,9 +28,10 @@ class Task {
 
   final int id;
   final String title;
-  final String? note;
+  final String note;
   final bool completed;
   DateTime? reminder;
+  DateTime? dueDate;
   final int listId;
   final DateTime updatedAt;
   final DateTime createdAt;
