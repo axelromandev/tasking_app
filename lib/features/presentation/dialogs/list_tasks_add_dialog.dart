@@ -49,8 +49,11 @@ class ListTasksAddDialog extends ConsumerWidget {
                   TextFormField(
                     cursorColor: provider.color,
                     onChanged: notifier.onNameChanged,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Enter list title',
+                      hintStyle: style.bodyLarge?.copyWith(
+                        color: Colors.white54,
+                      ),
                     ),
                   ),
                   Container(

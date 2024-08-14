@@ -6,6 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
+import '../dialogs/list_tasks_add_dialog.dart';
 import '../providers/all_list_tasks_provider.dart';
 import '../widgets/card_list_tasks.dart';
 import 'list_tasks_page.dart';
@@ -22,7 +23,10 @@ class AllListTasksPage extends ConsumerWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorPrimary,
-        onPressed: () => context.push(Routes.listTasksAdd),
+        onPressed: () => showDialog(
+          context: context,
+          builder: (_) => const ListTasksAddDialog(),
+        ),
         child: const Icon(BoxIcons.bx_plus),
       ),
     );

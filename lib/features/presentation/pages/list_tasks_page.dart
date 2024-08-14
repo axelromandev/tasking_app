@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -93,21 +95,35 @@ class ListTasksPage extends ConsumerWidget {
             _BuildTasks(list.tasks.toList()),
         ],
       ),
-      bottomNavigationBar: Container(
-        color: AppColors.card,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: SafeArea(
-          child: ListTile(
-            onTap: () => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (_) => TaskAddModal(list.id),
-            ),
-            leading: const Icon(BoxIcons.bx_plus),
-            title: Text(S.common.modals.taskAdd.placeholder),
-          ),
-        ),
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Platform.isAndroid
+          ? FloatingActionButton(
+              backgroundColor: color,
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => TaskAddModal(list.id),
+              ),
+              child: const Icon(BoxIcons.bx_plus),
+            )
+          : null,
+      bottomNavigationBar: Platform.isIOS
+          ? Container(
+              color: AppColors.card,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: SafeArea(
+                child: ListTile(
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => TaskAddModal(list.id),
+                  ),
+                  leading: const Icon(BoxIcons.bx_plus),
+                  title: Text(S.common.modals.taskAdd.placeholder),
+                ),
+              ),
+            )
+          : null,
     );
   }
 }
@@ -141,25 +157,40 @@ class _BuildTasks extends StatelessWidget {
           },
         ),
         if (completedTasks.isNotEmpty) ...[
-          ListTile(
-            visualDensity: VisualDensity.compact,
+          ExpansionTile(
+            initiallyExpanded: true,
+            dense: true,
             shape: const RoundedRectangleBorder(),
-            title: Text(
-              'Completed',
-              style: style.bodySmall?.copyWith(color: Colors.white70),
+            collapsedShape: const RoundedRectangleBorder(),
+            iconColor: Colors.white60,
+            collapsedIconColor: Colors.white60,
+            title: Row(
+              children: [
+                Text(
+                  'Completed',
+                  style: style.bodySmall?.copyWith(color: Colors.white70),
+                ),
+                const Spacer(),
+                Text(
+                  '${completedTasks.length}',
+                  style: style.bodySmall?.copyWith(color: Colors.white70),
+                ),
+              ],
             ),
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: completedTasks.length,
+                itemBuilder: (context, index) {
+                  final task = completedTasks[index];
+                  return TaskCard(task);
+                },
+              ),
+            ],
           ),
         ],
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          itemCount: completedTasks.length,
-          itemBuilder: (context, index) {
-            final task = completedTasks[index];
-            return TaskCard(task);
-          },
-        ),
       ],
     );
   }
