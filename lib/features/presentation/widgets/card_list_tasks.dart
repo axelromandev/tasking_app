@@ -18,25 +18,32 @@ class ListTasksCard extends StatelessWidget {
     final color = Color(list.color ?? 0xFF000000);
     final style = Theme.of(context).textTheme;
 
-    return ListTile(
-      onTap: onTap,
-      enabled: !list.archived,
-      shape: const RoundedRectangleBorder(),
-      visualDensity: VisualDensity.compact,
-      leading: Icon(
-        BoxIcons.bxs_circle,
-        color: list.archived ? color.withOpacity(.4) : color,
-        size: 18,
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: ListTile(
+        onTap: onTap,
+        visualDensity: VisualDensity.compact,
+        leading: Icon(
+          BoxIcons.bxs_circle,
+          color: list.archived ? color.withOpacity(.4) : color,
+          size: 18,
+        ),
+        title: Text(list.title),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (list.tasks.isNotEmpty)
+              Text(
+                '${list.tasks.length}',
+                style: style.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w300,
+                ),
+              )
+            else
+              const SizedBox.shrink(),
+          ],
+        ),
       ),
-      title: Text(list.title),
-      trailing: list.tasks.isNotEmpty
-          ? Text(
-              '${list.tasks.length}',
-              style: style.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w300,
-              ),
-            )
-          : null,
     );
   }
 }

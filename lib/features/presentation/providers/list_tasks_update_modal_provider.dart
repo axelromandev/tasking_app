@@ -22,29 +22,23 @@ class _Notifier extends StateNotifier<_State> {
   final ListTasks list;
   final Future<void> Function() refreshList;
 
-  final expansionTileController = ExpansionTileController();
-
   final _listTasksRepository = ListTasksRepository();
 
   void onNameChanged(String value) {
     state = state.copyWith(title: value.trim());
   }
 
-  Future<void> onColorChanged(Color value) async {
+  void onColorChanged(Color value) {
     state = state.copyWith(color: value);
-    await Future.delayed(const Duration(milliseconds: 100));
-    expansionTileController.collapse();
   }
 
-  Future<void> onSubmit(BuildContext context) async {
+  void onSubmit(BuildContext context) {
     if (state.title.isEmpty) {
-      MyToast.show(S.common.modals.listTasksUpdate.errorEmptyName);
+      MyToast.show(S.common.dialogs.listTasksUpdate.errorEmptyName);
       return;
     }
 
-    await _listTasksRepository
-        .update(list.id, state.title, state.color)
-        .then((_) {
+    _listTasksRepository.update(list.id, state.title, state.color).then((_) {
       refreshList();
       context.pop();
     });

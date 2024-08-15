@@ -6,11 +6,11 @@ import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
+import '../../app.dart';
 import '../dialogs/list_tasks_add_dialog.dart';
 import '../providers/all_list_tasks_provider.dart';
 import '../widgets/archived_icon_button.dart';
 import '../widgets/card_list_tasks.dart';
-import 'list_tasks_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -22,7 +22,13 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.pages.home.title, style: style.bodyLarge),
+        title: Row(
+          children: [
+            Icon(BoxIcons.bxs_crown, size: 20, color: colorPrimary),
+            const Gap(defaultPadding / 2),
+            Text(S.pages.home.title, style: style.bodyLarge),
+          ],
+        ),
         centerTitle: false,
         actions: [
           const ArchivedIconButton(),
@@ -51,42 +57,19 @@ class _ListsTasksView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lists = ref.watch(allListTasksProvider).lists;
 
-    if (lists.isEmpty) {
-      return _EmptyListTasks();
-    }
+    if (lists.isEmpty) return _EmptyListTasks();
 
-    final pinnedLists = lists.where((list) => list.pinned).toList();
-    final unpinnedLists = lists.where((list) => !list.pinned).toList();
-
-    void push(int listId) {
-      final String path = ListTasksPage.routePath.replaceAll(':id', '$listId');
-      context.push(path);
-    }
-
-    return ListView(
-      children: [
-        const Gap(defaultPadding / 2),
-        if (pinnedLists.isNotEmpty) ...[
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: pinnedLists.length,
-            itemBuilder: (_, i) => ListTasksCard(
-              onTap: () => push(pinnedLists[i].id),
-              list: pinnedLists[i],
-            ),
-          ),
-        ],
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: unpinnedLists.length,
-          itemBuilder: (_, i) => ListTasksCard(
-            onTap: () => push(unpinnedLists[i].id),
-            list: unpinnedLists[i],
-          ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (_, __) => const Gap(6),
+      itemCount: lists.length,
+      itemBuilder: (_, i) => ListTasksCard(
+        onTap: () => context.push(
+          ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
         ),
-      ],
+        list: lists[i],
+      ),
     );
   }
 }

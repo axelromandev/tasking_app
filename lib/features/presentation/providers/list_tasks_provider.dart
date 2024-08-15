@@ -35,13 +35,6 @@ class _Notifier extends StateNotifier<ListTasks> {
     }
   }
 
-  void onPinned() {
-    _listTasksRepository.updatePinned(listId, !state.pinned).then((_) {
-      refreshAll();
-      refresh();
-    });
-  }
-
   void onArchived(BuildContext context) {
     _listTasksRepository.updateArchived(listId, true).then((_) {
       refreshAll();

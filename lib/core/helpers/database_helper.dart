@@ -25,7 +25,6 @@ class DatabaseHelper {
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               title TEXT NOT NULL,
               color INTEGER NOT NULL,
-              pinned INTEGER DEFAULT 0,
               archived INTEGER DEFAULT 0,
               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );

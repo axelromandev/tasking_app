@@ -7,8 +7,8 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
 import '../dialogs/list_tasks_delete_dialog.dart';
+import '../dialogs/list_tasks_update_dialog.dart';
 import '../providers/list_tasks_provider.dart';
-import 'list_tasks_update_modal.dart';
 
 class ListTasksOptionsModal extends ConsumerWidget {
   const ListTasksOptionsModal(this.contextPage, this.listId, {super.key});
@@ -40,10 +40,9 @@ class ListTasksOptionsModal extends ConsumerWidget {
             ListTile(
               onTap: () async {
                 context.pop();
-                showModalBottomSheet(
+                showDialog(
                   context: context,
-                  isScrollControlled: true,
-                  builder: (_) => ListTasksUpdateModal(list),
+                  builder: (_) => ListTasksUpdateDialog(list: list),
                 );
               },
               shape: const RoundedRectangleBorder(),

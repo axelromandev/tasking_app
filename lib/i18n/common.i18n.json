@@ -62,11 +62,6 @@
     }
   },
   "modals": {
-    "listTasksUpdate": {
-      "title": "Edit list",
-      "placeholder": "Enter the name of the list",
-      "errorEmptyName": "Please enter a list name."
-    },
     "listTasksOptions": {
       "list": {
         "title": "List",
@@ -99,6 +94,12 @@
       "placeholder": "Enter list title",
       "errorEmptyName": "Please enter a list title.",
       "button": "Create List"
+    },
+    "listTasksUpdate": {
+      "title": "Edit list",
+      "placeholder": "Enter list title",
+      "errorEmptyName": "Please enter a list title.",
+      "button": "Save List"
     },
     "listTasksDelete": {
       "title": "Delete list?",

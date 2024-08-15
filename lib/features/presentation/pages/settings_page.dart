@@ -6,8 +6,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
+import '../dialogs/color_picker_dialog.dart';
 import '../dialogs/restore_app_dialog.dart';
-import '../modals/theme_color_select_modal.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -15,7 +15,6 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
@@ -78,10 +77,14 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () => showModalBottomSheet(
+                    onTap: () => showDialog<Color?>(
                       context: context,
-                      builder: (context) => ThemeColorSelectModal(),
-                    ),
+                      builder: (_) => ColorPickerDialog(color: colorPrimary),
+                    ).then((color) {
+                      if (color != null) {
+                        ref.read(colorThemeProvider.notifier).setColor(color);
+                      }
+                    }),
                     icon: BoxIcons.bx_palette,
                     title: S.pages.settings.appearance.theme,
                     borderRadius: const BorderRadius.only(

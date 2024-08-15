@@ -9,8 +9,8 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../config/config.dart';
 import '../../../i18n/generated/translations.g.dart';
 import '../../domain/domain.dart';
+import '../dialogs/list_tasks_update_dialog.dart';
 import '../modals/list_tasks_options_modal.dart';
-import '../modals/list_tasks_update_modal.dart';
 import '../modals/task_add_modal.dart';
 import '../providers/list_tasks_provider.dart';
 import '../widgets/widgets.dart';
@@ -47,20 +47,10 @@ class ListTasksPage extends ConsumerWidget {
         ),
         actions: [
           IconButton(
-            onPressed: list.archived ? null : notifier.onPinned,
-            color: color,
-            iconSize: 18.0,
-            icon: Icon(
-              list.pinned ? BoxIcons.bxs_pin : BoxIcons.bx_pin,
-            ),
-          ),
-          IconButton(
             onPressed: () => notifier.onArchived(context),
             color: color,
             iconSize: 18.0,
-            icon: Icon(
-              list.archived ? BoxIcons.bxs_archive : BoxIcons.bx_archive,
-            ),
+            icon: const Icon(BoxIcons.bx_archive_in),
           ),
           IconButton(
             onPressed: () => showModalBottomSheet(
@@ -76,10 +66,9 @@ class ListTasksPage extends ConsumerWidget {
       body: ListView(
         children: [
           ListTile(
-            onTap: () => showModalBottomSheet(
+            onTap: () => showDialog(
               context: context,
-              isScrollControlled: true,
-              builder: (_) => ListTasksUpdateModal(list),
+              builder: (_) => ListTasksUpdateDialog(list: list),
             ),
             shape: const RoundedRectangleBorder(),
             leading: Icon(
