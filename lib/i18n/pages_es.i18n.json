@@ -21,24 +21,19 @@
     }
   },
   "home": {
-    "drawer": {
-      "tasks": "Tareas",
-      "archived": "Archivado"
-    },
-    "settings": "Ajustes"
-  },
-  "listTasks": {
+    "title": "Tareas",
     "emptyListTasks": {
       "title": "No hay listas",
       "subtitle": "Presione + para agregar una lista"
+    }
+  },
+  "listTasks": {
+    "completed": {
+      "title": "Completados"
     },
     "emptyTasks": {
       "title": "No hay tareas",
       "subtitle": "Presione + para agregar una tarea"
-    },
-    "emptyArchived": {
-      "title": "Archivo está vacío",
-      "subtitle": "Todavía no tienes listas archivadas."
     }
   },
   "task": {

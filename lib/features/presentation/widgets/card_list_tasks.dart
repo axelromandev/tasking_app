@@ -20,11 +20,12 @@ class ListTasksCard extends StatelessWidget {
 
     return ListTile(
       onTap: onTap,
+      enabled: !list.archived,
       shape: const RoundedRectangleBorder(),
       visualDensity: VisualDensity.compact,
       leading: Icon(
         BoxIcons.bxs_circle,
-        color: color,
+        color: list.archived ? color.withOpacity(.4) : color,
         size: 18,
       ),
       title: Text(list.title),

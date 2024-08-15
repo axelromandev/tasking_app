@@ -40,9 +40,9 @@ class ListTasksUpdateModal extends ConsumerWidget {
               TextFormField(
                 style: style.bodyLarge,
                 initialValue: provider.title,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30),
-                ],
+                inputFormatters: [LengthLimitingTextInputFormatter(50)],
+                maxLines: null,
+                cursorColor: color,
                 decoration: InputDecoration(
                   hintText: S.common.modals.listTasksUpdate.placeholder,
                   filled: false,
@@ -51,9 +51,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: color.withOpacity(.5),
-                    ),
+                    borderSide: BorderSide(color: color),
                     borderRadius: BorderRadius.circular(defaultRadius),
                   ),
                 ),
@@ -68,19 +66,16 @@ class ListTasksUpdateModal extends ConsumerWidget {
                   color: provider.color,
                 ),
                 iconColor: Colors.white70,
+                collapsedIconColor: Colors.white70,
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    color: Colors.white12,
-                  ),
+                  side: const BorderSide(color: Colors.white12),
                   borderRadius: BorderRadius.circular(defaultRadius),
                 ),
                 collapsedShape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    color: Colors.white12,
-                  ),
+                  side: const BorderSide(color: Colors.white12),
                   borderRadius: BorderRadius.circular(defaultRadius),
                 ),
-                title: const Text('Color'),
+                title: Text('Color', style: style.bodyLarge),
                 childrenPadding: EdgeInsets.zero,
                 children: [
                   ColorPicker(

@@ -19,6 +19,13 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(BoxIcons.bx_chevron_left),
+        ),
+        title: Text('Settings', style: style.bodyLarge),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

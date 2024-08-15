@@ -42,10 +42,10 @@ class _Notifier extends StateNotifier<ListTasks> {
     });
   }
 
-  void onArchived() {
-    _listTasksRepository.updateArchived(listId, !state.archived).then((_) {
+  void onArchived(BuildContext context) {
+    _listTasksRepository.updateArchived(listId, true).then((_) {
       refreshAll();
-      refresh();
+      context.pop();
     });
   }
 

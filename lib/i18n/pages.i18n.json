@@ -21,24 +21,19 @@
     }
   },
   "home": {
-    "drawer": {
-      "tasks": "Tasks",
-      "archived": "Archived"
-    },
-    "settings": "Settings"
-  },
-  "listTasks": {
+    "title": "Tasks",
     "emptyListTasks": {
       "title": "There is no lists",
       "subtitle": "Press + to add the list"
+    }
+  },
+  "listTasks": {
+    "completed": {
+      "title": "Completed"
     },
     "emptyTasks": {
       "title": "There is no tasks",
       "subtitle": "Press + to add the task"
-    },
-    "emptyArchived": {
-      "title": "Archived is empty",
-      "subtitle": "You don't have any archived lists yet."
     }
   },
   "task": {

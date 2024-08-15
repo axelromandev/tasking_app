@@ -16,6 +16,29 @@
       "Oct",
       "Nov",
       "Dic"
+    ],
+    "longDays": [
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo"
+    ],
+    "longMonths": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
     ]
   },
   "buttons": {
@@ -39,11 +62,6 @@
     }
   },
   "modals": {
-    "listTasksAdd": {
-      "title": "Agregar una nueva lista",
-      "placeholder": "Ingrese el nombre de la lista",
-      "errorEmptyName": "Ingrese un nombre de lista."
-    },
     "listTasksUpdate": {
       "title": "Editar lista",
       "placeholder": "Ingrese el nombre de la lista",
@@ -70,9 +88,18 @@
     "taskReminder": {
       "change": "Cambiar recordatorio",
       "remove": "Eliminar recordatorio"
+    },
+    "archivedLists": {
+      "title": "Archivados"
     }
   },
   "dialogs": {
+    "listTasksAdd": {
+      "title": "Agregar una nueva lista",
+      "placeholder": "Ingrese el título de la lista",
+      "errorEmptyName": "Ingrese un título de lista.",
+      "button": "Crear lista"
+    },
     "listTasksDelete": {
       "title": "¿Eliminar lista?",
       "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"

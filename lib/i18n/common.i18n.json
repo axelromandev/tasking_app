@@ -16,6 +16,29 @@
       "Oct",
       "Nov",
       "Dec"
+    ],
+    "longDays": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "longMonths": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
     ]
   },
   "buttons": {
@@ -39,11 +62,6 @@
     }
   },
   "modals": {
-    "listTasksAdd": {
-      "title": "Add a new list",
-      "placeholder": "Enter the name of the list",
-      "errorEmptyName": "Please enter a list name."
-    },
     "listTasksUpdate": {
       "title": "Edit list",
       "placeholder": "Enter the name of the list",
@@ -70,9 +88,18 @@
     "taskReminder": {
       "change": "Change reminder",
       "remove": "Remove reminder"
+    },
+    "archivedLists": {
+      "title": "Archived"
     }
   },
   "dialogs": {
+    "listTasksAdd": {
+      "title": "Add a new list",
+      "placeholder": "Enter list title",
+      "errorEmptyName": "Please enter a list title.",
+      "button": "Create List"
+    },
     "listTasksDelete": {
       "title": "Delete list?",
       "subtitle": "Are you sure you want to delete it?\nYou can't undo this action"

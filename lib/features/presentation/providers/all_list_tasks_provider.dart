@@ -38,6 +38,12 @@ class _Notifier extends StateNotifier<_State> {
   Future<void> refreshAll() async {
     await _load();
   }
+
+  Future<void> onUnarchiveList(int listId) async {
+    _listTasksRepository.updateArchived(listId, false).then((_) {
+      refreshAll();
+    });
+  }
 }
 
 class _State {

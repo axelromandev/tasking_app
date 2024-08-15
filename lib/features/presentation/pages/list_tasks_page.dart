@@ -55,7 +55,7 @@ class ListTasksPage extends ConsumerWidget {
             ),
           ),
           IconButton(
-            onPressed: notifier.onArchived,
+            onPressed: () => notifier.onArchived(context),
             color: color,
             iconSize: 18.0,
             icon: Icon(
@@ -167,7 +167,7 @@ class _BuildTasks extends StatelessWidget {
             title: Row(
               children: [
                 Text(
-                  'Completed',
+                  S.pages.listTasks.completed.title,
                   style: style.bodySmall?.copyWith(color: Colors.white70),
                 ),
                 const Spacer(),
