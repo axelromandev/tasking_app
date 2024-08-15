@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../config/config.dart';
@@ -31,9 +32,9 @@ class TaskPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(BoxIcons.bx_arrow_back),
-          color: color,
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => context.pop(),
+          iconSize: 30.0,
+          icon: const Icon(BoxIcons.bx_x),
         ),
         title: Text(list.title, style: style.bodyLarge),
         actions: [
@@ -68,7 +69,11 @@ class TaskPage extends ConsumerWidget {
               prefixIcon: IconButton(
                 onPressed: () {},
                 color: Colors.white60,
-                icon: const Icon(BoxIcons.bx_circle),
+                icon: Icon(
+                  task.completed
+                      ? BoxIcons.bxs_check_circle
+                      : BoxIcons.bx_circle,
+                ),
               ),
               hintText: S.pages.task.placeholderTitle,
               filled: false,
@@ -77,7 +82,10 @@ class TaskPage extends ConsumerWidget {
           ),
           TextButton.icon(
             onPressed: () {}, //TODO: add more steps tasks
-            style: TextButton.styleFrom(foregroundColor: color),
+            style: TextButton.styleFrom(
+              foregroundColor: color,
+              overlayColor: Colors.transparent,
+            ),
             icon: const Icon(BoxIcons.bx_plus),
             label: const Text('Add a step'),
           ),
@@ -87,7 +95,7 @@ class TaskPage extends ConsumerWidget {
               leading: Icon(BoxIcons.bx_bell, color: color, size: 20),
               title: Text(HumanFormat.datetime(task.reminder)),
               trailing: IconButton(
-                onPressed: () {}, //TODO: remove reminder
+                onPressed: notifier.onRemoveReminder,
                 color: Colors.white54,
                 icon: const Icon(BoxIcons.bx_x),
               ),
@@ -95,21 +103,30 @@ class TaskPage extends ConsumerWidget {
           else
             TextButton.icon(
               onPressed: () => notifier.onUpdateReminder(context),
-              style: TextButton.styleFrom(foregroundColor: color),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white70,
+                overlayColor: Colors.transparent,
+              ),
               icon: const Icon(BoxIcons.bx_bell, size: 20),
               label: const Text('Remind me'),
             ),
           TextButton.icon(
             onPressed: () {},
-            style: TextButton.styleFrom(foregroundColor: color),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.white70,
+              overlayColor: Colors.transparent,
+            ),
             icon: const Icon(BoxIcons.bx_calendar, size: 20),
             label: const Text('Add due date'),
           ),
+          const Gap(defaultPadding),
+          const Divider(height: 0),
           TextFormField(
             initialValue: provider.note,
             maxLines: null,
             autocorrect: false,
             cursorColor: color,
+            textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               hintText: S.pages.task.placeholderNote,
               filled: false,

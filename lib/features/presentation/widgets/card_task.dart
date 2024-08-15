@@ -78,7 +78,8 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         leading: GestureDetector(
           onTap: notifier.onToggleCompleted,
           child: Icon(
-            isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
+            isCompleted ? BoxIcons.bxs_check_circle : BoxIcons.bx_circle,
+            color: isCompleted ? Colors.white38 : null,
             size: 18,
           ),
         ),
@@ -88,7 +89,8 @@ class _TaskCardState extends ConsumerState<TaskCard> {
               ? style.bodyMedium?.copyWith(color: Colors.white70)
               : style.bodyLarge,
         ),
-        subtitle: ((widget.task.reminder != null) || (widget.task.note != null))
+        subtitle: ((widget.task.reminder != null) ||
+                (widget.task.note.isNotEmpty))
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -104,23 +106,22 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                         ),
                       ],
                     ),
-                  if (widget.task.note != null)
-                    Row(
-                      children: [
-                        Icon(
-                          BoxIcons.bx_file,
-                          size: 12,
+                  Row(
+                    children: [
+                      Icon(
+                        BoxIcons.bx_file,
+                        size: 12,
+                        color: isCompleted ? Colors.white70 : Colors.white,
+                      ),
+                      const Gap(4.0),
+                      Text(
+                        widget.task.note,
+                        style: style.bodySmall?.copyWith(
                           color: isCompleted ? Colors.white70 : Colors.white,
                         ),
-                        const Gap(4.0),
-                        Text(
-                          widget.task.note!,
-                          style: style.bodySmall?.copyWith(
-                            color: isCompleted ? Colors.white70 : Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                 ],
               )
             : null,

@@ -21,6 +21,7 @@ class SettingsPage extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => context.pop(),
+          iconSize: 30.0,
           icon: const Icon(BoxIcons.bx_chevron_left),
         ),
         title: Text('Settings', style: style.bodyLarge),

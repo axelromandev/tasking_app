@@ -96,7 +96,7 @@ class _Notifier extends StateNotifier<Task> {
               ListTile(
                 onTap: () async {
                   contextModal.pop();
-                  await _removeReminder();
+                  await onRemoveReminder();
                 },
                 shape: const RoundedRectangleBorder(),
                 iconColor: Colors.redAccent,
@@ -112,7 +112,7 @@ class _Notifier extends StateNotifier<Task> {
     await _dateTimePicker(context);
   }
 
-  Future<void> _removeReminder() async {
+  Future<void> onRemoveReminder() async {
     try {
       await _notificationService.remove(state.id);
       _taskRepository.deleteReminder(state.id).then((_) {

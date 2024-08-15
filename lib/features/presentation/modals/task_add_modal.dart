@@ -47,29 +47,43 @@ class TaskAddModal extends ConsumerWidget {
               decoration: InputDecoration(
                 filled: false,
                 hintText: S.common.modals.taskAdd.placeholder,
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   BoxIcons.bx_circle,
-                  color: color,
+                  color: Colors.white54,
                 ),
               ),
             ),
             Row(
               children: [
-                IconButton(
-                  onPressed: () {}, //TODO: task add my day
-                  icon: const Icon(BoxIcons.bx_sun),
+                TextButton.icon(
+                  onPressed: () {}, //TODO: add due date
+                  style: TextButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    overlayColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(BoxIcons.bx_calendar_alt, size: 20),
+                  label: const Text('Set due date'),
                 ),
-                IconButton(
+                TextButton.icon(
                   onPressed: () {}, //TODO: add reminder
-                  icon: const Icon(BoxIcons.bx_bell),
+                  style: TextButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    overlayColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(BoxIcons.bx_bell, size: 20),
+                  label: const Text('Remind me'),
                 ),
-                IconButton(
-                  onPressed: () {}, //TODO: add calendar due
-                  icon: const Icon(BoxIcons.bx_calendar),
-                ),
-                IconButton(
+                TextButton.icon(
                   onPressed: () {}, //TODO: add note
-                  icon: const Icon(BoxIcons.bx_note),
+                  style: TextButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    overlayColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                  ),
+                  icon: const Icon(BoxIcons.bx_note, size: 20),
+                  label: const Text('Note'),
                 ),
               ],
             ),
