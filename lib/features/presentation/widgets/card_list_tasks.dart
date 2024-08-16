@@ -22,7 +22,6 @@ class ListTasksCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
         onTap: onTap,
-        visualDensity: VisualDensity.compact,
         leading: Icon(
           BoxIcons.bxs_circle,
           color: list.archived ? color.withOpacity(.4) : color,

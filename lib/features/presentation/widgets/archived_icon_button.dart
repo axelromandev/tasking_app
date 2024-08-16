@@ -27,7 +27,7 @@ class ArchivedIconButton extends ConsumerWidget {
       ),
       icon: Badge(
         backgroundColor: ref.watch(colorThemeProvider),
-        offset: const Offset(-10, -8),
+        offset: const Offset(8, -7),
         label: Text('${lists.length}'),
         child: const Icon(BoxIcons.bx_archive, size: 20),
       ),
