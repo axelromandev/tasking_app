@@ -101,6 +101,10 @@
       "errorEmptyName": "Ingrese un título de lista.",
       "button": "Guardar Lista"
     },
+    "listTasksArchived": {
+      "title": "Archivado",
+      "content(rich)": "Deseas mover $listTitle a la carpeta de archivados? "
+    },
     "listTasksDelete": {
       "title": "¿Eliminar lista?",
       "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"

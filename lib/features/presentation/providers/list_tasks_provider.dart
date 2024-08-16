@@ -1,9 +1,10 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/core.dart';
 import '../../domain/domain.dart';
+import '../dialogs/archived_confirm_dialog.dart';
 import 'all_list_tasks_provider.dart';
 
 final listTasksProvider = StateNotifierProvider.family
@@ -36,9 +37,19 @@ class _Notifier extends StateNotifier<ListTasks> {
   }
 
   void onArchived(BuildContext context) {
-    _listTasksRepository.updateArchived(listId, true).then((_) {
-      refreshAll();
-      context.pop();
+    showDialog<bool?>(
+      context: context,
+      builder: (_) => ArchivedConfirmDialog(
+        titleList: state.title,
+        colorList: Color(state.color!),
+      ),
+    ).then((value) {
+      if (value != null && value) {
+        _listTasksRepository.updateArchived(listId, true).then((_) {
+          refreshAll();
+          context.pop();
+        });
+      }
     });
   }
 
