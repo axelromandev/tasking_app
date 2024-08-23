@@ -23,7 +23,7 @@ linter:
     avoid_classes_with_only_static_members: false
 
     # Avoid using package imports
-    always_use_package_imports: false
+    always_use_package_imports: true
 
     # Don't use obligatory types
     always_specify_types: false
@@ -45,9 +45,6 @@ linter:
 
     # Avoid using dynamic
     always_declare_return_types: true
-
-    # Use relative imports for files in the same package
-    prefer_relative_imports: true
 
     # Avoid async functions that return void.
     avoid_void_async: true
