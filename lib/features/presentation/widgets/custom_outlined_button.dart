@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasking/config/config.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
@@ -35,7 +34,7 @@ class CustomOutlinedButton extends StatelessWidget {
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: foregroundColor ?? color, width: 2),
       ),
       foregroundColor: foregroundColor ?? color,

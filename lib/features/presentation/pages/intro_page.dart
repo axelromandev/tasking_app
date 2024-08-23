@@ -96,7 +96,7 @@ class _Leading extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(.06),
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Icon(icon, color: Colors.white),
     );

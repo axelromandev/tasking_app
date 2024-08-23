@@ -52,7 +52,7 @@ class SettingsPage extends ConsumerWidget {
                     },
                     icon: BoxIcons.bx_reset,
                     title: S.pages.settings.general.backup,
-                    borderRadius: BorderRadius.circular(defaultRadius),
+                    borderRadius: BorderRadius.circular(16),
                   ),
                 ],
               ),
@@ -87,8 +87,8 @@ class SettingsPage extends ConsumerWidget {
                     icon: BoxIcons.bx_palette,
                     title: S.pages.settings.appearance.theme,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(defaultRadius),
-                      topRight: Radius.circular(defaultRadius),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     ),
                   ),
                   ListTile(
@@ -126,8 +126,8 @@ class SettingsPage extends ConsumerWidget {
                     icon: BoxIcons.bx_info_circle,
                     title: S.pages.settings.moreInformation.about,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(defaultRadius),
-                      topRight: Radius.circular(defaultRadius),
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
                     ),
                   ),
                   _BuildVersionLabel(),

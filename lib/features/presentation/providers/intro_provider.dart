@@ -14,7 +14,7 @@ final introProvider = Provider.autoDispose((ref) {
   Future<void> finish(BuildContext context) async {
     try {
       await dbHelper.insertTutorialList().then((_) {
-        prefs.setKeyValue<bool>(Keys.isFirstTime, true);
+        prefs.setKeyValue<bool>(StorageKeys.isFirstTime, true);
         context.go(Routes.home);
         context.push(ListTasksPage.routePath.replaceFirst(':id', '1'));
       });

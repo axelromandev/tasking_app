@@ -15,13 +15,13 @@ class _Notifier extends StateNotifier<Color> {
   final _pref = SharedPrefs();
 
   void initialize() {
-    final colorValue = _pref.getValue<int>(Keys.colorSeed);
+    final colorValue = _pref.getValue<int>(StorageKeys.colorSeed);
     if (colorValue == null) return;
     state = Color(colorValue);
   }
 
   Future<void> setColor(Color color) async {
-    await _pref.setKeyValue<int>(Keys.colorSeed, color.value);
+    await _pref.setKeyValue<int>(StorageKeys.colorSeed, color.value);
     state = color;
   }
 }

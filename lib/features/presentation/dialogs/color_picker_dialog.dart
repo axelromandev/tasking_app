@@ -22,9 +22,7 @@ class ColorPickerDialog extends StatelessWidget {
               title: Text('Color Picker'),
             ),
             ColorPicker(
-              padding: const EdgeInsets.only(
-                bottom: defaultPadding,
-              ),
+              padding: const EdgeInsets.only(bottom: defaultPadding),
               enableShadesSelection: false,
               borderRadius: 20,
               width: 36,

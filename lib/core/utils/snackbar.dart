@@ -27,7 +27,7 @@ class Snackbar {
             backgroundColor ?? (isDarkMode ? Colors.white : Colors.black),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     );
@@ -47,7 +47,7 @@ class Snackbar {
         backgroundColor: _getBackgroundColor(type),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultRadius),
+          borderRadius: BorderRadius.circular(16),
         ),
       ),
     );

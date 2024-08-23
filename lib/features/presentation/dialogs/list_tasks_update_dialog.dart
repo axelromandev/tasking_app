@@ -36,7 +36,7 @@ class ListTasksUpdateDialog extends ConsumerWidget {
           padding: const EdgeInsets.all(defaultPadding),
           decoration: BoxDecoration(
             color: AppColors.background,
-            borderRadius: BorderRadius.circular(defaultRadius),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

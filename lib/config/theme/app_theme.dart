@@ -67,7 +67,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       color: AppColors.card,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(defaultPadding),
       ),
     ),
 
@@ -75,7 +75,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultRadius),
+          borderRadius: BorderRadius.circular(defaultPadding),
         ),
         backgroundColor: colorSeed,
         foregroundColor: Colors.black,
@@ -84,7 +84,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultRadius),
+          borderRadius: BorderRadius.circular(defaultPadding),
         ),
       ),
     ),
@@ -94,7 +94,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       elevation: 0,
       backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(defaultPadding),
       ),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
@@ -113,7 +113,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
         color: Colors.white70,
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(defaultPadding),
         borderSide: BorderSide.none,
       ),
     ),
@@ -125,7 +125,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       iconColor: Colors.white,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(defaultRadius),
+        borderRadius: BorderRadius.circular(defaultPadding),
       ),
     ),
 
@@ -141,8 +141,8 @@ final appThemeProvider = Provider<ThemeData>((ref) {
       backgroundColor: AppColors.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(defaultRadius),
-          bottomRight: Radius.circular(defaultRadius),
+          topRight: Radius.circular(defaultPadding),
+          bottomRight: Radius.circular(defaultPadding),
         ),
       ),
     ),

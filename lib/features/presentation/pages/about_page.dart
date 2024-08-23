@@ -27,7 +27,7 @@ class AboutPage extends ConsumerWidget {
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: AppColors.card,
-                borderRadius: BorderRadius.circular(defaultRadius),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: SvgPicture.asset(Assets.logo),
             ),
