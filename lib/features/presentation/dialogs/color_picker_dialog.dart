@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
-
-import '../../../config/config.dart';
+import 'package:tasking/config/config.dart';
 
 class ColorPickerDialog extends StatelessWidget {
   const ColorPickerDialog({this.color, super.key});

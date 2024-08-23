@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../providers/list_tasks_provider.dart';
-import '../providers/task_add_modal_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class TaskAddModal extends ConsumerWidget {
   const TaskAddModal(this.listId, {super.key});

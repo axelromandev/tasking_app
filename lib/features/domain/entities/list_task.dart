@@ -1,4 +1,4 @@
-import 'task.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 class ListTasks {
   ListTasks({

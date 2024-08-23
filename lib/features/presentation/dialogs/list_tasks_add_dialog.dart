@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-
-import '../../../config/const/constants.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../providers/list_tasks_add_dialog_provider.dart';
-import 'color_picker_dialog.dart';
+import 'package:tasking/config/const/constants.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ListTasksAddDialog extends ConsumerWidget {
   const ListTasksAddDialog({super.key});

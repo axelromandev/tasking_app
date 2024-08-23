@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../core/core.dart';
-import '../const/constants.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 
 final colorThemeProvider = StateNotifierProvider<_Notifier, Color>((ref) {
   return _Notifier();

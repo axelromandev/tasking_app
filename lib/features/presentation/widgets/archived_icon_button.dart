@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../modals/archived_list_tasks_modal.dart';
-import '../providers/all_list_tasks_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/modals/modals.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
 
 class ArchivedIconButton extends ConsumerWidget {
   const ArchivedIconButton({super.key});

@@ -1,5 +1,5 @@
-import '../../data/data.dart';
-import '../domain.dart';
+import 'package:tasking/features/data/data.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 abstract interface class ITaskRepository {
   Future<List<Task>> getByListId(int id);

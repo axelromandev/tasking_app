@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
-import '../../../config/config.dart';
-import '../widgets/app_bar_page.dart';
 
 class WebViewPage extends ConsumerStatefulWidget {
   const WebViewPage({required this.url, this.title, super.key});

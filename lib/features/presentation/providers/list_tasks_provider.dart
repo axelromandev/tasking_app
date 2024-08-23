@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/core.dart';
-import '../../domain/domain.dart';
-import '../dialogs/archived_confirm_dialog.dart';
-import 'all_list_tasks_provider.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
 
 final listTasksProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, ListTasks, int>((ref, listId) {

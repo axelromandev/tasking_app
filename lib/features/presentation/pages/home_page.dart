@@ -3,14 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../app.dart';
-import '../dialogs/list_tasks_add_dialog.dart';
-import '../providers/all_list_tasks_provider.dart';
-import '../widgets/archived_icon_button.dart';
-import '../widgets/card_list_tasks.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/pages/pages.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

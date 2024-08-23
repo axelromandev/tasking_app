@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../app.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 class ListTasksCard extends StatelessWidget {
   const ListTasksCard({

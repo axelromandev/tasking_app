@@ -5,14 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../core/core.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../app.dart';
-import '../dialogs/task_delete_dialog.dart';
-import '../providers/list_tasks_provider.dart';
-import '../providers/task_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class TaskPage extends ConsumerWidget {
   const TaskPage(this.task, {super.key});

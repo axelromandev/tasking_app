@@ -3,12 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../dialogs/list_tasks_delete_dialog.dart';
-import '../dialogs/list_tasks_update_dialog.dart';
-import '../providers/list_tasks_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ListTasksOptionsModal extends ConsumerWidget {
   const ListTasksOptionsModal(this.contextPage, this.listId, {super.key});

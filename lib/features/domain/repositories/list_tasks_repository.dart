@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../data/data.dart';
-import '../domain.dart';
+import 'package:tasking/features/data/data.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 abstract interface class IListTasksRepository {
   Future<List<ListTasks>> getAll();

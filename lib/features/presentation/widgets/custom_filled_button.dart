@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../config/config.dart';
+import 'package:tasking/config/config.dart';
 
 class CustomFilledButton extends ConsumerWidget {
   const CustomFilledButton({

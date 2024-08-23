@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../core/core.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../domain/domain.dart';
-import 'all_list_tasks_provider.dart';
-import 'list_tasks_provider.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, int>((ref, listId) {

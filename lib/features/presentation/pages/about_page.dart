@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/pages/pages.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../widgets/app_bar_page.dart';
-import 'webview_page.dart';
 
 class AboutPage extends ConsumerWidget {
   const AboutPage({super.key});

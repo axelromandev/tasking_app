@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../i18n/generated/translations.g.dart';
-import '../providers/restore_app_provider.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class RestoreAppDialog extends ConsumerWidget {
   const RestoreAppDialog({

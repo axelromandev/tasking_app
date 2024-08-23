@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-import '../../../config/const/constants.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../app.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ListTaskDeleteDialog extends StatelessWidget {
   @override

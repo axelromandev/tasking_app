@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
+import 'package:tasking/config/config.dart';
 
 class AppBarPage extends ConsumerWidget implements PreferredSizeWidget {
   const AppBarPage({required this.title, super.key});

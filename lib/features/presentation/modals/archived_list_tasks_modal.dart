@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/const/constants.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../providers/all_list_tasks_provider.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ArchivedListTasksModal extends ConsumerWidget {
   const ArchivedListTasksModal({super.key});

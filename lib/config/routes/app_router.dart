@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../core/core.dart';
-import '../../features/app.dart';
-import '../const/constants.dart';
-import 'routes.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/presentation/pages/pages.dart';
 
 final navigatorGlobalKey = GlobalKey<NavigatorState>();
 

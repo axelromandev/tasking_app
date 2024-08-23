@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../dialogs/color_picker_dialog.dart';
-import '../dialogs/restore_app_dialog.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});

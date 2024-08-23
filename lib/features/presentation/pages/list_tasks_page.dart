@@ -5,15 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../domain/domain.dart';
-import '../dialogs/list_tasks_update_dialog.dart';
-import '../modals/list_tasks_options_modal.dart';
-import '../modals/task_add_modal.dart';
-import '../providers/list_tasks_provider.dart';
-import '../widgets/widgets.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/modals/modals.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ListTasksPage extends ConsumerWidget {
   const ListTasksPage(this.listId, {super.key});

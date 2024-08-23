@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
-
-import '../../../core/core.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../../domain/domain.dart';
-import '../dialogs/task_delete_dialog.dart';
-import '../pages/task_page.dart';
-import '../providers/task_provider.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/dialogs/dialogs.dart';
+import 'package:tasking/features/presentation/pages/pages.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class TaskCard extends ConsumerStatefulWidget {
   const TaskCard(this.task, {super.key});

@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../core/core.dart';
-import 'all_list_tasks_provider.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/presentation/providers/providers.dart';
 
 final restoreAppProvider =
     StateNotifierProvider.autoDispose<_Notifier, void>((ref) {

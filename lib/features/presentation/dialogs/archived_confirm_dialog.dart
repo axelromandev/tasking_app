@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
-import '../../../config/config.dart';
-import '../../../i18n/generated/translations.g.dart';
-import '../widgets/widgets.dart';
+import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/widgets/widgets.dart';
+import 'package:tasking/i18n/generated/translations.g.dart';
 
 class ArchivedConfirmDialog extends StatelessWidget {
   const ArchivedConfirmDialog({

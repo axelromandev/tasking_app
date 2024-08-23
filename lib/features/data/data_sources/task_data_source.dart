@@ -1,7 +1,6 @@
 import 'package:sqflite/sqflite.dart';
-
-import '../../../core/core.dart';
-import '../../domain/domain.dart';
+import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 abstract interface class ITaskDataSource {
   Future<List<Task>> getByListId(int id);
