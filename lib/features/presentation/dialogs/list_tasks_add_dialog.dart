@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:tasking/config/const/constants.dart';
+import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/dialogs/dialogs.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/generated/translations.g.dart';
