@@ -18,7 +18,7 @@ class IntroPage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(28),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -72,6 +72,8 @@ class IntroPage extends ConsumerWidget {
               const Spacer(),
               Text(S.pages.intro.disclaimer),
               CustomFilledButton(
+                height: 60,
+                width: double.infinity,
                 margin: const EdgeInsets.only(top: defaultPadding),
                 onPressed: () => ref.read(introProvider).call(context),
                 textStyle: style.titleLarge,

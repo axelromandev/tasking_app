@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -51,7 +49,7 @@ class ArchivedListTasksModal extends ConsumerWidget {
               );
             },
           ),
-          if (Platform.isAndroid) const Gap(defaultPadding * 2),
+          const Gap(defaultPadding),
         ],
       ),
     );
