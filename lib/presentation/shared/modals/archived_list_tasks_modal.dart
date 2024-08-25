@@ -23,7 +23,7 @@ class ArchivedListTasksModal extends ConsumerWidget {
         children: [
           ListTile(
             title: Text(
-              S.common.modals.archivedLists.title,
+              S.modals.archivedLists.title,
               style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),

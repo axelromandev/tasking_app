@@ -61,40 +61,7 @@
       "isDenied": "Disabled notifications"
     }
   },
-  "modals": {
-    "listTasksAdd": {
-      "title": "Agregar una lista",
-      "placeholder": "Ingrese el título de la lista",
-      "errorEmptyName": "Ingrese un título de lista.",
-      "button": "Crear lista"
-    },
-    "listTasksOptions": {
-      "list": {
-        "title": "Lista",
-        "edit": "Editar lista",
-        "archive": "Archivar list",
-        "delete": "Eliminar lista",
-        "archived": "Archivar lista"
-      },
-      "tasks": {
-        "title": "Tareas",
-        "incompleteAllTasks": "Marcar todas las tareas como incompletas",
-        "completeAllTasks": "Marcar todas las tareas como completadas",
-        "deleteAllCompletedTasks": "Eliminar todas las tareas completadas"
-      }
-    },
-    "taskAdd": {
-      "placeholder": "Agregar una tarea",
-      "errorEmptyName": "Ingrese una tarea."
-    },
-    "taskReminder": {
-      "change": "Cambiar recordatorio",
-      "remove": "Eliminar recordatorio"
-    },
-    "archivedLists": {
-      "title": "Archivados"
-    }
-  },
+
   "dialogs": {
     "listTasksUpdate": {
       "title": "Editar lista",

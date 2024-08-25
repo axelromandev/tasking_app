@@ -32,7 +32,7 @@ class ListTasksAddModal extends ConsumerWidget {
                 child: Text(S.common.buttons.cancel),
               ),
               Text(
-                S.common.modals.listTasksAdd.title,
+                S.modals.listTasksAdd.title,
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
@@ -56,7 +56,7 @@ class ListTasksAddModal extends ConsumerWidget {
             ],
             maxLines: null,
             decoration: InputDecoration(
-              hintText: S.common.modals.listTasksAdd.placeholder,
+              hintText: S.modals.listTasksAdd.placeholder,
               hintStyle: style.bodyLarge?.copyWith(
                 color: Colors.white54,
               ),
@@ -66,7 +66,7 @@ class ListTasksAddModal extends ConsumerWidget {
           Card(
             margin: EdgeInsets.zero,
             child: ColorPicker(
-              title: const Text('Selecciona un color'),
+              title: Text(S.modals.listTasksAdd.colorLabel),
               borderRadius: 20,
               enableShadesSelection: false,
               pickersEnabled: const <ColorPickerType, bool>{

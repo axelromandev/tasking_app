@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tasking/config/i18n/generated/translations.g.dart';
+import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
@@ -90,7 +90,7 @@ class _Notifier extends StateNotifier<Task> {
                 },
                 shape: const RoundedRectangleBorder(),
                 leading: const Icon(BoxIcons.bx_shuffle),
-                title: Text(S.common.modals.taskReminder.change),
+                title: Text(S.modals.taskReminder.change),
               ),
               ListTile(
                 onTap: () async {
@@ -100,7 +100,7 @@ class _Notifier extends StateNotifier<Task> {
                 shape: const RoundedRectangleBorder(),
                 iconColor: Colors.redAccent,
                 leading: const Icon(BoxIcons.bx_bell_off),
-                title: Text(S.common.modals.taskReminder.remove),
+                title: Text(S.modals.taskReminder.remove),
               ),
             ],
           ),

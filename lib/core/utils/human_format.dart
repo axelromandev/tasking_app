@@ -1,4 +1,4 @@
-import 'package:tasking/config/i18n/generated/translations.g.dart';
+import 'package:tasking/config/config.dart';
 
 class HumanFormat {
   static String datetime(DateTime? dateTime) {

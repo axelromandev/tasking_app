@@ -42,7 +42,7 @@ class TaskAddModal extends ConsumerWidget {
               },
               decoration: InputDecoration(
                 filled: false,
-                hintText: S.common.modals.taskAdd.placeholder,
+                hintText: S.modals.taskAdd.placeholder,
                 prefixIcon: const Icon(
                   BoxIcons.bx_circle,
                   color: Colors.white54,

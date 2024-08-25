@@ -86,7 +86,7 @@ class ListTasksPage extends ConsumerWidget {
                     builder: (_) => TaskAddModal(list.id),
                   ),
                   leading: const Icon(BoxIcons.bx_plus),
-                  title: Text(S.common.modals.taskAdd.placeholder),
+                  title: Text(S.modals.taskAdd.placeholder),
                 ),
               ),
             )

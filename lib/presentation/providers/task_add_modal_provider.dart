@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/config/i18n/generated/translations.g.dart';
+import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/data/data.dart';
 import 'package:tasking/presentation/providers/providers.dart';
@@ -33,7 +33,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit() async {
     if (state.name.isEmpty) {
-      MyToast.show(S.common.modals.taskAdd.errorEmptyName);
+      MyToast.show(S.modals.taskAdd.errorEmptyName);
       return;
     }
     try {

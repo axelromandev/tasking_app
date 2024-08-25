@@ -28,7 +28,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
             Container(
               margin: const EdgeInsets.only(left: defaultPadding),
               child: Text(
-                S.common.modals.listTasksOptions.list.title,
+                S.modals.listTasksOptions.list.title,
                 style: const TextStyle(color: Colors.white70),
               ),
             ),
@@ -44,7 +44,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
-              title: Text(S.common.modals.listTasksOptions.list.edit),
+              title: Text(S.modals.listTasksOptions.list.edit),
             ),
             ListTile(
               onTap: () async {
@@ -61,7 +61,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
-              title: Text(S.common.modals.listTasksOptions.list.delete),
+              title: Text(S.modals.listTasksOptions.list.delete),
             ),
             ListTile(
               onTap: () async {
@@ -82,13 +82,13 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_archive_in, size: 18),
-              title: Text(S.common.modals.listTasksOptions.list.archive),
+              title: Text(S.modals.listTasksOptions.list.archive),
             ),
             const Gap(defaultPadding),
             Container(
               margin: const EdgeInsets.only(left: defaultPadding),
               child: Text(
-                S.common.modals.listTasksOptions.tasks.title,
+                S.modals.listTasksOptions.tasks.title,
                 style: const TextStyle(color: Colors.white70),
               ),
             ),
@@ -103,7 +103,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
               title: Text(
-                S.common.modals.listTasksOptions.tasks.incompleteAllTasks,
+                S.modals.listTasksOptions.tasks.incompleteAllTasks,
               ),
             ),
             ListTile(
@@ -116,8 +116,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
-              title:
-                  Text(S.common.modals.listTasksOptions.tasks.completeAllTasks),
+              title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
             ListTile(
               onTap: () {
@@ -130,7 +129,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               iconColor: list.color,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
               title: Text(
-                S.common.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
+                S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
               ),
             ),
           ],

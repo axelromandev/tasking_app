@@ -1,0 +1,35 @@
+{
+  "listTasksAdd": {
+    "title": "Add a list",
+    "colorLabel": "Select a color",
+    "placeholder": "Enter list title",
+    "errorEmptyName": "Please enter a list title.",
+    "button": "Create List"
+  },
+  "listTasksOptions": {
+    "list": {
+      "title": "List",
+      "edit": "Edit list",
+      "archive": "Archive list",
+      "delete": "Delete list",
+      "archived": "Archived list"
+    },
+    "tasks": {
+      "title": "Tasks",
+      "incompleteAllTasks": "Incomplete all tasks",
+      "completeAllTasks": "Complete all tasks",
+      "deleteAllCompletedTasks": "Delete all completed task"
+    }
+  },
+  "taskAdd": {
+    "placeholder": "Add a task",
+    "errorEmptyName": "Please enter a task."
+  },
+  "taskReminder": {
+    "change": "Change reminder",
+    "remove": "Remove reminder"
+  },
+  "archivedLists": {
+    "title": "Archived"
+  }
+}
