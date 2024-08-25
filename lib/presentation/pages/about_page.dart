@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/presentation/pages/pages.dart';
-import 'package:tasking/presentation/widgets/widgets.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutPage extends ConsumerWidget {

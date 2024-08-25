@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/dialogs/dialogs.dart';
 import 'package:tasking/presentation/providers/providers.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 class ListTasksAddDialog extends ConsumerWidget {
   const ListTasksAddDialog({super.key});

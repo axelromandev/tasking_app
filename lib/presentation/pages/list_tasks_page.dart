@@ -7,10 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/domain/domain.dart';
-import 'package:tasking/presentation/dialogs/dialogs.dart';
-import 'package:tasking/presentation/modals/modals.dart';
 import 'package:tasking/presentation/providers/providers.dart';
-import 'package:tasking/presentation/widgets/widgets.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 class ListTasksPage extends ConsumerWidget {
   const ListTasksPage(this.listId, {super.key});

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/widgets/widgets.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
-class ListTaskDeleteDialog extends StatelessWidget {
+class TaskDeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
     return AlertDialog(
       title: Text(
-        S.common.dialogs.listTasksDelete.title,
+        S.common.dialogs.deleteTask.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
       content: Text(
-        S.common.dialogs.listTasksDelete.subtitle,
+        S.common.dialogs.deleteTask.subtitle,
         style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w300),
         textAlign: TextAlign.center,
       ),

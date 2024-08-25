@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/presentation/providers/providers.dart';
-import 'package:tasking/presentation/widgets/widgets.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 class IntroPage extends ConsumerWidget {
   const IntroPage({super.key});

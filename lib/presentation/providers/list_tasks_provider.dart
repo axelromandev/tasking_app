@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/domain/domain.dart';
-import 'package:tasking/presentation/dialogs/dialogs.dart';
 import 'package:tasking/presentation/providers/providers.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 final listTasksProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, ListTasks, int>((ref, listId) {

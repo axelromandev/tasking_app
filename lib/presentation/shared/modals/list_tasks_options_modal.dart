@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/dialogs/dialogs.dart';
 import 'package:tasking/presentation/providers/providers.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 class ListTasksOptionsModal extends ConsumerWidget {
   const ListTasksOptionsModal(this.contextPage, this.listId, {super.key});
