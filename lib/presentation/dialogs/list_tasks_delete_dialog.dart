@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/i18n/generated/translations.g.dart';
 import 'package:tasking/presentation/widgets/widgets.dart';
 
 class ListTaskDeleteDialog extends StatelessWidget {

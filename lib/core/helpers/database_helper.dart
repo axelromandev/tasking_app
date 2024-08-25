@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:tasking/i18n/generated/translations.g.dart';
+import 'package:tasking/config/i18n/generated/translations.g.dart';
 
 class DatabaseHelper {
   static Database? _database;

@@ -3,7 +3,6 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as p;
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/i18n/generated/translations.g.dart';
 
 class DatTimePicker {
   static Future<DateTime?> show(BuildContext context) async {

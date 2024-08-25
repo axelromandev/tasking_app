@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/domain/domain.dart';
-import 'package:tasking/i18n/generated/translations.g.dart';
 import 'package:tasking/presentation/dialogs/dialogs.dart';
 import 'package:tasking/presentation/modals/modals.dart';
 import 'package:tasking/presentation/providers/providers.dart';

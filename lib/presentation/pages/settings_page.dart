@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/i18n/generated/translations.g.dart';
 import 'package:tasking/presentation/dialogs/dialogs.dart';
 
 class SettingsPage extends ConsumerWidget {
