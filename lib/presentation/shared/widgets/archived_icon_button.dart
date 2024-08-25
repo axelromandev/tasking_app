@@ -10,7 +10,7 @@ class ArchivedIconButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lists = ref.watch(allListTasksProvider).listsArchived;
+    final lists = ref.watch(homeProvider).listsArchived;
 
     if (lists.isEmpty) {
       return const IconButton(

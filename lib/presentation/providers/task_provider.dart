@@ -10,7 +10,7 @@ import 'package:tasking/presentation/providers/providers.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, Task, Task>((ref, task) {
-  final refreshAll = ref.read(allListTasksProvider.notifier).refreshAll;
+  final refreshAll = ref.read(homeProvider.notifier).refreshAll;
   final refreshList = ref.read(listTasksProvider(task.listId).notifier).refresh;
 
   return _Notifier(

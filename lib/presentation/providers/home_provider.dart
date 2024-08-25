@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/domain/domain.dart';
 
-final allListTasksProvider = StateNotifierProvider<_Notifier, _State>((ref) {
+final homeProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier();
 });
 

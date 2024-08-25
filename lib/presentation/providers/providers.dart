@@ -1,4 +1,4 @@
-export 'all_list_tasks_provider.dart';
+export 'home_provider.dart';
 export 'intro_provider.dart';
 export 'list_tasks_add_dialog_provider.dart';
 export 'list_tasks_provider.dart';

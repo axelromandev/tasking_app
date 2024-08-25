@@ -12,8 +12,8 @@ class ArchivedListTasksModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final lists = ref.watch(allListTasksProvider).listsArchived;
-    final notifier = ref.read(allListTasksProvider.notifier);
+    final lists = ref.watch(homeProvider).listsArchived;
+    final notifier = ref.read(homeProvider.notifier);
 
     return SafeArea(
       child: Column(

@@ -51,7 +51,7 @@ class HomePage extends ConsumerWidget {
 class _ListsTasksView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lists = ref.watch(allListTasksProvider).lists;
+    final lists = ref.watch(homeProvider).lists;
 
     if (lists.isEmpty) return _EmptyListTasks();
 

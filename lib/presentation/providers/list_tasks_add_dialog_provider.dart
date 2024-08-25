@@ -8,7 +8,7 @@ import 'package:tasking/presentation/providers/providers.dart';
 
 final listTasksAddDialogProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
-  final refresh = ref.read(allListTasksProvider.notifier).refreshAll;
+  final refresh = ref.read(homeProvider.notifier).refreshAll;
 
   return _Notifier(refresh);
 });
