@@ -23,7 +23,7 @@ class DatabaseHelper {
             CREATE TABLE lists(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               title TEXT NOT NULL,
-              color INTEGER NOT NULL,
+              colorValue INTEGER NOT NULL,
               archived INTEGER DEFAULT 0,
               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
@@ -65,7 +65,7 @@ class DatabaseHelper {
     final String now = DateTime.now().toIso8601String();
     await db.transaction((txn) async {
       final int listId = await txn.rawInsert(
-        "INSERT INTO lists (title, color) VALUES ('Tutorial', 4294951175)",
+        "INSERT INTO lists (title, colorValue) VALUES ('Tutorial', 4294951175)",
       );
       await txn.rawInsert(
         "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task1}', '$now', '$now', $listId)",
