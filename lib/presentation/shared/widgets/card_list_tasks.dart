@@ -14,7 +14,6 @@ class ListTasksCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Color(list.color ?? 0xFF000000);
     final style = Theme.of(context).textTheme;
 
     return Card(
@@ -23,7 +22,7 @@ class ListTasksCard extends StatelessWidget {
         onTap: onTap,
         leading: Icon(
           BoxIcons.bxs_circle,
-          color: list.archived ? color.withOpacity(.4) : color,
+          color: list.archived ? list.color.withOpacity(.4) : list.color,
           size: 18,
         ),
         title: Text(list.title),

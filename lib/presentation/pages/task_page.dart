@@ -21,7 +21,6 @@ class TaskPage extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
 
     final list = ref.watch(listTasksProvider(task.listId));
-    final color = Color(list.color!);
 
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
@@ -47,7 +46,7 @@ class TaskPage extends ConsumerWidget {
               }
             },
             iconSize: 20.0,
-            color: color,
+            color: list.color,
             icon: const Icon(BoxIcons.bx_trash),
           ),
         ],
@@ -60,7 +59,7 @@ class TaskPage extends ConsumerWidget {
             style: style.titleLarge,
             autocorrect: false,
             maxLines: null,
-            cursorColor: color,
+            cursorColor: list.color,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               prefixIcon: IconButton(
@@ -80,7 +79,7 @@ class TaskPage extends ConsumerWidget {
           TextButton.icon(
             onPressed: () {}, //TODO: add more steps tasks
             style: TextButton.styleFrom(
-              foregroundColor: color,
+              foregroundColor: list.color,
               overlayColor: Colors.transparent,
             ),
             icon: const Icon(BoxIcons.bx_plus),
@@ -89,7 +88,7 @@ class TaskPage extends ConsumerWidget {
           if (task.reminder != null)
             ListTile(
               contentPadding: const EdgeInsets.only(left: defaultPadding),
-              leading: Icon(BoxIcons.bx_bell, color: color, size: 20),
+              leading: Icon(BoxIcons.bx_bell, color: list.color, size: 20),
               title: Text(HumanFormat.datetime(task.reminder)),
               trailing: IconButton(
                 onPressed: notifier.onRemoveReminder,
@@ -122,7 +121,7 @@ class TaskPage extends ConsumerWidget {
             initialValue: provider.note,
             maxLines: null,
             autocorrect: false,
-            cursorColor: color,
+            cursorColor: list.color,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               hintText: S.pages.task.placeholderNote,

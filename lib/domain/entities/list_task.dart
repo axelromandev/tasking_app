@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:tasking/domain/domain.dart';
 
 class ListTasks {
@@ -5,7 +6,7 @@ class ListTasks {
     required this.id,
     required this.title,
     this.password,
-    this.color,
+    required this.colorValue,
     this.pinned = false,
     this.archived = false,
     required this.createdAt,
@@ -16,19 +17,27 @@ class ListTasks {
       id: map['id'] as int,
       title: map['title'] as String,
       password: map['password'] as String?,
-      color: map['color'] as int?,
+      colorValue: map['color'] as int,
       pinned: map['pinned'] == 1,
       archived: map['archived'] == 1,
       createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 
-  ListTasks.empty() : this(id: 0, title: '', createdAt: DateTime.now());
+  ListTasks.empty()
+      : this(
+          id: 0,
+          title: '',
+          colorValue: 0xffffc107,
+          createdAt: DateTime.now(),
+        );
+
+  Color get color => Color(colorValue);
 
   final int id;
   final String title;
   final String? password;
-  final int? color;
+  final int colorValue;
   final bool pinned;
   final bool archived;
   final DateTime createdAt;
@@ -49,7 +58,7 @@ class ListTasks {
       id: id ?? this.id,
       title: title ?? this.title,
       password: password ?? this.password,
-      color: color ?? this.color,
+      colorValue: color ?? colorValue,
       pinned: pinned ?? this.pinned,
       archived: archived ?? this.archived,
       createdAt: createdAt ?? this.createdAt,

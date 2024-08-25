@@ -13,7 +13,6 @@ class TaskAddModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final list = ref.watch(listTasksProvider(listId));
-    final color = Color(list.color!);
 
     ref.watch(taskAddModalProvider(listId).notifier);
     final notifier = ref.read(taskAddModalProvider(listId).notifier);
@@ -36,7 +35,7 @@ class TaskAddModal extends ConsumerWidget {
               focusNode: notifier.focusNode,
               textInputAction: TextInputAction.done,
               style: const TextStyle(fontSize: 16),
-              cursorColor: color,
+              cursorColor: list.color,
               onFieldSubmitted: (value) {
                 notifier.onSubmit();
                 notifier.focusNode.requestFocus();

@@ -18,8 +18,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
     final list = ref.watch(listTasksProvider(listId));
     final notifier = ref.read(listTasksProvider(listId).notifier);
 
-    final color = Color(list.color ?? 0xFF000000);
-
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: defaultPadding),
@@ -44,7 +42,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_pencil, size: 18),
               title: Text(S.common.modals.listTasksOptions.list.edit),
             ),
@@ -61,7 +59,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_trash, size: 18),
               title: Text(S.common.modals.listTasksOptions.list.delete),
             ),
@@ -72,7 +70,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   context: context,
                   builder: (_) => ArchivedConfirmDialog(
                     titleList: list.title,
-                    colorList: Color(list.color!),
+                    colorList: Color(list.colorValue),
                   ),
                 ).then((value) {
                   if (value != null && value) {
@@ -82,7 +80,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_archive_in, size: 18),
               title: Text(S.common.modals.listTasksOptions.list.archive),
             ),
@@ -102,7 +100,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_circle, size: 18),
               title: Text(
                 S.common.modals.listTasksOptions.tasks.incompleteAllTasks,
@@ -116,7 +114,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_check_circle, size: 18),
               title:
                   Text(S.common.modals.listTasksOptions.tasks.completeAllTasks),
@@ -129,7 +127,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: color,
+              iconColor: list.color,
               leading: const Icon(BoxIcons.bx_x_circle, size: 18),
               title: Text(
                 S.common.modals.listTasksOptions.tasks.deleteAllCompletedTasks,

@@ -29,8 +29,6 @@ class ListTasksPage extends ConsumerWidget {
       );
     }
 
-    final color = Color(list.color ?? 0xFF000000);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,7 +41,7 @@ class ListTasksPage extends ConsumerWidget {
           children: [
             Icon(
               BoxIcons.bxs_circle,
-              color: Color(list.color ?? 0xFF000000),
+              color: list.color,
               size: 18,
             ),
             const Gap(defaultPadding),
@@ -62,12 +60,12 @@ class ListTasksPage extends ConsumerWidget {
         ],
       ),
       body: list.tasks.isEmpty
-          ? _EmptyTasks(color)
+          ? _EmptyTasks(list.color)
           : _BuildTasks(list.tasks.toList()),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Platform.isAndroid
           ? FloatingActionButton(
-              backgroundColor: color,
+              backgroundColor: list.color,
               onPressed: () => showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,

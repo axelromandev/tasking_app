@@ -65,7 +65,7 @@ class _State {
   _State init(ListTasks list) {
     return _State(
       title: list.title,
-      color: Color(list.color!),
+      color: list.color,
     );
   }
 }
