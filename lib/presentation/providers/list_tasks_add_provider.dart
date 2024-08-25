@@ -6,7 +6,7 @@ import 'package:tasking/core/core.dart';
 import 'package:tasking/data/data.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
-final listTasksAddDialogProvider =
+final listTasksAddProvider =
     StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   final refresh = ref.read(homeProvider.notifier).refreshAll;
 
@@ -14,9 +14,12 @@ final listTasksAddDialogProvider =
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(this.refresh) : super(_State());
+  _Notifier(this.refresh) : super(_State()) {
+    focusNode.requestFocus();
+  }
 
   final Future<void> Function() refresh;
+  final focusNode = FocusNode();
 
   final _listTasksRepository = ListTasksRepositoryImpl();
 

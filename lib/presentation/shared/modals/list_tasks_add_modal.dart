@@ -14,8 +14,8 @@ class ListTasksAddModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final provider = ref.watch(listTasksAddDialogProvider);
-    final notifier = ref.read(listTasksAddDialogProvider.notifier);
+    final provider = ref.watch(listTasksAddProvider);
+    final notifier = ref.read(listTasksAddProvider.notifier);
 
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
@@ -48,7 +48,7 @@ class ListTasksAddModal extends ConsumerWidget {
           ),
           const Gap(defaultPadding),
           TextFormField(
-            autofocus: true,
+            focusNode: notifier.focusNode,
             cursorColor: provider.color,
             onChanged: notifier.onNameChanged,
             inputFormatters: [
