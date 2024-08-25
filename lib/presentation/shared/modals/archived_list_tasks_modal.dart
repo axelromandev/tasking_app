@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/presentation/providers/providers.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
 class ArchivedListTasksModal extends ConsumerWidget {
   const ArchivedListTasksModal({super.key});
@@ -32,27 +33,25 @@ class ArchivedListTasksModal extends ConsumerWidget {
             shrinkWrap: true,
             itemCount: lists.length,
             itemBuilder: (_, i) {
-              final color = Color(lists[i].color ?? 0xFF000000);
+              final list = lists[i];
               return ListTile(
-                contentPadding: const EdgeInsets.only(left: defaultPadding),
                 shape: const RoundedRectangleBorder(),
                 visualDensity: VisualDensity.compact,
-                leading: Icon(BoxIcons.bxs_circle, color: color, size: 18),
-                title: Text(lists[i].title),
-                trailing: IconButton(
+                leading: Icon(BoxIcons.bxs_circle, color: list.color, size: 18),
+                title: Text.rich(TextSpan(text: list.title)),
+                trailing: CustomFilledButton(
                   onPressed: () {
                     notifier.onUnarchiveList(lists[i].id).then((_) {
-                      if (lists.length == 1) {
-                        context.pop();
-                      }
+                      if (lists.length == 1) context.pop();
                     });
                   },
-                  icon: const Icon(BoxIcons.bx_archive_out, size: 18),
+                  backgroundColor: lists[i].color,
+                  child: Text(S.common.buttons.restore),
                 ),
               );
             },
           ),
-          if (Platform.isAndroid) const Gap(defaultPadding),
+          if (Platform.isAndroid) const Gap(defaultPadding * 2),
         ],
       ),
     );
