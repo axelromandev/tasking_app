@@ -1,0 +1,24 @@
+{
+  "listTasksUpdate": {
+    "title": "Editar lista",
+    "placeholder": "Ingrese el título de la lista",
+    "errorEmptyName": "Ingrese un título de lista.",
+    "button": "Guardar Lista"
+  },
+  "listTasksArchived": {
+    "title": "Archivado",
+    "content(rich)": "Deseas mover $listTitle a la carpeta de archivados? "
+  },
+  "listTasksDelete": {
+    "title": "¿Eliminar lista?",
+    "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
+  },
+  "deleteTask": {
+    "title": "¿Eliminar tarea?",
+    "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
+  },
+  "restoreApp": {
+    "title": "¿Restablecer aplicación?",
+    "subtitle": "La información sera borrada y restablecida como si fuera la primera vez que se instala."
+  }
+}

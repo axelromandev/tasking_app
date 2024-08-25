@@ -10,12 +10,12 @@ class ListTaskDeleteDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        S.common.dialogs.listTasksDelete.title,
+        S.dialogs.listTasksDelete.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
       content: Text(
-        S.common.dialogs.listTasksDelete.subtitle,
+        S.dialogs.listTasksDelete.subtitle,
         style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w300),
         textAlign: TextAlign.center,
       ),

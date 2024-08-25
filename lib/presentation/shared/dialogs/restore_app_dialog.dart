@@ -17,8 +17,8 @@ class RestoreAppDialog extends ConsumerWidget {
     final notifier = ref.read(restoreAppProvider.notifier);
 
     return AlertDialog(
-      title: Text(S.common.dialogs.restoreApp.title),
-      content: Text(S.common.dialogs.restoreApp.subtitle),
+      title: Text(S.dialogs.restoreApp.title),
+      content: Text(S.dialogs.restoreApp.subtitle),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8.0),

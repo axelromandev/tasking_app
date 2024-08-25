@@ -19,12 +19,12 @@ class ArchivedConfirmDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        S.common.dialogs.listTasksArchived.title,
+        S.dialogs.listTasksArchived.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
       content: Text.rich(
-        S.common.dialogs.listTasksArchived.content(
+        S.dialogs.listTasksArchived.content(
           listTitle: TextSpan(
             text: titleList,
             style: const TextStyle(fontWeight: FontWeight.w500),
@@ -52,7 +52,7 @@ class ArchivedConfirmDialog extends StatelessWidget {
                 height: 45,
                 onPressed: () => Navigator.pop(context, true),
                 backgroundColor: colorList,
-                child: Text(S.common.dialogs.listTasksArchived.title),
+                child: Text(S.dialogs.listTasksArchived.title),
               ),
             ),
           ],

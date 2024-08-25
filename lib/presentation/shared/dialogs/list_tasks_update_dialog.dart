@@ -45,7 +45,7 @@ class ListTasksUpdateDialog extends ConsumerWidget {
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.only(bottom: defaultPadding),
                 child: Text(
-                  S.common.dialogs.listTasksUpdate.title,
+                  S.dialogs.listTasksUpdate.title,
                   style: style.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -81,7 +81,7 @@ class ListTasksUpdateDialog extends ConsumerWidget {
                       ],
                       maxLines: null,
                       decoration: InputDecoration(
-                        hintText: S.common.dialogs.listTasksUpdate.placeholder,
+                        hintText: S.dialogs.listTasksUpdate.placeholder,
                         hintStyle: style.bodyLarge?.copyWith(
                           color: Colors.white54,
                         ),
@@ -108,7 +108,7 @@ class ListTasksUpdateDialog extends ConsumerWidget {
                     style: TextButton.styleFrom(
                       foregroundColor: provider.color,
                     ),
-                    child: Text(S.common.dialogs.listTasksUpdate.button),
+                    child: Text(S.dialogs.listTasksUpdate.button),
                   ),
                 ],
               ),

@@ -1,0 +1,24 @@
+{
+  "listTasksUpdate": {
+    "title": "Edit list",
+    "placeholder": "Enter list title",
+    "errorEmptyName": "Please enter a list title.",
+    "button": "Save List"
+  },
+  "listTasksArchived": {
+    "title": "Archived",
+    "content(rich)": "You want to move $listTitle to the archive folder? "
+  },
+  "listTasksDelete": {
+    "title": "Delete list?",
+    "subtitle": "Are you sure you want to delete it?\nYou can't undo this action"
+  },
+  "deleteTask": {
+    "title": "Delete task?",
+    "subtitle": "Are you sure you want to delete it?\nYou can't undo this action"
+  },
+  "restoreApp": {
+    "title": "¿Restore App?",
+    "subtitle": "The information will be deleted and restored as if it were the first time it is installed."
+  }
+}
