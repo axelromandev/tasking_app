@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -20,8 +21,12 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(BoxIcons.bxs_crown, size: 20, color: colorPrimary),
-            const Gap(defaultPadding / 2),
+            SvgPicture.asset(
+              Assets.logo,
+              width: 18,
+              theme: SvgTheme(currentColor: colorPrimary),
+            ),
+            const Gap(12),
             Text(S.pages.home.title, style: style.bodyLarge),
           ],
         ),
@@ -29,7 +34,7 @@ class HomePage extends ConsumerWidget {
         actions: [
           const ArchivedIconButton(),
           IconButton(
-            onPressed: () => context.push(Routes.settings),
+            onPressed: () => context.push('/settings'),
             icon: const Icon(BoxIcons.bx_cog, size: 20),
           ),
         ],
@@ -38,9 +43,11 @@ class HomePage extends ConsumerWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: colorPrimary,
-        onPressed: () => showDialog(
+        onPressed: () => showModalBottomSheet(
           context: context,
-          builder: (_) => const ListTasksAddDialog(),
+          useSafeArea: true,
+          isScrollControlled: true,
+          builder: (_) => const ListTasksAddModal(),
         ),
         child: const Icon(BoxIcons.bx_plus),
       ),
@@ -58,6 +65,7 @@ class _ListsTasksView extends ConsumerWidget {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.only(top: 8),
       separatorBuilder: (_, __) => const Gap(6),
       itemCount: lists.length,
       itemBuilder: (_, i) => ListTasksCard(

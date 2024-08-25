@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
@@ -49,6 +52,7 @@ class ArchivedListTasksModal extends ConsumerWidget {
               );
             },
           ),
+          if (Platform.isAndroid) const Gap(defaultPadding),
         ],
       ),
     );

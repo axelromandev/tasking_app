@@ -32,7 +32,7 @@ class _WebViewPageState extends ConsumerState<WebViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPage(title: widget.title ?? widget.url.host),
+      appBar: AppBarTitle(title: widget.title ?? widget.url.host),
       body: WebViewWidget(controller: controller),
     );
   }

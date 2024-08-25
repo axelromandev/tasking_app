@@ -65,6 +65,27 @@ class ListTasksOptionsModal extends ConsumerWidget {
               leading: const Icon(BoxIcons.bx_trash, size: 18),
               title: Text(S.common.modals.listTasksOptions.list.delete),
             ),
+            ListTile(
+              onTap: () async {
+                context.pop();
+                showDialog<bool?>(
+                  context: context,
+                  builder: (_) => ArchivedConfirmDialog(
+                    titleList: list.title,
+                    colorList: Color(list.color!),
+                  ),
+                ).then((value) {
+                  if (value != null && value) {
+                    notifier.onArchived(contextPage);
+                  }
+                });
+              },
+              shape: const RoundedRectangleBorder(),
+              visualDensity: VisualDensity.compact,
+              iconColor: color,
+              leading: const Icon(BoxIcons.bx_archive_in, size: 18),
+              title: Text(S.common.modals.listTasksOptions.list.archive),
+            ),
             const Gap(defaultPadding),
             Container(
               margin: const EdgeInsets.only(left: defaultPadding),

@@ -21,7 +21,7 @@
     }
   },
   "home": {
-    "title": "Tareas",
+    "title": "Tasking",
     "emptyListTasks": {
       "title": "No hay listas",
       "subtitle": "Presione + para agregar una lista"
@@ -42,6 +42,7 @@
     "edited": "Editado $time"
   },
   "settings": {
+    "title": "Ajustes",
     "general": {
       "title": "general",
       "backup": "Copia de seguridad",

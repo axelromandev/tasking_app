@@ -31,8 +31,6 @@ class ListTasksPage extends ConsumerWidget {
 
     final color = Color(list.color ?? 0xFF000000);
 
-    final notifier = ref.read(listTasksProvider(listId).notifier);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -40,45 +38,32 @@ class ListTasksPage extends ConsumerWidget {
           iconSize: 30.0,
           icon: const Icon(BoxIcons.bx_chevron_left),
         ),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              BoxIcons.bxs_circle,
+              color: Color(list.color ?? 0xFF000000),
+              size: 18,
+            ),
+            const Gap(defaultPadding),
+            Flexible(child: Text(list.title, style: style.bodyLarge)),
+          ],
+        ),
         actions: [
-          IconButton(
-            onPressed: () => notifier.onArchived(context),
-            color: color,
-            iconSize: 18.0,
-            icon: const Icon(BoxIcons.bx_archive_in),
-          ),
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (_) => ListTasksOptionsModal(context, list.id),
             ),
-            color: color,
             iconSize: 18.0,
             icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            onTap: () => showDialog(
-              context: context,
-              builder: (_) => ListTasksUpdateDialog(list: list),
-            ),
-            shape: const RoundedRectangleBorder(),
-            leading: Icon(
-              BoxIcons.bxs_circle,
-              color: Color(list.color ?? 0xFF000000),
-              size: 18,
-            ),
-            title: Text(list.title, style: style.bodyLarge),
-          ),
-          if (list.tasks.isEmpty)
-            _EmptyTasks(list.id)
-          else
-            _BuildTasks(list.tasks.toList()),
-        ],
-      ),
+      body: list.tasks.isEmpty
+          ? _EmptyTasks(color)
+          : _BuildTasks(list.tasks.toList()),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Platform.isAndroid
           ? FloatingActionButton(
@@ -180,20 +165,14 @@ class _BuildTasks extends StatelessWidget {
   }
 }
 
-class _EmptyTasks extends ConsumerWidget {
-  const _EmptyTasks(this.listId);
+class _EmptyTasks extends StatelessWidget {
+  const _EmptyTasks(this.color);
 
-  final int listId;
+  final Color color;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final list = ref.watch(listTasksProvider(listId));
-
-    final color = Color(list.color ?? 0xFF000000);
-
-    return Container(
-      margin: const EdgeInsets.only(top: 200.0),
-      alignment: Alignment.center,
+  Widget build(BuildContext context) {
+    return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

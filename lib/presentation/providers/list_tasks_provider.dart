@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
-import 'package:tasking/presentation/shared/shared.dart';
 
 final listTasksProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, ListTasks, int>((ref, listId) {
@@ -35,20 +34,10 @@ class _Notifier extends StateNotifier<ListTasks> {
     }
   }
 
-  void onArchived(BuildContext context) {
-    showDialog<bool?>(
-      context: context,
-      builder: (_) => ArchivedConfirmDialog(
-        titleList: state.title,
-        colorList: Color(state.color!),
-      ),
-    ).then((value) {
-      if (value != null && value) {
-        _listTasksRepository.updateArchived(listId, true).then((_) {
-          refreshAll();
-          context.pop();
-        });
-      }
+  void onArchived(BuildContext contextPage) {
+    _listTasksRepository.updateArchived(listId, true).then((_) {
+      refreshAll();
+      contextPage.pop();
     });
   }
 

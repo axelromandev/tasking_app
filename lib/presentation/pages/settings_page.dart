@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/presentation/pages/pages.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -15,14 +17,7 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          iconSize: 30.0,
-          icon: const Icon(BoxIcons.bx_chevron_left),
-        ),
-        title: Text('Settings', style: style.bodyLarge),
-      ),
+      appBar: AppBarTitle(title: S.pages.settings.title),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +116,7 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () => context.push(Routes.about),
+                    onTap: () => context.push('/settings/about'),
                     icon: BoxIcons.bx_info_circle,
                     title: S.pages.settings.moreInformation.about,
                     borderRadius: const BorderRadius.only(
@@ -129,41 +124,29 @@ class SettingsPage extends ConsumerWidget {
                       topRight: Radius.circular(16),
                     ),
                   ),
-                  _BuildVersionLabel(),
+                  _ListTile(
+                    onTap: () {
+                      final child = WebViewPage(
+                        title: S.pages.about.policyPrivacy,
+                        url: Uri.parse(Urls.privacyPolicy),
+                      );
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => child),
+                      );
+                    },
+                    icon: BoxIcons.bx_shield,
+                    title: 'Políticas de privacidad',
+                  ),
+                  _ListTile(
+                    onTap: () {}, //TODO: share app with friends
+                    icon: BoxIcons.bx_share_alt,
+                    title: 'Compartir',
+                  ),
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: defaultPadding * 2,
-                bottom: defaultPadding / 2,
-                left: 24.0,
-              ),
-              child: Text(
-                S.pages.settings.dangerZone.title,
-                style: style.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w300,
-                  color: Colors.red.withOpacity(.8),
-                ),
-              ),
-            ),
-            Card(
-              color: Colors.red.withOpacity(.08),
-              margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: ListTile(
-                onTap: () => showDialog(
-                  context: context,
-                  builder: (_) => RestoreAppDialog(
-                    contextPreviousPage: context,
-                  ),
-                ),
-                visualDensity: VisualDensity.compact,
-                iconColor: Colors.redAccent,
-                textColor: Colors.redAccent,
-                leading: const Icon(BoxIcons.bx_reset),
-                title: Text(S.pages.settings.dangerZone.restoreApp),
-              ),
-            ),
+            const Gap(defaultPadding),
+            _BuildVersionLabel(),
           ],
         ),
       ),
@@ -229,15 +212,13 @@ class _BuildVersionLabelState extends ConsumerState<_BuildVersionLabel> {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final colorPrimary = ref.watch(colorThemeProvider);
-
-    return ListTile(
-      iconColor: colorPrimary,
-      leading: const Icon(BoxIcons.bx_badge_check),
-      title: Text('Version', style: style.bodyLarge),
-      trailing: Text(
-        '$version ($buildNumber)',
-        style: style.bodyMedium?.copyWith(color: Colors.grey),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(defaultPadding),
+        child: Text(
+          'Version $version ($buildNumber)',
+          style: style.bodySmall?.copyWith(color: Colors.white38),
+        ),
       ),
     );
   }

@@ -12,7 +12,8 @@ class CustomFilledButton extends ConsumerWidget {
     this.margin,
     this.padding,
     this.elevation,
-    this.height = 56,
+    this.height,
+    this.width,
     this.textStyle,
     this.side,
     super.key,
@@ -27,23 +28,27 @@ class CustomFilledButton extends ConsumerWidget {
   final EdgeInsetsGeometry? padding;
   final double? elevation;
   final double? height;
+  final double? width;
   final TextStyle? textStyle;
   final BorderSide? side;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorProvider = ref.watch(colorThemeProvider);
+
     final style = FilledButton.styleFrom(
       elevation: elevation ?? 0,
       textStyle: textStyle ?? Theme.of(context).textTheme.bodyLarge,
-      backgroundColor: backgroundColor ?? ref.watch(colorThemeProvider),
-      foregroundColor: foregroundColor,
+      backgroundColor: backgroundColor ?? colorProvider,
+      foregroundColor: foregroundColor ??
+          AppColors.getTextColor(backgroundColor ?? colorProvider),
       side: side,
     );
 
     if (icon != null) {
       return Container(
         height: 56,
-        width: double.infinity,
+        width: width,
         margin: margin,
         padding: padding,
         child: FilledButton.icon(
@@ -57,7 +62,7 @@ class CustomFilledButton extends ConsumerWidget {
 
     return Container(
       height: height,
-      width: double.infinity,
+      width: width,
       margin: margin,
       padding: padding,
       child: FilledButton(

@@ -62,10 +62,17 @@
     }
   },
   "modals": {
+    "listTasksAdd": {
+      "title": "Agregar una lista",
+      "placeholder": "Ingrese el título de la lista",
+      "errorEmptyName": "Ingrese un título de lista.",
+      "button": "Crear lista"
+    },
     "listTasksOptions": {
       "list": {
         "title": "Lista",
         "edit": "Editar lista",
+        "archive": "Archivar list",
         "delete": "Eliminar lista",
         "archived": "Archivar lista"
       },
@@ -89,12 +96,6 @@
     }
   },
   "dialogs": {
-    "listTasksAdd": {
-      "title": "Agregar una nueva lista",
-      "placeholder": "Ingrese el título de la lista",
-      "errorEmptyName": "Ingrese un título de lista.",
-      "button": "Crear lista"
-    },
     "listTasksUpdate": {
       "title": "Editar lista",
       "placeholder": "Ingrese el título de la lista",
