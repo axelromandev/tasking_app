@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
 
 final homeProvider = StateNotifierProvider<_Notifier, _State>((ref) {
@@ -10,8 +11,8 @@ class _Notifier extends StateNotifier<_State> {
     _load();
   }
 
-  final _listTasksRepository = ListTasksRepository();
-  final _taskRepository = TaskRepository();
+  final _listTasksRepository = ListTasksRepositoryImpl();
+  final _taskRepository = TaskRepositoryImpl();
 
   Future<void> _load() async {
     final lists = await _listTasksRepository.getAll();

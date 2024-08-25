@@ -1,6 +1,6 @@
 import 'package:tasking/domain/domain.dart';
 
-abstract class TaskRepository {
+abstract class TaskDataSource {
   Future<List<Task>> getByListId(int id);
   Future<List<Task>> getReminders();
   Future<Task> add(int listId, String title);

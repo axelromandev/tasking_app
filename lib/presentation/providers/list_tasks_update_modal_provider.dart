@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/i18n/generated/translations.g.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
@@ -21,7 +22,7 @@ class _Notifier extends StateNotifier<_State> {
   final ListTasks list;
   final Future<void> Function() refreshList;
 
-  final _listTasksRepository = ListTasksRepository();
+  final _listTasksRepository = ListTasksRepositoryImpl();
 
   void onNameChanged(String value) {
     state = state.copyWith(title: value.trim());

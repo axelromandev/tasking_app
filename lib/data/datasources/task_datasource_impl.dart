@@ -2,19 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/domain/domain.dart';
 
-abstract interface class ITaskDataSource {
-  Future<List<Task>> getByListId(int id);
-  Future<List<Task>> getReminders();
-  Future<Task> add(int listId, String title);
-  Future<void> updateReminder(int id, DateTime reminder);
-  Future<void> updateCompleted(int id, bool completed);
-  Future<void> updateTitle(int id, String title);
-  Future<void> updateNote(int id, String note);
-  Future<void> delete(int id);
-  Future<void> deleteReminder(int id);
-}
-
-class TaskDataSource implements ITaskDataSource {
+class TaskDataSourceImpl implements TaskDataSource {
   final dbHelper = DatabaseHelper();
 
   @override

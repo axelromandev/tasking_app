@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
@@ -20,8 +21,8 @@ class _Notifier extends StateNotifier<ListTasks> {
   late int listId;
   final Future<void> Function() refreshAll;
 
-  final _tasksRepository = TaskRepository();
-  final _listTasksRepository = ListTasksRepository();
+  final _tasksRepository = TaskRepositoryImpl();
+  final _listTasksRepository = ListTasksRepositoryImpl();
 
   Future<void> refresh() async {
     try {

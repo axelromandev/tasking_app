@@ -5,17 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/domain/domain.dart';
 
-abstract interface class IListTasksDataSource {
-  Future<List<ListTasks>> getAll();
-  Future<ListTasks> get(int id);
-  Future<ListTasks> add(String name, Color color);
-  Future<void> delete(int id);
-  Future<void> update(int id, String title, Color color);
-  Future<void> updatePinned(int id, bool pinned);
-  Future<void> updateArchived(int id, bool archived);
-}
-
-class ListTasksDataSource implements IListTasksDataSource {
+class ListTasksDataSourceImpl implements ListTasksDataSource {
   final dbHelper = DatabaseHelper();
 
   @override

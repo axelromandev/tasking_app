@@ -5,6 +5,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tasking/config/i18n/generated/translations.g.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
@@ -31,7 +32,7 @@ class _Notifier extends StateNotifier<Task> {
   final Future<void> Function() refreshList;
 
   final _notificationService = NotificationService();
-  final _taskRepository = TaskRepository();
+  final _taskRepository = TaskRepositoryImpl();
   final _debouncer = Debouncer(
     delay: const Duration(milliseconds: 300),
   );
