@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -47,6 +48,7 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   void onToggleCompleted() {
+    HapticFeedback.heavyImpact();
     _taskRepository.updateCompleted(state.id, !state.completed).then((_) {
       refreshAll();
       refreshList();

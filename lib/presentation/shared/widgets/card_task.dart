@@ -79,7 +79,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
           child: Icon(
             isCompleted ? BoxIcons.bxs_check_circle : BoxIcons.bx_circle,
             color: isCompleted ? Colors.white38 : null,
-            size: 18,
+            size: 24,
           ),
         ),
         title: Text(

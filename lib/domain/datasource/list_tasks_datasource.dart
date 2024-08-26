@@ -7,6 +7,5 @@ abstract class ListTasksDataSource {
   Future<ListTasks> add(String name, Color color);
   Future<void> delete(int id);
   Future<void> update(int id, String title, Color color);
-  Future<void> updatePinned(int id, bool pinned);
   Future<void> updateArchived(int id, bool archived);
 }

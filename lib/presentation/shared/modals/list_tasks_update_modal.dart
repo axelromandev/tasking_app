@@ -4,18 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
-class ListTasksAddModal extends ConsumerWidget {
-  const ListTasksAddModal({super.key});
+class ListTasksUpdateModal extends ConsumerWidget {
+  const ListTasksUpdateModal(this.list, {super.key});
+
+  final ListTasks list;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    final provider = ref.watch(listTasksAddProvider);
-    final notifier = ref.read(listTasksAddProvider.notifier);
+    final notifier = ref.read(listTasksUpdateProvider(list).notifier);
+    final provider = ref.watch(listTasksUpdateProvider(list));
 
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
@@ -32,7 +35,7 @@ class ListTasksAddModal extends ConsumerWidget {
                 child: Text(S.common.buttons.cancel),
               ),
               Text(
-                S.modals.listTasks.titleAdd,
+                S.modals.listTasks.titleUpdate,
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
@@ -42,13 +45,13 @@ class ListTasksAddModal extends ConsumerWidget {
                     ? null
                     : () => notifier.onSubmit(context),
                 backgroundColor: provider.color,
-                child: Text(S.common.buttons.add),
+                child: Text(S.common.buttons.save),
               ),
             ],
           ),
           const Gap(defaultPadding),
           TextFormField(
-            focusNode: notifier.focusNode,
+            initialValue: provider.title,
             cursorColor: provider.color,
             onChanged: notifier.onNameChanged,
             inputFormatters: [

@@ -35,9 +35,11 @@ class ListTasksOptionsModal extends ConsumerWidget {
             ListTile(
               onTap: () async {
                 context.pop();
-                showDialog(
+                showModalBottomSheet(
                   context: context,
-                  builder: (_) => ListTasksUpdateDialog(list: list),
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  builder: (_) => ListTasksUpdateModal(list),
                 );
               },
               shape: const RoundedRectangleBorder(),

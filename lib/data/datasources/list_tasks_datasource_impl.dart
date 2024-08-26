@@ -41,7 +41,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
     try {
       final Database db = await dbHelper.database;
       final id = await db.rawInsert(
-        'INSERT INTO lists(title, color) VALUES(?, ?)',
+        'INSERT INTO lists(title, colorValue) VALUES(?, ?)',
         [title, color.value],
       );
       final data = await db.rawQuery(
@@ -60,7 +60,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
     try {
       final Database db = await dbHelper.database;
       await db.rawUpdate(
-        'UPDATE lists SET title = ?, color = ? WHERE id = ?',
+        'UPDATE lists SET title = ?, colorValue = ? WHERE id = ?',
         [title, color.value, id],
       );
     } catch (e) {
@@ -79,21 +79,6 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
       );
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.delete');
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> updatePinned(int id, bool pinned) async {
-    try {
-      final Database db = await dbHelper.database;
-      final int value = pinned ? 1 : 0;
-      await db.rawUpdate(
-        'UPDATE lists SET pinned = ? WHERE id = ?',
-        [value, id],
-      );
-    } catch (e) {
-      log(e.toString(), name: 'ListTasksDataSource.updatePinned');
       rethrow;
     }
   }

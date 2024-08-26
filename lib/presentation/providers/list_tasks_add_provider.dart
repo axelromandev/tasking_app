@@ -24,7 +24,7 @@ class _Notifier extends StateNotifier<_State> {
   final _listTasksRepository = ListTasksRepositoryImpl();
 
   void onNameChanged(String value) {
-    state = state.copyWith(name: value.trim());
+    state = state.copyWith(title: value.trim());
   }
 
   void onColorChanged(Color color) {
@@ -32,11 +32,11 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onSubmit(BuildContext context) async {
-    if (state.name.isEmpty) {
-      MyToast.show(S.modals.listTasksAdd.errorEmptyName);
+    if (state.title.isEmpty) {
+      MyToast.show(S.modals.listTasks.errorEmptyName);
       return;
     }
-    await _listTasksRepository.add(state.name, state.color).then((list) {
+    await _listTasksRepository.add(state.title, state.color).then((list) {
       context.pop();
       refresh();
     });
@@ -45,19 +45,19 @@ class _Notifier extends StateNotifier<_State> {
 
 class _State {
   _State({
-    this.name = '',
+    this.title = '',
     this.color = const Color(0xffffc107),
   });
 
-  final String name;
+  final String title;
   final Color color;
 
   _State copyWith({
-    String? name,
+    String? title,
     Color? color,
   }) {
     return _State(
-      name: name ?? this.name,
+      title: title ?? this.title,
       color: color ?? this.color,
     );
   }

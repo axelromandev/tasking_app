@@ -1,10 +1,10 @@
 {
-  "listTasksAdd": {
-    "title": "Add a list",
+  "listTasks": {
+    "titleAdd": "Add a list",
+    "titleUpdate": "Edit list",
     "colorLabel": "Select a color",
     "placeholder": "Enter list title",
-    "errorEmptyName": "Please enter a list title.",
-    "button": "Create List"
+    "errorEmptyName": "Please enter a list title."
   },
   "listTasksOptions": {
     "list": {

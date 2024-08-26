@@ -47,7 +47,8 @@
     "delete": "Delete",
     "update": "Update",
     "confirm": "Confirm",
-    "restore": "Restore"
+    "restore": "Restore",
+    "save": "Save"
   },
   "utils": {
     "dateTimePicker": {

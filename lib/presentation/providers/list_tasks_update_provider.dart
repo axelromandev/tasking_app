@@ -7,7 +7,7 @@ import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
-final listTasksUpdateModalProvider = StateNotifierProvider.family
+final listTasksUpdateProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, ListTasks>((ref, list) {
   final refreshList = ref.read(listTasksProvider(list.id).notifier).refresh;
 
