@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/pages/pages.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -125,13 +125,19 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   _ListTile(
-                    onTap: () {
-                      final child = WebViewPage(
-                        title: S.pages.about.policyPrivacy,
-                        url: Uri.parse(Urls.privacyPolicy),
-                      );
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => child),
+                    onTap: () async {
+                      final data = await Markdown.getFromFile();
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (_) => AlertDialog.adaptive(
+                          content: MarkdownPreview(data),
+                          actions: [
+                            TextButton(
+                              onPressed: () => context.pop(),
+                              child: const Text('Aceptar'),
+                            ),
+                          ],
+                        ),
                       );
                     },
                     icon: BoxIcons.bx_shield,
