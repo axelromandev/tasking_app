@@ -9,7 +9,6 @@ export './modals/list_tasks_options_modal.dart';
 export './modals/list_tasks_update_modal.dart';
 export './modals/task_add_modal.dart';
 export './widgets/app_bar_title.dart';
-export './widgets/archived_icon_button.dart';
 export './widgets/card_list_tasks.dart';
 export './widgets/card_task.dart';
 export './widgets/custom_action_button.dart';

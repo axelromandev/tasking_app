@@ -27,12 +27,19 @@ class HomePage extends ConsumerWidget {
               theme: SvgTheme(currentColor: colorPrimary),
             ),
             const Gap(12),
-            Text(S.pages.home.title, style: style.bodyLarge),
+            Text(
+              S.pages.home.title,
+              style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            ),
+            const Gap(8),
+            Text(
+              'beta',
+              style: style.bodyMedium?.copyWith(color: colorPrimary),
+            ),
           ],
         ),
         centerTitle: false,
         actions: [
-          const ArchivedIconButton(),
           IconButton(
             onPressed: () => context.push('/settings'),
             icon: const Icon(BoxIcons.bx_cog, size: 20),
@@ -58,22 +65,42 @@ class HomePage extends ConsumerWidget {
 class _ListsTasksView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lists = ref.watch(homeProvider).lists;
+    final provider = ref.watch(homeProvider);
+
+    final lists = provider.lists;
+    final listsArchived = provider.listsArchived;
 
     if (lists.isEmpty) return _EmptyListTasks();
 
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 8),
-      separatorBuilder: (_, __) => const Gap(6),
-      itemCount: lists.length,
-      itemBuilder: (_, i) => ListTasksCard(
-        onTap: () => context.push(
-          ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
+    return ListView(
+      children: [
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.only(top: 8),
+          separatorBuilder: (_, __) => const Gap(6),
+          itemCount: lists.length,
+          itemBuilder: (_, i) => ListTasksCard(
+            onTap: () => context.push(
+              ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
+            ),
+            list: lists[i],
+          ),
         ),
-        list: lists[i],
-      ),
+        if (listsArchived.isNotEmpty)
+          Card(
+            margin: const EdgeInsets.all(8),
+            child: ListTile(
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (_) => const ArchivedListTasksModal(),
+              ),
+              leading: const Icon(BoxIcons.bx_archive, size: 18),
+              title: Text(S.dialogs.listTasksArchived.title),
+              trailing: Text('${listsArchived.length}'),
+            ),
+          ),
+      ],
     );
   }
 }
