@@ -35,22 +35,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
             ListTile(
               onTap: () async {
                 context.pop();
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  useSafeArea: true,
-                  builder: (_) => ListTasksUpdateModal(list),
-                );
-              },
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_pencil, size: 18),
-              title: Text(S.modals.listTasksOptions.list.edit),
-            ),
-            ListTile(
-              onTap: () async {
-                context.pop();
                 final result = await showDialog<bool?>(
                   context: context,
                   builder: (_) => ListTaskDeleteDialog(),

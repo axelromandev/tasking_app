@@ -93,6 +93,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     dialogTheme: DialogTheme(
       elevation: 0,
       backgroundColor: AppColors.background,
+      insetPadding: const EdgeInsets.all(defaultPadding),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(defaultPadding),
       ),

@@ -18,6 +18,7 @@ class ArchivedConfirmDialog extends StatelessWidget {
     final style = Theme.of(context).textTheme;
 
     return AlertDialog(
+      insetPadding: const EdgeInsets.all(defaultPadding * 2),
       title: Text(
         S.dialogs.listTasksArchived.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
@@ -33,6 +34,7 @@ class ArchivedConfirmDialog extends StatelessWidget {
         style: style.bodyLarge?.copyWith(
           fontWeight: FontWeight.w300,
         ),
+        textAlign: TextAlign.center,
       ),
       actions: [
         Row(

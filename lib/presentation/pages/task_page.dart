@@ -45,9 +45,8 @@ class TaskPage extends ConsumerWidget {
                 Navigator.pop(context);
               }
             },
-            iconSize: 20.0,
-            color: list.color,
-            icon: const Icon(BoxIcons.bx_trash),
+            iconSize: 18,
+            icon: const Icon(BoxIcons.bx_trash_alt),
           ),
         ],
       ),
