@@ -36,17 +36,27 @@ class ListTasksPage extends ConsumerWidget {
           iconSize: 30.0,
           icon: const Icon(BoxIcons.bx_chevron_left),
         ),
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              BoxIcons.bxs_circle,
-              color: list.color,
-              size: 18,
+        title: GestureDetector(
+          onTap: () => showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            useSafeArea: true,
+            builder: (_) => ListTasksUpdateModal(list),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            color: Colors.transparent,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(BoxIcons.bxs_circle, color: list.color, size: 18),
+                const Gap(defaultPadding),
+                Flexible(child: Text(list.title, style: style.bodyLarge)),
+                const Gap(defaultPadding),
+                const Icon(BoxIcons.bx_edit_alt, size: 18),
+              ],
             ),
-            const Gap(defaultPadding),
-            Flexible(child: Text(list.title, style: style.bodyLarge)),
-          ],
+          ),
         ),
         actions: [
           IconButton(
