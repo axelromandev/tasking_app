@@ -20,12 +20,20 @@ class TaskCard extends ConsumerStatefulWidget {
 
 class _TaskCardState extends ConsumerState<TaskCard> {
   late Key key;
-  SharedPrefs prefs = SharedPrefs();
 
   @override
   void initState() {
     key = Key('${widget.task.id}');
     super.initState();
+  }
+
+  void open() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => TaskPage(widget.task),
+        fullscreenDialog: true,
+      ),
+    );
   }
 
   @override
@@ -58,70 +66,79 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         ),
       ),
       onDismissed: (_) => notifier.onDeleteTask(),
-      confirmDismiss: (DismissDirection direction) async {
-        return await showDialog(
-          context: context,
-          builder: (_) => TaskDeleteDialog(),
-        );
-      },
+      confirmDismiss: (_) async => await showDialog(
+        context: context,
+        builder: (_) => TaskDeleteDialog(),
+      ),
       child: ListTile(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TaskPage(widget.task),
-            fullscreenDialog: true,
-          ),
+        contentPadding: const EdgeInsets.only(
+          right: defaultPadding,
         ),
         visualDensity: VisualDensity.compact,
         iconColor: isCompleted ? Colors.white70 : Colors.white,
         shape: const RoundedRectangleBorder(),
-        leading: GestureDetector(
-          onTap: notifier.onToggleCompleted,
-          child: Icon(
-            isCompleted ? BoxIcons.bxs_check_circle : BoxIcons.bx_circle,
-            color: isCompleted ? Colors.white38 : null,
+        leading: IconButton(
+          onPressed: notifier.onToggleCompleted,
+          icon: Icon(
+            isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
+            color: Colors.white,
             size: 24,
           ),
         ),
-        title: Text(
-          provider.title,
-          style: isCompleted
-              ? style.bodyMedium?.copyWith(color: Colors.white70)
-              : style.bodyLarge,
+        title: GestureDetector(
+          onTap: open,
+          child: Text(
+            provider.title,
+            style: isCompleted
+                ? style.bodyMedium?.copyWith(
+                    decoration: TextDecoration.lineThrough,
+                    decorationColor: Colors.grey,
+                    color: Colors.grey,
+                  )
+                : style.bodyLarge,
+          ),
         ),
         subtitle: ((widget.task.reminder != null) ||
                 (widget.task.note.isNotEmpty))
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (widget.task.reminder != null)
+            ? GestureDetector(
+                onTap: open,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widget.task.reminder != null)
+                      Row(
+                        children: [
+                          const Icon(BoxIcons.bx_bell, size: 12),
+                          const Gap(4.0),
+                          Text(
+                            HumanFormat.datetime(widget.task.reminder),
+                            style: style.bodySmall,
+                          ),
+                        ],
+                      ),
                     Row(
                       children: [
-                        const Icon(BoxIcons.bx_bell, size: 12),
+                        Icon(
+                          BoxIcons.bx_file,
+                          size: 12,
+                          color: isCompleted ? Colors.grey : null,
+                        ),
                         const Gap(4.0),
                         Text(
-                          HumanFormat.datetime(widget.task.reminder),
-                          style: style.bodySmall,
+                          widget.task.note,
+                          style: isCompleted
+                              ? style.bodySmall?.copyWith(
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationColor: Colors.grey,
+                                )
+                              : style.bodySmall?.copyWith(color: Colors.white),
                         ),
                       ],
                     ),
-                  Row(
-                    children: [
-                      Icon(
-                        BoxIcons.bx_file,
-                        size: 12,
-                        color: isCompleted ? Colors.white70 : Colors.white,
-                      ),
-                      const Gap(4.0),
-                      Text(
-                        widget.task.note,
-                        style: style.bodySmall?.copyWith(
-                          color: isCompleted ? Colors.white70 : Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               )
             : null,
       ),
