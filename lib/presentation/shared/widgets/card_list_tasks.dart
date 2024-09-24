@@ -16,8 +16,9 @@ class ListTasksCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
+    final pendingTasks = list.tasks.where((task) => !task.completed).toList();
+
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
         onTap: onTap,
         leading: Icon(
@@ -29,9 +30,9 @@ class ListTasksCard extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (list.tasks.isNotEmpty)
+            if (pendingTasks.isNotEmpty)
               Text(
-                '${list.tasks.length}',
+                '${pendingTasks.length}',
                 style: style.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w300,
                 ),

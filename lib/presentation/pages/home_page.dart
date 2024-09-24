@@ -73,6 +73,7 @@ class _ListsTasksView extends ConsumerWidget {
     if (lists.isEmpty) return _EmptyListTasks();
 
     return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       children: [
         ListView.separated(
           shrinkWrap: true,
