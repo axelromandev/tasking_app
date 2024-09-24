@@ -25,7 +25,7 @@ class ListTasksPage extends ConsumerWidget {
 
     if (list.id == 0) {
       return const Scaffold(
-        body: CircularProgressIndicator(),
+        body: Center(child: CircularProgressIndicator()),
       );
     }
 

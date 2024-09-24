@@ -37,7 +37,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 final result = await showDialog<bool?>(
                   context: context,
-                  builder: (_) => ListTaskDeleteDialog(),
+                  builder: (_) => ListTaskDeleteDialog(list.id),
                 );
                 if (result != null && result) {
                   notifier.onDelete(contextPage);
@@ -46,7 +46,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_trash, size: 18),
+              leading: const Icon(BoxIcons.bx_trash_alt, size: 18),
               title: Text(S.modals.listTasksOptions.list.delete),
             ),
             ListTile(
