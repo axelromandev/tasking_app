@@ -26,14 +26,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-        path: '/settings',
-        builder: (_, __) => const SettingsPage(),
-        routes: [
-          GoRoute(
-            path: 'about',
-            builder: (_, __) => const AboutPage(),
-          ),
-        ],
+        path: '/settings/about',
+        builder: (_, __) => const AboutPage(),
       ),
     ],
     redirect: (context, state) {

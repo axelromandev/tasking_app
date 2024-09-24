@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/pages/pages.dart';
+import 'package:tasking/presentation/pages/views/views.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
@@ -14,133 +11,109 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-    final colorPrimary = ref.watch(colorThemeProvider);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            SvgPicture.asset(
-              Assets.logo,
-              width: 18,
-              theme: SvgTheme(currentColor: colorPrimary),
-            ),
-            const Gap(12),
-            Text(
-              S.pages.home.title,
-              style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
-            ),
-            const Gap(8),
-            Text(
-              'beta',
-              style: style.bodyMedium?.copyWith(color: colorPrimary),
-            ),
-          ],
-        ),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            onPressed: () => context.push('/settings'),
-            icon: const Icon(BoxIcons.bx_cog, size: 20),
-          ),
-        ],
-      ),
-      body: _ListsTasksView(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: colorPrimary,
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          useSafeArea: true,
-          isScrollControlled: true,
-          builder: (_) => const ListTasksAddModal(),
-        ),
-        child: const Icon(BoxIcons.bx_plus),
-      ),
-    );
-  }
-}
-
-class _ListsTasksView extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(homeProvider);
 
-    final lists = provider.lists;
-    final listsArchived = provider.listsArchived;
-
-    if (lists.isEmpty) return _EmptyListTasks();
-
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      children: [
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.only(top: 8),
-          separatorBuilder: (_, __) => const Gap(6),
-          itemCount: lists.length,
-          itemBuilder: (_, i) => ListTasksCard(
-            onTap: () => context.push(
-              ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
-            ),
-            list: lists[i],
-          ),
-        ),
-        if (listsArchived.isNotEmpty)
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: ListTile(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                builder: (_) => const ArchivedListTasksModal(),
-              ),
-              leading: const Icon(BoxIcons.bx_archive, size: 18),
-              title: Text(S.dialogs.listTasksArchived.title),
-              trailing: Text('${listsArchived.length}'),
-            ),
-          ),
-      ],
+    return Scaffold(
+      body: [
+        const HomeView(),
+        const CalendarView(),
+        const ListsView(),
+        const SettingsView(),
+      ][provider.currentIndex],
+      bottomNavigationBar: _NavigatorBar(),
     );
   }
 }
 
-class _EmptyListTasks extends ConsumerWidget {
+class _NavigatorBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
+    final currentIndex = ref.watch(homeProvider).currentIndex;
+    final notifier = ref.read(homeProvider.notifier);
+
     return Container(
-      margin: const EdgeInsets.only(top: 250.0),
-      alignment: Alignment.center,
-      child: Column(
+      decoration: const BoxDecoration(
+        color: AppColors.background,
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.only(top: defaultPadding, bottom: 40),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          _NavigatorBarItem(
+            onPressed: () => notifier.onChangeView(0),
+            iconSelected: BoxIcons.bxs_home,
+            iconUnselected: BoxIcons.bx_home,
+            isSelected: currentIndex == 0,
+          ),
+          _NavigatorBarItem(
+            onPressed: () => notifier.onChangeView(1),
+            iconSelected: BoxIcons.bxs_calendar_alt,
+            iconUnselected: BoxIcons.bx_calendar_alt,
+            isSelected: currentIndex == 1,
+          ),
           Container(
-            padding: const EdgeInsets.all(defaultPadding),
-            decoration: BoxDecoration(
-              color: colorPrimary.withOpacity(.06),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              BoxIcons.bx_clipboard,
-              size: 38.0,
-              color: colorPrimary,
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            child: IconButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                useSafeArea: true,
+                isScrollControlled: true,
+                builder: (_) => const ListTasksAddModal(),
+              ),
+              style: IconButton.styleFrom(
+                padding: const EdgeInsets.all(defaultPadding),
+                backgroundColor: colorPrimary,
+                foregroundColor: Colors.black,
+              ),
+              icon: const Icon(BoxIcons.bx_plus),
             ),
           ),
-          const Gap(defaultPadding),
-          Text(
-            S.pages.home.emptyListTasks.title,
-            style: style.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          _NavigatorBarItem(
+            onPressed: () => notifier.onChangeView(2),
+            iconSelected: BoxIcons.bxs_folder,
+            iconUnselected: BoxIcons.bx_folder,
+            isSelected: currentIndex == 2,
           ),
-          const Gap(8.0),
-          Text(
-            S.pages.home.emptyListTasks.subtitle,
-            style: style.bodyMedium?.copyWith(color: Colors.white70),
+          _NavigatorBarItem(
+            onPressed: () => notifier.onChangeView(3),
+            iconSelected: BoxIcons.bxs_cog,
+            iconUnselected: BoxIcons.bx_cog,
+            isSelected: currentIndex == 3,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _NavigatorBarItem extends ConsumerWidget {
+  const _NavigatorBarItem({
+    required this.onPressed,
+    required this.iconSelected,
+    required this.iconUnselected,
+    required this.isSelected,
+  });
+
+  final VoidCallback onPressed;
+  final IconData iconSelected;
+  final IconData iconUnselected;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return IconButton(
+      onPressed: onPressed,
+      style: IconButton.styleFrom(
+        padding: const EdgeInsets.all(defaultPadding),
+        foregroundColor: isSelected ? colorPrimary : Colors.white,
+      ),
+      iconSize: 25,
+      icon: Icon(isSelected ? iconSelected : iconUnselected),
     );
   }
 }

@@ -35,6 +35,11 @@ class _Notifier extends StateNotifier<_State> {
     );
   }
 
+  void onChangeView(int value) {
+    if (state.currentIndex == value) return;
+    state = state.copyWith(currentIndex: value);
+  }
+
   Future<void> refreshAll() async {
     await _load();
   }
@@ -48,18 +53,22 @@ class _Notifier extends StateNotifier<_State> {
 
 class _State {
   _State({
+    this.currentIndex = 0,
     this.lists = const [],
     this.listsArchived = const [],
   });
 
+  final int currentIndex;
   final List<ListTasks> lists;
   final List<ListTasks> listsArchived;
 
   _State copyWith({
+    int? currentIndex,
     List<ListTasks>? lists,
     List<ListTasks>? listsArchived,
   }) {
     return _State(
+      currentIndex: currentIndex ?? this.currentIndex,
       lists: lists ?? this.lists,
       listsArchived: listsArchived ?? this.listsArchived,
     );

@@ -9,8 +9,8 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
-class SettingsPage extends ConsumerWidget {
-  const SettingsPage({super.key});
+class SettingsView extends ConsumerWidget {
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +18,13 @@ class SettingsPage extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
-      appBar: AppBarTitle(title: S.pages.settings.title),
+      appBar: AppBar(
+        title: Text(
+          S.pages.settings.title,
+          style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
