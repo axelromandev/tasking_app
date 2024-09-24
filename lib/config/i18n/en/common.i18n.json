@@ -48,7 +48,8 @@
     "update": "Update",
     "confirm": "Confirm",
     "restore": "Restore",
-    "save": "Save"
+    "save": "Save",
+    "accept": "Accept"
   },
   "utils": {
     "dateTimePicker": {

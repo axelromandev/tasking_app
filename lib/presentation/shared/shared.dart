@@ -14,4 +14,3 @@ export './widgets/card_task.dart';
 export './widgets/custom_action_button.dart';
 export './widgets/custom_filled_button.dart';
 export './widgets/custom_outlined_button.dart';
-export './widgets/markdown_preview.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -126,17 +127,23 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   _ListTile(
                     onTap: () async {
-                      final data = await Markdown.getFromFile();
-                      showAdaptiveDialog(
+                      final data = await MarkdownUtils.getFromUrl();
+                      showDialog(
                         context: context,
-                        builder: (_) => AlertDialog.adaptive(
-                          content: MarkdownPreview(data),
-                          actions: [
-                            TextButton(
-                              onPressed: () => context.pop(),
-                              child: const Text('Aceptar'),
-                            ),
-                          ],
+                        builder: (_) => Dialog(
+                          child: Column(
+                            children: [
+                              Expanded(child: Markdown(data: data)),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 55,
+                                child: TextButton(
+                                  onPressed: () => context.pop(),
+                                  child: Text(S.common.buttons.accept),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
