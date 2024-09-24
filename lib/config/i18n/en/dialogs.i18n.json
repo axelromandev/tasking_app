@@ -11,7 +11,8 @@
   },
   "listTasksDelete": {
     "title": "Delete list?",
-    "subtitle": "Are you sure you want to delete it?\nYou can't undo this action"
+    "subtitle": "Are you sure you want to delete it?\nYou can't undo this action",
+    "warning": "You have $pendingTasks pending tasks"
   },
   "deleteTask": {
     "title": "Delete task?",

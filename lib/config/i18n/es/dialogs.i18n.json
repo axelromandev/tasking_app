@@ -11,7 +11,8 @@
   },
   "listTasksDelete": {
     "title": "¿Eliminar lista?",
-    "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
+    "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción",
+    "warning": "Tienes $pendingTasks tareas pendientes"
   },
   "deleteTask": {
     "title": "¿Eliminar tarea?",
