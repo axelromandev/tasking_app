@@ -2,12 +2,28 @@ import 'dart:ui';
 
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/presentation/shared/shared.dart';
 
-class ColorPickerDialog extends StatelessWidget {
+class ColorPickerDialog extends StatefulWidget {
   const ColorPickerDialog({this.color, super.key});
 
   final Color? color;
+
+  @override
+  State<ColorPickerDialog> createState() => _ColorPickerDialogState();
+}
+
+class _ColorPickerDialogState extends State<ColorPickerDialog> {
+  late Color selected;
+
+  @override
+  void initState() {
+    selected = widget.color ?? const Color(0xffffc107);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +34,21 @@ class ColorPickerDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const ListTile(
-              title: Text('Color Picker'),
+            ListTile(
+              contentPadding: const EdgeInsets.only(
+                left: 20,
+                right: 8,
+              ),
+              title: const Text('Theme'),
+              trailing: IconButton(
+                onPressed: () => context.pop(),
+                icon: const Icon(BoxIcons.bx_x),
+              ),
             ),
             ColorPicker(
-              padding: const EdgeInsets.only(bottom: defaultPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding,
+              ),
               enableShadesSelection: false,
               borderRadius: 20,
               width: 36,
@@ -34,8 +60,23 @@ class ColorPickerDialog extends StatelessWidget {
                 ColorPickerType.custom: false,
                 ColorPickerType.primary: true,
               },
-              color: color ?? const Color(0xffffc107),
-              onColorChanged: (color) => Navigator.pop(context, color),
+              color: selected,
+              onColorChanged: (color) => setState(() {
+                selected = color;
+              }),
+            ),
+            CustomFilledButton(
+              height: 45,
+              width: double.infinity,
+              margin: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
+                top: 10,
+              ),
+              onPressed: () => Navigator.pop(context, selected),
+              backgroundColor: selected,
+              child: Text(S.common.buttons.select),
             ),
           ],
         ),
