@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -38,7 +40,10 @@ class _NavigatorBar extends ConsumerWidget {
         color: AppColors.background,
       ),
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      padding: const EdgeInsets.only(top: defaultPadding, bottom: 40),
+      padding: EdgeInsets.only(
+        top: defaultPadding,
+        bottom: Platform.isIOS ? 40 : 16,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
