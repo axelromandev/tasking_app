@@ -7,7 +7,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
-import 'package:tasking/presentation/shared/shared.dart';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -77,14 +76,7 @@ class SettingsView extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () => showDialog<Color?>(
-                      context: context,
-                      builder: (_) => ColorPickerDialog(color: colorPrimary),
-                    ).then((color) {
-                      if (color != null) {
-                        ref.read(colorThemeProvider.notifier).setColor(color);
-                      }
-                    }),
+                    onTap: () => context.push('/settings/themes'),
                     icon: BoxIcons.bx_palette,
                     title: S.pages.settings.appearance.theme,
                     borderRadius: const BorderRadius.only(

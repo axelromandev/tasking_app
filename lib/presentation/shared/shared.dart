@@ -1,5 +1,4 @@
 export './dialogs/archived_confirm_dialog.dart';
-export './dialogs/color_picker_dialog.dart';
 export './dialogs/list_tasks_delete_dialog.dart';
 export './dialogs/restore_app_dialog.dart';
 export './dialogs/task_delete_dialog.dart';

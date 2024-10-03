@@ -29,6 +29,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/settings/about',
         builder: (_, __) => const AboutPage(),
       ),
+      GoRoute(
+        path: '/settings/themes',
+        builder: (_, __) => const ThemesChangePage(),
+      ),
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(StorageKeys.isFirstTime) == null) {

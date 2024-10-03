@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 const double defaultPadding = 16.0;
 
 class AppColors {
-  static const Color card = Color(0xFF21222D);
-  static const Color background = Color(0xFF171821);
+  static const Color card = Color(0xFF292A2C);
+  static const Color background = Color(0xFF1F2022);
   static Color getTextColor(Color backgroundColor) {
     final double luminance = backgroundColor.computeLuminance();
     return luminance >= 0.34 ? Colors.black : Colors.white;
