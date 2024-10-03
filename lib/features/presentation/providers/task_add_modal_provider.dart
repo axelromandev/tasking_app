@@ -7,7 +7,7 @@ import 'package:tasking/i18n/i18n.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, int>((ref, listId) {
-  final refreshAll = ref.read(homeProvider.notifier).refreshAll;
+  final refreshAll = ref.read(listsProvider.notifier).refresh;
   final refreshList = ref.read(listTasksProvider(listId).notifier).refresh;
 
   return _Notifier(listId, refreshAll, refreshList);

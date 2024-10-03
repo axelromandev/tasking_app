@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/pages/pages.dart';
-import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/features/presentation/providers/lists_provider.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -17,7 +17,9 @@ class ListsView extends ConsumerWidget {
     // TODO: ListsView Implement build method.
 
     final style = Theme.of(context).textTheme;
+
     final colorPrimary = ref.watch(colorThemeProvider);
+    final provider = ref.watch(listsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +35,9 @@ class ListsView extends ConsumerWidget {
         ),
         centerTitle: false,
       ),
-      body: _ListsTasksView(),
+      body: provider.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _ListsTasksView(),
     );
   }
 }
@@ -41,7 +45,7 @@ class ListsView extends ConsumerWidget {
 class _ListsTasksView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(homeProvider);
+    final provider = ref.watch(listsProvider);
 
     final lists = provider.lists;
     final listsArchived = provider.listsArchived;
