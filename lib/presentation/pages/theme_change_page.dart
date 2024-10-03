@@ -22,9 +22,29 @@ class ThemesChangePage extends ConsumerWidget {
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(90),
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: const ListTile(
+              title: Text(
+                'Puedes cambiar el color de tema aquí, esto afectara unicamente '
+                'a cosas como, iconos, botones y otros textos resaltados.',
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.only(
+          top: defaultPadding,
+          left: 8,
+          right: 8,
+          bottom: MediaQuery.of(context).padding.bottom + defaultPadding,
+        ),
         itemCount: notifier.colors.length,
         itemBuilder: (_, i) {
           final color = notifier.colors[i];
@@ -53,18 +73,6 @@ class ThemesChangePage extends ConsumerWidget {
             ),
           );
         },
-      ),
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(8),
-        child: const ListTile(
-          title: Text(
-            'Puedes cambiar el color de tema aquí, esto afectara unicamente '
-            'a cosas como, iconos, botones y otros textos resaltados.',
-            style: TextStyle(
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
       ),
     );
   }

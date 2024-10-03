@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/presentation/shared/shared.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AboutPage extends ConsumerWidget {
@@ -13,8 +13,16 @@ class AboutPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final color = ref.watch(colorThemeProvider);
+
     return Scaffold(
-      appBar: AppBarTitle(title: S.pages.settings.moreInformation.about),
+      appBar: AppBar(
+        title: Text(
+          S.pages.settings.moreInformation.about,
+          style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: false,
+      ),
       body: Column(
         children: [
           const Gap(defaultPadding * 2),
@@ -30,7 +38,7 @@ class AboutPage extends ConsumerWidget {
               child: SvgPicture.asset(
                 Assets.logo,
                 width: 18,
-                theme: const SvgTheme(currentColor: Colors.white),
+                theme: SvgTheme(currentColor: color),
               ),
             ),
           ),
@@ -54,9 +62,10 @@ class AboutPage extends ConsumerWidget {
             ),
           ),
           const Gap(defaultPadding),
-          TextButton(
+          TextButton.icon(
             onPressed: () => launchUrlString(Urls.repo),
-            child: Text(S.pages.about.repo),
+            icon: const Icon(BoxIcons.bxl_github),
+            label: Text(S.pages.about.repo),
           ),
         ],
       ),

@@ -18,28 +18,32 @@ class ListTasksCard extends StatelessWidget {
 
     final pendingTasks = list.tasks.where((task) => !task.completed).toList();
 
-    return Card(
-      child: ListTile(
-        onTap: onTap,
-        leading: Icon(
-          BoxIcons.bxs_circle,
-          color: list.archived ? list.color.withOpacity(.4) : list.color,
-          size: 18,
-        ),
-        title: Text(list.title),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (pendingTasks.isNotEmpty)
-              Text(
-                '${pendingTasks.length}',
-                style: style.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-            else
-              const SizedBox.shrink(),
-          ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        child: ListTile(
+          visualDensity: VisualDensity.compact,
+          leading: Icon(
+            BoxIcons.bxs_circle,
+            color: list.archived ? list.color.withOpacity(.4) : list.color,
+            size: 12,
+          ),
+          minLeadingWidth: 0,
+          title: Text(list.title),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (pendingTasks.isNotEmpty)
+                Text(
+                  '${pendingTasks.length}',
+                  style: style.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              else
+                const SizedBox.shrink(),
+            ],
+          ),
         ),
       ),
     );
