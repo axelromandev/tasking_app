@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
@@ -72,35 +70,21 @@ class ListTasksPage extends ConsumerWidget {
       body: list.tasks.isEmpty
           ? _EmptyTasks(list.color)
           : _BuildTasks(list.tasks.toList()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: Platform.isAndroid
-          ? FloatingActionButton(
-              backgroundColor: list.color,
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (_) => TaskAddModal(list.id),
-              ),
-              child: const Icon(BoxIcons.bx_plus),
-            )
-          : null,
-      bottomNavigationBar: Platform.isIOS
-          ? Container(
-              color: AppColors.card,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: SafeArea(
-                child: ListTile(
-                  onTap: () => showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (_) => TaskAddModal(list.id),
-                  ),
-                  leading: const Icon(BoxIcons.bx_plus),
-                  title: Text(S.modals.taskAdd.placeholder),
-                ),
-              ),
-            )
-          : null,
+      bottomNavigationBar: SafeArea(
+        child: Card(
+          margin: const EdgeInsets.all(defaultPadding),
+          child: ListTile(
+            visualDensity: VisualDensity.compact,
+            onTap: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => TaskAddModal(list.id),
+            ),
+            leading: const Icon(BoxIcons.bx_plus),
+            title: Text(S.modals.taskAdd.placeholder),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -120,8 +104,8 @@ class _BuildTasks extends StatelessWidget {
     final completedTasks = tasks.where((task) => task.completed).toList();
     completedTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return ListView(
+      padding: const EdgeInsets.all(8),
       children: [
         ListView.builder(
           shrinkWrap: true,
