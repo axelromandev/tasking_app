@@ -12,11 +12,7 @@ void main() async {
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: AppColors.card,
-      systemNavigationBarDividerColor: Colors.white,
-    ),
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 

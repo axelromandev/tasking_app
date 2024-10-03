@@ -71,9 +71,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         builder: (_) => TaskDeleteDialog(),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.only(
-          right: defaultPadding,
-        ),
+        contentPadding: const EdgeInsets.only(right: defaultPadding),
         visualDensity: VisualDensity.compact,
         iconColor: isCompleted ? Colors.white70 : Colors.white,
         shape: const RoundedRectangleBorder(),
