@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/domain/domain.dart';
+import 'package:tasking/i18n/i18n.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 

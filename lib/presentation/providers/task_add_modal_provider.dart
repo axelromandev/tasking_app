@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/data/data.dart';
+import 'package:tasking/i18n/i18n.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family

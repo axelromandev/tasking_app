@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});

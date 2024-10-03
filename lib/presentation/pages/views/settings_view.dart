@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});

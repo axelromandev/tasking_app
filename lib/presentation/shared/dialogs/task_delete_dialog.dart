@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
 class TaskDeleteDialog extends StatelessWidget {

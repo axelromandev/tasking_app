@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/data/data.dart';
 import 'package:tasking/domain/domain.dart';
+import 'package:tasking/i18n/i18n.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
 final taskProvider = StateNotifierProvider.family

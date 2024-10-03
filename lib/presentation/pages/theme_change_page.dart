@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class ThemesChangePage extends ConsumerWidget {
   const ThemesChangePage({super.key});

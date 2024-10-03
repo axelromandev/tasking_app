@@ -1,4 +1,4 @@
-import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class HumanFormat {
   static String datetime(DateTime? dateTime) {

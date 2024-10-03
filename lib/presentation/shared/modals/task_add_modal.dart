@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 
 class TaskAddModal extends ConsumerWidget {
