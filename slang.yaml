@@ -1,7 +1,7 @@
 base_locale: en
-input_directory: lib/config/i18n
+input_directory: lib/i18n
 input_file_pattern: .i18n.json
-output_directory: lib/config/i18n/generated
+output_directory: lib/i18n/generated
 translate_var: S
 namespaces: true
 output_file_name: translations.g.dart

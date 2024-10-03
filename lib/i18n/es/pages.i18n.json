@@ -62,6 +62,11 @@
       "restoreApp": "Restaurar aplicación"
     }
   },
+  "themes": {
+    "title": "Temas",
+    "description": "Puedes cambiar el color de tema aquí, esto afectara unicamente a cosas como, iconos, botones y otros textos resaltados.",
+    "indicator": "Seleccionado"
+  },
   "about": {
     "title": "Tasking App",
     "description": "Esta es una aplicación gratuita de código abierto desarrollada para la comunidad, centrada en la gestión de tareas/notas/recordatorios de manera simple y sin muchas funciones adicionales.",

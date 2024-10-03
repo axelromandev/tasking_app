@@ -62,6 +62,11 @@
       "restoreApp": "Restore App"
     }
   },
+  "themes": {
+    "title": "Themes",
+    "description": "You can change the topic color here, this affects only things such as icons, buttons and other texts.",
+    "indicator": "selected"
+  },
   "about": {
     "title": "Tasking App",
     "description": "This is a free open source application developed for the community, focused on the management of tasks/notes/reminders in a simple way and without many additional functions.",

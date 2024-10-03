@@ -9,8 +9,6 @@ class ThemesChangePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: ThemeChangePage Implement slang
-
     final style = Theme.of(context).textTheme;
 
     final selected = ref.watch(colorThemeProvider);
@@ -19,7 +17,7 @@ class ThemesChangePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.pages.settings.appearance.theme,
+          S.pages.themes.title,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,
@@ -27,13 +25,10 @@ class ThemesChangePage extends ConsumerWidget {
           preferredSize: const Size.fromHeight(90),
           child: Container(
             padding: const EdgeInsets.only(bottom: 8),
-            child: const ListTile(
+            child: ListTile(
               title: Text(
-                'Puedes cambiar el color de tema aquí, esto afectara unicamente '
-                'a cosas como, iconos, botones y otros textos resaltados.',
-                style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                ),
+                S.pages.themes.description,
+                style: const TextStyle(fontWeight: FontWeight.w300),
               ),
             ),
           ),
@@ -68,7 +63,7 @@ class ThemesChangePage extends ConsumerWidget {
                 iconColor: color.value,
                 title: Text(color.name),
                 trailing: (selected.value == color.value.value)
-                    ? const Text('Selected')
+                    ? Text(S.pages.themes.indicator)
                     : null,
               ),
             ),
