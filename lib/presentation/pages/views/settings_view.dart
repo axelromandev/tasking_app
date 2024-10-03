@@ -18,9 +18,15 @@ class SettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          S.pages.settings.title,
-          style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        title: Row(
+          children: [
+            Icon(BoxIcons.bx_cog, color: colorPrimary),
+            const Gap(12),
+            Text(
+              S.pages.settings.title,
+              style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            ),
+          ],
         ),
         centerTitle: false,
       ),

@@ -8,20 +8,27 @@ import 'package:tasking/presentation/pages/pages.dart';
 import 'package:tasking/presentation/providers/providers.dart';
 import 'package:tasking/presentation/shared/shared.dart';
 
-class ListsView extends StatelessWidget {
+class ListsView extends ConsumerWidget {
   const ListsView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // TODO: ListsView Implement build method.
 
     final style = Theme.of(context).textTheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Listas',
-          style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+        title: Row(
+          children: [
+            Icon(BoxIcons.bx_folder, color: colorPrimary),
+            const Gap(12),
+            Text(
+              'Listas',
+              style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+            ),
+          ],
         ),
         centerTitle: false,
       ),

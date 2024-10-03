@@ -36,7 +36,7 @@ class _NavigatorBar extends ConsumerWidget {
     return SafeArea(
       child: Container(
         decoration: const BoxDecoration(
-          color: AppColors.card,
+          color: AppColors.background,
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
@@ -53,8 +53,8 @@ class _NavigatorBar extends ConsumerWidget {
             ),
             _NavigatorBarItem(
               onPressed: () => notifier.onChangeView(1),
-              iconSelected: BoxIcons.bxs_calendar_alt,
-              iconUnselected: BoxIcons.bx_calendar_alt,
+              iconSelected: BoxIcons.bxs_calendar,
+              iconUnselected: BoxIcons.bx_calendar,
               isSelected: currentIndex == 1,
             ),
             Container(
