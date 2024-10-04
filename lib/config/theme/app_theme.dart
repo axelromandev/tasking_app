@@ -121,6 +121,11 @@ final appThemeProvider = Provider<ThemeData>((ref) {
 
     dividerColor: Colors.white12,
 
+    // ProgressIndicatorThemeData
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: colorSeed,
+    ),
+
     // listTileTheme
     listTileTheme: ListTileThemeData(
       iconColor: Colors.white,
