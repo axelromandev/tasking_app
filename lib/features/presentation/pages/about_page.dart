@@ -1,8 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -29,18 +28,14 @@ class AboutPage extends ConsumerWidget {
           const Gap(defaultPadding * 2),
           Center(
             child: Container(
-              height: 80,
-              width: 80,
+              height: 90,
+              width: 90,
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: AppColors.card,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: SvgPicture.asset(
-                Assets.logo,
-                width: 18,
-                theme: SvgTheme(currentColor: color),
-              ),
+              child: Icon(IconsaxBold.crown_1, color: color, size: 50),
             ),
           ),
           const Gap(defaultPadding),
@@ -63,10 +58,9 @@ class AboutPage extends ConsumerWidget {
             ),
           ),
           const Gap(defaultPadding),
-          TextButton.icon(
+          TextButton(
             onPressed: () => launchUrlString(Urls.repo),
-            icon: const Icon(BoxIcons.bxl_github),
-            label: Text(S.pages.about.repo),
+            child: Text(S.pages.about.repo),
           ),
         ],
       ),

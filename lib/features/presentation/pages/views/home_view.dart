@@ -1,11 +1,9 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
-import 'package:tasking/i18n/i18n.dart';
 
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});
@@ -22,20 +20,12 @@ class HomeView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            SvgPicture.asset(
-              Assets.logo,
-              width: 18,
-              theme: SvgTheme(currentColor: colorPrimary),
-            ),
+            Icon(IconsaxOutline.home_2, color: colorPrimary),
             const Gap(12),
             Text(
-              S.pages.home.title,
+              // S.pages.home.title,
+              'Home',
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
-            ),
-            const Gap(8),
-            Text(
-              'beta',
-              style: style.bodyMedium?.copyWith(color: colorPrimary),
             ),
           ],
         ),
@@ -96,7 +86,7 @@ class HomeView extends ConsumerWidget {
                     final task = tasks[i];
                     return ListTile(
                       visualDensity: VisualDensity.compact,
-                      leading: const Icon(BoxIcons.bx_circle),
+                      leading: const Icon(IconsaxOutline.record),
                       title: Text(task.title),
                     );
                   },

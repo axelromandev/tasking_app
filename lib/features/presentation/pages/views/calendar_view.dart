@@ -1,7 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 
 class CalendarView extends ConsumerWidget {
@@ -18,7 +18,7 @@ class CalendarView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(BoxIcons.bx_calendar, color: colorPrimary),
+            Icon(IconsaxOutline.calendar_1, color: colorPrimary),
             const Gap(12),
             Text(
               'Calendario',

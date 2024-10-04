@@ -1,8 +1,9 @@
+import 'package:ficonsax/ficonsax.dart';
+import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
@@ -33,7 +34,7 @@ class ListTasksPage extends ConsumerWidget {
         leading: IconButton(
           onPressed: () => context.pop(),
           iconSize: 30.0,
-          icon: const Icon(BoxIcons.bx_chevron_left),
+          icon: const Icon(IconsaxOutline.arrow_left_2, size: 20),
         ),
         title: GestureDetector(
           onTap: () => showModalBottomSheet(
@@ -48,11 +49,11 @@ class ListTasksPage extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(BoxIcons.bxs_circle, color: list.color, size: 18),
+                ColorIndicator(color: list.color, width: 18, height: 18),
                 const Gap(defaultPadding),
                 Flexible(child: Text(list.title, style: style.bodyLarge)),
                 const Gap(defaultPadding),
-                const Icon(BoxIcons.bx_edit_alt, size: 18),
+                const Icon(IconsaxOutline.edit, size: 18),
               ],
             ),
           ),
@@ -64,7 +65,7 @@ class ListTasksPage extends ConsumerWidget {
               builder: (_) => ListTasksOptionsModal(context, list.id),
             ),
             iconSize: 18.0,
-            icon: const Icon(BoxIcons.bx_dots_vertical_rounded),
+            icon: const Icon(IconsaxOutline.more),
           ),
         ],
       ),
@@ -81,7 +82,7 @@ class ListTasksPage extends ConsumerWidget {
               isScrollControlled: true,
               builder: (_) => TaskAddModal(list.id),
             ),
-            leading: const Icon(BoxIcons.bx_plus),
+            leading: const Icon(IconsaxOutline.add),
             title: Text(S.modals.taskAdd.placeholder),
           ),
         ),
@@ -176,7 +177,7 @@ class _EmptyTasks extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              BoxIcons.bx_task,
+              IconsaxOutline.task,
               size: 38.0,
               color: color,
             ),

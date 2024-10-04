@@ -1,8 +1,8 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/pages/pages.dart';
 import 'package:tasking/features/presentation/providers/lists_provider.dart';
@@ -25,7 +25,7 @@ class ListsView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(BoxIcons.bx_folder, color: colorPrimary),
+            Icon(IconsaxOutline.folder_2, color: colorPrimary),
             const Gap(12),
             Text(
               'Listas',
@@ -76,7 +76,7 @@ class _ListsTasksView extends ConsumerWidget {
                 context: context,
                 builder: (_) => const ArchivedListTasksModal(),
               ),
-              leading: const Icon(BoxIcons.bx_archive, size: 18),
+              leading: const Icon(IconsaxOutline.archive, size: 18),
               title: Text(S.dialogs.listTasksArchived.title),
               trailing: Text('${listsArchived.length}'),
             ),
@@ -104,7 +104,7 @@ class _EmptyListTasks extends ConsumerWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              BoxIcons.bx_clipboard,
+              IconsaxOutline.clipboard,
               size: 38.0,
               color: colorPrimary,
             ),

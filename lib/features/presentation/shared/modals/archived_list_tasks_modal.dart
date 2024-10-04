@@ -1,8 +1,8 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -36,7 +36,8 @@ class ArchivedListTasksModal extends ConsumerWidget {
               return ListTile(
                 shape: const RoundedRectangleBorder(),
                 visualDensity: VisualDensity.compact,
-                leading: Icon(BoxIcons.bxs_circle, color: list.color, size: 18),
+                leading:
+                    Icon(IconsaxOutline.record, color: list.color, size: 18),
                 title: Text.rich(TextSpan(text: list.title)),
                 trailing: CustomFilledButton(
                   onPressed: () {

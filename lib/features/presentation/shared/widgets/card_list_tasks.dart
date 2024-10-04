@@ -1,5 +1,5 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/features/domain/domain.dart';
 
 class ListTasksCard extends StatelessWidget {
@@ -24,7 +24,7 @@ class ListTasksCard extends StatelessWidget {
         child: ListTile(
           visualDensity: VisualDensity.compact,
           leading: Icon(
-            BoxIcons.bxs_circle,
+            IconsaxOutline.record,
             color: list.archived ? list.color.withOpacity(.4) : list.color,
             size: 12,
           ),

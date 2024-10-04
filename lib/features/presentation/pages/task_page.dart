@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -31,7 +31,7 @@ class TaskPage extends ConsumerWidget {
         leading: IconButton(
           onPressed: () => context.pop(),
           iconSize: 30.0,
-          icon: const Icon(BoxIcons.bx_x),
+          icon: const Icon(IconsaxOutline.minus),
         ),
         title: Text(list.title, style: style.bodyLarge),
         actions: [
@@ -47,7 +47,7 @@ class TaskPage extends ConsumerWidget {
               }
             },
             iconSize: 18,
-            icon: const Icon(BoxIcons.bx_trash_alt),
+            icon: const Icon(IconsaxOutline.trash),
           ),
         ],
       ),
@@ -67,8 +67,8 @@ class TaskPage extends ConsumerWidget {
                 color: Colors.white60,
                 icon: Icon(
                   task.completed
-                      ? BoxIcons.bxs_check_circle
-                      : BoxIcons.bx_circle,
+                      ? IconsaxOutline.record_circle
+                      : IconsaxOutline.record,
                 ),
               ),
               hintText: S.pages.task.placeholderTitle,
@@ -82,18 +82,19 @@ class TaskPage extends ConsumerWidget {
               foregroundColor: list.color,
               overlayColor: Colors.transparent,
             ),
-            icon: const Icon(BoxIcons.bx_plus),
+            icon: const Icon(IconsaxOutline.add),
             label: const Text('Add a step'),
           ),
           if (task.reminder != null)
             ListTile(
               contentPadding: const EdgeInsets.only(left: defaultPadding),
-              leading: Icon(BoxIcons.bx_bell, color: list.color, size: 20),
+              leading: Icon(IconsaxOutline.notification,
+                  color: list.color, size: 20),
               title: Text(HumanFormat.datetime(task.reminder)),
               trailing: IconButton(
                 onPressed: notifier.onRemoveReminder,
                 color: Colors.white54,
-                icon: const Icon(BoxIcons.bx_x),
+                icon: const Icon(IconsaxOutline.minus),
               ),
             )
           else
@@ -103,7 +104,7 @@ class TaskPage extends ConsumerWidget {
                 foregroundColor: Colors.white70,
                 overlayColor: Colors.transparent,
               ),
-              icon: const Icon(BoxIcons.bx_bell, size: 20),
+              icon: const Icon(IconsaxOutline.notification, size: 20),
               label: const Text('Remind me'),
             ),
           TextButton.icon(
@@ -112,7 +113,7 @@ class TaskPage extends ConsumerWidget {
               foregroundColor: Colors.white70,
               overlayColor: Colors.transparent,
             ),
-            icon: const Icon(BoxIcons.bx_calendar, size: 20),
+            icon: const Icon(IconsaxOutline.calendar, size: 20),
             label: const Text('Add due date'),
           ),
           const Gap(defaultPadding),

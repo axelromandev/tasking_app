@@ -1,6 +1,6 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -59,7 +59,7 @@ class ThemesChangePage extends ConsumerWidget {
                 ),
               ),
               child: ListTile(
-                leading: const Icon(BoxIcons.bx_palette),
+                leading: const Icon(IconsaxOutline.color_swatch),
                 iconColor: color.value,
                 title: Text(color.name),
                 trailing: (selected.value == color.value.value)

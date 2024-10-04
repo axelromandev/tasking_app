@@ -1,8 +1,8 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
@@ -91,7 +91,7 @@ class _Notifier extends StateNotifier<Task> {
                   await _dateTimePicker(context);
                 },
                 shape: const RoundedRectangleBorder(),
-                leading: const Icon(BoxIcons.bx_shuffle),
+                leading: const Icon(IconsaxOutline.shuffle),
                 title: Text(S.modals.taskReminder.change),
               ),
               ListTile(
@@ -101,7 +101,7 @@ class _Notifier extends StateNotifier<Task> {
                 },
                 shape: const RoundedRectangleBorder(),
                 iconColor: Colors.redAccent,
-                leading: const Icon(BoxIcons.bx_bell_off),
+                leading: const Icon(IconsaxOutline.notification),
                 title: Text(S.modals.taskReminder.remove),
               ),
             ],

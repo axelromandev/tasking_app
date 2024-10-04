@@ -1,7 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -24,7 +24,11 @@ class IntroPage extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  Icon(BoxIcons.bxs_crown, color: colorPrimary, size: 32),
+                  Icon(
+                    IconsaxBold.crown_1,
+                    color: colorPrimary,
+                    size: 32,
+                  ),
                   const Gap(defaultPadding / 2),
                   Text(
                     S.common.labels.appName,
@@ -47,7 +51,7 @@ class IntroPage extends ConsumerWidget {
               const Gap(defaultPadding),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const _Leading(icon: BoxIcons.bx_time),
+                leading: const _Leading(icon: IconsaxBold.timer),
                 textColor: Colors.white,
                 titleTextStyle: style.bodyLarge,
                 title: Text(S.pages.intro.feature1),
@@ -55,21 +59,21 @@ class IntroPage extends ConsumerWidget {
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const _Leading(icon: BoxIcons.bx_devices),
+                leading: const _Leading(icon: IconsaxBold.mobile),
                 textColor: Colors.white,
                 title: Text(S.pages.intro.feature2),
               ),
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const _Leading(icon: BoxIcons.bx_shield),
+                leading: const _Leading(icon: IconsaxBold.key),
                 textColor: Colors.white,
                 title: Text(S.pages.intro.feature3),
               ),
               const Gap(4),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                leading: const _Leading(icon: BoxIcons.bx_bell),
+                leading: const _Leading(icon: IconsaxBold.notification),
                 textColor: Colors.white,
                 title: Text(S.pages.intro.feature4),
               ),

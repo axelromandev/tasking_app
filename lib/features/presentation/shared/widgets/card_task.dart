@@ -1,7 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -57,7 +57,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Icon(
-              BoxIcons.bx_trash,
+              IconsaxOutline.trash,
               size: 18,
               color: Colors.white,
             ),
@@ -79,7 +79,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         leading: IconButton(
           onPressed: notifier.onToggleCompleted,
           icon: Icon(
-            isCompleted ? BoxIcons.bx_check : BoxIcons.bx_circle,
+            isCompleted ? IconsaxOutline.record_circle : IconsaxOutline.record,
             color: Colors.white,
             size: 24,
           ),
@@ -108,7 +108,10 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                     if (widget.task.reminder != null)
                       Row(
                         children: [
-                          const Icon(BoxIcons.bx_bell, size: 12),
+                          const Icon(
+                            IconsaxOutline.notification,
+                            size: 12,
+                          ),
                           const Gap(4.0),
                           Text(
                             HumanFormat.datetime(widget.task.reminder),
@@ -119,7 +122,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                     Row(
                       children: [
                         Icon(
-                          BoxIcons.bx_file,
+                          IconsaxOutline.document,
                           size: 12,
                           color: isCompleted ? Colors.grey : null,
                         ),

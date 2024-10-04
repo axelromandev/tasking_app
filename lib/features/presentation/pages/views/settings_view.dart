@@ -1,9 +1,9 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
@@ -21,7 +21,7 @@ class SettingsView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(BoxIcons.bx_cog, color: colorPrimary),
+            Icon(IconsaxOutline.setting, color: colorPrimary),
             const Gap(12),
             Text(
               S.pages.settings.title,
@@ -57,7 +57,7 @@ class SettingsView extends ConsumerWidget {
                     onTap: () {
                       // TODO: implement backup
                     },
-                    icon: BoxIcons.bx_reset,
+                    icon: IconsaxOutline.refresh,
                     title: S.pages.settings.general.backup,
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -84,20 +84,22 @@ class SettingsView extends ConsumerWidget {
                 children: [
                   _ListTile(
                     onTap: () => context.push('/settings/themes'),
-                    icon: BoxIcons.bx_palette,
+                    icon: IconsaxOutline.color_swatch,
                     title: S.pages.settings.appearance.theme,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
                     ),
                   ),
-                  ListTile(
-                    iconColor: colorPrimary,
-                    leading: const Icon(BoxIcons.bx_world),
-                    title: Text(S.pages.settings.appearance.language),
-                    trailing: Text(
-                      S.common.labels.language,
-                      style: style.bodyMedium?.copyWith(color: Colors.grey),
+                  _ListTile(
+                    onTap: () {
+                      //
+                    },
+                    icon: IconsaxOutline.translate,
+                    title: S.pages.settings.appearance.language,
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
                     ),
                   ),
                 ],
@@ -123,7 +125,7 @@ class SettingsView extends ConsumerWidget {
                 children: [
                   _ListTile(
                     onTap: () => context.push('/settings/about'),
-                    icon: BoxIcons.bx_info_circle,
+                    icon: IconsaxOutline.info_circle,
                     title: S.pages.settings.moreInformation.about,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
@@ -152,13 +154,17 @@ class SettingsView extends ConsumerWidget {
                         ),
                       );
                     },
-                    icon: BoxIcons.bx_shield,
+                    icon: IconsaxOutline.shield,
                     title: 'Políticas de privacidad',
                   ),
                   _ListTile(
                     onTap: () {}, //TODO: share app with friends
-                    icon: BoxIcons.bx_share_alt,
+                    icon: IconsaxOutline.share,
                     title: 'Compartir',
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
                   ),
                 ],
               ),
@@ -195,7 +201,6 @@ class _ListTile extends ConsumerWidget {
       iconColor: colorPrimary,
       leading: Icon(icon),
       title: Text(title),
-      trailing: const Icon(BoxIcons.bx_chevron_right, color: Colors.grey),
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
       ),

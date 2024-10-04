@@ -1,7 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as p;
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -83,7 +83,7 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
           ListTile(
             onTap: () => Navigator.pop(context, tomorrowMorning),
             shape: const RoundedRectangleBorder(),
-            leading: const Icon(BoxIcons.bx_time),
+            leading: const Icon(IconsaxOutline.clock),
             title: Text(S.common.utils.dateTimePicker.option1),
             trailing: Text(
               '$tomorrowDay 8:00 AM',
@@ -93,21 +93,21 @@ class _ReminderOptionsModalState extends State<_ReminderOptionsModal> {
           ListTile(
             onTap: () => Navigator.pop(context, tomorrowEvening),
             shape: const RoundedRectangleBorder(),
-            leading: const Icon(BoxIcons.bx_time),
+            leading: const Icon(IconsaxOutline.clock),
             title: Text(S.common.utils.dateTimePicker.option2),
             trailing: Text('$tomorrowDay 6:00 PM', style: style.bodyLarge),
           ),
           ListTile(
             onTap: () => Navigator.pop(context, monday),
             shape: const RoundedRectangleBorder(),
-            leading: const Icon(BoxIcons.bx_time),
+            leading: const Icon(IconsaxOutline.clock),
             title: Text(S.common.utils.dateTimePicker.option3),
             trailing: Text('Mon 8:00 AM', style: style.bodyLarge),
           ),
           ListTile(
             onTap: () => Navigator.pop(context, true),
             shape: const RoundedRectangleBorder(),
-            leading: const Icon(BoxIcons.bx_time),
+            leading: const Icon(IconsaxOutline.clock),
             title: Text(S.common.utils.dateTimePicker.option4),
           ),
         ],

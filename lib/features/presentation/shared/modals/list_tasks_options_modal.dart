@@ -1,8 +1,8 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -47,7 +47,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_trash_alt, size: 18),
+              leading: const Icon(IconsaxOutline.trash, size: 18),
               title: Text(S.modals.listTasksOptions.list.delete),
             ),
             ListTile(
@@ -68,7 +68,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_archive_in, size: 18),
+              leading: const Icon(IconsaxOutline.archive, size: 18),
               title: Text(S.modals.listTasksOptions.list.archive),
             ),
             const Gap(defaultPadding),
@@ -88,7 +88,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_circle, size: 18),
+              leading: const Icon(IconsaxOutline.record, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.incompleteAllTasks,
               ),
@@ -102,7 +102,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_check_circle, size: 18),
+              leading: const Icon(IconsaxOutline.record_circle, size: 18),
               title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
             ListTile(
@@ -114,7 +114,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               iconColor: list.color,
-              leading: const Icon(BoxIcons.bx_x_circle, size: 18),
+              leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
               ),

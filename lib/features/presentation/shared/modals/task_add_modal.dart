@@ -1,7 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -45,7 +45,7 @@ class TaskAddModal extends ConsumerWidget {
                 filled: false,
                 hintText: S.modals.taskAdd.placeholder,
                 prefixIcon: const Icon(
-                  BoxIcons.bx_circle,
+                  IconsaxOutline.record,
                   color: Colors.white54,
                 ),
               ),
@@ -59,7 +59,7 @@ class TaskAddModal extends ConsumerWidget {
                     overlayColor: Colors.transparent,
                     foregroundColor: Colors.white,
                   ),
-                  icon: const Icon(BoxIcons.bx_calendar_alt, size: 20),
+                  icon: const Icon(IconsaxOutline.calendar, size: 20),
                   label: const Text('Set due date'),
                 ),
                 TextButton.icon(
@@ -69,7 +69,7 @@ class TaskAddModal extends ConsumerWidget {
                     overlayColor: Colors.transparent,
                     foregroundColor: Colors.white,
                   ),
-                  icon: const Icon(BoxIcons.bx_bell, size: 20),
+                  icon: const Icon(IconsaxOutline.notification, size: 20),
                   label: const Text('Remind me'),
                 ),
                 TextButton.icon(
@@ -79,7 +79,7 @@ class TaskAddModal extends ConsumerWidget {
                     overlayColor: Colors.transparent,
                     foregroundColor: Colors.white,
                   ),
-                  icon: const Icon(BoxIcons.bx_note, size: 20),
+                  icon: const Icon(IconsaxOutline.note, size: 20),
                   label: const Text('Note'),
                 ),
               ],
