@@ -36,8 +36,7 @@ class ArchivedListTasksModal extends ConsumerWidget {
               return ListTile(
                 shape: const RoundedRectangleBorder(),
                 visualDensity: VisualDensity.compact,
-                leading:
-                    Icon(IconsaxOutline.record, color: list.color, size: 18),
+                leading: const Icon(IconsaxOutline.record, size: 18),
                 title: Text.rich(TextSpan(text: list.title)),
                 trailing: CustomFilledButton(
                   onPressed: () {
@@ -45,7 +44,7 @@ class ArchivedListTasksModal extends ConsumerWidget {
                       if (lists.length == 1) context.pop();
                     });
                   },
-                  backgroundColor: lists[i].color,
+                  // backgroundColor: lists[i].color,
                   child: Text(S.common.buttons.restore),
                 ),
               );

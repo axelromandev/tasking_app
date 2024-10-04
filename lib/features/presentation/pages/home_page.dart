@@ -57,22 +57,27 @@ class _NavigatorBar extends ConsumerWidget {
               iconUnselected: IconsaxOutline.calendar_1,
               isSelected: currentIndex == 1,
             ),
-            IconButton(
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                useSafeArea: true,
-                isScrollControlled: true,
-                builder: (_) => const ListTasksAddModal(),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding,
               ),
-              style: IconButton.styleFrom(
-                padding: const EdgeInsets.all(defaultPadding),
-                backgroundColor: colorPrimary,
-                foregroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(defaultPadding),
+              child: IconButton(
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  useSafeArea: true,
+                  isScrollControlled: true,
+                  builder: (_) => const ListTasksAddModal(),
                 ),
+                style: IconButton.styleFrom(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  backgroundColor: colorPrimary,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(defaultPadding),
+                  ),
+                ),
+                icon: const Icon(IconsaxOutline.add),
               ),
-              icon: const Icon(IconsaxOutline.add),
             ),
             _NavigatorBarItem(
               onPressed: () => notifier.onChangeView(2),

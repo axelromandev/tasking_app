@@ -46,7 +46,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: list.color,
               leading: const Icon(IconsaxOutline.trash, size: 18),
               title: Text(S.modals.listTasksOptions.list.delete),
             ),
@@ -57,7 +56,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
                   context: context,
                   builder: (_) => ArchivedConfirmDialog(
                     titleList: list.title,
-                    colorList: Color(list.colorValue),
                   ),
                 ).then((value) {
                   if (value != null && value) {
@@ -67,7 +65,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               },
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: list.color,
+              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.archive, size: 18),
               title: Text(S.modals.listTasksOptions.list.archive),
             ),
@@ -87,7 +85,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: list.color,
+              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.record, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.incompleteAllTasks,
@@ -101,7 +99,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: list.color,
+              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.record_circle, size: 18),
               title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
@@ -113,7 +111,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              iconColor: list.color,
+              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,

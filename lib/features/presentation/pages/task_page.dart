@@ -21,6 +21,8 @@ class TaskPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final list = ref.watch(listTasksProvider(task.listId));
 
     final provider = ref.watch(taskProvider(task));
@@ -59,7 +61,7 @@ class TaskPage extends ConsumerWidget {
             style: style.titleLarge,
             autocorrect: false,
             maxLines: null,
-            cursorColor: list.color,
+            cursorColor: colorPrimary,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               prefixIcon: IconButton(
@@ -79,7 +81,7 @@ class TaskPage extends ConsumerWidget {
           TextButton.icon(
             onPressed: () {}, //TODO: add more steps tasks
             style: TextButton.styleFrom(
-              foregroundColor: list.color,
+              foregroundColor: colorPrimary,
               overlayColor: Colors.transparent,
             ),
             icon: const Icon(IconsaxOutline.add),
@@ -88,8 +90,11 @@ class TaskPage extends ConsumerWidget {
           if (task.reminder != null)
             ListTile(
               contentPadding: const EdgeInsets.only(left: defaultPadding),
-              leading: Icon(IconsaxOutline.notification,
-                  color: list.color, size: 20),
+              leading: Icon(
+                IconsaxOutline.notification,
+                color: colorPrimary,
+                size: 20,
+              ),
               title: Text(HumanFormat.datetime(task.reminder)),
               trailing: IconButton(
                 onPressed: notifier.onRemoveReminder,
@@ -122,7 +127,7 @@ class TaskPage extends ConsumerWidget {
             initialValue: provider.note,
             maxLines: null,
             autocorrect: false,
-            cursorColor: list.color,
+            cursorColor: colorPrimary,
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               hintText: S.pages.task.placeholderNote,

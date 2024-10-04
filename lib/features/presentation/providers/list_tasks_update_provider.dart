@@ -1,8 +1,7 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
-import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -22,14 +21,10 @@ class _Notifier extends StateNotifier<_State> {
   final ListTasks list;
   final Future<void> Function() refreshList;
 
-  final _listTasksRepository = ListTasksRepositoryImpl();
+  // final _listTasksRepository = ListTasksRepositoryImpl();
 
   void onNameChanged(String value) {
     state = state.copyWith(title: value.trim());
-  }
-
-  void onColorChanged(Color value) {
-    state = state.copyWith(color: value);
   }
 
   void onSubmit(BuildContext context) {
@@ -38,35 +33,36 @@ class _Notifier extends StateNotifier<_State> {
       return;
     }
 
-    _listTasksRepository.update(list.id, state.title, state.color).then((_) {
-      refreshList();
-      context.pop();
-    });
+    // _listTasksRepository.update(list.id, state.title, state.color).then((_) {
+    //   refreshList();
+    //   context.pop();
+    // });
   }
 }
 
 class _State {
   _State({
     this.title = '',
-    this.color = Colors.amber,
+    this.icon = IconsaxOutline.folder,
   });
+
   final String title;
-  final Color color;
+  final IconData icon;
 
   _State copyWith({
     String? title,
-    Color? color,
+    IconData? icon,
   }) {
     return _State(
       title: title ?? this.title,
-      color: color ?? this.color,
+      icon: icon ?? this.icon,
     );
   }
 
   _State init(ListTasks list) {
     return _State(
       title: list.title,
-      color: list.color,
+      icon: list.icon,
     );
   }
 }

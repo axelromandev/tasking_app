@@ -49,7 +49,11 @@ class ListTasksPage extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ColorIndicator(color: list.color, width: 18, height: 18),
+                const ColorIndicator(
+                  color: Colors.amber,
+                  width: 18,
+                  height: 18,
+                ),
                 const Gap(defaultPadding),
                 Flexible(child: Text(list.title, style: style.bodyLarge)),
                 const Gap(defaultPadding),
@@ -69,9 +73,8 @@ class ListTasksPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: list.tasks.isEmpty
-          ? _EmptyTasks(list.color)
-          : _BuildTasks(list.tasks.toList()),
+      body:
+          list.tasks.isEmpty ? _EmptyTasks() : _BuildTasks(list.tasks.toList()),
       bottomNavigationBar: SafeArea(
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
@@ -159,13 +162,11 @@ class _BuildTasks extends StatelessWidget {
   }
 }
 
-class _EmptyTasks extends StatelessWidget {
-  const _EmptyTasks(this.color);
-
-  final Color color;
-
+class _EmptyTasks extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -173,13 +174,13 @@ class _EmptyTasks extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(defaultPadding),
             decoration: BoxDecoration(
-              color: color.withOpacity(.06),
+              color: colorPrimary.withOpacity(.06),
               shape: BoxShape.circle,
             ),
             child: Icon(
               IconsaxOutline.task,
               size: 38.0,
-              color: color,
+              color: colorPrimary,
             ),
           ),
           const Gap(defaultPadding),

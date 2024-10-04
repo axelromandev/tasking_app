@@ -37,12 +37,12 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   }
 
   @override
-  Future<ListTasks> add(String title, Color color) async {
+  Future<ListTasks> add(String title, String iconEncode) async {
     try {
       final Database db = await dbHelper.database;
       final id = await db.rawInsert(
-        'INSERT INTO lists(title, colorValue) VALUES(?, ?)',
-        [title, color.value],
+        'INSERT INTO lists(title, icon) VALUES(?, ?)',
+        [title, iconEncode],
       );
       final data = await db.rawQuery(
         'SELECT * FROM lists WHERE id = ?',

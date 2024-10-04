@@ -10,8 +10,8 @@ class ListTasksRepositoryImpl extends ListTasksRepository {
   final ListTasksDataSource _dataSource;
 
   @override
-  Future<ListTasks> add(String name, Color color) {
-    return _dataSource.add(name, color);
+  Future<ListTasks> add(String name, String icon) {
+    return _dataSource.add(name, icon);
   }
 
   @override

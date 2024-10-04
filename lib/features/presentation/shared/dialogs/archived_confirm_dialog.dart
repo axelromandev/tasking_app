@@ -7,12 +7,10 @@ import 'package:tasking/i18n/i18n.dart';
 class ArchivedConfirmDialog extends StatelessWidget {
   const ArchivedConfirmDialog({
     required this.titleList,
-    required this.colorList,
     super.key,
   });
 
   final String titleList;
-  final Color colorList;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,6 @@ class ArchivedConfirmDialog extends StatelessWidget {
               child: CustomFilledButton(
                 height: 45,
                 onPressed: () => Navigator.pop(context, true),
-                backgroundColor: colorList,
                 child: Text(S.dialogs.listTasksArchived.title),
               ),
             ),

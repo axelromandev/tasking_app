@@ -1,4 +1,3 @@
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,8 +30,8 @@ class ListTasksUpdateModal extends ConsumerWidget {
               TextButton(
                 onPressed: () => Navigator.pop(context),
                 style: TextButton.styleFrom(
-                  foregroundColor: provider.color,
-                ),
+                    // foregroundColor: provider.color,
+                    ),
                 child: Text(S.common.buttons.cancel),
               ),
               Text(
@@ -45,7 +44,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
                 onPressed: provider.title.isEmpty
                     ? null
                     : () => notifier.onSubmit(context),
-                backgroundColor: provider.color,
+                // backgroundColor: provider.color,
                 child: Text(S.common.buttons.save),
               ),
             ],
@@ -53,7 +52,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
           const Gap(defaultPadding),
           TextFormField(
             initialValue: provider.title,
-            cursorColor: provider.color,
+            // cursorColor: provider.color,
             onChanged: notifier.onNameChanged,
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
@@ -67,23 +66,23 @@ class ListTasksUpdateModal extends ConsumerWidget {
             ),
           ),
           const Gap(defaultPadding),
-          Card(
-            margin: EdgeInsets.zero,
-            child: ColorPicker(
-              title: Text(S.modals.listTasks.colorLabel),
-              borderRadius: 20,
-              enableShadesSelection: false,
-              pickersEnabled: const <ColorPickerType, bool>{
-                ColorPickerType.wheel: false,
-                ColorPickerType.accent: false,
-                ColorPickerType.bw: false,
-                ColorPickerType.custom: false,
-                ColorPickerType.primary: true,
-              },
-              color: provider.color,
-              onColorChanged: notifier.onColorChanged,
-            ),
-          ),
+          // Card(
+          //   margin: EdgeInsets.zero,
+          //   child: ColorPicker(
+          //     title: Text(S.modals.listTasks.colorLabel),
+          //     borderRadius: 20,
+          //     enableShadesSelection: false,
+          //     pickersEnabled: const <ColorPickerType, bool>{
+          //       ColorPickerType.wheel: false,
+          //       ColorPickerType.accent: false,
+          //       ColorPickerType.bw: false,
+          //       ColorPickerType.custom: false,
+          //       ColorPickerType.primary: true,
+          //     },
+          //     color: provider.color,
+          //     onColorChanged: notifier.onColorChanged,
+          //   ),
+          // ),
         ],
       ),
     );

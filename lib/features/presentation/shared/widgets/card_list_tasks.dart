@@ -23,9 +23,9 @@ class ListTasksCard extends StatelessWidget {
       child: Card(
         child: ListTile(
           visualDensity: VisualDensity.compact,
-          leading: Icon(
+          leading: const Icon(
             IconsaxOutline.record,
-            color: list.archived ? list.color.withOpacity(.4) : list.color,
+            // color: list.archived ? list.color.withOpacity(.4) : list.color,
             size: 12,
           ),
           minLeadingWidth: 0,
