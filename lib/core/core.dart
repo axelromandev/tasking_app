@@ -5,5 +5,6 @@ export './services/shared_prefs_service.dart';
 export './utils/datetime_picker.dart';
 export './utils/debouncer.dart';
 export './utils/human_format.dart';
+export './utils/icon_data_utils.dart';
 export './utils/markdown.dart';
 export './utils/my_toast.dart';
