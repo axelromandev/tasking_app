@@ -104,7 +104,7 @@ class _EmptyListTasks extends ConsumerWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              IconsaxOutline.clipboard,
+              IconsaxOutline.folder_2,
               size: 38.0,
               color: colorPrimary,
             ),

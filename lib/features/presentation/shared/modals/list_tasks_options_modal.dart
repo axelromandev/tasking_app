@@ -16,6 +16,8 @@ class ListTasksOptionsModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final list = ref.watch(listTasksProvider(listId));
     final notifier = ref.read(listTasksProvider(listId).notifier);
 
@@ -48,6 +50,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.trash, size: 18),
               title: Text(S.modals.listTasksOptions.list.delete),
+              iconColor: colorPrimary,
             ),
             ListTile(
               onTap: () async {
@@ -68,6 +71,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
               // iconColor: list.color,
               leading: const Icon(IconsaxOutline.archive, size: 18),
               title: Text(S.modals.listTasksOptions.list.archive),
+              iconColor: colorPrimary,
             ),
             const Gap(defaultPadding),
             Container(
@@ -85,11 +89,11 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.record, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.incompleteAllTasks,
               ),
+              iconColor: colorPrimary,
             ),
             ListTile(
               onTap: () {
@@ -99,9 +103,9 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              // iconColor: list.color,
-              leading: const Icon(IconsaxOutline.record_circle, size: 18),
+              leading: const Icon(IconsaxOutline.tick_circle, size: 18),
               title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
+              iconColor: colorPrimary,
             ),
             ListTile(
               onTap: () {
@@ -111,11 +115,11 @@ class ListTasksOptionsModal extends ConsumerWidget {
               enabled: list.tasks.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
-              // iconColor: list.color,
               leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
               title: Text(
                 S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
               ),
+              iconColor: colorPrimary,
             ),
           ],
         ),
