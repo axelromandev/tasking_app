@@ -1,6 +1,5 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,7 +31,7 @@ class _Notifier extends StateNotifier<Task> {
   final Future<void> Function() refreshAll;
   final Future<void> Function() refreshList;
 
-  final _notificationService = NotificationService();
+  // final _notificationService = NotificationService();
   final _taskRepository = TaskRepositoryImpl();
   final _debouncer = Debouncer(
     delay: const Duration(milliseconds: 300),
@@ -48,11 +47,12 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   void onToggleCompleted() {
-    HapticFeedback.heavyImpact();
-    _taskRepository.updateCompleted(state.id, !state.completed).then((_) {
-      refreshAll();
-      refreshList();
-    });
+    // FIXME: CHANGE UPDATE TASK COMPLETED
+    // HapticFeedback.heavyImpact();
+    // _taskRepository.updateCompleted(state.id, !state.completed).then((_) {
+    //   refreshAll();
+    //   refreshList();
+    // });
   }
 
   void onTitleChanged(String value) {
@@ -69,7 +69,7 @@ class _Notifier extends StateNotifier<Task> {
   void onNoteChanged(String value) {
     _debouncer.run(() async {
       final String note = value.trim();
-      if (state.note == note) return;
+      if (state.notes == note) return;
       _taskRepository.updateNote(state.id, note).then((_) {
         refreshAll();
         refreshList();
@@ -114,16 +114,17 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   Future<void> onRemoveReminder() async {
-    try {
-      await _notificationService.remove(state.id);
-      _taskRepository.deleteReminder(state.id).then((_) {
-        refreshAll();
-        refreshList();
-        state.reminder = null;
-      });
-    } catch (e) {
-      MyToast.show(e.toString());
-    }
+    // FIXME: CHANGE TASK REMOVE REMINDER
+    // try {
+    //   await _notificationService.remove(state.id);
+    //   _taskRepository.deleteReminder(state.id).then((_) {
+    //     refreshAll();
+    //     refreshList();
+    //     state.reminder = null;
+    //   });
+    // } catch (e) {
+    //   MyToast.show(e.toString());
+    // }
   }
 
   Future<void> _dateTimePicker(BuildContext context) async {
@@ -144,18 +145,18 @@ class _Notifier extends StateNotifier<Task> {
     if (reminder == null) return;
 
     try {
-      await _notificationService.show(
-        id: state.id,
-        title: S.common.utils.notifications.title,
-        body: state.title,
-        dateTime: reminder,
-      );
+      // await _notificationService.show(
+      //   id: state.id,
+      //   title: S.common.utils.notifications.title,
+      //   body: state.title,
+      //   dateTime: reminder,
+      // );
 
-      _taskRepository.updateReminder(state.id, reminder).then((_) {
-        refreshAll();
-        refreshList();
-        state.reminder = reminder;
-      });
+      // _taskRepository.updateReminder(state.id, reminder).then((_) {
+      //   refreshAll();
+      //   refreshList();
+      //   state.reminder = reminder;
+      // });
     } catch (e) {
       MyToast.show('$e');
     }

@@ -20,39 +20,40 @@ class DatabaseHelper {
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute('''
-            CREATE TABLE lists(
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              title TEXT NOT NULL,
-              icon TEXT NOT NULL,
-              showCompleted INTEGER DEFAULT 0,
-              archived INTEGER DEFAULT 0,
-              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
+          CREATE TABLE IF NOT EXISTS "lists" (
+            "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+            "title" TEXT NOT NULL,
+            "icon_json" TEXT NOT NULL,
+            "is_show_completed" INTEGER DEFAULT 0,
+            "is_archived" INTEGER DEFAULT 0,
+            "created_at" TEXT DEFAULT (datetime('now'))
+          );
         ''');
         await db.execute('''
-            CREATE TABLE tasks(
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              title TEXT NOT NULL,
-              note TEXT,
-              completed INTEGER DEFAULT 0,
-              reminder TIMESTAMP,
-              dueDate TIMESTAMP,
-              updated_at TIMESTAMP NOT NULL,
-              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-              list_id INTEGER NOT NULL,
-              FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
-            );
+          CREATE TABLE IF NOT EXISTS "tasks" (
+            "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+            "list_id" INTEGER,
+            "title" TEXT NOT NULL,
+            "dateline" TEXT,
+            "reminder" TEXT,
+            "notes" TEXT,
+            "completed_at" TEXT,
+            "updated_at" TEXT DEFAULT (datetime('now')),
+            "created_at" TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY ("list_id") REFERENCES "lists" ("id")
+          );
         ''');
         await db.execute('''
-            CREATE TABLE steps(
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              title TEXT NOT NULL,
-              completed INTEGER DEFAULT 0,
-              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-              task_id INTEGER NOT NULL,
-              FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
-            );
+          CREATE TABLE IF NOT EXISTS "steps" (
+            "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+            "task_id" INTEGER,
+            "title" TEXT NOT NULL,
+            "completed_at" TEXT,
+            "created_at" TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY ("task_id") REFERENCES "tasks" ("id")
+          );
         ''');
+        print('db created');
       },
     );
   }
@@ -63,47 +64,108 @@ class DatabaseHelper {
   }
 
   Future<void> _tutorialListQuery(Database db) async {
-    final String now = DateTime.now().toIso8601String();
     await db.transaction((txn) async {
-      final int listId = await txn.rawInsert(
-        "INSERT INTO lists (title, icon, showCompleted) VALUES ('Tutorial', '', 1)",
+      final int listId = await txn.insert(
+        'lists',
+        {
+          'title': 'Tutorial',
+          'icon_json':
+              '{"codePoint":60094,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
+          'is_show_completed': 1,
+        },
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task1}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task2}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task3}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task4}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, note, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task5}', '${S.pages.intro.tutorial.task5note}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task6}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task7}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task8}', '$now', '$now', $listId)",
-      );
-      await txn.rawInsert(
-        "INSERT INTO tasks (title, updated_at, created_at, list_id) VALUES ('${S.pages.intro.tutorial.task9}', '$now', '$now', $listId)",
-      );
+
+      final List<Map<String, dynamic>> tasksMap = [
+        {
+          'title': S.pages.intro.tutorial.task1,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task2,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task3,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task4,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task5,
+          'notes': S.pages.intro.tutorial.task5note,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task6,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task7,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task8,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+        {
+          'title': S.pages.intro.tutorial.task9,
+          'updated_at': DateTime.now().toIso8601String(),
+          'created_at': DateTime.now().toIso8601String(),
+          'list_id': listId,
+        },
+      ];
+
+      for (final dataMap in tasksMap) {
+        await txn.insert(
+          'tasks',
+          dataMap,
+          conflictAlgorithm: ConflictAlgorithm.abort,
+        );
+      }
     });
   }
 
   Future<void> restore() async {
     final Database db = await database;
+
+    // Desactivar claves foráneas temporalmente
+    await db.execute('PRAGMA foreign_keys = OFF;');
+
+    // Borrar datos de todas las tablas
     await db.transaction((txn) async {
-      await txn.rawDelete('DELETE FROM tasks');
-      await txn.rawDelete('DELETE FROM lists');
+      await txn.delete('steps');
+      await txn.delete('tasks');
+      await txn.delete('lists');
     });
+
+    // Restablecer el contador AUTOINCREMENT para cada tabla
+    await db.execute("DELETE FROM sqlite_sequence WHERE name='steps';");
+    await db.execute("DELETE FROM sqlite_sequence WHERE name='tasks';");
+    await db.execute("DELETE FROM sqlite_sequence WHERE name='lists';");
+
+    // Reactivar claves foráneas
+    await db.execute('PRAGMA foreign_keys = ON;');
+    print('Database restored successfully');
+
     await _tutorialListQuery(db);
   }
 }

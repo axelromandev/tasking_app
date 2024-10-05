@@ -50,7 +50,8 @@ class _Notifier extends StateNotifier<ListTasks> {
   }
 
   Future<void> onMarkIncompleteAllTasks() async {
-    final tasks = state.tasks.where((task) => task.completed).toList();
+    final tasks =
+        state.tasks.where((task) => task.completedAt != null).toList();
     for (final task in tasks) {
       await _tasksRepository.updateCompleted(task.id, false);
     }
@@ -59,7 +60,8 @@ class _Notifier extends StateNotifier<ListTasks> {
   }
 
   Future<void> onMarkCompleteAllTasks() async {
-    final tasks = state.tasks.where((task) => !task.completed).toList();
+    final tasks =
+        state.tasks.where((task) => task.completedAt == null).toList();
     for (final task in tasks) {
       await _tasksRepository.updateCompleted(task.id, true);
     }
@@ -68,7 +70,8 @@ class _Notifier extends StateNotifier<ListTasks> {
   }
 
   Future<void> onDeleteCompletedAllTasks() async {
-    final tasks = state.tasks.where((task) => task.completed).toList();
+    final tasks =
+        state.tasks.where((task) => task.completedAt != null).toList();
     if (tasks.isEmpty) return;
     for (final task in tasks) {
       await _tasksRepository.delete(task.id);

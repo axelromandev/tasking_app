@@ -17,7 +17,8 @@ class ListTaskDeleteDialog extends ConsumerWidget {
 
     final list = ref.watch(listTasksProvider(listId));
 
-    final pendingTasks = list.tasks.where((task) => !task.completed).toList();
+    final pendingTasks =
+        list.tasks.where((task) => task.completedAt == null).toList();
 
     return AlertDialog(
       title: Text(

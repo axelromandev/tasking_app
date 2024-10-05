@@ -8,6 +8,7 @@ class ListTasks {
     required this.id,
     required this.title,
     required this.icon,
+    this.showCompleted = false,
     this.archived = false,
     required this.createdAt,
   });
@@ -16,8 +17,9 @@ class ListTasks {
     return ListTasks(
       id: map['id'] as int,
       title: map['title'] as String,
-      icon: IconDataUtils.decode(map['icon'] as String),
-      archived: map['archived'] == 1,
+      icon: IconDataUtils.decode(map['icon_json'] as String),
+      showCompleted: (map['is_show_completed'] as int) == 1,
+      archived: (map['is_archived'] as int) == 1,
       createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
@@ -33,6 +35,7 @@ class ListTasks {
   final int id;
   final String title;
   final IconData icon;
+  final bool showCompleted;
   final bool archived;
   final DateTime createdAt;
 

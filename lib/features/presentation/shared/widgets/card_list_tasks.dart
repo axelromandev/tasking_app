@@ -16,7 +16,8 @@ class ListTasksCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final pendingTasks = list.tasks.where((task) => !task.completed).toList();
+    final pendingTasks =
+        list.tasks.where((task) => task.completedAt == null).toList();
 
     return GestureDetector(
       onTap: onTap,

@@ -44,7 +44,8 @@ class _TaskCardState extends ConsumerState<TaskCard> {
     final provider = ref.watch(taskProvider(widget.task));
     final notifier = ref.read(taskProvider(widget.task).notifier);
 
-    final bool isCompleted = provider.completed;
+    // final bool isCompleted = provider.completed ;
+    const bool isCompleted = false;
 
     return Dismissible(
       key: key,
@@ -78,7 +79,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         shape: const RoundedRectangleBorder(),
         leading: IconButton(
           onPressed: notifier.onToggleCompleted,
-          icon: Icon(
+          icon: const Icon(
             isCompleted ? IconsaxOutline.record_circle : IconsaxOutline.record,
             color: Colors.white,
             size: 24,
@@ -98,7 +99,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
           ),
         ),
         subtitle: ((widget.task.reminder != null) ||
-                (widget.task.note.isNotEmpty))
+                (widget.task.notes.isNotEmpty))
             ? GestureDetector(
                 onTap: open,
                 child: Column(
@@ -121,14 +122,13 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                       ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           IconsaxOutline.document,
                           size: 12,
-                          color: isCompleted ? Colors.grey : null,
                         ),
                         const Gap(4.0),
                         Text(
-                          widget.task.note,
+                          widget.task.notes,
                           style: isCompleted
                               ? style.bodySmall?.copyWith(
                                   color: Colors.grey,

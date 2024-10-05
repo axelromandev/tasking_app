@@ -33,7 +33,7 @@ class TaskPage extends ConsumerWidget {
         leading: IconButton(
           onPressed: () => context.pop(),
           iconSize: 30.0,
-          icon: const Icon(IconsaxOutline.minus),
+          icon: const Icon(IconsaxOutline.arrow_left_2, size: 20),
         ),
         title: Text(list.title, style: style.bodyLarge),
         actions: [
@@ -68,7 +68,7 @@ class TaskPage extends ConsumerWidget {
                 onPressed: () {},
                 color: Colors.white60,
                 icon: Icon(
-                  task.completed
+                  task.completedAt != null
                       ? IconsaxOutline.record_circle
                       : IconsaxOutline.record,
                 ),
@@ -118,13 +118,13 @@ class TaskPage extends ConsumerWidget {
               foregroundColor: Colors.white70,
               overlayColor: Colors.transparent,
             ),
-            icon: const Icon(IconsaxOutline.calendar, size: 20),
-            label: const Text('Add due date'),
+            icon: const Icon(IconsaxOutline.calendar_2, size: 20),
+            label: const Text('Add dateline'),
           ),
           const Gap(defaultPadding),
           const Divider(height: 0),
           TextFormField(
-            initialValue: provider.note,
+            initialValue: provider.notes,
             maxLines: null,
             autocorrect: false,
             cursorColor: colorPrimary,

@@ -103,11 +103,13 @@ class _BuildTasks extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final pendingTasks = tasks.where((task) => !task.completed).toList();
+    final pendingTasks =
+        tasks.where((task) => task.completedAt == null).toList();
     pendingTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-    final completedTasks = tasks.where((task) => task.completed).toList();
-    completedTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    final completedTasks =
+        tasks.where((task) => task.completedAt != null).toList();
+    completedTasks.sort((a, b) => a.completedAt!.compareTo(b.completedAt!));
 
     return ListView(
       padding: const EdgeInsets.all(8),
