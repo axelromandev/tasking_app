@@ -44,8 +44,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
     final provider = ref.watch(taskProvider(widget.task));
     final notifier = ref.read(taskProvider(widget.task).notifier);
 
-    // final bool isCompleted = provider.completed ;
-    const bool isCompleted = false;
+    final bool isCompleted = (provider.completedAt != null);
 
     return Dismissible(
       key: key,
@@ -79,7 +78,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         shape: const RoundedRectangleBorder(),
         leading: IconButton(
           onPressed: notifier.onToggleCompleted,
-          icon: const Icon(
+          icon: Icon(
             isCompleted ? IconsaxOutline.record_circle : IconsaxOutline.record,
             color: Colors.white,
             size: 24,

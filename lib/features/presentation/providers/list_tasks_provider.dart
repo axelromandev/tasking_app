@@ -46,7 +46,8 @@ class _Notifier extends StateNotifier<ListTasks> {
     final tasks =
         state.tasks.where((task) => task.completedAt != null).toList();
     for (final task in tasks) {
-      await _tasksRepository.updateCompleted(task.id, false);
+      final newTask = task.toggleCompleted();
+      await _tasksRepository.update(newTask);
     }
     refreshAll();
     refresh();
@@ -56,7 +57,10 @@ class _Notifier extends StateNotifier<ListTasks> {
     final tasks =
         state.tasks.where((task) => task.completedAt == null).toList();
     for (final task in tasks) {
-      await _tasksRepository.updateCompleted(task.id, true);
+      final newTask = task.copyWith(
+        completedAt: DateTime.now(),
+      );
+      await _tasksRepository.update(newTask);
     }
     refreshAll();
     refresh();
