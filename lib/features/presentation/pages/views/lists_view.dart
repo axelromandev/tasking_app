@@ -61,40 +61,19 @@ class _ListsTasksView extends ConsumerWidget {
     final provider = ref.watch(listsProvider);
 
     final lists = provider.lists;
-    final listsArchived = provider.listsArchived;
 
     if (lists.isEmpty) return _EmptyListTasks();
 
-    return ListView(
+    return ListView.separated(
       padding: const EdgeInsets.all(8),
-      children: [
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.only(top: 8),
-          separatorBuilder: (_, __) => const Gap(6),
-          itemCount: lists.length,
-          itemBuilder: (_, i) => ListTasksCard(
-            onTap: () => context.push(
-              ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
-            ),
-            list: lists[i],
-          ),
+      separatorBuilder: (_, __) => const Gap(6),
+      itemCount: lists.length,
+      itemBuilder: (_, i) => ListTasksCard(
+        onTap: () => context.push(
+          ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
         ),
-        if (listsArchived.isNotEmpty)
-          Card(
-            margin: const EdgeInsets.all(8),
-            child: ListTile(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                builder: (_) => const ArchivedListTasksModal(),
-              ),
-              leading: const Icon(IconsaxOutline.archive, size: 18),
-              title: Text(S.dialogs.listTasksArchived.title),
-              trailing: Text('${listsArchived.length}'),
-            ),
-          ),
-      ],
+        list: lists[i],
+      ),
     );
   }
 }
