@@ -2,7 +2,6 @@ export 'dialogs/archived_confirm_dialog.dart';
 export 'dialogs/list_tasks_delete_dialog.dart';
 export 'dialogs/restore_app_dialog.dart';
 export 'dialogs/task_delete_dialog.dart';
-export 'modals/list_tasks_add_modal.dart';
 export 'modals/list_tasks_options_modal.dart';
 export 'modals/task_add_modal.dart';
 export 'widgets/card_list_tasks.dart';
