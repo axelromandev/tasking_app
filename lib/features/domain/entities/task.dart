@@ -11,6 +11,25 @@ class Task {
     required this.createdAt,
   });
 
+  factory Task.create({
+    required int listId,
+    required String title,
+    String notes = '',
+    DateTime? dateline,
+    DateTime? reminder,
+  }) {
+    return Task(
+      id: 0,
+      listId: listId,
+      title: title,
+      dateline: dateline,
+      reminder: reminder,
+      notes: notes,
+      updatedAt: DateTime.now(),
+      createdAt: DateTime.now(),
+    );
+  }
+
   factory Task.fromMap(Map<String, dynamic> map) {
     return Task(
       id: map['id'] as int,

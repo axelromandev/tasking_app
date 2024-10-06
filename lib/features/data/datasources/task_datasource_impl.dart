@@ -25,9 +25,10 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<List<Task>> getByListId(int id) async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.rawQuery(
-        'SELECT * FROM tasks WHERE list_id = ?',
-        [id],
+      final data = await db.query(
+        'tasks',
+        where: 'list_id = ?',
+        whereArgs: [id],
       );
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();
@@ -37,18 +38,18 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  Future<Task> add(int listId, String title) async {
+  Future<Task> add(Task task) async {
     try {
       final Database db = await dbHelper.database;
-      final now = DateTime.now().toIso8601String();
-
-      final id = await db.rawInsert(
-        'INSERT INTO tasks(title, updated_at, created_at, list_id) VALUES(?, ?, ?, ?)',
-        [title, now, now, listId],
+      final id = await db.insert(
+        'tasks',
+        task.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
-      final data = await db.rawQuery(
-        'SELECT * FROM tasks WHERE id = ?',
-        [id],
+      final data = await db.query(
+        'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
       );
       return Task.fromMap(data.first);
     } catch (e) {
@@ -60,9 +61,10 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<void> delete(int id) async {
     try {
       final Database db = await dbHelper.database;
-      await db.rawDelete(
-        'DELETE FROM tasks WHERE id = ?',
-        [id],
+      await db.delete(
+        'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
       );
     } catch (e) {
       rethrow;
@@ -89,8 +91,9 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<List<Task>> getReminders() async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.rawQuery(
-        'SELECT * FROM tasks WHERE reminder IS NOT NULL',
+      final data = await db.query(
+        'tasks',
+        where: 'reminder IS NOT NULL',
       );
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();
@@ -103,9 +106,11 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<void> deleteReminder(int id) async {
     try {
       final Database db = await dbHelper.database;
-      await db.rawUpdate(
-        'UPDATE tasks SET reminder = ? WHERE id = ?',
-        [null, id],
+      await db.update(
+        'tasks',
+        {'reminder': null},
+        where: 'id = ?',
+        whereArgs: [id],
       );
     } catch (e) {
       rethrow;

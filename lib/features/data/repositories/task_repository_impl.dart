@@ -13,8 +13,8 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
-  Future<Task> add(int listId, String title) {
-    return _dataSource.add(listId, title);
+  Future<Task> add(Task task) {
+    return _dataSource.add(task);
   }
 
   @override

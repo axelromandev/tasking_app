@@ -11,7 +11,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<List<ListTasks>> getAll() async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.rawQuery('SELECT * FROM lists');
+      final data = await db.query('lists');
       return data.map((e) => ListTasks.fromMap(e)).toList();
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.getAll');
@@ -23,9 +23,11 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<ListTasks> get(int id) async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.rawQuery(
-        'SELECT * FROM lists WHERE id = ?',
-        [id],
+      final data = await db.query(
+        'lists',
+        where: 'id = ?',
+        whereArgs: [id],
+        limit: 1,
       );
       if (data.isEmpty) throw Exception('not found');
       return ListTasks.fromMap(data.first);
@@ -77,9 +79,10 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<void> delete(int id) async {
     try {
       final Database db = await dbHelper.database;
-      await db.rawDelete(
-        'DELETE FROM lists WHERE id = ?',
-        [id],
+      await db.delete(
+        'lists',
+        where: 'id = ?',
+        whereArgs: [id],
       );
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.delete');

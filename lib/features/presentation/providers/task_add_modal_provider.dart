@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -37,7 +38,12 @@ class _Notifier extends StateNotifier<_State> {
       return;
     }
     try {
-      await _taskRepository.add(state.listId, state.name);
+      final newTask = Task.create(
+        listId: state.listId,
+        title: state.name,
+        reminder: state.reminder,
+      );
+      await _taskRepository.add(newTask);
       refreshList();
       refreshAll();
     } catch (e) {
