@@ -1,7 +1,9 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -21,7 +23,7 @@ class _Notifier extends StateNotifier<_State> {
   final ListTasks list;
   final Future<void> Function() refreshList;
 
-  // final _listTasksRepository = ListTasksRepositoryImpl();
+  final _listTasksRepository = ListTasksRepositoryImpl();
 
   void onNameChanged(String value) {
     state = state.copyWith(title: value.trim());
@@ -36,11 +38,14 @@ class _Notifier extends StateNotifier<_State> {
       MyToast.show(S.dialogs.listTasksUpdate.errorEmptyName);
       return;
     }
-
-    // _listTasksRepository.update(list.id, state.title, state.color).then((_) {
-    //   refreshList();
-    //   context.pop();
-    // });
+    final newList = list.copyWith(
+      title: state.title,
+      icon: state.icon,
+    );
+    _listTasksRepository.update(newList).then((_) {
+      refreshList();
+      context.pop();
+    });
   }
 }
 

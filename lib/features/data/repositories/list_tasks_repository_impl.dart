@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 
@@ -10,8 +8,8 @@ class ListTasksRepositoryImpl extends ListTasksRepository {
   final ListTasksDataSource _dataSource;
 
   @override
-  Future<ListTasks> add(String name, String icon) {
-    return _dataSource.add(name, icon);
+  Future<ListTasks> add(ListTasks list) {
+    return _dataSource.add(list);
   }
 
   @override
@@ -30,8 +28,8 @@ class ListTasksRepositoryImpl extends ListTasksRepository {
   }
 
   @override
-  Future<void> update(int id, String title, Color color) {
-    return _dataSource.update(id, title, color);
+  Future<void> update(ListTasks list) {
+    return _dataSource.update(list);
   }
 
   @override

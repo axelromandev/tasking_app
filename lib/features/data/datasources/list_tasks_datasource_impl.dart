@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -37,16 +36,18 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   }
 
   @override
-  Future<ListTasks> add(String title, String iconEncode) async {
+  Future<ListTasks> add(ListTasks list) async {
     try {
       final Database db = await dbHelper.database;
-      final id = await db.rawInsert(
-        'INSERT INTO lists(title, icon) VALUES(?, ?)',
-        [title, iconEncode],
+      final id = await db.insert(
+        'lists',
+        list.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
-      final data = await db.rawQuery(
-        'SELECT * FROM lists WHERE id = ?',
-        [id],
+      final data = await db.query(
+        'lists',
+        where: 'id = ?',
+        whereArgs: [id],
       );
       return ListTasks.fromMap(data.first);
     } catch (e) {
@@ -56,12 +57,15 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   }
 
   @override
-  Future<void> update(int id, String title, Color color) async {
+  Future<void> update(ListTasks list) async {
     try {
       final Database db = await dbHelper.database;
-      await db.rawUpdate(
-        'UPDATE lists SET title = ?, colorValue = ? WHERE id = ?',
-        [title, color.value, id],
+      await db.update(
+        'lists',
+        list.toMap(),
+        where: 'id = ?',
+        whereArgs: [list.id],
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.update');

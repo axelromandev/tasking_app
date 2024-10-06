@@ -1,7 +1,10 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
+import 'package:tasking/features/data/data.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/generated/translations.g.dart';
 
@@ -20,38 +23,7 @@ class _Notifier extends StateNotifier<_State> {
   final Future<void> Function() refresh;
   final focusNode = FocusNode();
 
-  // final _listTasksRepository = ListTasksRepositoryImpl();
-
-  final List<IconData> icons = [
-    IconsaxOutline.folder,
-    IconsaxOutline.home_2,
-    IconsaxOutline.briefcase,
-    IconsaxOutline.cloud,
-    IconsaxOutline.lock,
-    IconsaxOutline.star,
-    IconsaxOutline.heart,
-    IconsaxOutline.document_download,
-    IconsaxOutline.document_upload,
-    IconsaxOutline.edit,
-    IconsaxOutline.search_normal,
-    IconsaxOutline.setting,
-    IconsaxOutline.archive,
-    IconsaxOutline.document_1,
-    IconsaxOutline.note,
-    IconsaxOutline.clipboard_text,
-    IconsaxOutline.code,
-    IconsaxOutline.trend_up,
-    IconsaxOutline.trend_down,
-    IconsaxOutline.user,
-    IconsaxOutline.shield,
-    IconsaxOutline.filter,
-    IconsaxOutline.trash,
-    IconsaxOutline.notification,
-    IconsaxOutline.chart_square,
-    IconsaxOutline.refresh,
-    IconsaxOutline.flag,
-    IconsaxOutline.crown,
-  ];
+  final _listTasksRepository = ListTasksRepositoryImpl();
 
   void onNameChanged(String value) {
     state = state.copyWith(title: value.trim());
@@ -66,14 +38,15 @@ class _Notifier extends StateNotifier<_State> {
       MyToast.show(S.modals.listTasks.errorEmptyName);
       return;
     }
-    final iconEncode = IconDataUtils.encode(IconsaxOutline.info_circle);
-    print(iconEncode);
-
-    // final iconEncode = IconDataUtils.encode(state.icon);
-    // await _listTasksRepository.add(state.title, iconEncode).then((list) {
-    //   context.pop();
-    //   refresh();
-    // });
+    final newList = ListTasks.create(
+      title: state.title,
+      icon: state.icon,
+      createdAt: DateTime.now(),
+    );
+    await _listTasksRepository.add(newList).then((list) {
+      context.pop();
+      refresh();
+    });
   }
 }
 
