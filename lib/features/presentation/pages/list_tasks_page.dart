@@ -1,11 +1,11 @@
 import 'package:ficonsax/ficonsax.dart';
-import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/pages/pages.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -21,6 +21,8 @@ class ListTasksPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final list = ref.watch(listTasksProvider(listId));
 
     if (list.id == 0) {
@@ -31,44 +33,41 @@ class ListTasksPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          iconSize: 30.0,
-          icon: const Icon(IconsaxOutline.arrow_left_2, size: 20),
-        ),
-        title: GestureDetector(
-          onTap: () => showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            useSafeArea: true,
-            builder: (_) => ListTasksUpdateModal(list),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(12),
-            color: Colors.transparent,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const ColorIndicator(
-                  color: Colors.amber,
-                  width: 18,
-                  height: 18,
-                ),
-                const Gap(defaultPadding),
-                Flexible(child: Text(list.title, style: style.bodyLarge)),
-                const Gap(defaultPadding),
-                const Icon(IconsaxOutline.edit, size: 18),
-              ],
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            GestureDetector(
+              onTap: () => context.pop(),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(IconsaxOutline.arrow_left_2, size: 20),
+              ),
             ),
-          ),
+            const Gap(defaultPadding),
+            Icon(list.icon, color: colorPrimary),
+            const Gap(12),
+            Flexible(
+              child: Text(
+                list.title,
+                style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
         ),
         actions: [
+          IconButton(
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => ListTasksUpdatePage(list)),
+            ),
+            iconSize: 20.0,
+            icon: const Icon(IconsaxOutline.edit),
+          ),
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
               builder: (_) => ListTasksOptionsModal(context, list.id),
             ),
-            iconSize: 18.0,
+            iconSize: 20.0,
             icon: const Icon(IconsaxOutline.more),
           ),
         ],
