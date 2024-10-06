@@ -1,5 +1,6 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -39,6 +40,11 @@ class _Notifier extends StateNotifier<Task> {
 
   TextEditingController subtaskAddController = TextEditingController();
 
+  Future<void> _refresh() async {
+    final task = await _taskRepository.get(state.id);
+    state = task;
+  }
+
   Future<void> onDeleteTask() async {
     await _taskRepository.delete(state.id).then((_) {
       refreshAll();
@@ -47,19 +53,24 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   void onToggleCompleted() {
-    // FIXME: CHANGE UPDATE TASK COMPLETED
-    // HapticFeedback.heavyImpact();
-    // _taskRepository.updateCompleted(state.id, !state.completed).then((_) {
-    //   refreshAll();
-    //   refreshList();
-    // });
+    HapticFeedback.heavyImpact();
+    final newTask = state.toggleCompleted();
+    _taskRepository.update(newTask).then((_) {
+      refreshAll();
+      refreshList();
+    });
   }
 
   void onTitleChanged(String value) {
     _debouncer.run(() {
       final String title = value.trim();
       if (title.isEmpty || state.title == title) return;
-      _taskRepository.updateTitle(state.id, title).then((_) {
+      final newTask = state.copyWith(
+        title: title,
+        updatedAt: DateTime.now(),
+      );
+      _taskRepository.update(newTask).then((_) {
+        _refresh();
         refreshAll();
         refreshList();
       });
@@ -70,7 +81,11 @@ class _Notifier extends StateNotifier<Task> {
     _debouncer.run(() async {
       final String note = value.trim();
       if (state.notes == note) return;
-      _taskRepository.updateNote(state.id, note).then((_) {
+      final newTask = state.copyWith(
+        notes: note,
+        updatedAt: DateTime.now(),
+      );
+      _taskRepository.update(newTask).then((_) {
         refreshAll();
         refreshList();
       });

@@ -6,6 +6,22 @@ class TaskDataSourceImpl implements TaskDataSource {
   final dbHelper = DatabaseHelper();
 
   @override
+  Future<Task> get(int id) async {
+    try {
+      final Database db = await dbHelper.database;
+      final data = await db.query(
+        'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
+        limit: 1,
+      );
+      return Task.fromMap(data.first);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<Task>> getByListId(int id) async {
     try {
       final Database db = await dbHelper.database;
@@ -54,56 +70,15 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  Future<void> updateCompleted(int id, bool completed) async {
+  Future<void> update(Task task) async {
     try {
       final Database db = await dbHelper.database;
-      final int value = completed ? 1 : 0;
-      final String now = DateTime.now().toIso8601String();
-      await db.rawUpdate(
-        'UPDATE tasks SET completed = ?, updated_at = ? WHERE id = ?',
-        [value, now, id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> updateNote(int id, String note) async {
-    try {
-      final Database db = await dbHelper.database;
-      final String now = DateTime.now().toIso8601String();
-      await db.rawUpdate(
-        'UPDATE tasks SET note = ?, updated_at = ? WHERE id = ?',
-        [note, now, id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> updateTitle(int id, String title) async {
-    try {
-      final Database db = await dbHelper.database;
-      final String now = DateTime.now().toIso8601String();
-      await db.rawUpdate(
-        'UPDATE tasks SET title = ?, updated_at = ? WHERE id = ?',
-        [title, now, id],
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> updateReminder(int id, DateTime reminder) async {
-    try {
-      final Database db = await dbHelper.database;
-      final String strReminder = reminder.toIso8601String();
-      await db.rawUpdate(
-        'UPDATE tasks SET reminder = ? WHERE id = ?',
-        [strReminder, id],
+      await db.update(
+        'tasks',
+        task.toMap(),
+        where: 'id = ?',
+        whereArgs: [task.id],
+        conflictAlgorithm: ConflictAlgorithm.abort,
       );
     } catch (e) {
       rethrow;

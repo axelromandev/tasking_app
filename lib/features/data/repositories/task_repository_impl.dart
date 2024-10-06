@@ -8,6 +8,11 @@ class TaskRepositoryImpl extends TaskRepository {
   final TaskDataSource _dataSource;
 
   @override
+  Future<Task> get(int id) {
+    return _dataSource.get(id);
+  }
+
+  @override
   Future<Task> add(int listId, String title) {
     return _dataSource.add(listId, title);
   }
@@ -33,22 +38,7 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
-  Future<void> updateCompleted(int id, bool completed) {
-    return _dataSource.updateCompleted(id, completed);
-  }
-
-  @override
-  Future<void> updateNote(int id, String note) {
-    return _dataSource.updateNote(id, note);
-  }
-
-  @override
-  Future<void> updateReminder(int id, DateTime reminder) {
-    return _dataSource.updateReminder(id, reminder);
-  }
-
-  @override
-  Future<void> updateTitle(int id, String title) {
-    return _dataSource.updateTitle(id, title);
+  Future<void> update(Task task) {
+    return _dataSource.update(task);
   }
 }
