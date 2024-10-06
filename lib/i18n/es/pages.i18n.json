@@ -21,11 +21,19 @@
     }
   },
   "home": {
-    "title": "Tasking",
+    "title": "Inicio"
+  },
+  "calendar": {
+    "title": "Calendario"
+  },
+  "lists": {
+    "title": "Listas",
+    "buttonAdd": "Nueva lista",
     "emptyListTasks": {
       "title": "No hay listas",
       "subtitle": "Presione + para agregar una lista"
-    }
+    },
+    "cardPendingTask": "$length Pendientes"
   },
   "listTasks": {
     "completed": {
@@ -55,11 +63,9 @@
     },
     "moreInformation": {
       "title": "Más información",
-      "about": "Acerca de"
-    },
-    "dangerZone": {
-      "title": "Zona peligrosa",
-      "restoreApp": "Restaurar aplicación"
+      "about": "Acerca de",
+      "privacyPolicies": "Políticas de privacidad",
+      "share": "Compartir"
     }
   },
   "themes": {

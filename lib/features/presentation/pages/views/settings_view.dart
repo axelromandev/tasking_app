@@ -155,12 +155,12 @@ class SettingsView extends ConsumerWidget {
                       );
                     },
                     icon: IconsaxOutline.shield,
-                    title: 'Políticas de privacidad',
+                    title: S.pages.settings.moreInformation.privacyPolicies,
                   ),
                   _ListTile(
                     onTap: () {}, //TODO: share app with friends
                     icon: IconsaxOutline.share,
-                    title: 'Compartir',
+                    title: S.pages.settings.moreInformation.share,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),

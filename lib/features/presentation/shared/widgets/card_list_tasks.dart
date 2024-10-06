@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class ListTasksCard extends ConsumerWidget {
   const ListTasksCard({
@@ -35,7 +36,7 @@ class ListTasksCard extends ConsumerWidget {
             children: [
               if (pendingTasks.isNotEmpty)
                 Text(
-                  '${pendingTasks.length} Pendientes',
+                  S.pages.lists.cardPendingTask(length: pendingTasks.length),
                   style: style.bodySmall?.copyWith(
                     color: Colors.grey,
                   ),

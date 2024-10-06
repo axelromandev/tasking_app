@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class CalendarView extends ConsumerWidget {
   const CalendarView({super.key});
@@ -21,7 +22,7 @@ class CalendarView extends ConsumerWidget {
             Icon(IconsaxOutline.calendar_1, color: colorPrimary),
             const Gap(12),
             Text(
-              'Calendario',
+              S.pages.calendar.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],

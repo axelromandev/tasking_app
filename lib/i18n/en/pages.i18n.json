@@ -21,11 +21,19 @@
     }
   },
   "home": {
-    "title": "Tasking",
+    "title": "Home"
+  },
+  "calendar": {
+    "title": "Calendario"
+  },
+  "lists": {
+    "title": "Lists",
+    "buttonAdd": "New list",
     "emptyListTasks": {
       "title": "There is no lists",
       "subtitle": "Press + to add the list"
-    }
+    },
+    "cardPendingTask": "$length Pending"
   },
   "listTasks": {
     "completed": {
@@ -55,11 +63,9 @@
     },
     "moreInformation": {
       "title": "More information",
-      "about": "About me"
-    },
-    "dangerZone": {
-      "title": "Danger Zone",
-      "restoreApp": "Restore App"
+      "about": "About me",
+      "privacyPolicies": "Privacy policies",
+      "share": "Share"
     }
   },
   "themes": {

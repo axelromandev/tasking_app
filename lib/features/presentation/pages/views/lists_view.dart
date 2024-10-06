@@ -14,8 +14,6 @@ class ListsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: ListsView Implement SLANG
-
     final style = Theme.of(context).textTheme;
 
     final colorPrimary = ref.watch(colorThemeProvider);
@@ -28,7 +26,7 @@ class ListsView extends ConsumerWidget {
             Icon(IconsaxOutline.folder_2, color: colorPrimary),
             const Gap(12),
             Text(
-              'Listas',
+              S.pages.lists.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
@@ -40,7 +38,7 @@ class ListsView extends ConsumerWidget {
               MaterialPageRoute(builder: (_) => const ListTasksAddPage()),
             ),
             icon: const Icon(IconsaxOutline.add),
-            label: const Text('Nueva lista'),
+            label: Text(S.pages.lists.buttonAdd),
           ),
           const Gap(defaultPadding),
         ],
@@ -100,12 +98,12 @@ class _EmptyListTasks extends ConsumerWidget {
           ),
           const Gap(defaultPadding),
           Text(
-            S.pages.home.emptyListTasks.title,
+            S.pages.lists.emptyListTasks.title,
             style: style.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const Gap(8.0),
           Text(
-            S.pages.home.emptyListTasks.subtitle,
+            S.pages.lists.emptyListTasks.subtitle,
             style: style.bodyMedium?.copyWith(color: Colors.white70),
           ),
         ],
