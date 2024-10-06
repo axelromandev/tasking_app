@@ -86,19 +86,4 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
       rethrow;
     }
   }
-
-  @override
-  Future<void> updateArchived(int id, bool archived) async {
-    try {
-      final Database db = await dbHelper.database;
-      final int value = archived ? 1 : 0;
-      await db.rawUpdate(
-        'UPDATE lists SET archived = ? WHERE id = ?',
-        [value, id],
-      );
-    } catch (e) {
-      log(e.toString(), name: 'ListTasksDataSource.updateArchived');
-      rethrow;
-    }
-  }
 }

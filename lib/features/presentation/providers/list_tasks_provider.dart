@@ -35,13 +35,6 @@ class _Notifier extends StateNotifier<ListTasks> {
     }
   }
 
-  void onArchived(BuildContext contextPage) {
-    _listTasksRepository.updateArchived(listId, true).then((_) {
-      refreshAll();
-      contextPage.pop();
-    });
-  }
-
   void onDelete(BuildContext contextPage) {
     _listTasksRepository.delete(state.id).then((_) {
       refreshAll();

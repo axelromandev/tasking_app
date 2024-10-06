@@ -31,9 +31,4 @@ class ListTasksRepositoryImpl extends ListTasksRepository {
   Future<void> update(ListTasks list) {
     return _dataSource.update(list);
   }
-
-  @override
-  Future<void> updateArchived(int id, bool archived) {
-    return _dataSource.updateArchived(id, archived);
-  }
 }

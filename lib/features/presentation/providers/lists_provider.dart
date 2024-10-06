@@ -21,17 +21,13 @@ class _Notifier extends StateNotifier<_State> {
       return;
     }
 
-    final listsArchived = lists.where((list) => list.archived).toList();
-    final listNotArchived = lists.where((list) => !list.archived).toList();
-
-    for (final list in listNotArchived) {
+    for (final list in lists) {
       final tasks = await _taskRepository.getByListId(list.id);
       list.tasks = tasks;
     }
 
     state = state.copyWith(
-      lists: listNotArchived,
-      listsArchived: listsArchived,
+      lists: lists,
       isLoading: false,
     );
   }
@@ -48,38 +44,28 @@ class _Notifier extends StateNotifier<_State> {
     tasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     return tasks.take(5).toList();
   }
-
-  Future<void> onUnarchiveList(int listId) async {
-    _listTasksRepository.updateArchived(listId, false).then((_) {
-      _load();
-    });
-  }
 }
 
 class _State {
   _State({
     this.isLoading = true,
     this.lists = const [],
-    this.listsArchived = const [],
   });
 
   final bool isLoading;
   final List<ListTasks> lists;
-  final List<ListTasks> listsArchived;
 
   _State copyWith({
     bool? isLoading,
     List<ListTasks>? lists,
-    List<ListTasks>? listsArchived,
   }) {
     return _State(
       isLoading: isLoading ?? this.isLoading,
       lists: lists ?? this.lists,
-      listsArchived: listsArchived ?? this.listsArchived,
     );
   }
 
   _State empty() {
-    return _State(lists: [], listsArchived: [], isLoading: false);
+    return _State(lists: [], isLoading: false);
   }
 }

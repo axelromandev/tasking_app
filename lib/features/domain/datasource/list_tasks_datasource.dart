@@ -6,5 +6,4 @@ abstract class ListTasksDataSource {
   Future<ListTasks> add(ListTasks list);
   Future<void> delete(int id);
   Future<void> update(ListTasks list);
-  Future<void> updateArchived(int id, bool archived);
 }

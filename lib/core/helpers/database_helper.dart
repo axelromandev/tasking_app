@@ -25,7 +25,6 @@ class DatabaseHelper {
             "title" TEXT NOT NULL,
             "icon_json" TEXT NOT NULL,
             "is_show_completed" INTEGER DEFAULT 0,
-            "is_archived" INTEGER DEFAULT 0,
             "created_at" TEXT DEFAULT (datetime('now'))
           );
         ''');
