@@ -14,7 +14,7 @@ class ListsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: ListsView Implement build method.
+    // TODO: ListsView Implement SLANG
 
     final style = Theme.of(context).textTheme;
 

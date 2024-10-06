@@ -34,7 +34,7 @@ class _Notifier extends StateNotifier<Task> {
 
   // final _notificationService = NotificationService();
   final _taskRepository = TaskRepositoryImpl();
-  final _debouncer = Debouncer(
+  final _debounce = Debounce(
     delay: const Duration(milliseconds: 300),
   );
 
@@ -62,7 +62,7 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   void onTitleChanged(String value) {
-    _debouncer.run(() {
+    _debounce.run(() {
       final String title = value.trim();
       if (title.isEmpty || state.title == title) return;
       final newTask = state.copyWith(
@@ -78,7 +78,7 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   void onNoteChanged(String value) {
-    _debouncer.run(() async {
+    _debounce.run(() async {
       final String note = value.trim();
       if (state.notes == note) return;
       final newTask = state.copyWith(

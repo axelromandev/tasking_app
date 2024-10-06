@@ -52,7 +52,6 @@ class DatabaseHelper {
             FOREIGN KEY ("task_id") REFERENCES "tasks" ("id")
           );
         ''');
-        print('db created');
       },
     );
   }
@@ -163,7 +162,6 @@ class DatabaseHelper {
 
     // Reactivar claves foráneas
     await db.execute('PRAGMA foreign_keys = ON;');
-    print('Database restored successfully');
 
     await _tutorialListQuery(db);
   }
