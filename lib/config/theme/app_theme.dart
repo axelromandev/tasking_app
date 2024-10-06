@@ -83,6 +83,7 @@ final appThemeProvider = Provider<ThemeData>((ref) {
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
+        foregroundColor: colorSeed,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(defaultPadding),
         ),

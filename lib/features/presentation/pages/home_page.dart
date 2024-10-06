@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/pages/views/views.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -62,12 +61,7 @@ class _NavigatorBar extends ConsumerWidget {
                 horizontal: defaultPadding,
               ),
               child: IconButton(
-                onPressed: () => showModalBottomSheet(
-                  context: context,
-                  useSafeArea: true,
-                  isScrollControlled: true,
-                  builder: (_) => const ListTasksAddModal(),
-                ),
+                onPressed: () {},
                 style: IconButton.styleFrom(
                   padding: const EdgeInsets.all(defaultPadding),
                   backgroundColor: colorPrimary,

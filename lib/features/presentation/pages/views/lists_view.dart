@@ -34,6 +34,19 @@ class ListsView extends ConsumerWidget {
           ],
         ),
         centerTitle: false,
+        actions: [
+          TextButton.icon(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              useSafeArea: true,
+              isScrollControlled: true,
+              builder: (_) => const ListTasksAddModal(),
+            ),
+            icon: const Icon(IconsaxOutline.add),
+            label: const Text('Nueva lista'),
+          ),
+          const Gap(defaultPadding),
+        ],
       ),
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
