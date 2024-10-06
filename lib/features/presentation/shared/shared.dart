@@ -5,7 +5,6 @@ export 'dialogs/task_delete_dialog.dart';
 export 'modals/archived_list_tasks_modal.dart';
 export 'modals/list_tasks_add_modal.dart';
 export 'modals/list_tasks_options_modal.dart';
-export 'modals/list_tasks_update_modal.dart';
 export 'modals/task_add_modal.dart';
 export 'widgets/card_list_tasks.dart';
 export 'widgets/card_task.dart';
