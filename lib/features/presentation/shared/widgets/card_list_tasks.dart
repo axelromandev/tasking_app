@@ -1,8 +1,9 @@
-import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 
-class ListTasksCard extends StatelessWidget {
+class ListTasksCard extends ConsumerWidget {
   const ListTasksCard({
     required this.onTap,
     required this.list,
@@ -13,8 +14,10 @@ class ListTasksCard extends StatelessWidget {
   final ListTasks list;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final pendingTasks =
         list.tasks.where((task) => task.completedAt == null).toList();
@@ -24,11 +27,7 @@ class ListTasksCard extends StatelessWidget {
       child: Card(
         child: ListTile(
           visualDensity: VisualDensity.compact,
-          leading: const Icon(
-            IconsaxOutline.record,
-            // color: list.archived ? list.color.withOpacity(.4) : list.color,
-            size: 12,
-          ),
+          leading: Icon(list.icon, color: colorPrimary, size: 20),
           minLeadingWidth: 0,
           title: Text(list.title),
           trailing: Row(
@@ -36,9 +35,9 @@ class ListTasksCard extends StatelessWidget {
             children: [
               if (pendingTasks.isNotEmpty)
                 Text(
-                  '${pendingTasks.length}',
-                  style: style.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w300,
+                  '${pendingTasks.length} Pendientes',
+                  style: style.bodySmall?.copyWith(
+                    color: Colors.grey,
                   ),
                 )
               else

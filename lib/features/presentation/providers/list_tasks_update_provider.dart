@@ -27,6 +27,10 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(title: value.trim());
   }
 
+  void onIconChanged(IconData icon) {
+    state = state.copyWith(icon: icon);
+  }
+
   void onSubmit(BuildContext context) {
     if (state.title.isEmpty) {
       MyToast.show(S.dialogs.listTasksUpdate.errorEmptyName);

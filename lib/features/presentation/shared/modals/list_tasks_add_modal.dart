@@ -61,35 +61,36 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddModal> {
               hintStyle: style.bodyLarge?.copyWith(
                 color: Colors.white54,
               ),
-              prefixIcon: Icon(provider.icon, size: 20),
             ),
           ),
           const Gap(defaultPadding),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.card,
-              borderRadius: BorderRadius.circular(defaultPadding),
-            ),
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: notifier.icons.length,
-              padding: const EdgeInsets.all(defaultPadding),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 7,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
+          Card(
+            margin: EdgeInsets.zero,
+            child: ExpansionTile(
+              visualDensity: VisualDensity.compact,
+              title: Row(
+                children: [
+                  Text('Seleccionar icono', style: style.bodyMedium),
+                  const Gap(defaultPadding),
+                  Icon(provider.icon, color: colorPrimary),
+                ],
               ),
-              itemBuilder: (_, index) {
-                final icon = notifier.icons[index];
-                return GestureDetector(
-                  onTap: () => notifier.onIconChanged(icon),
-                  child: Icon(
-                    icon,
-                    color:
-                        (provider.icon == icon) ? Colors.white : Colors.white70,
+              shape: const RoundedRectangleBorder(),
+              textColor: Colors.white,
+              collapsedTextColor: Colors.white,
+              collapsedIconColor: Colors.white,
+              iconColor: Colors.white,
+              children: [
+                IconPicker(
+                  padding: const EdgeInsets.only(
+                    left: defaultPadding,
+                    right: defaultPadding,
+                    bottom: defaultPadding,
                   ),
-                );
-              },
+                  icon: provider.icon,
+                  onIconChanged: notifier.onIconChanged,
+                ),
+              ],
             ),
           ),
           const Gap(defaultPadding),

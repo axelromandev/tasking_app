@@ -1,7 +1,9 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
@@ -16,6 +18,7 @@ class ListTasksUpdateModal extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final notifier = ref.read(listTasksUpdateProvider(list).notifier);
     final provider = ref.watch(listTasksUpdateProvider(list));
@@ -24,39 +27,32 @@ class ListTasksUpdateModal extends ConsumerWidget {
       padding: const EdgeInsets.all(defaultPadding),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Stack(
+            alignment: AlignmentDirectional.center,
             children: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                style: TextButton.styleFrom(
-                    // foregroundColor: provider.color,
-                    ),
-                child: Text(S.common.buttons.cancel),
-              ),
-              Text(
-                S.modals.listTasks.titleUpdate,
-                style: style.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  onPressed: () => context.pop(),
+                  icon: const Icon(IconsaxOutline.arrow_left_2, size: 20),
                 ),
               ),
-              CustomFilledButton(
-                onPressed: provider.title.isEmpty
-                    ? null
-                    : () => notifier.onSubmit(context),
-                // backgroundColor: provider.color,
-                child: Text(S.common.buttons.save),
+              Align(
+                child: Text(
+                  S.modals.listTasks.titleUpdate,
+                  style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                ),
               ),
             ],
           ),
-          const Gap(defaultPadding),
+          const Gap(defaultPadding / 2),
           TextFormField(
             initialValue: provider.title,
-            // cursorColor: provider.color,
             onChanged: notifier.onNameChanged,
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
             ],
+            cursorColor: colorPrimary,
             maxLines: null,
             decoration: InputDecoration(
               hintText: S.modals.listTasks.placeholder,
@@ -66,23 +62,59 @@ class ListTasksUpdateModal extends ConsumerWidget {
             ),
           ),
           const Gap(defaultPadding),
-          // Card(
-          //   margin: EdgeInsets.zero,
-          //   child: ColorPicker(
-          //     title: Text(S.modals.listTasks.colorLabel),
-          //     borderRadius: 20,
-          //     enableShadesSelection: false,
-          //     pickersEnabled: const <ColorPickerType, bool>{
-          //       ColorPickerType.wheel: false,
-          //       ColorPickerType.accent: false,
-          //       ColorPickerType.bw: false,
-          //       ColorPickerType.custom: false,
-          //       ColorPickerType.primary: true,
-          //     },
-          //     color: provider.color,
-          //     onColorChanged: notifier.onColorChanged,
-          //   ),
-          // ),
+          Card(
+            margin: EdgeInsets.zero,
+            child: ExpansionTile(
+              visualDensity: VisualDensity.compact,
+              title: Row(
+                children: [
+                  Text('Seleccionar icono', style: style.bodyMedium),
+                  const Gap(defaultPadding),
+                  Icon(provider.icon, color: colorPrimary),
+                ],
+              ),
+              shape: const RoundedRectangleBorder(),
+              textColor: Colors.white,
+              collapsedTextColor: Colors.white,
+              collapsedIconColor: Colors.white,
+              iconColor: Colors.white,
+              children: [
+                IconPicker(
+                  padding: const EdgeInsets.only(
+                    left: defaultPadding,
+                    right: defaultPadding,
+                    bottom: defaultPadding,
+                  ),
+                  icon: provider.icon,
+                  onIconChanged: notifier.onIconChanged,
+                ),
+              ],
+            ),
+          ),
+          const Gap(defaultPadding),
+          CustomFilledButton(
+            width: double.infinity,
+            height: 55,
+            onPressed: () => notifier.onSubmit(context),
+            child: Text(S.common.buttons.save),
+          ),
+          const Gap(defaultPadding),
+          TextButton.icon(
+            onPressed: () async {
+              final result = await showDialog<bool?>(
+                context: context,
+                builder: (_) => ListTaskDeleteDialog(list.id),
+              );
+              if (result != null && result) {
+                //FIXME: ListTasksUpdateModal delete list
+              }
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.redAccent,
+            ),
+            icon: const Icon(IconsaxOutline.trash, size: 20),
+            label: const Text('Eliminar lista'),
+          ),
         ],
       ),
     );
