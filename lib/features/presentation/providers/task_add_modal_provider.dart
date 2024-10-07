@@ -32,6 +32,10 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(name: value.trim());
   }
 
+  void onNotesChanged(String? value) {
+    state = state.copyWith(notes: value ?? '');
+  }
+
   Future<void> onSubmit() async {
     if (state.name.isEmpty) {
       MyToast.show(S.modals.taskAdd.errorEmptyName);
@@ -63,23 +67,24 @@ class _State {
   _State({
     required this.listId,
     this.name = '',
-    this.note,
+    this.notes = '',
     this.reminder,
   });
+
   final int listId;
   final String name;
-  final String? note;
+  final String notes;
   final DateTime? reminder;
 
   _State copyWith({
     String? name,
-    String? note,
+    String? notes,
     DateTime? reminder,
   }) {
     return _State(
       listId: listId,
       name: name ?? this.name,
-      note: note ?? this.note,
+      notes: notes ?? this.notes,
       reminder: reminder ?? this.reminder,
     );
   }

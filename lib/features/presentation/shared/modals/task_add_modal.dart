@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/features/presentation/shared/modals/task_notes_modal.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class TaskAddModal extends ConsumerWidget {
@@ -15,7 +16,7 @@ class TaskAddModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final list = ref.watch(listTasksProvider(listId));
 
-    ref.watch(taskAddModalProvider(listId).notifier);
+    final provider = ref.watch(taskAddModalProvider(listId));
     final notifier = ref.read(taskAddModalProvider(listId).notifier);
 
     return SingleChildScrollView(
@@ -59,8 +60,8 @@ class TaskAddModal extends ConsumerWidget {
                     overlayColor: Colors.transparent,
                     foregroundColor: Colors.white,
                   ),
-                  icon: const Icon(IconsaxOutline.calendar, size: 20),
-                  label: const Text('Set due date'),
+                  icon: const Icon(IconsaxOutline.calendar_1, size: 20),
+                  label: const Text('Set dateline'),
                 ),
                 TextButton.icon(
                   onPressed: () {}, //TODO: add reminder
@@ -73,14 +74,25 @@ class TaskAddModal extends ConsumerWidget {
                   label: const Text('Remind me'),
                 ),
                 TextButton.icon(
-                  onPressed: () {}, //TODO: add note
+                  onPressed: () => showModalBottomSheet<String?>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => TaskNotesModal(
+                      value: provider.notes,
+                    ),
+                  ).then((value) {
+                    if (value == null) return;
+                    notifier.onNotesChanged(value);
+                  }),
                   style: TextButton.styleFrom(
                     visualDensity: VisualDensity.compact,
                     overlayColor: Colors.transparent,
-                    foregroundColor: Colors.white,
+                    foregroundColor: (provider.notes.isNotEmpty)
+                        ? Colors.amber
+                        : Colors.white,
                   ),
                   icon: const Icon(IconsaxOutline.note, size: 20),
-                  label: const Text('Note'),
+                  label: const Text('Notes'),
                 ),
               ],
             ),
