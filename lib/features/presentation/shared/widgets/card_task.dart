@@ -79,8 +79,8 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         leading: IconButton(
           onPressed: notifier.onToggleCompleted,
           icon: Icon(
-            isCompleted ? IconsaxOutline.record_circle : IconsaxOutline.record,
-            color: Colors.white,
+            isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
+            color: isCompleted ? Colors.grey : Colors.white,
             size: 24,
           ),
         ),
