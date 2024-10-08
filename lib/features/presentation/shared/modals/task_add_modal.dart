@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
-import 'package:tasking/features/presentation/shared/modals/task_notes_modal.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class TaskAddModal extends ConsumerWidget {
@@ -54,7 +53,7 @@ class TaskAddModal extends ConsumerWidget {
             Row(
               children: [
                 TextButton.icon(
-                  onPressed: () {}, //TODO: add due date
+                  onPressed: () => notifier.onDatelineChanged(context),
                   style: TextButton.styleFrom(
                     visualDensity: VisualDensity.compact,
                     overlayColor: Colors.transparent,
@@ -74,16 +73,7 @@ class TaskAddModal extends ConsumerWidget {
                   label: const Text('Remind me'),
                 ),
                 TextButton.icon(
-                  onPressed: () => showModalBottomSheet<String?>(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => TaskNotesModal(
-                      value: provider.notes,
-                    ),
-                  ).then((value) {
-                    if (value == null) return;
-                    notifier.onNotesChanged(value);
-                  }),
+                  onPressed: () => notifier.onNotesChanged(context),
                   style: TextButton.styleFrom(
                     visualDensity: VisualDensity.compact,
                     overlayColor: Colors.transparent,

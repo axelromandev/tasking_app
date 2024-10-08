@@ -43,7 +43,7 @@ class _TaskNotesModalState extends State<TaskNotesModal> {
               ],
               decoration: InputDecoration(
                 filled: false,
-                hintText: 'Notas',
+                labelText: 'Notas',
                 suffixIcon: (controller.text.isNotEmpty &&
                         (widget.value?.isNotEmpty ?? false))
                     ? IconButton(

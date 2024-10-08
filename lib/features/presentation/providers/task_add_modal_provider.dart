@@ -1,9 +1,11 @@
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
+import 'package:tasking/features/presentation/shared/modals/task_notes_modal.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family
@@ -32,8 +34,52 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(name: value.trim());
   }
 
-  void onNotesChanged(String? value) {
-    state = state.copyWith(notes: value ?? '');
+  void onNotesChanged(BuildContext context) {
+    showModalBottomSheet<String?>(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => TaskNotesModal(
+        value: state.notes,
+      ),
+    ).then((value) {
+      if (value == null) return;
+      state = state.copyWith(notes: value);
+    });
+  }
+
+  void onDatelineChanged(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                autofocus: true,
+                textInputAction: TextInputAction.done,
+                decoration: InputDecoration(
+                  filled: false,
+                  hintText: 'mm/dd/yyyy',
+                  labelText: 'Set dateline',
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(IconsaxOutline.calendar_1),
+                  ),
+                ),
+                onFieldSubmitted: (value) {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> onSubmit() async {

@@ -1,14 +1,10 @@
-import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
-import 'package:tasking/i18n/i18n.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, Task, Task>((ref, task) {
@@ -93,39 +89,39 @@ class _Notifier extends StateNotifier<Task> {
   }
 
   Future<void> onUpdateReminder(BuildContext context) async {
-    if (state.reminder != null) {
-      showModalBottomSheet(
-        context: context,
-        builder: (contextModal) => SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                onTap: () async {
-                  contextModal.pop();
-                  await _dateTimePicker(context);
-                },
-                shape: const RoundedRectangleBorder(),
-                leading: const Icon(IconsaxOutline.shuffle),
-                title: Text(S.modals.taskReminder.change),
-              ),
-              ListTile(
-                onTap: () async {
-                  contextModal.pop();
-                  await onRemoveReminder();
-                },
-                shape: const RoundedRectangleBorder(),
-                iconColor: Colors.redAccent,
-                leading: const Icon(IconsaxOutline.notification),
-                title: Text(S.modals.taskReminder.remove),
-              ),
-            ],
-          ),
-        ),
-      );
-      return;
-    }
-    await _dateTimePicker(context);
+    //   if (state.reminder != null) {
+    //     showModalBottomSheet(
+    //       context: context,
+    //       builder: (contextModal) => SafeArea(
+    //         child: Column(
+    //           mainAxisSize: MainAxisSize.min,
+    //           children: [
+    //             ListTile(
+    //               onTap: () async {
+    //                 contextModal.pop();
+    //                 await _dateTimePicker(context);
+    //               },
+    //               shape: const RoundedRectangleBorder(),
+    //               leading: const Icon(IconsaxOutline.shuffle),
+    //               title: Text(S.modals.taskReminder.change),
+    //             ),
+    //             ListTile(
+    //               onTap: () async {
+    //                 contextModal.pop();
+    //                 await onRemoveReminder();
+    //               },
+    //               shape: const RoundedRectangleBorder(),
+    //               iconColor: Colors.redAccent,
+    //               leading: const Icon(IconsaxOutline.notification),
+    //               title: Text(S.modals.taskReminder.remove),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //     return;
+    //   }
+    //   await _dateTimePicker(context);
   }
 
   Future<void> onRemoveReminder() async {
@@ -142,38 +138,38 @@ class _Notifier extends StateNotifier<Task> {
     // }
   }
 
-  Future<void> _dateTimePicker(BuildContext context) async {
-    final status = await Permission.notification.status;
-    if (status.isPermanentlyDenied) {
-      MyToast.show(S.common.utils.notifications.isDenied);
-      return;
-    }
-    if (status.isDenied) {
-      final request = await Permission.notification.request();
-      if (request.isPermanentlyDenied) {
-        MyToast.show(S.common.utils.notifications.isDenied);
-        return;
-      }
-    }
+  // Future<void> _dateTimePicker(BuildContext context) async {
+  //   final status = await Permission.notification.status;
+  //   if (status.isPermanentlyDenied) {
+  //     MyToast.show(S.common.utils.notifications.isDenied);
+  //     return;
+  //   }
+  //   if (status.isDenied) {
+  //     final request = await Permission.notification.request();
+  //     if (request.isPermanentlyDenied) {
+  //       MyToast.show(S.common.utils.notifications.isDenied);
+  //       return;
+  //     }
+  //   }
 
-    final reminder = await DatTimePicker.show(context);
-    if (reminder == null) return;
+  //   final reminder = await DatTimePicker.show(context);
+  //   if (reminder == null) return;
 
-    try {
-      // await _notificationService.show(
-      //   id: state.id,
-      //   title: S.common.utils.notifications.title,
-      //   body: state.title,
-      //   dateTime: reminder,
-      // );
+  //   try {
+  //     await _notificationService.show(
+  //       id: state.id,
+  //       title: S.common.utils.notifications.title,
+  //       body: state.title,
+  //       dateTime: reminder,
+  //     );
 
-      // _taskRepository.updateReminder(state.id, reminder).then((_) {
-      //   refreshAll();
-      //   refreshList();
-      //   state.reminder = reminder;
-      // });
-    } catch (e) {
-      MyToast.show('$e');
-    }
-  }
+  //     _taskRepository.updateReminder(state.id, reminder).then((_) {
+  //       refreshAll();
+  //       refreshList();
+  //       state.reminder = reminder;
+  //     });
+  //   } catch (e) {
+  //     MyToast.show('$e');
+  //   }
+  // }
 }
