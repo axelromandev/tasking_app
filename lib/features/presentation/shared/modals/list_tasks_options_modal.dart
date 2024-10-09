@@ -21,7 +21,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final list = ref.watch(listTasksProvider(listId));
+    final provider = ref.watch(listTasksProvider(listId));
     final notifier = ref.read(listTasksProvider(listId).notifier);
 
     return SafeArea(
@@ -43,7 +43,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkIncompleteAllTasks();
               },
-              enabled: list.tasks.isNotEmpty,
+              enabled: provider.completed.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.record, size: 18),
@@ -57,7 +57,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onMarkCompleteAllTasks();
               },
-              enabled: list.tasks.isNotEmpty,
+              enabled: provider.pending.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.tick_circle, size: 18),
@@ -69,7 +69,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 notifier.onDeleteCompletedAllTasks();
               },
-              enabled: list.tasks.isNotEmpty,
+              enabled: provider.completed.isNotEmpty,
               shape: const RoundedRectangleBorder(),
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
@@ -84,7 +84,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 context.pop();
                 final result = await showDialog<bool?>(
                   context: context,
-                  builder: (_) => ListTaskDeleteDialog(list.id),
+                  builder: (_) => ListTaskDeleteDialog(provider.list!.id),
                 );
                 if (result != null && result) {
                   notifier.onDelete(contextPage);

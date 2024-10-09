@@ -12,7 +12,6 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   final _listTasksRepository = ListTasksRepositoryImpl();
-  final _taskRepository = TaskRepositoryImpl();
 
   Future<void> _load() async {
     final lists = await _listTasksRepository.getAll();
@@ -20,16 +19,7 @@ class _Notifier extends StateNotifier<_State> {
       state = state.empty();
       return;
     }
-
-    for (final list in lists) {
-      final tasks = await _taskRepository.getByListId(list.id);
-      list.tasks = tasks;
-    }
-
-    state = state.copyWith(
-      lists: lists,
-      isLoading: false,
-    );
+    state = state.copyWith(lists: lists, isLoading: false);
   }
 
   Future<void> refresh() async {

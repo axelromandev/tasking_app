@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/pages/pages.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -23,9 +22,9 @@ class ListTasksPage extends ConsumerWidget {
 
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final list = ref.watch(listTasksProvider(listId));
+    final provider = ref.watch(listTasksProvider(listId));
 
-    if (list.id == 0) {
+    if (provider.isLoading) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
@@ -44,11 +43,11 @@ class ListTasksPage extends ConsumerWidget {
               ),
             ),
             const Gap(defaultPadding),
-            Icon(list.icon, color: colorPrimary),
+            Icon(provider.list!.icon, color: colorPrimary),
             const Gap(12),
             Flexible(
               child: Text(
-                list.title,
+                provider.list!.title,
                 style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
@@ -57,7 +56,9 @@ class ListTasksPage extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (_) => ListTasksUpdatePage(list)),
+              MaterialPageRoute(
+                builder: (_) => ListTasksUpdatePage(provider.list!),
+              ),
             ),
             iconSize: 20.0,
             icon: const Icon(IconsaxOutline.edit),
@@ -65,16 +66,16 @@ class ListTasksPage extends ConsumerWidget {
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (_) => ListTasksOptionsModal(context, list.id),
+              builder: (_) => ListTasksOptionsModal(context, listId),
             ),
             iconSize: 20.0,
             icon: const Icon(IconsaxOutline.more),
           ),
         ],
       ),
-      body: (list.tasks.isEmpty)
+      body: (provider.pending.isEmpty && provider.completed.isEmpty)
           ? _EmptyTasks()
-          : _BuildTasks(list.tasks.toList()),
+          : _BuildTasks(listId),
       bottomNavigationBar: SafeArea(
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
@@ -83,7 +84,7 @@ class ListTasksPage extends ConsumerWidget {
             onTap: () => showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              builder: (_) => TaskAddModal(list.id),
+              builder: (_) => TaskAddModal(listId),
             ),
             title: Text(S.modals.taskAdd.placeholder),
           ),
@@ -93,54 +94,67 @@ class ListTasksPage extends ConsumerWidget {
   }
 }
 
-class _BuildTasks extends StatelessWidget {
-  const _BuildTasks(this.tasks);
+class _BuildTasks extends ConsumerWidget {
+  const _BuildTasks(this.listId);
 
-  final List<Task> tasks;
+  final int listId;
 
   @override
-  Widget build(BuildContext context) {
-    final pendingTasks =
-        tasks.where((task) => task.completedAt == null).toList();
-    pendingTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(listTasksProvider(listId));
 
-    final completedTasks =
-        tasks.where((task) => task.completedAt != null).toList();
-    completedTasks.sort((a, b) => a.completedAt!.compareTo(b.completedAt!));
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListView.separated(
-          shrinkWrap: true,
-          reverse: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          separatorBuilder: (_, __) => const Gap(8),
-          itemCount: pendingTasks.length,
-          itemBuilder: (context, index) {
-            final task = pendingTasks[index];
-            return TaskCard(task);
-          },
-        ),
-        const Gap(defaultPadding),
-        if (completedTasks.isNotEmpty)
-          CompletedTaskExpansion(
-            margin: const EdgeInsets.only(left: defaultPadding),
-            length: completedTasks.length,
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              separatorBuilder: (_, __) => const SizedBox(height: 8),
-              itemCount: completedTasks.length,
-              itemBuilder: (context, index) {
-                final task = completedTasks[index];
-                return TaskCard(task);
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+            separatorBuilder: (_, __) => const Gap(8),
+            itemCount: provider.pending.length,
+            itemBuilder: (_, i) => TaskCard(
+              task: provider.pending[i],
+              onDismissed: () {
+                ref
+                    .read(listTasksProvider(listId).notifier)
+                    .onDismissibleTask(provider.pending[i].id);
+              },
+              onToggleCompleted: () {
+                ref
+                    .read(listTasksProvider(listId).notifier)
+                    .onToggleCompleted(provider.pending[i].id);
               },
             ),
           ),
-      ],
+          const Gap(defaultPadding),
+          if (provider.completed.isNotEmpty)
+            CompletedTaskExpansion(
+              margin: const EdgeInsets.only(left: defaultPadding),
+              length: provider.completed.length,
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                itemCount: provider.completed.length,
+                itemBuilder: (_, i) => TaskCard(
+                  task: provider.completed[i],
+                  onDismissed: () {
+                    ref
+                        .read(listTasksProvider(listId).notifier)
+                        .onDismissibleTask(provider.completed[i].id);
+                  },
+                  onToggleCompleted: () {
+                    ref
+                        .read(listTasksProvider(listId).notifier)
+                        .onToggleCompleted(provider.completed[i].id);
+                  },
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

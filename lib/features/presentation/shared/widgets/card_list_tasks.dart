@@ -20,9 +20,6 @@ class ListTasksCard extends ConsumerWidget {
 
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final pendingTasks =
-        list.tasks.where((task) => task.completedAt == null).toList();
-
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -34,9 +31,10 @@ class ListTasksCard extends ConsumerWidget {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (pendingTasks.isNotEmpty)
+              if (list.pendingTasksLength > 0)
                 Text(
-                  S.pages.lists.cardPendingTask(length: pendingTasks.length),
+                  S.pages.lists
+                      .cardPendingTask(length: list.pendingTasksLength),
                   style: style.bodySmall?.copyWith(
                     color: Colors.grey,
                   ),
