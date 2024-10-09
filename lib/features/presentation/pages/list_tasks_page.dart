@@ -72,8 +72,9 @@ class ListTasksPage extends ConsumerWidget {
           ),
         ],
       ),
-      body:
-          list.tasks.isEmpty ? _EmptyTasks() : _BuildTasks(list.tasks.toList()),
+      body: (list.tasks.isEmpty)
+          ? _EmptyTasks()
+          : _BuildTasks(list.tasks.toList()),
       bottomNavigationBar: SafeArea(
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
@@ -84,7 +85,6 @@ class ListTasksPage extends ConsumerWidget {
               isScrollControlled: true,
               builder: (_) => TaskAddModal(list.id),
             ),
-            leading: const Icon(IconsaxOutline.add),
             title: Text(S.modals.taskAdd.placeholder),
           ),
         ),
@@ -100,8 +100,6 @@ class _BuildTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme;
-
     final pendingTasks =
         tasks.where((task) => task.completedAt == null).toList();
     pendingTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
@@ -110,54 +108,38 @@ class _BuildTasks extends StatelessWidget {
         tasks.where((task) => task.completedAt != null).toList();
     completedTasks.sort((a, b) => a.completedAt!.compareTo(b.completedAt!));
 
-    return ListView(
-      padding: const EdgeInsets.all(8),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListView.builder(
+        ListView.separated(
           shrinkWrap: true,
+          reverse: true,
           physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          separatorBuilder: (_, __) => const Gap(8),
           itemCount: pendingTasks.length,
           itemBuilder: (context, index) {
             final task = pendingTasks[index];
             return TaskCard(task);
           },
         ),
-        if (completedTasks.isNotEmpty) ...[
-          ExpansionTile(
-            initiallyExpanded: true,
-            dense: true,
-            shape: const RoundedRectangleBorder(),
-            collapsedShape: const RoundedRectangleBorder(),
-            iconColor: Colors.white60,
-            collapsedIconColor: Colors.white60,
-            title: Row(
-              children: [
-                Text(
-                  S.pages.listTasks.completed.title,
-                  style: style.bodySmall?.copyWith(color: Colors.white70),
-                ),
-                const Spacer(),
-                Text(
-                  '${completedTasks.length}',
-                  style: style.bodySmall?.copyWith(color: Colors.white70),
-                ),
-              ],
+        const Gap(defaultPadding),
+        if (completedTasks.isNotEmpty)
+          CompletedTaskExpansion(
+            margin: const EdgeInsets.only(left: defaultPadding),
+            length: completedTasks.length,
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              separatorBuilder: (_, __) => const SizedBox(height: 8),
+              itemCount: completedTasks.length,
+              itemBuilder: (context, index) {
+                final task = completedTasks[index];
+                return TaskCard(task);
+              },
             ),
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: completedTasks.length,
-                itemBuilder: (context, index) {
-                  final task = completedTasks[index];
-                  return TaskCard(task);
-                },
-              ),
-            ],
           ),
-        ],
       ],
     );
   }

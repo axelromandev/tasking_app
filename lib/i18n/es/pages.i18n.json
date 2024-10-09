@@ -36,9 +36,7 @@
     "cardPendingTask": "$length Pendientes"
   },
   "listTasks": {
-    "completed": {
-      "title": "Completados"
-    },
+    "completed": "Completados  $length",
     "emptyTasks": {
       "title": "No hay tareas",
       "subtitle": "Presione + para agregar una tarea"

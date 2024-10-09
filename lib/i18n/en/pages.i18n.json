@@ -36,9 +36,7 @@
     "cardPendingTask": "$length Pending"
   },
   "listTasks": {
-    "completed": {
-      "title": "Completed"
-    },
+    "completed": "Completed  $length",
     "emptyTasks": {
       "title": "There is no tasks",
       "subtitle": "Press + to add the task"
