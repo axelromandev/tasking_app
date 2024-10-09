@@ -8,6 +8,7 @@ class ListTasks {
     required this.id,
     required this.title,
     required this.icon,
+    this.pendingTasksLength = 0,
     this.showCompleted = false,
     required this.createdAt,
   });
@@ -34,6 +35,7 @@ class ListTasks {
       id: map['id'] as int,
       title: map['title'] as String,
       icon: IconDataUtils.decode(map['icon_json'] as String),
+      pendingTasksLength: map['pending_tasks_length'] as int? ?? 0,
       showCompleted: (map['is_show_completed'] as int) == 1,
       createdAt: DateTime.parse(map['created_at'] as String),
     );
@@ -66,6 +68,7 @@ class ListTasks {
   final int id;
   final String title;
   final IconData icon;
+  final int pendingTasksLength;
   final bool showCompleted;
   final DateTime createdAt;
 

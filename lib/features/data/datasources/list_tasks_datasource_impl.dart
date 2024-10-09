@@ -11,7 +11,25 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<List<ListTasks>> getAll() async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.query('lists');
+      final data = await db.rawQuery('''
+        SELECT
+            lists.id,
+            lists.title,
+            lists.icon_json,
+            lists.is_show_completed,
+            lists.created_at,
+            COUNT(tasks.id) AS pending_tasks_length
+        FROM
+            lists
+        LEFT JOIN
+            tasks
+        ON
+            lists.id = tasks.list_id
+        WHERE
+            tasks.completed_at IS NULL
+        GROUP BY
+            lists.id, lists.title;
+      ''');
       return data.map((e) => ListTasks.fromMap(e)).toList();
     } catch (e) {
       log(e.toString(), name: 'ListTasksDataSource.getAll');

@@ -116,4 +116,22 @@ class TaskDataSourceImpl implements TaskDataSource {
       rethrow;
     }
   }
+
+  @override
+  Future<void> toggleCompleted(int id) async {
+    try {
+      final Database db = await dbHelper.database;
+      final task = await get(id);
+      final newTask = task.toggleCompleted();
+      await db.update(
+        'tasks',
+        newTask.toMap(),
+        where: 'id = ?',
+        whereArgs: [id],
+        conflictAlgorithm: ConflictAlgorithm.abort,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

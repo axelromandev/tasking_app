@@ -8,4 +8,5 @@ abstract class TaskDataSource {
   Future<void> update(Task task);
   Future<void> delete(int id);
   Future<void> deleteReminder(int id);
+  Future<void> toggleCompleted(int id);
 }
