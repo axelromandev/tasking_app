@@ -1,8 +1,9 @@
-import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:tasking/config/config.dart';
 
-class TaskNotesModal extends StatefulWidget {
+class TaskNotesModal extends ConsumerStatefulWidget {
   const TaskNotesModal({
     this.value,
     super.key,
@@ -11,10 +12,10 @@ class TaskNotesModal extends StatefulWidget {
   final String? value;
 
   @override
-  State<TaskNotesModal> createState() => _TaskNotesModalState();
+  ConsumerState<TaskNotesModal> createState() => _TaskNotesModalState();
 }
 
-class _TaskNotesModalState extends State<TaskNotesModal> {
+class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
   late TextEditingController controller;
 
   @override
@@ -25,6 +26,8 @@ class _TaskNotesModalState extends State<TaskNotesModal> {
 
   @override
   Widget build(BuildContext context) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(
@@ -33,35 +36,58 @@ class _TaskNotesModalState extends State<TaskNotesModal> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextFormField(
+            TextField(
               autofocus: true,
               controller: controller,
-              maxLines: null,
+              maxLength: 255,
+              maxLines: 4,
+              cursorColor: colorPrimary,
               textInputAction: TextInputAction.done,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(255),
-              ],
               decoration: InputDecoration(
                 filled: false,
+                border: InputBorder.none,
                 labelText: 'Notas',
-                suffixIcon: (controller.text.isNotEmpty &&
-                        (widget.value?.isNotEmpty ?? false))
-                    ? IconButton(
-                        onPressed: () {
+                labelStyle: const TextStyle(color: Colors.grey),
+                helperStyle: const TextStyle(color: Colors.grey),
+                helper: (controller.text.isNotEmpty)
+                    ? _CleanButton(
+                        onTap: () {
                           controller.clear();
-                          Navigator.pop(context, '');
+                          setState(() {});
                         },
-                        color: Colors.redAccent,
-                        icon: const Icon(IconsaxOutline.trash),
                       )
                     : null,
               ),
               onChanged: (_) => setState(() {}),
-              onFieldSubmitted: (value) {
+              onSubmitted: (value) {
                 Navigator.pop(context, value);
               },
             ),
+            const Gap(8),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CleanButton extends ConsumerWidget {
+  const _CleanButton({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
+
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Text(
+        'Limpiar',
+        style: style.bodySmall?.copyWith(
+          color: colorPrimary,
         ),
       ),
     );
