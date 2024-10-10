@@ -28,7 +28,18 @@
     "addReminder": "Recordatorio",
     "addNotes": "Notas"
   },
+  "taskDateline": {
+    "today": "Hoy",
+    "tomorrow": "Mañana",
+    "nextWeek": "La próxima semana",
+    "pickDate": "Elegir una fecha",
+    "remove": "Eliminar fecha limite"
+  },
   "taskReminder": {
+    "laterToday": "Más tarde hoy",
+    "tomorrowMorning": "Mañana por la mañana",
+    "nextWeek": "La próxima semana",
+    "pickDateTime": "Elegir una fecha y hora",
     "change": "Cambiar recordatorio",
     "remove": "Eliminar recordatorio"
   },

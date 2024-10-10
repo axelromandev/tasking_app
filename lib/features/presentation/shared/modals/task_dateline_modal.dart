@@ -22,9 +22,9 @@ class TaskDatelineModal extends ConsumerStatefulWidget {
 
 class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
   final DateTime now = DateTime.now();
-  late DateTime today; // max 11:59 PM
-  late DateTime tomorrow; // max 11:59 PM
-  late DateTime nextWeek; // always monday  11:59 PM
+  late DateTime today;
+  late DateTime tomorrow;
+  late DateTime nextWeek;
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar),
-              title: const Text('Hoy'),
+              title: Text(S.modals.taskDateline.today),
               trailing: Text(
                 S.common.labels.longDays[now.weekday - 1],
                 style: const TextStyle(color: Colors.grey),
@@ -81,7 +81,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_2),
-              title: const Text('Mañana'),
+              title: Text(S.modals.taskDateline.tomorrow),
               trailing: Text(
                 S.common.labels.longDays[(now.weekday) % 7],
                 style: const TextStyle(color: Colors.grey),
@@ -93,7 +93,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_1),
-              title: const Text('La próxima semana'),
+              title: Text(S.modals.taskDateline.nextWeek),
               trailing: Text(
                 S.common.labels.longDays[nextWeek.weekday - 1],
                 style: const TextStyle(color: Colors.grey),
@@ -132,7 +132,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_search),
-              title: const Text('Elegir una fecha'),
+              title: Text(S.modals.taskDateline.pickDate),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 20),
             ),
             if (widget.value != null) ...[
@@ -144,7 +144,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
                 },
                 visualDensity: VisualDensity.compact,
                 leading: const Icon(IconsaxOutline.trash),
-                title: const Text('Eliminar fecha limite'),
+                title: Text(S.modals.taskDateline.remove),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

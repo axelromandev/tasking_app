@@ -77,7 +77,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               enabled: isEnabledLaterToday,
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: const Text('Más tarde hoy'),
+              title: Text(S.modals.taskReminder.laterToday),
               trailing: isEnabledLaterToday
                   ? Text(
                       DateFormat.jm().format(laterToday),
@@ -91,7 +91,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: const Text('Mañana'),
+              title: Text(S.modals.taskReminder.tomorrowMorning),
               trailing: Text(
                 '${S.common.labels.shortDays[tomorrow.weekday - 1]}, '
                 '${DateFormat.jm().format(tomorrow)}',
@@ -104,7 +104,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: const Text('La próxima semana'),
+              title: Text(S.modals.taskReminder.nextWeek),
               trailing: Text(
                 '${S.common.labels.shortDays[nextWeek.weekday - 1]}, '
                 '${DateFormat.jm().format(nextWeek)}',
@@ -144,9 +144,23 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: const Text('Elegir fecha y hora'),
+              title: Text(S.modals.taskReminder.pickDateTime),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 20),
             ),
+            if (widget.value != null) ...[
+              const Divider(),
+              ListTile(
+                onTap: () {
+                  widget.onDelete();
+                  Navigator.pop(context);
+                },
+                visualDensity: VisualDensity.compact,
+                leading: const Icon(IconsaxOutline.trash),
+                title: Text(S.modals.taskReminder.remove),
+                iconColor: Colors.redAccent,
+                textColor: Colors.redAccent,
+              ),
+            ],
           ],
         ),
       ),

@@ -28,7 +28,18 @@
     "addReminder": "Reminder me",
     "addNotes": "Notes"
   },
+  "taskDateline": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "nextWeek": "Next week",
+    "pickDate": "Pick a date",
+    "remove": "Remove dateline"
+  },
   "taskReminder": {
+    "laterToday": "Later today",
+    "tomorrowMorning": "Tomorrow morning",
+    "nextWeek": "Next week",
+    "pickDateTime": "Pick a date and time",
     "change": "Change reminder",
     "remove": "Remove reminder"
   },
