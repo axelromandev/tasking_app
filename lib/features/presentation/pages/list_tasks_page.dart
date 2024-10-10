@@ -36,7 +36,11 @@ class ListTasksPage extends ConsumerWidget {
         title: Row(
           children: [
             GestureDetector(
-              onTap: () => context.pop(),
+              onTap: () {
+                ref.read(listsProvider.notifier).refresh().then((_) {
+                  context.pop();
+                });
+              },
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(IconsaxOutline.arrow_left_2, size: 20),
@@ -86,6 +90,7 @@ class ListTasksPage extends ConsumerWidget {
               isScrollControlled: true,
               builder: (_) => TaskAddModal(listId),
             ),
+            leading: const Icon(IconsaxOutline.add),
             title: Text(S.modals.taskAdd.placeholder),
           ),
         ),
@@ -115,16 +120,12 @@ class _BuildTasks extends ConsumerWidget {
             itemCount: provider.pending.length,
             itemBuilder: (_, i) => TaskCard(
               task: provider.pending[i],
-              onDismissed: () {
-                ref
-                    .read(listTasksProvider(listId).notifier)
-                    .onDismissibleTask(provider.pending[i].id);
-              },
-              onToggleCompleted: () {
-                ref
-                    .read(listTasksProvider(listId).notifier)
-                    .onToggleCompleted(provider.pending[i].id);
-              },
+              onDismissed: () => ref
+                  .read(listTasksProvider(listId).notifier)
+                  .onDismissibleTask(provider.pending[i].id),
+              onToggleCompleted: () => ref
+                  .read(listTasksProvider(listId).notifier)
+                  .onToggleCompleted(provider.pending[i].id),
             ),
           ),
           const Gap(defaultPadding),
@@ -140,16 +141,12 @@ class _BuildTasks extends ConsumerWidget {
                 itemCount: provider.completed.length,
                 itemBuilder: (_, i) => TaskCard(
                   task: provider.completed[i],
-                  onDismissed: () {
-                    ref
-                        .read(listTasksProvider(listId).notifier)
-                        .onDismissibleTask(provider.completed[i].id);
-                  },
-                  onToggleCompleted: () {
-                    ref
-                        .read(listTasksProvider(listId).notifier)
-                        .onToggleCompleted(provider.completed[i].id);
-                  },
+                  onDismissed: () => ref
+                      .read(listTasksProvider(listId).notifier)
+                      .onDismissibleTask(provider.completed[i].id),
+                  onToggleCompleted: () => ref
+                      .read(listTasksProvider(listId).notifier)
+                      .onToggleCompleted(provider.completed[i].id),
                 ),
               ),
             ),

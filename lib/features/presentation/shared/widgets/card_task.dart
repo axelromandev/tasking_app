@@ -27,14 +27,6 @@ class TaskCard extends ConsumerStatefulWidget {
 }
 
 class _TaskCardState extends ConsumerState<TaskCard> {
-  late Key key;
-
-  @override
-  void initState() {
-    key = ValueKey('(${widget.task.id})${widget.task.createdAt}');
-    super.initState();
-  }
-
   void open() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -53,7 +45,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
     final bool isCompleted = (provider.completedAt != null);
 
     return Dismissible(
-      key: key,
+      key: ValueKey(widget.task.id),
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
