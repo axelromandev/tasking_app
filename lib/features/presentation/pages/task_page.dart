@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -19,11 +20,13 @@ class TaskPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //TODO: implement TaskPage SLANG
+
     final style = Theme.of(context).textTheme;
 
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final list = ref.watch(listTasksProvider(task.listId));
+    final list = ref.watch(listTasksProvider(task.listId)).list!;
 
     final provider = ref.watch(taskProvider(task));
     final notifier = ref.read(taskProvider(task).notifier);
@@ -53,89 +56,131 @@ class TaskPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            initialValue: provider.title,
-            style: style.titleLarge,
-            autocorrect: false,
-            maxLines: null,
-            cursorColor: colorPrimary,
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              prefixIcon: IconButton(
-                onPressed: () {},
-                color: Colors.white60,
-                icon: Icon(
-                  task.completedAt != null
-                      ? IconsaxOutline.record_circle
-                      : IconsaxOutline.record,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextFormField(
+              initialValue: provider.title,
+              style: style.titleLarge,
+              autocorrect: false,
+              maxLines: null,
+              cursorColor: colorPrimary,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                prefixIcon: IconButton(
+                  onPressed: () {
+                    //TODO: update task completedAt
+                  },
+                  color: Colors.white60,
+                  icon: Icon(
+                    task.completedAt != null
+                        ? IconsaxOutline.record_circle
+                        : IconsaxOutline.tick_circle,
+                  ),
                 ),
+                hintText: S.pages.task.placeholderTitle,
+                filled: false,
               ),
-              hintText: S.pages.task.placeholderTitle,
-              filled: false,
+              onChanged: notifier.onTitleChanged,
             ),
-            onChanged: notifier.onTitleChanged,
-          ),
-          TextButton.icon(
-            onPressed: () {}, //TODO: add more steps tasks
-            style: TextButton.styleFrom(
-              foregroundColor: colorPrimary,
-              overlayColor: Colors.transparent,
-            ),
-            icon: const Icon(IconsaxOutline.add),
-            label: const Text('Add a step'),
-          ),
-          if (task.reminder != null)
-            ListTile(
-              contentPadding: const EdgeInsets.only(left: defaultPadding),
-              leading: Icon(
-                IconsaxOutline.notification,
-                color: colorPrimary,
-                size: 20,
-              ),
-              title: Text(HumanFormat.datetime(task.reminder)),
-              trailing: IconButton(
-                onPressed: notifier.onRemoveReminder,
-                color: Colors.white54,
-                icon: const Icon(IconsaxOutline.minus),
-              ),
-            )
-          else
             TextButton.icon(
-              onPressed: () => notifier.onUpdateReminder(context),
+              onPressed: () {
+                //TODO: add more steps tasks
+              },
               style: TextButton.styleFrom(
-                foregroundColor: Colors.white70,
+                foregroundColor: colorPrimary,
                 overlayColor: Colors.transparent,
               ),
-              icon: const Icon(IconsaxOutline.notification, size: 20),
-              label: const Text('Remind me'),
+              icon: const Icon(IconsaxOutline.add),
+              label: const Text('Agregar pasos'),
             ),
-          TextButton.icon(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white70,
-              overlayColor: Colors.transparent,
+            if (provider.reminder != null)
+              ListTile(
+                onTap: () {
+                  //TODO: update reminder
+                },
+                contentPadding: const EdgeInsets.only(left: defaultPadding),
+                leading: Icon(
+                  IconsaxOutline.notification,
+                  color: colorPrimary,
+                  size: 20,
+                ),
+                title: Text(
+                  DateFormat.MMMEd().format(provider.reminder!),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    //TODO: remove reminder
+                  },
+                  icon: const Icon(IconsaxOutline.minus),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: TextButton.icon(
+                  onPressed: () => notifier.onUpdateReminder(context),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white70,
+                    overlayColor: Colors.transparent,
+                  ),
+                  icon: const Icon(IconsaxOutline.notification, size: 20),
+                  label: const Text('Recordarme'),
+                ),
+              ),
+            if (task.dateline != null)
+              ListTile(
+                onTap: () {
+                  //TODO: update dateline
+                },
+                contentPadding: const EdgeInsets.only(left: defaultPadding),
+                leading: Icon(
+                  IconsaxOutline.calendar_2,
+                  color: colorPrimary,
+                  size: 20,
+                ),
+                title: Text(
+                  DateFormat.MMMEd().format(provider.dateline!),
+                ),
+                trailing: IconButton(
+                  onPressed: () {
+                    //TODO: remove dateline
+                  },
+                  icon: const Icon(IconsaxOutline.minus),
+                ),
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(left: 4),
+                child: TextButton.icon(
+                  onPressed: () {
+                    //TODO: add dateline
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white70,
+                    overlayColor: Colors.transparent,
+                  ),
+                  icon: const Icon(IconsaxOutline.calendar_2, size: 20),
+                  label: const Text('Fecha límite'),
+                ),
+              ),
+            const Gap(defaultPadding),
+            const Divider(height: 0),
+            TextFormField(
+              initialValue: provider.notes,
+              maxLines: 4,
+              autocorrect: false,
+              cursorColor: colorPrimary,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                hintText: S.pages.task.placeholderNote,
+                filled: false,
+              ),
+              onChanged: notifier.onNoteChanged,
             ),
-            icon: const Icon(IconsaxOutline.calendar_2, size: 20),
-            label: const Text('Add dateline'),
-          ),
-          const Gap(defaultPadding),
-          const Divider(height: 0),
-          TextFormField(
-            initialValue: provider.notes,
-            maxLines: null,
-            autocorrect: false,
-            cursorColor: colorPrimary,
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-              hintText: S.pages.task.placeholderNote,
-              filled: false,
-            ),
-            onChanged: notifier.onNoteChanged,
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: SafeArea(
         child: Column(
