@@ -1,7 +1,9 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/providers/providers.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -13,7 +15,7 @@ class TaskAddModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final list = ref.watch(listTasksProvider(listId));
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(taskAddModalProvider(listId));
     final notifier = ref.read(taskAddModalProvider(listId).notifier);
@@ -25,18 +27,21 @@ class TaskAddModal extends ConsumerWidget {
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
               autofocus: true,
               maxLines: null,
-              autocorrect: false,
+              cursorColor: colorPrimary,
               onChanged: notifier.onNameChanged,
               controller: notifier.controller,
               focusNode: notifier.focusNode,
               textInputAction: TextInputAction.done,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(255),
+              ],
               style: const TextStyle(fontSize: 16),
-              // cursorColor: list.color,
               onFieldSubmitted: (value) {
                 notifier.onSubmit();
                 notifier.focusNode.requestFocus();
@@ -50,41 +55,56 @@ class TaskAddModal extends ConsumerWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                TextButton.icon(
-                  onPressed: () => notifier.onDatelineChanged(context),
-                  style: TextButton.styleFrom(
-                    visualDensity: VisualDensity.compact,
-                    overlayColor: Colors.transparent,
-                    foregroundColor: Colors.white,
+            SizedBox(
+              height: 40,
+              child: ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                children: [
+                  TextButton.icon(
+                    onPressed: () => notifier.openDatelineModal(context),
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                      overlayColor: Colors.transparent,
+                      foregroundColor: (provider.dateline != null)
+                          ? colorPrimary
+                          : Colors.white,
+                    ),
+                    icon: const Icon(IconsaxOutline.calendar_1, size: 20),
+                    label: (provider.dateline != null)
+                        ? Text(
+                            DateFormat.yMMMd().format(provider.dateline!),
+                            style: TextStyle(color: colorPrimary),
+                          )
+                        : Text(S.modals.taskAdd.addDateline),
                   ),
-                  icon: const Icon(IconsaxOutline.calendar_1, size: 20),
-                  label: const Text('Set dateline'),
-                ),
-                TextButton.icon(
-                  onPressed: () {}, //TODO: add reminder
-                  style: TextButton.styleFrom(
-                    visualDensity: VisualDensity.compact,
-                    overlayColor: Colors.transparent,
-                    foregroundColor: Colors.white,
+                  TextButton.icon(
+                    onPressed: () => notifier.openReminderModal(context),
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                      overlayColor: Colors.transparent,
+                      foregroundColor: (provider.reminder != null)
+                          ? colorPrimary
+                          : Colors.white,
+                    ),
+                    icon: const Icon(IconsaxOutline.notification, size: 20),
+                    label: Text(S.modals.taskAdd.addReminder),
                   ),
-                  icon: const Icon(IconsaxOutline.notification, size: 20),
-                  label: const Text('Remind me'),
-                ),
-                TextButton.icon(
-                  onPressed: () => notifier.onNotesChanged(context),
-                  style: TextButton.styleFrom(
-                    visualDensity: VisualDensity.compact,
-                    overlayColor: Colors.transparent,
-                    foregroundColor: (provider.notes.isNotEmpty)
-                        ? Colors.amber
-                        : Colors.white,
+                  TextButton.icon(
+                    onPressed: () => notifier.openNotesModal(context),
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.compact,
+                      overlayColor: Colors.transparent,
+                      foregroundColor: (provider.notes.isNotEmpty)
+                          ? colorPrimary
+                          : Colors.white,
+                    ),
+                    icon: const Icon(IconsaxOutline.note_1, size: 20),
+                    label: Text(S.modals.taskAdd.addNotes),
                   ),
-                  icon: const Icon(IconsaxOutline.note, size: 20),
-                  label: const Text('Notes'),
-                ),
-              ],
+                ],
+              ),
             ),
             const Gap(8),
           ],
