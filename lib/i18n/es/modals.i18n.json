@@ -23,7 +23,10 @@
   },
   "taskAdd": {
     "placeholder": "Agregar una tarea",
-    "errorEmptyName": "Ingrese una tarea."
+    "errorEmptyName": "Ingrese una tarea.",
+    "addDateline": "Fecha limite",
+    "addReminder": "Recordatorio",
+    "addNotes": "Notas"
   },
   "taskReminder": {
     "change": "Cambiar recordatorio",

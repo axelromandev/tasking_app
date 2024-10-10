@@ -23,7 +23,10 @@
   },
   "taskAdd": {
     "placeholder": "Add a task",
-    "errorEmptyName": "Please enter a task."
+    "errorEmptyName": "Please enter a task.",
+    "addDateline": "Set dateline",
+    "addReminder": "Reminder me",
+    "addNotes": "Notes"
   },
   "taskReminder": {
     "change": "Change reminder",
