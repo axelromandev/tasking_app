@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/pages/pages.dart';
-import 'package:tasking/features/presentation/providers/lists_provider.dart';
+import 'package:tasking/features/presentation/providers/lists/lists_provider.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
 

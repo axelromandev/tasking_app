@@ -1,8 +1,8 @@
-export 'about_page.dart';
-export 'home_page.dart';
-export 'intro_page.dart';
-export 'list_tasks_add_page.dart';
-export 'list_tasks_page.dart';
-export 'list_tasks_update_page.dart';
-export 'task_page.dart';
-export 'theme_change_page.dart';
+export 'home/home_page.dart';
+export 'home/intro_page.dart';
+export 'lists/list_tasks_add_page.dart';
+export 'lists/list_tasks_page.dart';
+export 'lists/list_tasks_update_page.dart';
+export 'settings/about_page.dart';
+export 'settings/theme_change_page.dart';
+export 'tasks/task_page.dart';

@@ -62,12 +62,12 @@ class _Notifier extends StateNotifier<_State> {
       context: context,
       builder: (context) => TaskReminderModal(
         value: state.reminder,
-        onDelete: () {},
+        onDelete: () {
+          state = state.removeReminder();
+        },
       ),
     ).then((value) {
       if (value == null) return;
-      // TODO: implement reminder notification
-
       state = state.copyWith(reminder: value);
     });
   }
@@ -98,6 +98,9 @@ class _Notifier extends StateNotifier<_State> {
         dateline: state.dateline,
         reminder: state.reminder,
       );
+
+      // TODO: implement reminder notification
+
       await _taskRepository.add(newTask).then((_) {
         refreshList();
         refreshAll();
