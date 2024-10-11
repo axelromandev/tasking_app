@@ -2,7 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
-import 'package:tasking/features/presentation/pages/pages.dart';
+import 'package:tasking/features/presentation/home/pages/home_page.dart';
+import 'package:tasking/features/presentation/intro/intro.dart';
+import 'package:tasking/features/presentation/lists/lists.dart';
+import 'package:tasking/features/presentation/settings/settings.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final pref = SharedPrefs();

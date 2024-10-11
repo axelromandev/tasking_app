@@ -5,9 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
-import 'package:tasking/features/presentation/pages/pages.dart';
-import 'package:tasking/features/presentation/providers/providers.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class TaskCard extends ConsumerStatefulWidget {
