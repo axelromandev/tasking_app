@@ -13,6 +13,21 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
+  Future<List<Task>> getTodayTasks() {
+    return _dataSource.getTodayTasks();
+  }
+
+  @override
+  Future<List<Task>> getByListId(int id) {
+    return _dataSource.getByListId(id);
+  }
+
+  @override
+  Future<List<Task>> getReminders() {
+    return _dataSource.getReminders();
+  }
+
+  @override
   Future<Task> add(Task task) {
     return _dataSource.add(task);
   }
@@ -25,16 +40,6 @@ class TaskRepositoryImpl extends TaskRepository {
   @override
   Future<void> deleteReminder(int id) {
     return _dataSource.deleteReminder(id);
-  }
-
-  @override
-  Future<List<Task>> getByListId(int id) {
-    return _dataSource.getByListId(id);
-  }
-
-  @override
-  Future<List<Task>> getReminders() {
-    return _dataSource.getReminders();
   }
 
   @override

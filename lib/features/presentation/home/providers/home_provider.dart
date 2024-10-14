@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/features/data/data.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 final homeProvider = StateNotifierProvider<_Notifier, _State>((ref) {
   return _Notifier();
@@ -6,6 +8,12 @@ final homeProvider = StateNotifierProvider<_Notifier, _State>((ref) {
 
 class _Notifier extends StateNotifier<_State> {
   _Notifier() : super(_State());
+
+  final _taskRepository = TaskRepositoryImpl();
+
+  Future<List<Task>> getTodayTasks() async {
+    return await _taskRepository.getTodayTasks();
+  }
 
   void onChangeView(int value) {
     if (state.currentIndex == value) return;

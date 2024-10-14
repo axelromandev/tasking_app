@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -18,6 +20,24 @@ class TaskDataSourceImpl implements TaskDataSource {
       return Task.fromMap(data.first);
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<List<Task>> getTodayTasks() async {
+    try {
+      final Database db = await dbHelper.database;
+      final now = DateTime.now().toIso8601String();
+      final data = await db.query(
+        'tasks',
+        where: 'dateline = ? AND completed_at IS NULL',
+        whereArgs: [now],
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      log('TaskDataSourceImpl.getTodayTasks: $e');
+      return <Task>[];
     }
   }
 
