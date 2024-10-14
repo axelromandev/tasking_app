@@ -76,25 +76,25 @@ class DatabaseHelper {
 
       final List<Map<String, dynamic>> tasksMap = [
         {
-          'title': S.pages.intro.tutorial.task1,
+          'title': S.pages.intro.tutorial.task9,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task2,
+          'title': S.pages.intro.tutorial.task8,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task3,
+          'title': S.pages.intro.tutorial.task7,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task4,
+          'title': S.pages.intro.tutorial.task6,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
@@ -107,25 +107,25 @@ class DatabaseHelper {
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task6,
+          'title': S.pages.intro.tutorial.task4,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task7,
+          'title': S.pages.intro.tutorial.task3,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task8,
+          'title': S.pages.intro.tutorial.task2,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task9,
+          'title': S.pages.intro.tutorial.task1,
           'updated_at': DateTime.now().toIso8601String(),
           'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
