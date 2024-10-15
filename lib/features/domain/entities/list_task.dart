@@ -46,7 +46,7 @@ class ListTasks {
       'title': title,
       'icon_json': IconDataUtils.encode(icon),
       'is_show_completed': showCompleted ? 1 : 0,
-      'created_at': createdAt.toIso8601String(),
+      'created_at': createdAt.toDatabaseFormat(),
     };
   }
 

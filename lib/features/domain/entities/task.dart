@@ -1,3 +1,5 @@
+import 'package:tasking/core/core.dart';
+
 class Task {
   Task({
     required this.id,
@@ -54,12 +56,12 @@ class Task {
     return {
       'list_id': listId,
       'title': title,
-      'dateline': dateline?.toIso8601String(),
-      'reminder': reminder?.toIso8601String(),
+      'dateline': dateline?.toDatabaseFormat(),
+      'reminder': reminder?.toDatabaseFormat(),
       'notes': notes,
-      'completed_at': completedAt?.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
-      'created_at': createdAt.toIso8601String(),
+      'completed_at': completedAt?.toDatabaseFormat(),
+      'updated_at': updatedAt.toDatabaseFormat(),
+      'created_at': createdAt.toDatabaseFormat(),
     };
   }
 
