@@ -35,16 +35,13 @@ class ListTasksPage extends ConsumerWidget {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            GestureDetector(
-              onTap: () {
+            IconButton(
+              onPressed: () {
                 ref.read(listsProvider.notifier).refresh().then((_) {
                   context.pop();
                 });
               },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(IconsaxOutline.arrow_left_2, size: 20),
-              ),
+              icon: const Icon(IconsaxOutline.arrow_left_2),
             ),
             const Gap(defaultPadding),
             Icon(provider.list!.icon, color: colorPrimary),
@@ -112,6 +109,7 @@ class _BuildTasks extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Gap(8),
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

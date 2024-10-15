@@ -28,12 +28,9 @@ class ListTasksUpdatePage extends ConsumerWidget {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            GestureDetector(
-              onTap: () => context.pop(),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(IconsaxOutline.arrow_left_2, size: 20),
-              ),
+            IconButton(
+              onPressed: () => context.pop(),
+              icon: const Icon(IconsaxOutline.arrow_left_2),
             ),
             const Gap(12),
             Text(

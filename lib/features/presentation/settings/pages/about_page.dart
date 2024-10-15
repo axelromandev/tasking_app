@@ -2,6 +2,7 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -17,6 +18,10 @@ class AboutPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(IconsaxOutline.arrow_left_2),
+        ),
         title: Text(
           S.pages.settings.moreInformation.about,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),

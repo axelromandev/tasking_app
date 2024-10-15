@@ -1,6 +1,7 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -16,6 +17,10 @@ class ThemesChangePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(IconsaxOutline.arrow_left_2),
+        ),
         title: Text(
           S.pages.themes.title,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),

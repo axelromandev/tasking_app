@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,8 +41,9 @@ class _NavigatorBar extends ConsumerWidget {
         decoration: const BoxDecoration(
           color: AppColors.background,
         ),
-        padding: const EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
           horizontal: 8,
+          vertical: Platform.isAndroid ? defaultPadding : 0,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

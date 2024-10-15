@@ -32,8 +32,7 @@
     "emptyListTasks": {
       "title": "There is no lists",
       "subtitle": "Press + to add the list"
-    },
-    "cardPendingTask": "$length Pending"
+    }
   },
   "listTasks": {
     "completed": "Completed  $length",

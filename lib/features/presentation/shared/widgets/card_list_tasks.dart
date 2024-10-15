@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
-import 'package:tasking/i18n/i18n.dart';
 
 class ListTasksCard extends ConsumerWidget {
   const ListTasksCard({
@@ -27,16 +26,23 @@ class ListTasksCard extends ConsumerWidget {
           visualDensity: VisualDensity.compact,
           leading: Icon(list.icon, color: colorPrimary, size: 20),
           minLeadingWidth: 0,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: defaultPadding,
+          ),
           title: Text(list.title),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (list.pendingTasksLength > 0)
-                Text(
-                  S.pages.lists
-                      .cardPendingTask(length: list.pendingTasksLength),
-                  style: style.bodySmall?.copyWith(
-                    color: Colors.grey,
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    '${list.pendingTasksLength}',
+                    style: style.bodySmall,
                   ),
                 )
               else
