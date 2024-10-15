@@ -17,8 +17,8 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       body: [
         const HomeView(),
-        const CalendarView(),
         const ListsView(),
+        const CalendarView(),
         const SettingsView(),
       ][provider.currentIndex],
       bottomNavigationBar: _NavigatorBar(),
@@ -54,8 +54,8 @@ class _NavigatorBar extends ConsumerWidget {
             ),
             _NavigatorBarItem(
               onPressed: () => notifier.onChangeView(1),
-              iconSelected: IconsaxBold.calendar,
-              iconUnselected: IconsaxOutline.calendar_1,
+              iconSelected: IconsaxBold.folder_2,
+              iconUnselected: IconsaxOutline.folder_2,
               isSelected: currentIndex == 1,
             ),
             Padding(
@@ -77,8 +77,8 @@ class _NavigatorBar extends ConsumerWidget {
             ),
             _NavigatorBarItem(
               onPressed: () => notifier.onChangeView(2),
-              iconSelected: IconsaxBold.folder_2,
-              iconUnselected: IconsaxOutline.folder_2,
+              iconSelected: IconsaxBold.calendar,
+              iconUnselected: IconsaxOutline.calendar_1,
               isSelected: currentIndex == 2,
             ),
             _NavigatorBarItem(
