@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -25,10 +26,28 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
+  Future<List<Task>> getByDate(DateTime value) async {
+    try {
+      final Database db = await dbHelper.database;
+      final formattedDate = DateFormat('yyyy-MM-dd').format(value);
+      final data = await db.query(
+        'tasks',
+        where: 'dateline LIKE ?',
+        whereArgs: ['$formattedDate%'],
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      log('TaskDataSourceImpl.getByDate: $e');
+      return <Task>[];
+    }
+  }
+
+  @override
   Future<List<Task>> getTodayTasks() async {
     try {
       final Database db = await dbHelper.database;
-      final now = DateTime.now().toIso8601String();
+      final now = DateTime.now().toDatabaseFormat();
       final data = await db.query(
         'tasks',
         where: 'dateline = ? AND completed_at IS NULL',

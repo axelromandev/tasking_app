@@ -2,6 +2,7 @@ import 'package:tasking/features/domain/domain.dart';
 
 abstract class TaskDataSource {
   Future<Task> get(int id);
+  Future<List<Task>> getByDate(DateTime value);
   Future<List<Task>> getByListId(int id);
   Future<List<Task>> getTodayTasks();
   Future<List<Task>> getReminders();

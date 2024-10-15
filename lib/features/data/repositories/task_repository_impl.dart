@@ -13,6 +13,11 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
+  Future<List<Task>> getByDate(DateTime value) {
+    return _dataSource.getByDate(value);
+  }
+
+  @override
   Future<List<Task>> getTodayTasks() {
     return _dataSource.getTodayTasks();
   }
