@@ -25,7 +25,7 @@ class DatabaseHelper {
             "title" TEXT NOT NULL,
             "icon_json" TEXT NOT NULL,
             "is_show_completed" INTEGER DEFAULT 0,
-            "created_at" TEXT DEFAULT (datetime('now'))
+            "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
         ''');
         await db.execute('''
@@ -33,12 +33,12 @@ class DatabaseHelper {
             "id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "list_id" INTEGER,
             "title" TEXT NOT NULL,
-            "dateline" TEXT,
-            "reminder" TEXT,
+            "dateline" TIMESTAMP,
+            "reminder" TIMESTAMP,
             "notes" TEXT,
-            "completed_at" TEXT,
-            "updated_at" TEXT DEFAULT (datetime('now')),
-            "created_at" TEXT DEFAULT (datetime('now')),
+            "completed_at" TIMESTAMP,
+            "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY ("list_id") REFERENCES "lists" ("id")
           );
         ''');
@@ -47,8 +47,8 @@ class DatabaseHelper {
             "id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "task_id" INTEGER,
             "title" TEXT NOT NULL,
-            "completed_at" TEXT,
-            "created_at" TEXT DEFAULT (datetime('now')),
+            "completed_at" TIMESTAMP,
+            "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY ("task_id") REFERENCES "tasks" ("id")
           );
         ''');
@@ -76,58 +76,40 @@ class DatabaseHelper {
 
       final List<Map<String, dynamic>> tasksMap = [
         {
-          'title': S.pages.intro.tutorial.task9,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task1,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task8,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task2,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task7,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task3,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task6,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task4,
           'list_id': listId,
         },
         {
           'title': S.pages.intro.tutorial.task5,
           'notes': S.pages.intro.tutorial.task5note,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task4,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task6,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task3,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task7,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task2,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task8,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task1,
-          'updated_at': DateTime.now().toIso8601String(),
-          'created_at': DateTime.now().toIso8601String(),
+          'title': S.pages.intro.tutorial.task9,
           'list_id': listId,
         },
       ];

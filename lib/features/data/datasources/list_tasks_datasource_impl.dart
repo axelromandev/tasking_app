@@ -41,12 +41,25 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<ListTasks> get(int id) async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.query(
-        'lists',
-        where: 'id = ?',
-        whereArgs: [id],
-        limit: 1,
-      );
+      final data = await db.rawQuery('''
+        SELECT
+            lists.id,
+            lists.title,
+            lists.icon_json,
+            lists.is_show_completed,
+            lists.created_at,
+            COUNT(tasks.id) AS pending_tasks_length
+        FROM
+            lists
+        LEFT JOIN
+            tasks
+        ON
+            lists.id = tasks.list_id
+        WHERE
+            lists.id = $id
+        GROUP BY
+            lists.id, lists.title;
+      ''');
       if (data.isEmpty) throw Exception('not found');
       return ListTasks.fromMap(data.first);
     } catch (e) {
@@ -97,6 +110,11 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
   Future<void> delete(int id) async {
     try {
       final Database db = await dbHelper.database;
+      await db.delete(
+        'tasks',
+        where: 'list_id = ?',
+        whereArgs: [id],
+      );
       await db.delete(
         'lists',
         where: 'id = ?',

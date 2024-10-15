@@ -31,26 +31,27 @@ class ListTaskDeleteDialog extends ConsumerWidget {
             style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w300),
             textAlign: TextAlign.center,
           ),
-          const Gap(defaultPadding),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.redAccent.withOpacity(.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              S.dialogs.listTasksDelete
-                  .warning(pendingTasks: list.pendingTasksLength),
-              style: style.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w300,
-                color: Colors.redAccent,
+          if (list.pendingTasksLength > 0)
+            Container(
+              margin: const EdgeInsets.only(top: defaultPadding),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
               ),
-              textAlign: TextAlign.center,
+              decoration: BoxDecoration(
+                color: Colors.redAccent.withOpacity(.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                S.dialogs.listTasksDelete
+                    .warning(pendingTasks: list.pendingTasksLength),
+                style: style.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w300,
+                  color: Colors.redAccent,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
         ],
       ),
       actions: [
@@ -72,7 +73,9 @@ class ListTaskDeleteDialog extends ConsumerWidget {
                 onPressed: () => Navigator.pop(context, true),
                 backgroundColor: Colors.redAccent,
                 foregroundColor: Colors.white,
-                child: const Text('Borrar Todo'),
+                child: (list.pendingTasksLength > 0)
+                    ? const Text('Borrar Todo')
+                    : const Text('Borrar'),
               ),
             ),
           ],

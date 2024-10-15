@@ -31,7 +31,7 @@ class _Notifier extends StateNotifier<_State> {
 
       final pendingTasks =
           tasks.where((task) => task.completedAt == null).toList();
-      pendingTasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      pendingTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       final completedTasks =
           tasks.where((task) => task.completedAt != null).toList();
