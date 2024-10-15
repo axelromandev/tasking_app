@@ -3,6 +3,7 @@
   "labels": {
     "appName": "Tasking",
     "language": "English",
+    "calendarDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     "shortDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     "shortMonths": [
       "Jan",

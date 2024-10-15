@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class CustomCalendar extends ConsumerStatefulWidget {
   const CustomCalendar({
@@ -99,6 +100,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
     final calendarMatrix = _generateCalendarMatrix(_currentDate);
     final String monthYear = DateFormat.yMMMM().format(_currentDate);
 
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Container(
@@ -123,7 +125,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
           const Gap(defaultPadding),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
+            children: S.common.labels.calendarDays
                 .map(
                   (day) => Expanded(
                     child: Center(child: Text(day)),
@@ -179,7 +181,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
                         child: Center(
                           child: Text(
                             (day != null) ? '${day.day}' : '',
-                            style: TextStyle(
+                            style: style.bodyLarge?.copyWith(
                               color: isSelected
                                   ? Colors.black
                                   : isToday

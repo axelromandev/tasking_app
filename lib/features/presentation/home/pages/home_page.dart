@@ -41,7 +41,6 @@ class _NavigatorBar extends ConsumerWidget {
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
-          vertical: defaultPadding,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

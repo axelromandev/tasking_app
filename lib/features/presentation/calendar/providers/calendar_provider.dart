@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/features/domain/domain.dart';
 
-final calendarProvider = StateNotifierProvider<_Notifier, _State>((ref) {
+final calendarProvider =
+    StateNotifierProvider.autoDispose<_Notifier, _State>((ref) {
   return _Notifier();
 });
 

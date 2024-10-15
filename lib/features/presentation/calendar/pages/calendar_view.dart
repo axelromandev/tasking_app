@@ -14,7 +14,6 @@ class CalendarView extends ConsumerWidget {
     // TODO: CalendarView Implement build method.
 
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(calendarProvider);
@@ -40,26 +39,49 @@ class CalendarView extends ConsumerWidget {
               onSelectedDate: notifier.onSelectedDate,
             ),
           ),
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    IconsaxOutline.task,
-                    color: colorPrimary,
-                    size: 32,
-                  ),
-                  const Gap(8),
-                  Text(
-                    'No hay tareas para este día',
-                    style: style.bodyLarge,
-                  ),
-                ],
+          if (provider.tasksDay.isEmpty)
+            _EmptyTasks()
+          else
+            Expanded(
+              child: ListView.builder(
+                itemCount: provider.tasksDay.length,
+                itemBuilder: (context, index) {
+                  final task = provider.tasksDay[index];
+                  return ListTile(
+                    title: Text(task.title),
+                  );
+                },
               ),
             ),
-          ),
         ],
+      ),
+    );
+  }
+}
+
+class _EmptyTasks extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
+
+    return Expanded(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              IconsaxOutline.task,
+              color: colorPrimary,
+              size: 32,
+            ),
+            const Gap(8),
+            Text(
+              'No hay tareas para este día',
+              style: style.bodyLarge,
+            ),
+          ],
+        ),
       ),
     );
   }
