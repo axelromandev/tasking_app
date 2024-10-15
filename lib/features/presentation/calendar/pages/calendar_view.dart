@@ -22,6 +22,7 @@ class CalendarView extends ConsumerWidget {
     return Scaffold(
       body: Column(
         children: [
+          const Gap(4),
           SafeArea(
             child: CustomCalendar(
               header: Row(

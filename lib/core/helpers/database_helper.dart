@@ -24,7 +24,7 @@ class DatabaseHelper {
             "id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "title" TEXT NOT NULL,
             "icon_json" TEXT NOT NULL,
-            "is_show_completed" INTEGER DEFAULT 0,
+            "is_show_completed" BOOLEAN DEFAULT false,
             "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
         ''');

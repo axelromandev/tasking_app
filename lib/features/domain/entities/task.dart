@@ -36,17 +36,17 @@ class Task {
       listId: map['list_id'] as int,
       title: map['title'] as String,
       dateline: map['dateline'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['dateline'] as int)
+          ? DateTime.parse(map['dateline'] as String)
           : null,
       reminder: map['reminder'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['reminder'] as int)
+          ? DateTime.parse(map['reminder'] as String)
           : null,
       notes: map['notes'] as String? ?? '',
       completedAt: map['completed_at'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['completed_at'] as int)
+          ? DateTime.parse(map['completed_at'] as String)
           : null,
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at'] as int),
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
+      updatedAt: DateTime.parse(map['updated_at'] as String),
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 
@@ -54,12 +54,12 @@ class Task {
     return {
       'list_id': listId,
       'title': title,
-      'dateline': dateline?.millisecondsSinceEpoch,
-      'reminder': reminder?.millisecondsSinceEpoch,
+      'dateline': dateline?.toIso8601String(),
+      'reminder': reminder?.toIso8601String(),
       'notes': notes,
-      'completed_at': completedAt?.millisecondsSinceEpoch,
-      'updated_at': updatedAt.millisecondsSinceEpoch,
-      'created_at': createdAt.millisecondsSinceEpoch,
+      'completed_at': completedAt?.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+      'created_at': createdAt.toIso8601String(),
     };
   }
 

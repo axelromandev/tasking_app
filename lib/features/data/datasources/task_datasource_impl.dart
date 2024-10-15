@@ -19,6 +19,7 @@ class TaskDataSourceImpl implements TaskDataSource {
       );
       return Task.fromMap(data.first);
     } catch (e) {
+      log(e.toString(), name: 'TaskDataSourceImpl.get');
       rethrow;
     }
   }
@@ -53,6 +54,7 @@ class TaskDataSourceImpl implements TaskDataSource {
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();
     } catch (e) {
+      log('TaskDataSourceImpl.getByListId: $e');
       return <Task>[];
     }
   }
@@ -73,6 +75,7 @@ class TaskDataSourceImpl implements TaskDataSource {
       );
       return Task.fromMap(data.first);
     } catch (e) {
+      log('TaskDataSourceImpl.add: $e');
       rethrow;
     }
   }
@@ -87,6 +90,7 @@ class TaskDataSourceImpl implements TaskDataSource {
         whereArgs: [id],
       );
     } catch (e) {
+      log('TaskDataSourceImpl.delete: $e');
       rethrow;
     }
   }
@@ -103,6 +107,7 @@ class TaskDataSourceImpl implements TaskDataSource {
         conflictAlgorithm: ConflictAlgorithm.abort,
       );
     } catch (e) {
+      log('TaskDataSourceImpl.update: $e');
       rethrow;
     }
   }
@@ -118,6 +123,7 @@ class TaskDataSourceImpl implements TaskDataSource {
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();
     } catch (e) {
+      log('TaskDataSourceImpl.getReminders: $e');
       return <Task>[];
     }
   }
@@ -133,6 +139,7 @@ class TaskDataSourceImpl implements TaskDataSource {
         whereArgs: [id],
       );
     } catch (e) {
+      log('TaskDataSourceImpl.deleteReminder: $e');
       rethrow;
     }
   }
@@ -151,6 +158,7 @@ class TaskDataSourceImpl implements TaskDataSource {
         conflictAlgorithm: ConflictAlgorithm.abort,
       );
     } catch (e) {
+      log('TaskDataSourceImpl.toggleCompleted: $e');
       rethrow;
     }
   }

@@ -36,8 +36,8 @@ class ListTasks {
       title: map['title'] as String,
       icon: IconDataUtils.decode(map['icon_json'] as String),
       pendingTasksLength: map['pending_tasks_length'] as int? ?? 0,
-      showCompleted: (map['is_show_completed'] as int) == 1,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
+      showCompleted: map['is_show_completed'] as int == 1,
+      createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
 
@@ -46,7 +46,7 @@ class ListTasks {
       'title': title,
       'icon_json': IconDataUtils.encode(icon),
       'is_show_completed': showCompleted ? 1 : 0,
-      'created_at': createdAt.millisecondsSinceEpoch,
+      'created_at': createdAt.toIso8601String(),
     };
   }
 
