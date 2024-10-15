@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 
 final calendarProvider =
@@ -7,10 +8,22 @@ final calendarProvider =
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier() : super(_State());
+  _Notifier() : super(_State()) {
+    _init();
+  }
+
+  final _taskRepository = TaskRepositoryImpl();
+
+  void _init() {
+    final DateTime date = state.selectedDate ?? DateTime.now();
+    _taskRepository.getByDate(date).then((value) {
+      state = state.copyWith(tasksDay: value);
+    });
+  }
 
   void onSelectedDate(DateTime value) {
     state = state.copyWith(selectedDate: value);
+    _init();
   }
 }
 

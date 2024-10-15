@@ -11,8 +11,6 @@ class CalendarView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: CalendarView Implement build method.
-
     final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
@@ -24,25 +22,30 @@ class CalendarView extends ConsumerWidget {
         children: [
           const Gap(4),
           SafeArea(
-            child: CustomCalendar(
-              header: Row(
-                children: [
-                  Icon(IconsaxOutline.calendar_1, color: colorPrimary),
-                  const Gap(12),
-                  Text(
-                    S.pages.calendar.title,
-                    style:
-                        style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
-                  ),
-                ],
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+              child: CustomCalendar(
+                header: Row(
+                  children: [
+                    const Gap(8),
+                    Icon(IconsaxOutline.calendar_1, color: colorPrimary),
+                    const Gap(12),
+                    Text(
+                      S.pages.calendar.title,
+                      style: style.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                selectedDate: provider.selectedDate ?? DateTime.now(),
+                onSelectedDate: notifier.onSelectedDate,
               ),
-              selectedDate: provider.selectedDate ?? DateTime.now(),
-              onSelectedDate: notifier.onSelectedDate,
             ),
           ),
           if (provider.tasksDay.isEmpty)
             _EmptyTasks()
           else
+            // TODO: CalendarView Implement build tasks list
             Expanded(
               child: ListView.builder(
                 itemCount: provider.tasksDay.length,
@@ -77,9 +80,21 @@ class _EmptyTasks extends ConsumerWidget {
               size: 32,
             ),
             const Gap(8),
-            Text(
-              'No hay tareas para este día',
-              style: style.bodyLarge,
+            SizedBox(
+              child: Text(
+                'No hay tareas con fechas límite para hoy',
+                textAlign: TextAlign.center,
+                style: style.bodyLarge,
+              ),
+            ),
+            const Gap(8),
+            SizedBox(
+              width: 300,
+              child: Text(
+                'Puedes ver todas tus tareas en las listas de tareas',
+                textAlign: TextAlign.center,
+                style: style.bodyLarge?.copyWith(color: Colors.grey),
+              ),
             ),
           ],
         ),

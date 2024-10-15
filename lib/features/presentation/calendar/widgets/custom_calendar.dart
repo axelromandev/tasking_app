@@ -103,102 +103,97 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
     final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              widget.header,
-              const Spacer(),
-              IconButton(
-                icon: const Icon(IconsaxOutline.arrow_left_2),
-                onPressed: _goToPreviousMonth,
-              ),
-              Text(monthYear),
-              IconButton(
-                icon: const Icon(IconsaxOutline.arrow_right_3),
-                onPressed: _goToNextMonth,
-              ),
-            ],
-          ),
-          const Gap(defaultPadding),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: S.common.labels.calendarDays
-                .map(
-                  (day) => Expanded(
-                    child: Center(child: Text(day)),
-                  ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 10),
-          // Matriz de días
-          Column(
-            children: calendarMatrix.map((week) {
-              return Row(
-                children: week.map((day) {
-                  final bool isToday = day != null &&
-                      day.year == DateTime.now().year &&
-                      day.month == DateTime.now().month &&
-                      day.day == DateTime.now().day;
+    return Column(
+      children: [
+        Row(
+          children: [
+            widget.header,
+            const Spacer(),
+            IconButton(
+              icon: const Icon(IconsaxOutline.arrow_left_2),
+              onPressed: _goToPreviousMonth,
+            ),
+            Text(monthYear),
+            IconButton(
+              icon: const Icon(IconsaxOutline.arrow_right_3),
+              onPressed: _goToNextMonth,
+            ),
+          ],
+        ),
+        const Gap(defaultPadding),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: S.common.labels.calendarDays
+              .map(
+                (day) => Expanded(
+                  child: Center(child: Text(day)),
+                ),
+              )
+              .toList(),
+        ),
+        const SizedBox(height: 10),
+        // Matriz de días
+        Column(
+          children: calendarMatrix.map((week) {
+            return Row(
+              children: week.map((day) {
+                final bool isToday = day != null &&
+                    day.year == DateTime.now().year &&
+                    day.month == DateTime.now().month &&
+                    day.day == DateTime.now().day;
 
-                  final bool isSelected = day != null &&
-                      day.year == _selectedDate.year &&
-                      day.month == _selectedDate.month &&
-                      day.day == _selectedDate.day;
+                final bool isSelected = day != null &&
+                    day.year == _selectedDate.year &&
+                    day.month == _selectedDate.month &&
+                    day.day == _selectedDate.day;
 
-                  return Expanded(
-                    child: GestureDetector(
-                      onTap: day != null ? () => _onSelectedDate(day) : null,
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.all(2),
-                        decoration: (day != null)
-                            ? isSelected
-                                ? BoxDecoration(
-                                    color: colorPrimary,
-                                    shape: BoxShape.circle,
-                                  )
-                                : isToday
-                                    ? BoxDecoration(
-                                        color: colorPrimary.withOpacity(0.1),
-                                        border: Border.all(
-                                          color: colorPrimary,
-                                        ),
-                                        shape: BoxShape.circle,
-                                      )
-                                    : const BoxDecoration(
-                                        color: Colors.white10,
-                                        shape: BoxShape.circle,
-                                      )
-                            : BoxDecoration(
-                                color: Colors.white.withOpacity(0.03),
-                                shape: BoxShape.circle,
-                              ),
-                        child: Center(
-                          child: Text(
-                            (day != null) ? '${day.day}' : '',
-                            style: style.bodyLarge?.copyWith(
-                              color: isSelected
-                                  ? Colors.black
-                                  : isToday
-                                      ? colorPrimary
-                                      : Colors.white,
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: day != null ? () => _onSelectedDate(day) : null,
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      margin: const EdgeInsets.all(2),
+                      decoration: (day != null)
+                          ? isSelected
+                              ? BoxDecoration(
+                                  color: colorPrimary,
+                                  borderRadius: BorderRadius.circular(8),
+                                )
+                              : isToday
+                                  ? BoxDecoration(
+                                      color: colorPrimary.withOpacity(0.1),
+                                      border: Border.all(color: colorPrimary),
+                                      borderRadius: BorderRadius.circular(8),
+                                    )
+                                  : BoxDecoration(
+                                      color: Colors.white10,
+                                      borderRadius: BorderRadius.circular(8),
+                                    )
+                          : BoxDecoration(
+                              color: Colors.white.withOpacity(0.03),
+                              borderRadius: BorderRadius.circular(8),
                             ),
+                      child: Center(
+                        child: Text(
+                          (day != null) ? '${day.day}' : '',
+                          style: style.bodyLarge?.copyWith(
+                            color: isSelected
+                                ? Colors.black
+                                : isToday
+                                    ? colorPrimary
+                                    : Colors.white,
                           ),
                         ),
                       ),
                     ),
-                  );
-                }).toList(),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
+                  ),
+                );
+              }).toList(),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
