@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
           icon: const Icon(IconsaxOutline.menu),
         ),
       ),
-      body: provider.body ?? const HomeView(),
+      body: provider.body ?? const MyDayView(),
       drawer: _Drawer(),
     );
   }
@@ -41,7 +41,7 @@ class _Drawer extends ConsumerWidget {
     final typeView = ref.watch(homeProvider).typeView;
     final notifier = ref.read(homeProvider.notifier);
 
-    // TODO: SLANG - Drawer Home
+    // SLANG: Drawer Home labels
 
     return Drawer(
       child: SafeArea(
@@ -94,6 +94,7 @@ class _Drawer extends ConsumerWidget {
               isSelected: typeView == TypeView.home,
               onTap: () {
                 notifier.onChangeView(TypeView.home);
+                notifier.scaffoldKey.currentState?.closeDrawer();
               },
             ),
             _DrawerItem(
@@ -102,6 +103,7 @@ class _Drawer extends ConsumerWidget {
               isSelected: typeView == TypeView.important,
               onTap: () {
                 notifier.onChangeView(TypeView.important);
+                notifier.scaffoldKey.currentState?.closeDrawer();
               },
             ),
             _DrawerItem(
@@ -110,14 +112,16 @@ class _Drawer extends ConsumerWidget {
               isSelected: typeView == TypeView.calendar,
               onTap: () {
                 notifier.onChangeView(TypeView.calendar);
+                notifier.scaffoldKey.currentState?.closeDrawer();
               },
             ),
             _DrawerItem(
-              icon: IconsaxOutline.home_2,
+              icon: IconsaxOutline.clipboard_text,
               title: 'Tasks',
               isSelected: typeView == TypeView.tasks,
               onTap: () {
                 notifier.onChangeView(TypeView.tasks);
+                notifier.scaffoldKey.currentState?.closeDrawer();
               },
             ),
             const Divider(),

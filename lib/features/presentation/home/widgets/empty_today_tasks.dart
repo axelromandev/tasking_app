@@ -11,28 +11,26 @@ class EmptyTasksToday extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    return Expanded(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              IconsaxOutline.sun_1,
-              color: colorPrimary,
-              size: 42,
-            ),
-            const Gap(8),
-            Text(
-              '¡Disfruta tu día!',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const Gap(8),
-            Text(
-              'No tienes tareas para hoy',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            IconsaxOutline.sun_1,
+            color: colorPrimary,
+            size: 42,
+          ),
+          const Gap(8),
+          Text(
+            '¡Disfruta tu día!',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const Gap(8),
+          Text(
+            'No tienes tareas para hoy',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+        ],
       ),
     );
   }

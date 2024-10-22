@@ -30,15 +30,15 @@ class _Notifier extends StateNotifier<_State> {
   Widget _getBody(TypeView typeView) {
     switch (typeView) {
       case TypeView.search:
-        return const Placeholder();
+        return const Placeholder(); // TODO: Implement search view
       case TypeView.important:
-        return const Placeholder();
+        return const Placeholder(); // TODO: Implement important view
       case TypeView.calendar:
         return const CalendarView();
       case TypeView.tasks:
-        return const Placeholder();
+        return const Placeholder(); // TODO: Implement tasks view
       default:
-        return const HomeView();
+        return const MyDayView();
     }
   }
 }
