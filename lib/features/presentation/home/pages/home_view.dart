@@ -29,51 +29,7 @@ class HomeView extends ConsumerWidget {
         ),
         centerTitle: false,
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // TODO: Implement build tasks list
-            FutureBuilder(
-              future: ref.read(homeProvider.notifier).getTodayTasks(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      'Error: ${snapshot.error}',
-                      style: style.bodyLarge,
-                    ),
-                  );
-                }
-
-                final tasks = snapshot.data!;
-
-                if (tasks.isEmpty) {
-                  return const EmptyTasksToday();
-                }
-
-                return Expanded(
-                  child: ListView.builder(
-                    itemCount: tasks.length,
-                    itemBuilder: (context, index) {
-                      final task = tasks[index];
-
-                      return ListTile(
-                        title: Text(task.title),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      body: const EmptyTasksToday(),
     );
   }
 }

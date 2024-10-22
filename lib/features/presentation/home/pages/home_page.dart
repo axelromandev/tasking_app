@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/features/presentation/calendar/calendar.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
-import 'package:tasking/features/presentation/settings/settings.dart';
+import 'package:tasking/features/presentation/shared/shared.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -15,80 +14,131 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(homeProvider);
+    final notifier = ref.read(homeProvider.notifier);
 
     return Scaffold(
-      body: [
-        const HomeView(),
-        const ListsView(),
-        const CalendarView(),
-        const SettingsView(),
-      ][provider.currentIndex],
-      bottomNavigationBar: _NavigatorBar(),
+      key: notifier.scaffoldKey,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            notifier.scaffoldKey.currentState?.openDrawer();
+          },
+          icon: const Icon(IconsaxOutline.menu),
+        ),
+      ),
+      body: provider.body ?? const HomeView(),
+      drawer: _Drawer(),
     );
   }
 }
 
-class _NavigatorBar extends ConsumerWidget {
+class _Drawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final currentIndex = ref.watch(homeProvider).currentIndex;
+    final typeView = ref.watch(homeProvider).typeView;
     final notifier = ref.read(homeProvider.notifier);
 
-    return SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.background,
-        ),
-        padding: EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: Platform.isAndroid ? defaultPadding : 0,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    // TODO: SLANG - Drawer Home
+
+    return Drawer(
+      child: SafeArea(
+        child: Column(
           children: [
-            _NavigatorBarItem(
-              onPressed: () => notifier.onChangeView(0),
-              iconSelected: IconsaxBold.home_2,
-              iconUnselected: IconsaxOutline.home_2,
-              isSelected: currentIndex == 0,
-            ),
-            _NavigatorBarItem(
-              onPressed: () => notifier.onChangeView(1),
-              iconSelected: IconsaxBold.folder_2,
-              iconUnselected: IconsaxOutline.folder_2,
-              isSelected: currentIndex == 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding,
-              ),
-              child: IconButton(
-                onPressed: () {},
-                style: IconButton.styleFrom(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  backgroundColor: colorPrimary,
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(defaultPadding),
+            Row(
+              children: [
+                const Gap(defaultPadding),
+                Icon(
+                  IconsaxBold.crown_1,
+                  color: colorPrimary,
+                  size: 30,
+                ),
+                const Gap(8),
+                Text(
+                  'Tasking',
+                  style: style.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                icon: const Icon(IconsaxOutline.add),
+                const Gap(8),
+                Text(
+                  'Beta',
+                  style: style.bodySmall?.copyWith(
+                    color: colorPrimary,
+                  ),
+                ),
+              ],
+            ),
+            const Gap(8),
+            // TODO: Make search task bar functional
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: defaultPadding,
+                  ),
+                  hintText: 'Search',
+                  suffixIcon: Icon(
+                    IconsaxOutline.search_normal,
+                    size: 16,
+                  ),
+                ),
               ),
             ),
-            _NavigatorBarItem(
-              onPressed: () => notifier.onChangeView(2),
-              iconSelected: IconsaxBold.calendar,
-              iconUnselected: IconsaxOutline.calendar_1,
-              isSelected: currentIndex == 2,
+            _DrawerItem(
+              icon: IconsaxOutline.sun_1,
+              title: 'My Day',
+              isSelected: typeView == TypeView.home,
+              onTap: () {
+                notifier.onChangeView(TypeView.home);
+              },
             ),
-            _NavigatorBarItem(
-              onPressed: () => notifier.onChangeView(3),
-              iconSelected: IconsaxBold.setting,
-              iconUnselected: IconsaxOutline.setting,
-              isSelected: currentIndex == 3,
+            _DrawerItem(
+              icon: IconsaxOutline.star,
+              title: 'Important',
+              isSelected: typeView == TypeView.important,
+              onTap: () {
+                notifier.onChangeView(TypeView.important);
+              },
             ),
+            _DrawerItem(
+              icon: IconsaxOutline.calendar_1,
+              title: 'Calendar',
+              isSelected: typeView == TypeView.calendar,
+              onTap: () {
+                notifier.onChangeView(TypeView.calendar);
+              },
+            ),
+            _DrawerItem(
+              icon: IconsaxOutline.home_2,
+              title: 'Tasks',
+              isSelected: typeView == TypeView.tasks,
+              onTap: () {
+                notifier.onChangeView(TypeView.tasks);
+              },
+            ),
+            const Divider(),
+            _ListsBuilder(),
+            _DrawerItem(
+              icon: IconsaxOutline.add,
+              title: 'New list',
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const ListTasksAddPage()),
+                );
+              },
+            ),
+            const Spacer(),
+            const Divider(),
+            _DrawerItem(
+              icon: IconsaxOutline.setting,
+              title: 'Settings',
+              onTap: () => context.push('/settings'),
+            ),
+            const Gap(8),
           ],
         ),
       ),
@@ -96,31 +146,55 @@ class _NavigatorBar extends ConsumerWidget {
   }
 }
 
-class _NavigatorBarItem extends ConsumerWidget {
-  const _NavigatorBarItem({
-    required this.onPressed,
-    required this.iconSelected,
-    required this.iconUnselected,
-    required this.isSelected,
+class _ListsBuilder extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(listsProvider);
+
+    if (provider.isLoading) {
+      return Container();
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: provider.lists.length,
+      itemBuilder: (_, i) {
+        final list = provider.lists[i];
+        return ListTasksCard(
+          onTap: () {
+            // TODO: Render dynamic list tasks in the home page
+          },
+          list: list,
+        );
+      },
+    );
+  }
+}
+
+class _DrawerItem extends ConsumerWidget {
+  const _DrawerItem({
+    required this.onTap,
+    required this.title,
+    required this.icon,
+    this.isSelected = false,
   });
 
-  final VoidCallback onPressed;
-  final IconData iconSelected;
-  final IconData iconUnselected;
+  final VoidCallback onTap;
+  final String title;
+  final IconData icon;
   final bool isSelected;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    return IconButton(
-      onPressed: onPressed,
-      style: IconButton.styleFrom(
-        padding: const EdgeInsets.all(defaultPadding),
-        foregroundColor: isSelected ? colorPrimary : Colors.white,
-      ),
-      iconSize: 25,
-      icon: Icon(isSelected ? iconSelected : iconUnselected),
+    return ListTile(
+      leading: Icon(icon),
+      shape: const RoundedRectangleBorder(),
+      iconColor: isSelected ? colorPrimary : null,
+      textColor: isSelected ? colorPrimary : null,
+      title: Text(title),
+      onTap: onTap,
     );
   }
 }
