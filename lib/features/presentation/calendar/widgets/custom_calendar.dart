@@ -10,12 +10,10 @@ class CustomCalendar extends ConsumerStatefulWidget {
   const CustomCalendar({
     required this.selectedDate,
     required this.onSelectedDate,
-    required this.header,
   });
 
   final DateTime selectedDate;
   final Function(DateTime) onSelectedDate;
-  final Widget header;
 
   @override
   ConsumerState<CustomCalendar> createState() => _CustomCalendarState();
@@ -106,21 +104,20 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            widget.header,
-            const Spacer(),
             IconButton(
               icon: const Icon(IconsaxOutline.arrow_left_2),
               onPressed: _goToPreviousMonth,
             ),
-            Text(monthYear),
+            Text(monthYear, style: style.titleLarge),
             IconButton(
               icon: const Icon(IconsaxOutline.arrow_right_3),
               onPressed: _goToNextMonth,
             ),
           ],
         ),
-        const Gap(defaultPadding),
+        const Gap(10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: S.common.labels.calendarDays
@@ -131,7 +128,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
               )
               .toList(),
         ),
-        const SizedBox(height: 10),
+        const Gap(10),
         // Matriz de días
         Column(
           children: calendarMatrix.map((week) {

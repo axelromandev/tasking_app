@@ -4,39 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/calendar/calendar.dart';
-import 'package:tasking/i18n/i18n.dart';
 
 class CalendarView extends ConsumerWidget {
   const CalendarView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-    final colorPrimary = ref.watch(colorThemeProvider);
-
     final provider = ref.watch(calendarProvider);
     final notifier = ref.read(calendarProvider.notifier);
 
     return Scaffold(
       body: Column(
         children: [
-          const Gap(4),
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 8),
               child: CustomCalendar(
-                header: Row(
-                  children: [
-                    const Gap(8),
-                    Icon(IconsaxOutline.calendar_1, color: colorPrimary),
-                    const Gap(12),
-                    Text(
-                      S.pages.calendar.title,
-                      style: style.titleLarge
-                          ?.copyWith(fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
                 selectedDate: provider.selectedDate ?? DateTime.now(),
                 onSelectedDate: notifier.onSelectedDate,
               ),
