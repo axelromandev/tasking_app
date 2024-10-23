@@ -18,8 +18,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorPrimary = ref.watch(colorThemeProvider);
-
     final provider = ref.watch(listTasksProvider(listId));
     final notifier = ref.read(listTasksProvider(listId).notifier);
 
@@ -30,12 +28,41 @@ class ListTasksOptionsModal extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: const EdgeInsets.only(left: defaultPadding),
-              child: Text(
-                S.modals.listTasksOptions.tasks.title,
-                style: const TextStyle(color: Colors.white70),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ListTasksUpdatePage(provider.list!),
+                  ),
+                );
+              },
+              shape: const RoundedRectangleBorder(),
+              visualDensity: VisualDensity.compact,
+              leading: const Icon(IconsaxOutline.edit, size: 18),
+              title: Text(
+                S.modals.listTasksOptions.list.edit,
               ),
+            ),
+            ListTile(
+              onTap: () {
+                // TODO: Implement sorting tasks modal
+              },
+              shape: const RoundedRectangleBorder(),
+              visualDensity: VisualDensity.compact,
+              leading: const Icon(IconsaxOutline.sort, size: 18),
+              title: const Text('Ordenar por'), // SLANG: Sort by, button
+            ),
+            const Divider(),
+            ListTile(
+              onTap: () {
+                context.pop();
+                notifier.onMarkCompleteAllTasks();
+              },
+              enabled: provider.pending.isNotEmpty,
+              shape: const RoundedRectangleBorder(),
+              visualDensity: VisualDensity.compact,
+              leading: const Icon(IconsaxOutline.tick_circle, size: 18),
+              title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
             ),
             ListTile(
               onTap: () {
@@ -49,19 +76,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
               title: Text(
                 S.modals.listTasksOptions.tasks.incompleteAllTasks,
               ),
-              iconColor: colorPrimary,
-            ),
-            ListTile(
-              onTap: () {
-                context.pop();
-                notifier.onMarkCompleteAllTasks();
-              },
-              enabled: provider.pending.isNotEmpty,
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.tick_circle, size: 18),
-              title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
-              iconColor: colorPrimary,
             ),
             ListTile(
               onTap: () {
@@ -75,7 +89,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
               title: Text(
                 S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
               ),
-              iconColor: colorPrimary,
             ),
             const Divider(),
             ListTile(

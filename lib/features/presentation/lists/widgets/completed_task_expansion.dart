@@ -33,37 +33,41 @@ class _CompletedTaskExpansionState extends State<CompletedTaskExpansion> {
       children: [
         Container(
           margin: widget.margin,
-          child: GestureDetector(
-            onTap: () => setState(() {
-              isExpanded = !isExpanded;
-            }),
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding,
-                vertical: 8.0,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    isExpanded
-                        ? IconsaxOutline.arrow_up_2
-                        : IconsaxOutline.arrow_down_1,
-                    key: ValueKey<bool>(isExpanded),
-                    size: 16,
-                  ),
-                  const Gap(8),
-                  Text(
-                    S.pages.listTasks.completed(
-                      length: widget.length,
+          decoration: BoxDecoration(
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => setState(() {
+                isExpanded = !isExpanded;
+              }),
+              borderRadius: BorderRadius.circular(6),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: defaultPadding,
+                  vertical: 8.0,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isExpanded
+                          ? IconsaxOutline.arrow_up_2
+                          : IconsaxOutline.arrow_down_1,
+                      key: ValueKey<bool>(isExpanded),
+                      size: 16,
                     ),
-                    style: style.bodySmall,
-                  ),
-                ],
+                    const Gap(8),
+                    Text(
+                      S.pages.listTasks.completed(
+                        length: widget.length,
+                      ),
+                      style: style.bodySmall,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

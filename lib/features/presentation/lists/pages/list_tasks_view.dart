@@ -2,7 +2,6 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -32,18 +31,8 @@ class ListTasksView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Row(
           children: [
-            IconButton(
-              onPressed: () {
-                ref.read(listsProvider.notifier).refresh().then((_) {
-                  context.pop();
-                });
-              },
-              icon: const Icon(IconsaxOutline.arrow_left_2),
-            ),
-            const Gap(defaultPadding),
             Icon(provider.list!.icon, color: colorPrimary),
             const Gap(12),
             Flexible(
@@ -55,15 +44,6 @@ class ListTasksView extends ConsumerWidget {
           ],
         ),
         actions: [
-          IconButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => ListTasksUpdatePage(provider.list!),
-              ),
-            ),
-            iconSize: 20.0,
-            icon: const Icon(IconsaxOutline.edit),
-          ),
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
@@ -109,7 +89,7 @@ class _BuildTasks extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Gap(8),
+          if (provider.pending.isNotEmpty) const Gap(8),
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

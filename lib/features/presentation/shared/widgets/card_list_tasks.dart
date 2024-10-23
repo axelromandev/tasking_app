@@ -23,6 +23,7 @@ class ListTasksCard extends ConsumerWidget {
 
     return ListTile(
       onTap: onTap,
+      shape: const RoundedRectangleBorder(),
       leading: Icon(list.icon, size: 20),
       iconColor: isSelected ? colorPrimary : null,
       textColor: isSelected ? colorPrimary : null,
