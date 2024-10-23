@@ -57,18 +57,23 @@ class ListTasksView extends ConsumerWidget {
       body: (provider.pending.isEmpty && provider.completed.isEmpty)
           ? _EmptyTasks()
           : _BuildTasks(listId),
-      bottomNavigationBar: SafeArea(
-        child: Card(
-          margin: const EdgeInsets.all(defaultPadding),
-          child: ListTile(
-            visualDensity: VisualDensity.compact,
-            onTap: () => showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              builder: (_) => TaskAddModal(listId),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.background,
+        ),
+        child: SafeArea(
+          child: Card(
+            margin: const EdgeInsets.all(defaultPadding),
+            child: ListTile(
+              visualDensity: VisualDensity.compact,
+              onTap: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => TaskAddModal(listId),
+              ),
+              leading: const Icon(IconsaxOutline.add),
+              title: Text(S.modals.taskAdd.placeholder),
             ),
-            leading: const Icon(IconsaxOutline.add),
-            title: Text(S.modals.taskAdd.placeholder),
           ),
         ),
       ),
