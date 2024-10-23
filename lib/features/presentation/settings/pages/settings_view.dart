@@ -201,9 +201,6 @@ class _ListTile extends ConsumerWidget {
       iconColor: colorPrimary,
       leading: Icon(icon),
       title: Text(title),
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadius,
-      ),
     );
   }
 }

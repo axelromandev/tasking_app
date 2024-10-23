@@ -49,13 +49,13 @@ class ThemesChangePage extends ConsumerWidget {
         itemCount: notifier.colors.length,
         itemBuilder: (_, i) {
           final color = notifier.colors[i];
-          return GestureDetector(
-            onTap: () {
-              notifier.setColor(color.value);
-            },
-            child: Card(
+          return Card(
+            child: ListTile(
+              onTap: () {
+                notifier.setColor(color.value);
+              },
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(defaultPadding),
+                borderRadius: BorderRadius.circular(defaultRadius),
                 side: BorderSide(
                   color: (selected.value == color.value.value)
                       ? color.value
@@ -63,14 +63,12 @@ class ThemesChangePage extends ConsumerWidget {
                   width: 2,
                 ),
               ),
-              child: ListTile(
-                leading: const Icon(IconsaxOutline.color_swatch),
-                iconColor: color.value,
-                title: Text(color.name),
-                trailing: (selected.value == color.value.value)
-                    ? Text(S.pages.themes.indicator)
-                    : null,
-              ),
+              leading: const Icon(IconsaxOutline.color_swatch),
+              iconColor: color.value,
+              title: Text(color.name),
+              trailing: (selected.value == color.value.value)
+                  ? Text(S.pages.themes.indicator)
+                  : null,
             ),
           );
         },

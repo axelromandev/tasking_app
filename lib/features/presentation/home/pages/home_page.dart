@@ -47,6 +47,7 @@ class _Drawer extends ConsumerWidget {
     // SLANG: Drawer Home labels
 
     return Drawer(
+      backgroundColor: AppColors.background,
       child: SafeArea(
         child: Column(
           children: [
@@ -203,7 +204,6 @@ class _DrawerItem extends ConsumerWidget {
 
     return ListTile(
       leading: Icon(icon),
-      shape: const RoundedRectangleBorder(),
       iconColor: isSelected ? colorPrimary : null,
       textColor: isSelected ? colorPrimary : null,
       title: Text(title),

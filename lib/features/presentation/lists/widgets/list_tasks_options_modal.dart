@@ -23,91 +23,98 @@ class ListTasksOptionsModal extends ConsumerWidget {
 
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: defaultPadding),
+        margin: const EdgeInsets.symmetric(
+          vertical: defaultPadding,
+          horizontal: 8,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ListTasksUpdatePage(provider.list!),
+            Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    onTap: () {
+                      context.pop();
+                      Navigator.of(contextPage).push(
+                        MaterialPageRoute(
+                          builder: (_) => ListTasksUpdatePage(provider.list!),
+                        ),
+                      );
+                    },
+                    leading: const Icon(IconsaxOutline.edit, size: 18),
+                    title: Text(
+                      S.modals.listTasksOptions.list.edit,
+                    ),
                   ),
-                );
-              },
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.edit, size: 18),
-              title: Text(
-                S.modals.listTasksOptions.list.edit,
+                  ListTile(
+                    onTap: () {
+                      // TODO: Implement sorting tasks modal
+                    },
+                    leading: const Icon(IconsaxOutline.sort, size: 18),
+                    title: const Text('Ordenar por'), // SLANG: Sort by, button
+                  ),
+                ],
               ),
             ),
-            ListTile(
-              onTap: () {
-                // TODO: Implement sorting tasks modal
-              },
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.sort, size: 18),
-              title: const Text('Ordenar por'), // SLANG: Sort by, button
-            ),
-            const Divider(),
-            ListTile(
-              onTap: () {
-                context.pop();
-                notifier.onMarkCompleteAllTasks();
-              },
-              enabled: provider.pending.isNotEmpty,
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.tick_circle, size: 18),
-              title: Text(S.modals.listTasksOptions.tasks.completeAllTasks),
-            ),
-            ListTile(
-              onTap: () {
-                context.pop();
-                notifier.onMarkIncompleteAllTasks();
-              },
-              enabled: provider.completed.isNotEmpty,
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.record, size: 18),
-              title: Text(
-                S.modals.listTasksOptions.tasks.incompleteAllTasks,
+            Card(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    onTap: () {
+                      context.pop();
+                      notifier.onMarkCompleteAllTasks();
+                    },
+                    enabled: provider.pending.isNotEmpty,
+                    leading: const Icon(IconsaxOutline.tick_circle, size: 18),
+                    title:
+                        Text(S.modals.listTasksOptions.tasks.completeAllTasks),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      context.pop();
+                      notifier.onMarkIncompleteAllTasks();
+                    },
+                    enabled: provider.completed.isNotEmpty,
+                    leading: const Icon(IconsaxOutline.record, size: 18),
+                    title: Text(
+                      S.modals.listTasksOptions.tasks.incompleteAllTasks,
+                    ),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      context.pop();
+                      notifier.onDeleteCompletedAllTasks();
+                    },
+                    enabled: provider.completed.isNotEmpty,
+                    leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
+                    title: Text(
+                      S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
+                    ),
+                  ),
+                ],
               ),
             ),
-            ListTile(
-              onTap: () {
-                context.pop();
-                notifier.onDeleteCompletedAllTasks();
-              },
-              enabled: provider.completed.isNotEmpty,
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
-              title: Text(
-                S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
+            Card(
+              child: ListTile(
+                onTap: () async {
+                  context.pop();
+                  final result = await showDialog<bool?>(
+                    context: context,
+                    builder: (_) => ListTaskDeleteDialog(provider.list!.id),
+                  );
+                  if (result != null && result) {
+                    notifier.onDelete(contextPage);
+                  }
+                },
+                leading: const Icon(IconsaxOutline.trash, size: 18),
+                title: Text(S.modals.listTasksOptions.list.delete),
+                iconColor: Colors.redAccent,
+                textColor: Colors.redAccent,
               ),
-            ),
-            const Divider(),
-            ListTile(
-              onTap: () async {
-                context.pop();
-                final result = await showDialog<bool?>(
-                  context: context,
-                  builder: (_) => ListTaskDeleteDialog(provider.list!.id),
-                );
-                if (result != null && result) {
-                  notifier.onDelete(contextPage);
-                }
-              },
-              shape: const RoundedRectangleBorder(),
-              visualDensity: VisualDensity.compact,
-              leading: const Icon(IconsaxOutline.trash, size: 18),
-              title: Text(S.modals.listTasksOptions.list.delete),
-              iconColor: Colors.redAccent,
-              textColor: Colors.redAccent,
             ),
           ],
         ),
