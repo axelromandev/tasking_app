@@ -24,6 +24,7 @@ class DatabaseHelper {
             "id" INTEGER PRIMARY KEY AUTOINCREMENT,
             "title" TEXT NOT NULL,
             "icon_json" TEXT NOT NULL,
+            "is_default" BOOLEAN DEFAULT false,
             "is_show_completed" BOOLEAN DEFAULT false,
             "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
@@ -63,13 +64,24 @@ class DatabaseHelper {
 
   Future<void> _tutorialListQuery(Database db) async {
     await db.transaction((txn) async {
+      await txn.insert(
+        'lists',
+        {
+          'title': 'Tasks',
+          'is_default': 1,
+          'icon_json':
+              '{"codePoint":59842,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
+        },
+        conflictAlgorithm: ConflictAlgorithm.abort,
+      );
+
       final int listId = await txn.insert(
         'lists',
         {
           'title': 'Tutorial',
+          'is_show_completed': 1,
           'icon_json':
               '{"codePoint":60094,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
-          'is_show_completed': 1,
         },
         conflictAlgorithm: ConflictAlgorithm.abort,
       );

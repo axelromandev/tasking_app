@@ -27,6 +27,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
             lists.id = tasks.list_id
         WHERE
             tasks.completed_at IS NULL
+            AND lists.is_default = 0
         GROUP BY
             lists.id, lists.title;
       ''');
