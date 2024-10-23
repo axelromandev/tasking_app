@@ -93,8 +93,8 @@ class _BuildTasks extends ConsumerWidget {
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            separatorBuilder: (_, __) => const Gap(8),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            separatorBuilder: (_, __) => const Gap(4),
             itemCount: provider.pending.length,
             itemBuilder: (_, i) => TaskCard(
               task: provider.pending[i],
@@ -115,7 +115,7 @@ class _BuildTasks extends ConsumerWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                separatorBuilder: (_, __) => const Gap(4),
                 itemCount: provider.completed.length,
                 itemBuilder: (_, i) => TaskCard(
                   task: provider.completed[i],

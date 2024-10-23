@@ -25,8 +25,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/list/:id',
         builder: (_, state) {
           final listId = int.parse(state.pathParameters['id']!);
-          return ListTasksPage(listId);
+          return ListTasksView(listId);
         },
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (_, __) => const SettingsView(),
       ),
       GoRoute(
         path: '/settings/about',

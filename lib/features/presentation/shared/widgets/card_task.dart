@@ -70,46 +70,39 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         context: context,
         builder: (_) => TaskDeleteDialog(),
       ),
-      child: GestureDetector(
+      child: ListTile(
         onTap: open,
-        child: Card(
-          margin: EdgeInsets.zero,
-          child: ListTile(
-            contentPadding: const EdgeInsets.only(right: defaultPadding),
-            visualDensity: VisualDensity.compact,
-            iconColor: isCompleted ? Colors.white70 : Colors.white,
-            shape: const RoundedRectangleBorder(),
-            leading: IconButton(
-              onPressed: widget.onToggleCompleted,
-              icon: Icon(
-                isCompleted
-                    ? IconsaxOutline.tick_circle
-                    : IconsaxOutline.record,
-                size: 24,
-              ),
-            ),
-            title: Text(
-              provider.title,
-              style: isCompleted
-                  ? style.bodyMedium?.copyWith(
-                      decoration: TextDecoration.lineThrough,
-                      decorationColor: Colors.grey,
-                      color: Colors.grey,
-                    )
-                  : style.bodyLarge,
-            ),
-            subtitle: (provider.dateline != null ||
-                    provider.reminder != null ||
-                    provider.notes.isNotEmpty)
-                ? _TaskDetails(
-                    dateline: provider.dateline,
-                    reminder: provider.reminder,
-                    notes: provider.notes,
-                    isCompleted: isCompleted,
-                  )
-                : null,
+        contentPadding: const EdgeInsets.only(right: defaultPadding),
+        visualDensity: VisualDensity.compact,
+        tileColor: AppColors.card,
+        iconColor: isCompleted ? Colors.white70 : Colors.white,
+        leading: IconButton(
+          onPressed: widget.onToggleCompleted,
+          icon: Icon(
+            isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
+            size: 24,
           ),
         ),
+        title: Text(
+          provider.title,
+          style: isCompleted
+              ? style.bodyMedium?.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                  decorationColor: Colors.grey,
+                  color: Colors.grey,
+                )
+              : style.bodyLarge,
+        ),
+        subtitle: (provider.dateline != null ||
+                provider.reminder != null ||
+                provider.notes.isNotEmpty)
+            ? _TaskDetails(
+                dateline: provider.dateline,
+                reminder: provider.reminder,
+                notes: provider.notes,
+                isCompleted: isCompleted,
+              )
+            : null,
       ),
     );
   }
