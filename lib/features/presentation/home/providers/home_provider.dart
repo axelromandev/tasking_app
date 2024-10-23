@@ -23,8 +23,9 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(
       typeView: TypeView.lists,
       listSelected: value,
-      body: const ListsView(),
+      body: ListTasksView(value.id),
     );
+    scaffoldKey.currentState?.closeDrawer();
   }
 
   Widget _getBody(TypeView typeView) {

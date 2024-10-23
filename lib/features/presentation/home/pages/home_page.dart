@@ -13,6 +13,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorPrimary = ref.watch(colorThemeProvider);
+
     final provider = ref.watch(homeProvider);
     final notifier = ref.read(homeProvider.notifier);
 
@@ -23,6 +25,7 @@ class HomePage extends ConsumerWidget {
           onPressed: () {
             notifier.scaffoldKey.currentState?.openDrawer();
           },
+          color: colorPrimary,
           icon: const Icon(IconsaxOutline.menu),
         ),
       ),
@@ -125,7 +128,6 @@ class _Drawer extends ConsumerWidget {
               },
             ),
             const Divider(),
-            _ListsBuilder(),
             _DrawerItem(
               icon: IconsaxOutline.add,
               title: 'New list',
@@ -135,6 +137,7 @@ class _Drawer extends ConsumerWidget {
                 );
               },
             ),
+            _ListsBuilder(),
             const Spacer(),
             const Divider(),
             _DrawerItem(

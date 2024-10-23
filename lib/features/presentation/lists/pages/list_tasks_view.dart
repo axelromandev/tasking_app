@@ -9,8 +9,8 @@ import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
-class ListTasksPage extends ConsumerWidget {
-  const ListTasksPage(this.listId, {super.key});
+class ListTasksView extends ConsumerWidget {
+  const ListTasksView(this.listId, {super.key});
 
   static String routePath = '/list/:id';
 

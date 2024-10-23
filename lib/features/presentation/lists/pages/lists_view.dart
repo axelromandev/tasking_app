@@ -64,7 +64,7 @@ class _ListsTasksView extends ConsumerWidget {
       itemCount: lists.length,
       itemBuilder: (_, i) => ListTasksCard(
         onTap: () => context.push(
-          ListTasksPage.routePath.replaceAll(':id', '${lists[i].id}'),
+          ListTasksView.routePath.replaceAll(':id', '${lists[i].id}'),
         ),
         list: lists[i],
       ),
