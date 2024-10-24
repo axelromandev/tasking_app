@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/home/home.dart';
+import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
 
 class MyDayView extends ConsumerWidget {
   const MyDayView({super.key});
@@ -14,6 +15,8 @@ class MyDayView extends ConsumerWidget {
     final style = Theme.of(context).textTheme;
 
     // SLANG: Translate the labels
+
+    final provider = ref.watch(myDayProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +36,9 @@ class MyDayView extends ConsumerWidget {
         ),
         centerTitle: false,
       ),
-      body: const EmptyTasksToday(),
+      body: (provider.isLoading)
+          ? const Center(child: CircularProgressIndicator())
+          : _TasksBuilder(),
       bottomNavigationBar: SafeArea(
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
@@ -46,5 +51,18 @@ class MyDayView extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+class _TasksBuilder extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tasks = ref.watch(myDayProvider).tasks;
+
+    if (tasks.isEmpty) {
+      return const EmptyTasksToday();
+    }
+
+    return Container();
   }
 }
