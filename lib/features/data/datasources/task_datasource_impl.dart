@@ -44,24 +44,6 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  Future<List<Task>> getTodayTasks() async {
-    try {
-      final Database db = await dbHelper.database;
-      final now = DateTime.now().toDatabaseFormat();
-      final data = await db.query(
-        'tasks',
-        where: 'dateline = ? AND completed_at IS NULL',
-        whereArgs: [now],
-      );
-      if (data.isEmpty) return <Task>[];
-      return data.map((e) => Task.fromMap(e)).toList();
-    } catch (e) {
-      log('TaskDataSourceImpl.getTodayTasks: $e');
-      return <Task>[];
-    }
-  }
-
-  @override
   Future<List<Task>> getByListId(int id) async {
     try {
       final Database db = await dbHelper.database;

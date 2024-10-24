@@ -18,11 +18,6 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
-  Future<List<Task>> getTodayTasks() {
-    return _dataSource.getTodayTasks();
-  }
-
-  @override
   Future<List<Task>> getByListId(int id) {
     return _dataSource.getByListId(id);
   }
