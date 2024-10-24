@@ -30,6 +30,7 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       body: provider.body ?? const MyDayView(),
+      resizeToAvoidBottomInset: false,
       drawer: _Drawer(),
     );
   }
@@ -119,16 +120,19 @@ class _Drawer extends ConsumerWidget {
               },
             ),
             const Divider(),
-            _DrawerItem(
-              icon: IconsaxOutline.add,
-              title: 'New list',
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const ListTasksAddPage()),
-                );
-              },
-            ),
             _ListsBuilder(),
+            ListTile(
+              leading: const Icon(IconsaxOutline.add),
+              trailing: const Icon(IconsaxOutline.arrow_right_3, size: 16),
+              title: const Text('New list'),
+              contentPadding: const EdgeInsets.only(
+                left: defaultPadding,
+                right: defaultPadding,
+              ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ListTasksAddPage()),
+              ),
+            ),
             const Spacer(),
             const Divider(),
             _DrawerItem(

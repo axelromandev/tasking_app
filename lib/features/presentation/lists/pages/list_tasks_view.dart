@@ -61,6 +61,7 @@ class ListTasksView extends ConsumerWidget {
       body: (provider.pending.isEmpty && provider.completed.isEmpty)
           ? _EmptyTasks()
           : _BuildTasks(listId),
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: AppColors.background,

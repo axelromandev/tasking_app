@@ -39,6 +39,7 @@ class MyDayView extends ConsumerWidget {
       body: (provider.isLoading)
           ? const Center(child: CircularProgressIndicator())
           : _TasksBuilder(),
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: SafeArea(
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),

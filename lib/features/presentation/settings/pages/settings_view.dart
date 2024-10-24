@@ -19,7 +19,12 @@ class SettingsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(IconsaxOutline.arrow_left_2),
+        ),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(IconsaxOutline.setting, color: colorPrimary),
             const Gap(12),
@@ -29,7 +34,7 @@ class SettingsView extends ConsumerWidget {
             ),
           ],
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

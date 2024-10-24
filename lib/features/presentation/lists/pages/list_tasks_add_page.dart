@@ -59,6 +59,9 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
               ],
               maxLines: null,
               decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: defaultPadding,
+                ),
                 hintText: S.modals.listTasks.placeholder,
                 hintStyle: style.bodyLarge?.copyWith(
                   color: Colors.white54,
