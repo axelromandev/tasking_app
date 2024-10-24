@@ -17,6 +17,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
             lists.title,
             lists.icon_json,
             lists.is_show_completed,
+            lists.is_default,
             lists.created_at,
             COUNT(tasks.id) AS pending_tasks_length
         FROM
@@ -48,6 +49,7 @@ class ListTasksDataSourceImpl implements ListTasksDataSource {
             lists.title,
             lists.icon_json,
             lists.is_show_completed,
+            lists.is_default,
             lists.created_at,
             COUNT(tasks.id) AS pending_tasks_length
         FROM

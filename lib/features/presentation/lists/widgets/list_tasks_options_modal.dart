@@ -35,20 +35,21 @@ class ListTasksOptionsModal extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ListTile(
-                    onTap: () {
-                      context.pop();
-                      Navigator.of(contextPage).push(
-                        MaterialPageRoute(
-                          builder: (_) => ListTasksUpdatePage(provider.list!),
-                        ),
-                      );
-                    },
-                    leading: const Icon(IconsaxOutline.edit, size: 18),
-                    title: Text(
-                      S.modals.listTasksOptions.list.edit,
+                  if (!provider.list!.isDefault)
+                    ListTile(
+                      onTap: () {
+                        context.pop();
+                        Navigator.of(contextPage).push(
+                          MaterialPageRoute(
+                            builder: (_) => ListTasksUpdatePage(provider.list!),
+                          ),
+                        );
+                      },
+                      leading: const Icon(IconsaxOutline.edit, size: 18),
+                      title: Text(
+                        S.modals.listTasksOptions.list.edit,
+                      ),
                     ),
-                  ),
                   ListTile(
                     onTap: () {
                       // TODO: Implement sorting tasks modal
@@ -98,24 +99,25 @@ class ListTasksOptionsModal extends ConsumerWidget {
                 ],
               ),
             ),
-            Card(
-              child: ListTile(
-                onTap: () async {
-                  context.pop();
-                  final result = await showDialog<bool?>(
-                    context: context,
-                    builder: (_) => ListTaskDeleteDialog(provider.list!.id),
-                  );
-                  if (result != null && result) {
-                    notifier.onDelete(contextPage);
-                  }
-                },
-                leading: const Icon(IconsaxOutline.trash, size: 18),
-                title: Text(S.modals.listTasksOptions.list.delete),
-                iconColor: Colors.redAccent,
-                textColor: Colors.redAccent,
+            if (!provider.list!.isDefault)
+              Card(
+                child: ListTile(
+                  onTap: () async {
+                    context.pop();
+                    final result = await showDialog<bool?>(
+                      context: context,
+                      builder: (_) => ListTaskDeleteDialog(provider.list!.id),
+                    );
+                    if (result != null && result) {
+                      notifier.onDelete(contextPage);
+                    }
+                  },
+                  leading: const Icon(IconsaxOutline.trash, size: 18),
+                  title: Text(S.modals.listTasksOptions.list.delete),
+                  iconColor: Colors.redAccent,
+                  textColor: Colors.redAccent,
+                ),
               ),
-            ),
           ],
         ),
       ),
