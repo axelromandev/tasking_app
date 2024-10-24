@@ -1,7 +1,6 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/calendar/calendar.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
@@ -20,11 +19,11 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(typeView: typeView, body: body);
   }
 
-  void onListSelected(ListTasks value) {
+  void onListSelected(int listId) {
     state = state.copyWith(
       typeView: TypeView.lists,
-      listSelected: value,
-      body: ListTasksView(listId: value.id),
+      listId: listId,
+      body: ListTasksView(listId: listId),
     );
     scaffoldKey.currentState?.closeDrawer();
   }
@@ -53,22 +52,22 @@ class _State {
   _State({
     this.typeView = TypeView.home,
     this.body,
-    this.listSelected,
+    this.listId,
   });
 
   final TypeView typeView;
   final Widget? body;
-  final ListTasks? listSelected;
+  final int? listId;
 
   _State copyWith({
     TypeView? typeView,
     Widget? body,
-    ListTasks? listSelected,
+    int? listId,
   }) {
     return _State(
       typeView: typeView ?? this.typeView,
       body: body ?? this.body,
-      listSelected: listSelected,
+      listId: listId,
     );
   }
 }

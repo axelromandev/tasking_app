@@ -157,7 +157,7 @@ class _Drawer extends ConsumerWidget {
 class _ListsBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listId = ref.watch(homeProvider).listSelected?.id;
+    final listId = ref.watch(homeProvider).listId;
     final notifier = ref.read(homeProvider.notifier);
 
     final provider = ref.watch(listsProvider);
@@ -172,11 +172,7 @@ class _ListsBuilder extends ConsumerWidget {
       itemBuilder: (_, i) {
         final list = provider.lists[i];
         return ListTasksCard(
-          onTap: () {
-            // TODO: Render dynamic list tasks in the home page
-
-            notifier.onListSelected(list);
-          },
+          onTap: () => notifier.onListSelected(list.id),
           isSelected: (listId ?? -1) == list.id,
           list: list,
         );
