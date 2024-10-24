@@ -120,8 +120,8 @@ class _Drawer extends ConsumerWidget {
               },
             ),
             _DrawerItem(
-              icon: IconsaxOutline.clipboard_text,
-              title: 'Tasks',
+              icon: IconsaxOutline.home_2,
+              title: 'All Tasks',
               isSelected: typeView == TypeView.tasks,
               onTap: () {
                 notifier.onChangeView(TypeView.tasks);

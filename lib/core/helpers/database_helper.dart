@@ -67,7 +67,7 @@ class DatabaseHelper {
       await txn.insert(
         'lists',
         {
-          'title': 'Tasks',
+          'title': 'All Tasks',
           'is_default': 1,
           'icon_json':
               '{"codePoint":59842,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
