@@ -1,7 +1,6 @@
 export 'pages/list_tasks_add_page.dart';
 export 'pages/list_tasks_update_page.dart';
 export 'pages/list_tasks_view.dart';
-export 'pages/lists_view.dart';
 export 'providers/list_tasks_add_provider.dart';
 export 'providers/list_tasks_provider.dart';
 export 'providers/list_tasks_update_provider.dart';

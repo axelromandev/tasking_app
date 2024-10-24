@@ -9,16 +9,20 @@ import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class ListTasksView extends ConsumerWidget {
-  const ListTasksView(this.listId, {super.key});
+  const ListTasksView({
+    required this.listId,
+    this.icon,
+    this.title,
+    super.key,
+  });
 
-  static String routePath = '/list/:id';
-
+  final IconData? icon;
+  final String? title;
   final int listId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(listTasksProvider(listId));
@@ -33,11 +37,11 @@ class ListTasksView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(provider.list!.icon, color: colorPrimary),
+            Icon(icon ?? provider.list!.icon, color: colorPrimary),
             const Gap(12),
             Flexible(
               child: Text(
-                provider.list!.title,
+                title ?? provider.list!.title,
                 style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
@@ -155,7 +159,7 @@ class _EmptyTasks extends ConsumerWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              IconsaxOutline.task,
+              IconsaxOutline.clipboard_tick,
               size: 38.0,
               color: colorPrimary,
             ),
