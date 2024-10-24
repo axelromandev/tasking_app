@@ -73,25 +73,15 @@ class _Drawer extends ConsumerWidget {
                     color: colorPrimary,
                   ),
                 ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () => context.push('/search'),
+                  icon: const Icon(IconsaxOutline.search_normal),
+                ),
+                const Gap(8),
               ],
             ),
             const Gap(8),
-            // TODO: Make search task bar functional
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding,
-                  ),
-                  hintText: 'Search',
-                  suffixIcon: Icon(
-                    IconsaxOutline.search_normal,
-                    size: 16,
-                  ),
-                ),
-              ),
-            ),
             _DrawerItem(
               icon: IconsaxOutline.sun_1,
               title: 'My Day',

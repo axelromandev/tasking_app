@@ -16,7 +16,10 @@ class _Notifier extends StateNotifier<_State> {
 
   void onChangeView(TypeView typeView) {
     final body = _getBody(typeView);
-    state = state.copyWith(typeView: typeView, body: body);
+    state = state.copyWith(
+      typeView: typeView,
+      body: body,
+    );
   }
 
   void onListSelected(int listId) {
@@ -30,8 +33,6 @@ class _Notifier extends StateNotifier<_State> {
 
   Widget _getBody(TypeView typeView) {
     switch (typeView) {
-      case TypeView.search:
-        return const Placeholder(); // TODO: Implement search view
       case TypeView.important:
         return const Placeholder(); // TODO: Implement important view
       case TypeView.calendar:
