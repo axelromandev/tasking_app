@@ -1,6 +1,5 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
@@ -8,7 +7,7 @@ import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
-class TaskCard extends ConsumerStatefulWidget {
+class TaskCard extends StatelessWidget {
   const TaskCard({
     required this.onDismissed,
     required this.onToggleCompleted,
@@ -21,29 +20,13 @@ class TaskCard extends ConsumerStatefulWidget {
   final Task task;
 
   @override
-  ConsumerState<TaskCard> createState() => _TaskCardState();
-}
-
-class _TaskCardState extends ConsumerState<TaskCard> {
-  void open() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => TaskPage(widget.task),
-        fullscreenDialog: true,
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    final provider = ref.watch(taskProvider(widget.task));
-
-    final bool isCompleted = (provider.completedAt != null);
+    final bool isCompleted = (task.completedAt != null);
 
     return Dismissible(
-      key: ValueKey(widget.task.id),
+      key: ValueKey(task.id),
       direction: DismissDirection.endToStart,
       background: Container(
         alignment: Alignment.centerRight,
@@ -65,26 +48,33 @@ class _TaskCardState extends ConsumerState<TaskCard> {
           ],
         ),
       ),
-      onDismissed: (_) => widget.onDismissed(),
+      onDismissed: (_) => onDismissed(),
       confirmDismiss: (_) async => await showDialog(
         context: context,
         builder: (_) => TaskDeleteDialog(),
       ),
       child: ListTile(
-        onTap: open,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => TaskPage(task.id),
+              fullscreenDialog: true,
+            ),
+          );
+        },
         contentPadding: const EdgeInsets.only(right: defaultPadding),
         visualDensity: VisualDensity.compact,
         tileColor: AppColors.card,
         iconColor: isCompleted ? Colors.white70 : Colors.white,
         leading: IconButton(
-          onPressed: widget.onToggleCompleted,
+          onPressed: onToggleCompleted,
           icon: Icon(
             isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
             size: 24,
           ),
         ),
         title: Text(
-          provider.title,
+          task.title,
           style: isCompleted
               ? style.bodyMedium?.copyWith(
                   decoration: TextDecoration.lineThrough,
@@ -93,13 +83,13 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                 )
               : style.bodyLarge,
         ),
-        subtitle: (provider.dateline != null ||
-                provider.reminder != null ||
-                provider.notes.isNotEmpty)
+        subtitle: (task.dateline != null ||
+                task.reminder != null ||
+                task.notes.isNotEmpty)
             ? _TaskDetails(
-                dateline: provider.dateline,
-                reminder: provider.reminder,
-                notes: provider.notes,
+                dateline: task.dateline,
+                reminder: task.reminder,
+                notes: task.notes,
                 isCompleted: isCompleted,
               )
             : null,

@@ -1,91 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
-import 'package:tasking/features/presentation/lists/lists.dart';
 
 final taskProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, Task, Task>((ref, task) {
-  final refreshAll = ref.read(listsProvider.notifier).refresh;
-  final refreshList = ref.read(listTasksProvider(task.listId).notifier).refresh;
-
-  return _Notifier(
-    task: task,
-    refreshAll: refreshAll,
-    refreshList: refreshList,
-  );
+    .autoDispose<_Notifier, _State, int>((ref, taskId) {
+  return _Notifier(taskId);
 });
 
-class _Notifier extends StateNotifier<Task> {
-  _Notifier({
-    required Task task,
-    required this.refreshAll,
-    required this.refreshList,
-  }) : super(task);
+class _Notifier extends StateNotifier<_State> {
+  _Notifier(this.taskId) : super(_State()) {
+    _initialize();
+  }
 
-  final Future<void> Function() refreshAll;
-  final Future<void> Function() refreshList;
+  final int taskId;
 
   // final _notificationService = NotificationService();
   final _taskRepository = TaskRepositoryImpl();
-  final _debounce = Debounce(
-    delay: const Duration(milliseconds: 300),
-  );
+  // final _debounce = Debounce(delay: const Duration(milliseconds: 300));
+  // TextEditingController subtaskAddController = TextEditingController();
 
-  TextEditingController subtaskAddController = TextEditingController();
-
-  Future<void> _refresh() async {
-    final task = await _taskRepository.get(state.id);
-    state = task;
+  Future<void> _initialize() async {
+    try {
+      final task = await _taskRepository.get(taskId);
+      state = state.copyWith(
+        listId: task.listId,
+        title: task.title,
+        completedAt: task.completedAt,
+        reminder: task.reminder,
+        dateline: task.dateline,
+        notes: task.notes,
+        updatedAt: task.updatedAt,
+      );
+    } catch (e) {
+      print(e);
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
   }
 
   Future<void> onDeleteTask() async {
-    await _taskRepository.delete(state.id).then((_) {
-      refreshAll();
-      refreshList();
-    });
+    // await _taskRepository.delete(state.id).then((_) {
+    //   refreshAll();
+    //   refreshList();
+    // });
   }
 
   void onToggleCompleted() {
-    HapticFeedback.heavyImpact();
-    final newTask = state.toggleCompleted();
-    _taskRepository.update(newTask).then((_) {
-      refreshAll();
-      refreshList();
-    });
+    // final newTask = state.toggleCompleted();
+    // _taskRepository.update(newTask).then((_) {
+    //   state = newTask;
+    //   refreshAll();
+    //   refreshList();
+    // });
   }
 
   void onTitleChanged(String value) {
-    _debounce.run(() {
-      final String title = value.trim();
-      if (title.isEmpty || state.title == title) return;
-      final newTask = state.copyWith(
-        title: title,
-        updatedAt: DateTime.now(),
-      );
-      _taskRepository.update(newTask).then((_) {
-        _refresh();
-        refreshAll();
-        refreshList();
-      });
-    });
+    // _debounce.run(() {
+    //   final String title = value.trim();
+    //   if (title.isEmpty || state.title == title) return;
+    //   final newTask = state.copyWith(
+    //     title: title,
+    //     updatedAt: DateTime.now(),
+    //   );
+    //   _taskRepository.update(newTask).then((_) {
+    //     _refresh();
+    //     refreshAll();
+    //     refreshList();
+    //   });
+    // });
   }
 
   void onNoteChanged(String value) {
-    _debounce.run(() async {
-      final String note = value.trim();
-      if (state.notes == note) return;
-      final newTask = state.copyWith(
-        notes: note,
-        updatedAt: DateTime.now(),
-      );
-      _taskRepository.update(newTask).then((_) {
-        refreshAll();
-        refreshList();
-      });
-    });
+    // _debounce.run(() async {
+    //   final String note = value.trim();
+    //   if (state.notes == note) return;
+    //   final newTask = state.copyWith(
+    //     notes: note,
+    //     updatedAt: DateTime.now(),
+    //   );
+    //   _taskRepository.update(newTask).then((_) {
+    //     refreshAll();
+    //     refreshList();
+    //   });
+    // });
   }
 
   Future<void> onUpdateReminder(BuildContext context) async {
@@ -172,4 +170,52 @@ class _Notifier extends StateNotifier<Task> {
   //     MyToast.show('$e');
   //   }
   // }
+}
+
+class _State {
+  _State({
+    this.listId = 0,
+    this.title = '',
+    this.steps = const [],
+    this.completedAt,
+    this.reminder,
+    this.dateline,
+    this.notes = '',
+    this.updatedAt,
+    this.isLoading = true,
+  });
+
+  final int listId;
+  final String title;
+  final List<StepsTask> steps;
+  final DateTime? completedAt;
+  final DateTime? reminder;
+  final DateTime? dateline;
+  final String notes;
+  final DateTime? updatedAt;
+  final bool isLoading;
+
+  _State copyWith({
+    int? listId,
+    String? title,
+    List<StepsTask>? steps,
+    DateTime? completedAt,
+    DateTime? reminder,
+    DateTime? dateline,
+    String? notes,
+    DateTime? updatedAt,
+    bool? isLoading,
+  }) {
+    return _State(
+      listId: listId ?? this.listId,
+      title: title ?? this.title,
+      steps: steps ?? this.steps,
+      completedAt: completedAt ?? this.completedAt,
+      reminder: reminder ?? this.reminder,
+      dateline: dateline ?? this.dateline,
+      notes: notes ?? this.notes,
+      updatedAt: updatedAt ?? this.updatedAt,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
 }
