@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 
 final listTasksProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, int>((ref, listId) {
   final refreshAll = ref.read(listsProvider.notifier).refresh;
+  final onChangeView = ref.read(homeProvider.notifier).onChangeView;
+  final scaffoldKey = ref.read(homeProvider.notifier).scaffoldKey;
 
-  return _Notifier(listId, refreshAll);
+  return _Notifier(listId, refreshAll, onChangeView, scaffoldKey);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(this.listId, this.refreshAll) : super(const _State()) {
+  _Notifier(
+    this.listId,
+    this.refreshAll,
+    this.onChangeView,
+    this.scaffoldKey,
+  ) : super(const _State()) {
     refresh();
   }
 
   final int listId;
   final Future<void> Function() refreshAll;
+  final void Function(TypeView) onChangeView;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   final _tasksRepository = TaskRepositoryImpl();
   final _listTasksRepository = ListTasksRepositoryImpl();
@@ -60,10 +69,11 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
-  void onDelete(BuildContext contextPage) {
+  void onDelete() {
     _listTasksRepository.delete(listId).then((_) {
       refreshAll();
-      contextPage.pop();
+      onChangeView(TypeView.home);
+      scaffoldKey.currentState?.openDrawer();
     });
   }
 

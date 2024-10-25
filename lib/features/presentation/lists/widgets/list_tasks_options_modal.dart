@@ -109,7 +109,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       builder: (_) => ListTaskDeleteDialog(provider.list!.id),
                     );
                     if (result != null && result) {
-                      notifier.onDelete(contextPage);
+                      notifier.onDelete();
                     }
                   },
                   leading: const Icon(IconsaxOutline.trash, size: 18),
