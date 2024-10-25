@@ -120,7 +120,6 @@ class _Drawer extends ConsumerWidget {
               },
             ),
             const Divider(),
-            _ListsBuilder(),
             ListTile(
               leading: const Icon(IconsaxOutline.add),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 16),
@@ -133,8 +132,8 @@ class _Drawer extends ConsumerWidget {
                 MaterialPageRoute(builder: (_) => const ListTasksAddPage()),
               ),
             ),
-            const Spacer(),
-            const Divider(),
+            _ListsBuilder(),
+            const Divider(height: 0),
             _DrawerItem(
               icon: IconsaxOutline.setting,
               title: 'Settings',
@@ -160,17 +159,20 @@ class _ListsBuilder extends ConsumerWidget {
       return Container();
     }
 
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: provider.lists.length,
-      itemBuilder: (_, i) {
-        final list = provider.lists[i];
-        return ListTasksCard(
-          onTap: () => notifier.onListSelected(list.id),
-          isSelected: (listId ?? -1) == list.id,
-          list: list,
-        );
-      },
+    return Expanded(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: provider.lists.length,
+        padding: EdgeInsets.zero,
+        itemBuilder: (_, i) {
+          final list = provider.lists[i];
+          return ListTasksCard(
+            onTap: () => notifier.onListSelected(list.id),
+            isSelected: (listId ?? -1) == list.id,
+            list: list,
+          );
+        },
+      ),
     );
   }
 }
