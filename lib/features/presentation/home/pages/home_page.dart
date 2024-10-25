@@ -7,6 +7,7 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -44,8 +45,6 @@ class _Drawer extends ConsumerWidget {
 
     final typeView = ref.watch(homeProvider).typeView;
     final notifier = ref.read(homeProvider.notifier);
-
-    // SLANG: Drawer Home labels
 
     return Drawer(
       backgroundColor: AppColors.background,
@@ -85,7 +84,7 @@ class _Drawer extends ConsumerWidget {
             const Gap(8),
             _DrawerItem(
               icon: IconsaxOutline.sun_1,
-              title: 'My Day',
+              title: S.pages.home.drawer.home,
               isSelected: typeView == TypeView.home,
               onTap: () {
                 notifier.onChangeView(TypeView.home);
@@ -94,7 +93,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.star,
-              title: 'Important',
+              title: S.pages.home.drawer.important,
               isSelected: typeView == TypeView.important,
               onTap: () {
                 notifier.onChangeView(TypeView.important);
@@ -103,7 +102,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.calendar_1,
-              title: 'Calendar',
+              title: S.pages.home.drawer.calendar,
               isSelected: typeView == TypeView.calendar,
               onTap: () {
                 notifier.onChangeView(TypeView.calendar);
@@ -112,7 +111,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.home_2,
-              title: 'All Tasks',
+              title: S.pages.home.drawer.tasks,
               isSelected: typeView == TypeView.tasks,
               onTap: () {
                 notifier.onChangeView(TypeView.tasks);
@@ -123,7 +122,7 @@ class _Drawer extends ConsumerWidget {
             ListTile(
               leading: const Icon(IconsaxOutline.add),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 16),
-              title: const Text('New list'),
+              title: Text(S.pages.home.drawer.add_lists),
               contentPadding: const EdgeInsets.only(
                 left: defaultPadding,
                 right: defaultPadding,
@@ -136,7 +135,7 @@ class _Drawer extends ConsumerWidget {
             const Divider(height: 0),
             _DrawerItem(
               icon: IconsaxOutline.setting,
-              title: 'Settings',
+              title: S.pages.home.drawer.settings,
               onTap: () => context.push('/settings'),
             ),
             const Gap(8),

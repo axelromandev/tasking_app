@@ -21,7 +21,15 @@
     }
   },
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "drawer": {
+      "home": "My Day",
+      "important": "Important",
+      "calendar": "Calendar",
+      "tasks": "All Tasks",
+      "add_lists": "New list",
+      "settings": "Settings"
+    }
   },
   "calendar": {
     "title": "Calendar"

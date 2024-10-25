@@ -21,7 +21,15 @@
     }
   },
   "home": {
-    "title": "Inicio"
+    "title": "Inicio",
+    "drawer": {
+      "home": "Mi día",
+      "important": "Importante",
+      "calendar": "Calendario",
+      "tasks": "Todas las tareas",
+      "add_lists": "Nueva lista",
+      "settings": "Ajustes"
+    }
   },
   "calendar": {
     "title": "Calendario"
