@@ -4,5 +4,6 @@ export 'providers/task_provider.dart';
 export 'widgets/task_add_modal.dart';
 export 'widgets/task_dateline_modal.dart';
 export 'widgets/task_delete_dialog.dart';
+export 'widgets/task_more_bottom_sheet.dart';
 export 'widgets/task_notes_modal.dart';
 export 'widgets/task_reminder_modal.dart';
