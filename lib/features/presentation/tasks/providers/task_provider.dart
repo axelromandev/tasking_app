@@ -1,24 +1,29 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/lists/lists.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, int>((ref, taskId) {
-  return _Notifier(taskId);
+  return _Notifier(ref, taskId);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(this.taskId) : super(_State()) {
+  _Notifier(this.ref, this.taskId) : super(_State()) {
     _initialize();
   }
 
+  final Ref ref;
   final int taskId;
 
   // final _notificationService = NotificationService();
   final _taskRepository = TaskRepositoryImpl();
-  // final _debounce = Debounce(delay: const Duration(milliseconds: 300));
-  // TextEditingController subtaskAddController = TextEditingController();
+  final _debounce = Debounce();
 
   Future<void> _initialize() async {
     try {
@@ -33,143 +38,65 @@ class _Notifier extends StateNotifier<_State> {
         updatedAt: task.updatedAt,
       );
     } catch (e) {
-      print(e);
+      log(e.toString(), name: 'TaskProvider');
     } finally {
       state = state.copyWith(isLoading: false);
     }
   }
 
-  Future<void> onDeleteTask() async {
-    // await _taskRepository.delete(state.id).then((_) {
-    //   refreshAll();
-    //   refreshList();
-    // });
+  Future<void> onDeleteTask(BuildContext pageContext) async {
+    await _taskRepository.delete(taskId).then((_) {
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      pageContext.pop();
+    });
   }
 
   void onToggleCompleted() {
-    // final newTask = state.toggleCompleted();
-    // _taskRepository.update(newTask).then((_) {
-    //   state = newTask;
-    //   refreshAll();
-    //   refreshList();
-    // });
+    final completedAt = state.completedAt == null ? DateTime.now() : null;
+    _taskRepository.update(taskId, {
+      'completed_at': completedAt?.toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      state = state.toggleCompleted();
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
   }
 
   void onTitleChanged(String value) {
-    // _debounce.run(() {
-    //   final String title = value.trim();
-    //   if (title.isEmpty || state.title == title) return;
-    //   final newTask = state.copyWith(
-    //     title: title,
-    //     updatedAt: DateTime.now(),
-    //   );
-    //   _taskRepository.update(newTask).then((_) {
-    //     _refresh();
-    //     refreshAll();
-    //     refreshList();
-    //   });
-    // });
+    _debounce.run(() {
+      final String title = value.trim();
+      if (title.isEmpty || state.title == title) return;
+      final updatedAt = DateTime.now();
+      _taskRepository.update(
+        taskId,
+        {
+          'title': title,
+          'updated_at': updatedAt.toIso8601String(),
+        },
+      ).then((_) {
+        state = state.copyWith(title: title, updatedAt: updatedAt);
+        ref.read(listTasksProvider(state.listId).notifier).refresh();
+      });
+    });
   }
 
   void onNoteChanged(String value) {
-    // _debounce.run(() async {
-    //   final String note = value.trim();
-    //   if (state.notes == note) return;
-    //   final newTask = state.copyWith(
-    //     notes: note,
-    //     updatedAt: DateTime.now(),
-    //   );
-    //   _taskRepository.update(newTask).then((_) {
-    //     refreshAll();
-    //     refreshList();
-    //   });
-    // });
+    _debounce.run(() async {
+      final String note = value.trim();
+      if (state.notes == note) return;
+      final updatedAt = DateTime.now();
+      await _taskRepository.update(
+        taskId,
+        {
+          'notes': note,
+          'updated_at': updatedAt.toIso8601String(),
+        },
+      ).then((_) {
+        state = state.copyWith(notes: note, updatedAt: updatedAt);
+        ref.read(listTasksProvider(state.listId).notifier).refresh();
+      });
+    });
   }
-
-  Future<void> onUpdateReminder(BuildContext context) async {
-    //   if (state.reminder != null) {
-    //     showModalBottomSheet(
-    //       context: context,
-    //       builder: (contextModal) => SafeArea(
-    //         child: Column(
-    //           mainAxisSize: MainAxisSize.min,
-    //           children: [
-    //             ListTile(
-    //               onTap: () async {
-    //                 contextModal.pop();
-    //                 await _dateTimePicker(context);
-    //               },
-    //               shape: const RoundedRectangleBorder(),
-    //               leading: const Icon(IconsaxOutline.shuffle),
-    //               title: Text(S.modals.taskReminder.change),
-    //             ),
-    //             ListTile(
-    //               onTap: () async {
-    //                 contextModal.pop();
-    //                 await onRemoveReminder();
-    //               },
-    //               shape: const RoundedRectangleBorder(),
-    //               iconColor: Colors.redAccent,
-    //               leading: const Icon(IconsaxOutline.notification),
-    //               title: Text(S.modals.taskReminder.remove),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     );
-    //     return;
-    //   }
-    //   await _dateTimePicker(context);
-  }
-
-  Future<void> onRemoveReminder() async {
-    // FIXME: CHANGE TASK REMOVE REMINDER
-    // try {
-    //   await _notificationService.remove(state.id);
-    //   _taskRepository.deleteReminder(state.id).then((_) {
-    //     refreshAll();
-    //     refreshList();
-    //     state.reminder = null;
-    //   });
-    // } catch (e) {
-    //   MyToast.show(e.toString());
-    // }
-  }
-
-  // Future<void> _dateTimePicker(BuildContext context) async {
-  //   final status = await Permission.notification.status;
-  //   if (status.isPermanentlyDenied) {
-  //     MyToast.show(S.common.utils.notifications.isDenied);
-  //     return;
-  //   }
-  //   if (status.isDenied) {
-  //     final request = await Permission.notification.request();
-  //     if (request.isPermanentlyDenied) {
-  //       MyToast.show(S.common.utils.notifications.isDenied);
-  //       return;
-  //     }
-  //   }
-
-  //   final reminder = await DatTimePicker.show(context);
-  //   if (reminder == null) return;
-
-  //   try {
-  //     await _notificationService.show(
-  //       id: state.id,
-  //       title: S.common.utils.notifications.title,
-  //       body: state.title,
-  //       dateTime: reminder,
-  //     );
-
-  //     _taskRepository.updateReminder(state.id, reminder).then((_) {
-  //       refreshAll();
-  //       refreshList();
-  //       state.reminder = reminder;
-  //     });
-  //   } catch (e) {
-  //     MyToast.show('$e');
-  //   }
-  // }
 }
 
 class _State {
@@ -194,6 +121,20 @@ class _State {
   final String notes;
   final DateTime? updatedAt;
   final bool isLoading;
+
+  _State toggleCompleted() {
+    return _State(
+      listId: listId,
+      title: title,
+      steps: steps,
+      completedAt: completedAt == null ? DateTime.now() : null,
+      reminder: reminder,
+      dateline: dateline,
+      notes: notes,
+      updatedAt: DateTime.now(),
+      isLoading: isLoading,
+    );
+  }
 
   _State copyWith({
     int? listId,

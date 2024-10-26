@@ -44,7 +44,10 @@ class TaskPage extends ConsumerWidget {
           IconButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (context) => const TaskMoreBottomSheet(),
+              builder: (context) => TaskMoreBottomSheet(
+                taskId: taskId,
+                pageContext: context,
+              ),
             ),
             iconSize: 18,
             icon: const Icon(IconsaxOutline.more),
@@ -90,6 +93,7 @@ class _Notes extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(taskProvider(taskId));
+    final notifier = ref.read(taskProvider(taskId).notifier);
 
     return Container(
       margin: const EdgeInsets.only(left: defaultPadding),
@@ -121,7 +125,7 @@ class _Notes extends ConsumerWidget {
                 hintText: S.pages.task.placeholderNote,
                 hintStyle: style.bodyLarge?.copyWith(color: Colors.white70),
               ),
-              onChanged: (value) {},
+              onChanged: notifier.onNoteChanged,
             ),
           ),
         ],
@@ -229,6 +233,7 @@ class _TitleInputField extends ConsumerWidget {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(taskProvider(taskId));
+    final notifier = ref.read(taskProvider(taskId).notifier);
 
     final bool isCompleted = provider.completedAt != null;
 
@@ -238,10 +243,8 @@ class _TitleInputField extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconButton(
-            onPressed: () {
-              //TODO: update task completedAt
-            },
-            color: isCompleted ? Colors.white : Colors.white60,
+            onPressed: notifier.onToggleCompleted,
+            color: isCompleted ? Colors.white60 : Colors.white,
             icon: Icon(
               isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
             ),
@@ -265,7 +268,7 @@ class _TitleInputField extends ConsumerWidget {
                 contentPadding: EdgeInsets.zero,
                 hintText: S.pages.task.placeholderTitle,
               ),
-              onChanged: (value) {},
+              onChanged: notifier.onTitleChanged,
             ),
           ),
         ],

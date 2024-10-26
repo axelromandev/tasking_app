@@ -64,8 +64,13 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   void onToggleCompleted(int taskId) {
-    _tasksRepository.toggleCompleted(taskId).then((_) {
-      refresh();
+    _tasksRepository.get(taskId).then((task) {
+      final completedAt = task.completedAt == null ? DateTime.now() : null;
+      _tasksRepository.update(taskId, {
+        'completed_at': completedAt?.toIso8601String(),
+      }).then((_) {
+        refresh();
+      });
     });
   }
 
@@ -79,18 +84,18 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onMarkIncompleteAllTasks() async {
     for (final task in state.completed) {
-      final newTask = task.toggleCompleted();
-      await _tasksRepository.update(newTask);
+      await _tasksRepository.update(task.id, {
+        'completed_at': null,
+      });
     }
     refresh();
   }
 
   Future<void> onMarkCompleteAllTasks() async {
     for (final task in state.pending) {
-      final newTask = task.copyWith(
-        completedAt: DateTime.now(),
-      );
-      await _tasksRepository.update(newTask);
+      await _tasksRepository.update(task.id, {
+        'completed_at': DateTime.now().toIso8601String(),
+      });
     }
     refresh();
   }

@@ -89,20 +89,6 @@ class Task {
     );
   }
 
-  Task toggleCompleted() {
-    return Task(
-      id: id,
-      listId: listId,
-      title: title,
-      dateline: dateline,
-      reminder: reminder,
-      notes: notes,
-      completedAt: (completedAt == null) ? DateTime.now() : null,
-      updatedAt: DateTime.now(),
-      createdAt: createdAt,
-    );
-  }
-
   final int id;
   final int listId;
   final String title;

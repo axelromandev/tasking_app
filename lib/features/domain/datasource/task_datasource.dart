@@ -6,8 +6,7 @@ abstract class TaskDataSource {
   Future<List<Task>> getByListId(int id);
   Future<List<Task>> getReminders();
   Future<Task> add(Task task);
-  Future<void> update(Task task);
+  Future<void> update(int id, Map<String, dynamic> data);
   Future<void> delete(int id);
   Future<void> deleteReminder(int id);
-  Future<void> toggleCompleted(int id);
 }

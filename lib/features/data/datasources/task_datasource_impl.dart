@@ -97,14 +97,14 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  Future<void> update(Task task) async {
+  Future<void> update(int id, Map<String, dynamic> data) async {
     try {
       final Database db = await dbHelper.database;
       await db.update(
         'tasks',
-        task.toMap(),
+        data,
         where: 'id = ?',
-        whereArgs: [task.id],
+        whereArgs: [id],
         conflictAlgorithm: ConflictAlgorithm.abort,
       );
     } catch (e) {
@@ -141,25 +141,6 @@ class TaskDataSourceImpl implements TaskDataSource {
       );
     } catch (e) {
       log('TaskDataSourceImpl.deleteReminder: $e');
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> toggleCompleted(int id) async {
-    try {
-      final Database db = await dbHelper.database;
-      final task = await get(id);
-      final newTask = task.toggleCompleted();
-      await db.update(
-        'tasks',
-        newTask.toMap(),
-        where: 'id = ?',
-        whereArgs: [id],
-        conflictAlgorithm: ConflictAlgorithm.abort,
-      );
-    } catch (e) {
-      log('TaskDataSourceImpl.toggleCompleted: $e');
       rethrow;
     }
   }

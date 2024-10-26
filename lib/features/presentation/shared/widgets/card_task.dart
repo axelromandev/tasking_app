@@ -173,15 +173,20 @@ class _TaskDetails extends StatelessWidget {
                 color: isCompleted ? Colors.grey : Colors.white,
               ),
               const Gap(4.0),
-              Text(
-                notes,
-                style: isCompleted
-                    ? style.bodySmall?.copyWith(
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.grey,
-                      )
-                    : style.bodySmall?.copyWith(color: Colors.white),
+              SizedBox(
+                width: 200,
+                child: Text(
+                  notes,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: isCompleted
+                      ? style.bodySmall?.copyWith(
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.grey,
+                        )
+                      : style.bodySmall?.copyWith(color: Colors.white),
+                ),
               ),
             ],
           ),

@@ -43,12 +43,7 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
-  Future<void> update(Task task) {
-    return _dataSource.update(task);
-  }
-
-  @override
-  Future<void> toggleCompleted(int id) {
-    return _dataSource.toggleCompleted(id);
+  Future<void> update(int id, Map<String, dynamic> data) {
+    return _dataSource.update(id, data);
   }
 }
