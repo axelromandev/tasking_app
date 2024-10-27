@@ -18,8 +18,6 @@ class TaskPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //SLANG: translation labels
-
     final style = Theme.of(context).textTheme;
 
     final provider = ref.watch(taskProvider(taskId));
@@ -154,7 +152,7 @@ class _AddReminder extends ConsumerWidget {
             iconColor: hasReminder ? Colors.white : Colors.white70,
             textColor: hasReminder ? Colors.white : Colors.white70,
             leading: const Icon(IconsaxOutline.notification),
-            title: const Text('Recordarme'),
+            title: Text(S.modals.taskAdd.addReminder),
           ),
         ),
         if (provider.reminder != null)
@@ -188,7 +186,7 @@ class _AddDateline extends ConsumerWidget {
             iconColor: hasDateline ? Colors.white : Colors.white70,
             textColor: hasDateline ? Colors.white : Colors.white70,
             leading: const Icon(IconsaxOutline.calendar_2),
-            title: const Text('Fecha límite'),
+            title: Text(S.modals.taskAdd.addDateline),
           ),
         ),
         if (provider.reminder != null)
@@ -217,7 +215,7 @@ class _AddStepsTask extends ConsumerWidget {
       iconColor: colorPrimary,
       textColor: colorPrimary,
       leading: const Icon(IconsaxOutline.add),
-      title: const Text('Agregar pasos'),
+      title: Text(S.pages.task.addSteps),
     );
   }
 }

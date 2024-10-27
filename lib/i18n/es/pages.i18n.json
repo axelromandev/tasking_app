@@ -52,7 +52,8 @@
   "task": {
     "placeholderTitle": "Título",
     "placeholderNote": "Nota",
-    "edited": "Editado $time"
+    "edited": "Editado $time",
+    "addSteps": "Agregar pasos"
   },
   "settings": {
     "title": "Ajustes",
