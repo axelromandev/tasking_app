@@ -23,8 +23,8 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
-  Future<List<Task>> getReminders() {
-    return _dataSource.getReminders();
+  Future<List<Task>> getImportant() {
+    return _dataSource.getImportant();
   }
 
   @override

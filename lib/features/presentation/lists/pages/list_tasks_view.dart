@@ -114,6 +114,9 @@ class _BuildTasks extends ConsumerWidget {
               onToggleCompleted: () => ref
                   .read(listTasksProvider(listId).notifier)
                   .onToggleCompleted(provider.pending[i].id),
+              onToggleImportant: () => ref
+                  .read(listTasksProvider(listId).notifier)
+                  .onToggleImportant(provider.pending[i].id),
             ),
           ),
           const Gap(defaultPadding),
@@ -135,6 +138,9 @@ class _BuildTasks extends ConsumerWidget {
                   onToggleCompleted: () => ref
                       .read(listTasksProvider(listId).notifier)
                       .onToggleCompleted(provider.completed[i].id),
+                  onToggleImportant: () => ref
+                      .read(listTasksProvider(listId).notifier)
+                      .onToggleImportant(provider.completed[i].id),
                 ),
               ),
             ),

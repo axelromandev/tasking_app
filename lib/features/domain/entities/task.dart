@@ -9,6 +9,7 @@ class Task {
     this.reminder,
     this.notes = '',
     this.completedAt,
+    this.isImportant = false,
     required this.updatedAt,
     required this.createdAt,
   });
@@ -47,6 +48,7 @@ class Task {
       completedAt: map['completed_at'] != null
           ? DateTime.parse(map['completed_at'] as String)
           : null,
+      isImportant: map['is_important'] == 1,
       updatedAt: DateTime.parse(map['updated_at'] as String),
       createdAt: DateTime.parse(map['created_at'] as String),
     );
@@ -60,6 +62,7 @@ class Task {
       'reminder': reminder?.toDatabaseFormat(),
       'notes': notes,
       'completed_at': completedAt?.toDatabaseFormat(),
+      'is_important': isImportant ? 1 : 0,
       'updated_at': updatedAt.toDatabaseFormat(),
       'created_at': createdAt.toDatabaseFormat(),
     };
@@ -73,6 +76,7 @@ class Task {
     DateTime? reminder,
     String? notes,
     DateTime? completedAt,
+    bool? isImportant,
     DateTime? updatedAt,
     DateTime? createdAt,
   }) {
@@ -84,6 +88,7 @@ class Task {
       reminder: reminder ?? this.reminder,
       notes: notes ?? this.notes,
       completedAt: completedAt ?? this.completedAt,
+      isImportant: isImportant ?? this.isImportant,
       updatedAt: updatedAt ?? this.updatedAt,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -96,6 +101,7 @@ class Task {
   final DateTime? reminder;
   final String notes;
   final DateTime? completedAt;
+  final bool isImportant;
   final DateTime updatedAt;
   final DateTime createdAt;
 }

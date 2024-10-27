@@ -11,12 +11,14 @@ class TaskCard extends StatelessWidget {
   const TaskCard({
     required this.onDismissed,
     required this.onToggleCompleted,
+    required this.onToggleImportant,
     required this.task,
     super.key,
   });
 
   final VoidCallback onDismissed;
   final VoidCallback onToggleCompleted;
+  final VoidCallback onToggleImportant;
   final Task task;
 
   @override
@@ -62,7 +64,7 @@ class TaskCard extends StatelessWidget {
             ),
           );
         },
-        contentPadding: const EdgeInsets.only(right: defaultPadding),
+        contentPadding: EdgeInsets.zero,
         visualDensity: VisualDensity.compact,
         tileColor: AppColors.card,
         iconColor: isCompleted ? Colors.white70 : Colors.white,
@@ -70,7 +72,13 @@ class TaskCard extends StatelessWidget {
           onPressed: onToggleCompleted,
           icon: Icon(
             isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
-            size: 24,
+          ),
+        ),
+        trailing: IconButton(
+          onPressed: onToggleImportant,
+          iconSize: 20,
+          icon: Icon(
+            task.isImportant ? IconsaxBold.star_1 : IconsaxOutline.star,
           ),
         ),
         title: Text(

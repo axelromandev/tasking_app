@@ -36,6 +36,7 @@ class _Notifier extends StateNotifier<_State> {
         dateline: task.dateline,
         notes: task.notes,
         updatedAt: task.updatedAt,
+        isImportant: task.isImportant,
       );
     } catch (e) {
       log(e.toString(), name: 'TaskProvider');
@@ -58,6 +59,16 @@ class _Notifier extends StateNotifier<_State> {
       'updated_at': DateTime.now().toIso8601String(),
     }).then((_) {
       state = state.toggleCompleted();
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
+  }
+
+  void onToggleImportant() {
+    _taskRepository.update(taskId, {
+      'is_important': state.isImportant ? 0 : 1,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      state = state.copyWith(isImportant: !state.isImportant);
       ref.read(listTasksProvider(state.listId).notifier).refresh();
     });
   }
@@ -109,6 +120,7 @@ class _State {
     this.dateline,
     this.notes = '',
     this.updatedAt,
+    this.isImportant = false,
     this.isLoading = true,
   });
 
@@ -120,6 +132,7 @@ class _State {
   final DateTime? dateline;
   final String notes;
   final DateTime? updatedAt;
+  final bool isImportant;
   final bool isLoading;
 
   _State toggleCompleted() {
@@ -132,6 +145,7 @@ class _State {
       dateline: dateline,
       notes: notes,
       updatedAt: DateTime.now(),
+      isImportant: isImportant,
       isLoading: isLoading,
     );
   }
@@ -145,6 +159,7 @@ class _State {
     DateTime? dateline,
     String? notes,
     DateTime? updatedAt,
+    bool? isImportant,
     bool? isLoading,
   }) {
     return _State(
@@ -156,6 +171,7 @@ class _State {
       dateline: dateline ?? this.dateline,
       notes: notes ?? this.notes,
       updatedAt: updatedAt ?? this.updatedAt,
+      isImportant: isImportant ?? this.isImportant,
       isLoading: isLoading ?? this.isLoading,
     );
   }

@@ -269,6 +269,13 @@ class _TitleInputField extends ConsumerWidget {
               onChanged: notifier.onTitleChanged,
             ),
           ),
+          IconButton(
+            onPressed: notifier.onToggleImportant,
+            color: isCompleted ? Colors.white60 : Colors.white,
+            icon: Icon(
+              (provider.isImportant) ? IconsaxBold.star_1 : IconsaxOutline.star,
+            ),
+          ),
         ],
       ),
     );

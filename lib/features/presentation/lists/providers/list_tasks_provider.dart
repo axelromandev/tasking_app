@@ -74,6 +74,16 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
+  void onToggleImportant(int taskId) {
+    _tasksRepository.get(taskId).then((task) {
+      _tasksRepository.update(taskId, {
+        'is_important': task.isImportant ? 0 : 1,
+      }).then((_) {
+        refresh();
+      });
+    });
+  }
+
   void onDelete() {
     _listTasksRepository.delete(listId).then((_) {
       refreshAll();

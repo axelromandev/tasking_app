@@ -114,17 +114,18 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
-  Future<List<Task>> getReminders() async {
+  Future<List<Task>> getImportant() async {
     try {
       final Database db = await dbHelper.database;
       final data = await db.query(
         'tasks',
-        where: 'reminder IS NOT NULL',
+        where: 'is_important = ?',
+        whereArgs: [1],
       );
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();
     } catch (e) {
-      log('TaskDataSourceImpl.getReminders: $e');
+      log('TaskDataSourceImpl.getImportant: $e');
       return <Task>[];
     }
   }

@@ -4,7 +4,7 @@ abstract class TaskRepository {
   Future<Task> get(int id);
   Future<List<Task>> getByDate(DateTime value);
   Future<List<Task>> getByListId(int id);
-  Future<List<Task>> getReminders();
+  Future<List<Task>> getImportant();
   Future<Task> add(Task task);
   Future<void> update(int id, Map<String, dynamic> data);
   Future<void> delete(int id);

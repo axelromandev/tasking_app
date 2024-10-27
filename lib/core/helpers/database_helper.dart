@@ -38,6 +38,7 @@ class DatabaseHelper {
             "reminder" TIMESTAMP,
             "notes" TEXT,
             "completed_at" TIMESTAMP,
+            "is_important" BOOLEAN DEFAULT false,
             "updated_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY ("list_id") REFERENCES "lists" ("id")

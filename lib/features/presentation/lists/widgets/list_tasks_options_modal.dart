@@ -45,7 +45,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                           ),
                         );
                       },
-                      leading: const Icon(IconsaxOutline.edit, size: 18),
+                      leading: const Icon(IconsaxOutline.edit),
                       title: Text(
                         S.modals.listTasksOptions.list.edit,
                       ),
@@ -54,7 +54,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                     onTap: () {
                       // TODO: Implement sorting tasks modal
                     },
-                    leading: const Icon(IconsaxOutline.sort, size: 18),
+                    leading: const Icon(IconsaxOutline.sort),
                     title: const Text('Ordenar por'), // SLANG: Sort by, button
                   ),
                 ],
@@ -70,7 +70,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       notifier.onMarkCompleteAllTasks();
                     },
                     enabled: provider.pending.isNotEmpty,
-                    leading: const Icon(IconsaxOutline.tick_circle, size: 18),
+                    leading: const Icon(IconsaxOutline.tick_circle),
                     title:
                         Text(S.modals.listTasksOptions.tasks.completeAllTasks),
                   ),
@@ -80,7 +80,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       notifier.onMarkIncompleteAllTasks();
                     },
                     enabled: provider.completed.isNotEmpty,
-                    leading: const Icon(IconsaxOutline.record, size: 18),
+                    leading: const Icon(IconsaxOutline.record),
                     title: Text(
                       S.modals.listTasksOptions.tasks.incompleteAllTasks,
                     ),
@@ -91,7 +91,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       notifier.onDeleteCompletedAllTasks();
                     },
                     enabled: provider.completed.isNotEmpty,
-                    leading: const Icon(IconsaxOutline.minus_cirlce, size: 18),
+                    leading: const Icon(IconsaxOutline.minus_cirlce),
                     title: Text(
                       S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
                     ),
@@ -112,7 +112,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       notifier.onDelete();
                     }
                   },
-                  leading: const Icon(IconsaxOutline.trash, size: 18),
+                  leading: const Icon(IconsaxOutline.trash),
                   title: Text(S.modals.listTasksOptions.list.delete),
                   iconColor: Colors.redAccent,
                   textColor: Colors.redAccent,
