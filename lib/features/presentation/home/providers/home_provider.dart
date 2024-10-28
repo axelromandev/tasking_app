@@ -1,4 +1,3 @@
-import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/features/presentation/calendar/calendar.dart';
@@ -26,7 +25,7 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(
       typeView: TypeView.lists,
       listId: listId,
-      body: ListTasksView(listId: listId),
+      body: ListTasksView(listId),
     );
     scaffoldKey.currentState?.closeDrawer();
   }
@@ -38,11 +37,7 @@ class _Notifier extends StateNotifier<_State> {
       case TypeView.calendar:
         return const CalendarView();
       case TypeView.tasks:
-        return const ListTasksView(
-          listId: 1,
-          icon: IconsaxOutline.home_2,
-          title: 'All Tasks',
-        );
+        return const ListTasksView(1);
       default:
         return const MyDayView();
     }

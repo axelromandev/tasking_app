@@ -71,7 +71,7 @@ class DatabaseHelper {
           'title': S.pages.home.drawer.tasks,
           'is_default': 1,
           'icon_json':
-              '{"codePoint":59842,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
+              '{"codePoint":59843,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
         },
         conflictAlgorithm: ConflictAlgorithm.abort,
       );

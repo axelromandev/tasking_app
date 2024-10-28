@@ -9,15 +9,8 @@ import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class ListTasksView extends ConsumerWidget {
-  const ListTasksView({
-    required this.listId,
-    this.icon,
-    this.title,
-    super.key,
-  });
+  const ListTasksView(this.listId, {super.key});
 
-  final IconData? icon;
-  final String? title;
   final int listId;
 
   @override
@@ -37,11 +30,11 @@ class ListTasksView extends ConsumerWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(icon ?? provider.list!.icon, color: colorPrimary),
+            Icon(provider.list!.icon, color: colorPrimary),
             const Gap(12),
             Flexible(
               child: Text(
-                title ?? provider.list!.title,
+                provider.list!.title,
                 style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
               ),
             ),

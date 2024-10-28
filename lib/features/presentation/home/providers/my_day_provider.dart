@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
@@ -21,7 +23,7 @@ class _Notifier extends StateNotifier<_State> {
         state = state.copyWith(tasks: tasks);
       });
     } catch (e) {
-      print(e);
+      log(e.toString(), name: 'myDayProvider');
     } finally {
       state = state.copyWith(isLoading: false);
     }
