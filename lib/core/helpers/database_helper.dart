@@ -68,7 +68,7 @@ class DatabaseHelper {
       await txn.insert(
         'lists',
         {
-          'title': 'All Tasks',
+          'title': S.pages.home.drawer.tasks,
           'is_default': 1,
           'icon_json':
               '{"codePoint":59842,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
