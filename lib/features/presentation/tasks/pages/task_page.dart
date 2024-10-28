@@ -30,51 +30,97 @@ class TaskPage extends ConsumerWidget {
 
     final list = ref.watch(listTasksProvider(provider.listId)).list!;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.pop(),
-          icon: const Icon(IconsaxOutline.arrow_left_2),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => context.pop(),
+            icon: const Icon(IconsaxOutline.arrow_left_2),
+          ),
+          title: Text(list.title, style: style.bodyLarge),
+          centerTitle: false,
+          actions: [
+            IconButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                builder: (context) => TaskMoreBottomSheet(
+                  taskId: taskId,
+                  pageContext: context,
+                ),
+              ),
+              iconSize: 18,
+              icon: const Icon(IconsaxOutline.more),
+            ),
+          ],
         ),
-        title: Text(list.title, style: style.bodyLarge),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (context) => TaskMoreBottomSheet(
-                taskId: taskId,
-                pageContext: context,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _TitleInputField(taskId),
+              _StepsBuilder(taskId),
+              _AddStepsTask(taskId),
+              _AddDateline(taskId),
+              _AddReminder(taskId),
+              _Notes(taskId),
+            ],
+          ),
+        ),
+        bottomNavigationBar: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                S.pages.task.edited(time: HumanFormat.time(provider.updatedAt)),
+                style: style.bodySmall?.copyWith(color: Colors.white60),
+              ),
+              if (Platform.isAndroid) const Gap(defaultPadding),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _StepsBuilder extends ConsumerWidget {
+  const _StepsBuilder(this.taskId);
+
+  final int taskId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final steps = ref.watch(taskProvider(taskId)).steps;
+
+    if (steps.isEmpty) {
+      return const SizedBox();
+    }
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: 2,
+        itemBuilder: (context, index) {
+          return TextFormField(
+            initialValue: 'Step $index',
+            decoration: InputDecoration(
+              filled: false,
+              contentPadding: EdgeInsets.zero,
+              prefixIcon: IconButton(
+                onPressed: () {},
+                iconSize: 20,
+                icon: const Icon(IconsaxOutline.record),
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {},
+                iconSize: 16,
+                icon: const Icon(IconsaxOutline.more),
               ),
             ),
-            iconSize: 18,
-            icon: const Icon(IconsaxOutline.more),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _TitleInputField(taskId),
-            _AddStepsTask(taskId),
-            _AddDateline(taskId),
-            _AddReminder(taskId),
-            _Notes(taskId),
-          ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              S.pages.task.edited(time: HumanFormat.time(provider.updatedAt)),
-              style: style.bodySmall?.copyWith(color: Colors.white60),
-            ),
-            if (Platform.isAndroid) const Gap(defaultPadding),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -200,22 +246,68 @@ class _AddDateline extends ConsumerWidget {
   }
 }
 
-class _AddStepsTask extends ConsumerWidget {
+class _AddStepsTask extends ConsumerStatefulWidget {
   const _AddStepsTask(this.taskId);
 
   final int taskId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_AddStepsTask> createState() => _AddStepsTaskState();
+}
+
+class _AddStepsTaskState extends ConsumerState<_AddStepsTask> {
+  TextEditingController controller = TextEditingController();
+  FocusNode focusNode = FocusNode();
+  bool hasFocus = false;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    return ListTile(
-      onTap: () {},
-      shape: const RoundedRectangleBorder(),
-      iconColor: colorPrimary,
-      textColor: colorPrimary,
-      leading: const Icon(IconsaxOutline.add),
-      title: Text(S.pages.task.addSteps),
+    final notifier = ref.read(taskProvider(widget.taskId).notifier);
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: TextFormField(
+        controller: controller,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          filled: false,
+          contentPadding: EdgeInsets.zero,
+          prefixIcon: hasFocus
+              ? const Icon(
+                  IconsaxOutline.record,
+                  size: 20,
+                  color: Colors.white70,
+                )
+              : Icon(
+                  IconsaxOutline.add,
+                  color: colorPrimary,
+                ),
+          hintText: hasFocus ? null : 'Add steps',
+          hintStyle: hasFocus
+              ? null
+              : style.bodyLarge?.copyWith(
+                  color: colorPrimary,
+                ),
+        ),
+        onFieldSubmitted: (value) {
+          notifier.onAddStep(value).then((_) {
+            controller.clear();
+          });
+        },
+      ),
     );
   }
 }

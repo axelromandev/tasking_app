@@ -108,6 +108,10 @@ class _Notifier extends StateNotifier<_State> {
       });
     });
   }
+
+  Future<void> onAddStep(String value) async {
+    print(value);
+  }
 }
 
 class _State {
