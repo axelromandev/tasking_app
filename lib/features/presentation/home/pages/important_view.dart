@@ -45,8 +45,15 @@ class ImportantView extends ConsumerWidget {
           ),
         ],
       ),
-      body: provider.tasks.isEmpty ? _EmptyTasks() : const Placeholder(),
+      body: provider.tasks.isEmpty ? _EmptyTasks() : _TasksBuilder(),
     );
+  }
+}
+
+class _TasksBuilder extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return const Column();
   }
 }
 
@@ -69,7 +76,7 @@ class _EmptyTasks extends ConsumerWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                IconsaxOutline.star_slash,
+                IconsaxOutline.star,
                 size: 38.0,
                 color: colorPrimary,
               ),

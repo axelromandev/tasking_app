@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/home/home.dart';
+import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -86,6 +87,7 @@ class _Drawer extends ConsumerWidget {
               icon: IconsaxOutline.sun_1,
               title: S.pages.home.drawer.home,
               isSelected: typeView == TypeView.home,
+              tasksLength: ref.watch(myDayProvider).tasks.length,
               onTap: () {
                 notifier.onChangeView(TypeView.home);
                 notifier.scaffoldKey.currentState?.closeDrawer();
@@ -95,6 +97,7 @@ class _Drawer extends ConsumerWidget {
               icon: IconsaxOutline.star,
               title: S.pages.home.drawer.important,
               isSelected: typeView == TypeView.important,
+              tasksLength: ref.watch(importantProvider).tasks.length,
               onTap: () {
                 notifier.onChangeView(TypeView.important);
                 notifier.scaffoldKey.currentState?.closeDrawer();
@@ -110,9 +113,10 @@ class _Drawer extends ConsumerWidget {
               },
             ),
             _DrawerItem(
-              icon: IconsaxOutline.home_2,
+              icon: IconsaxOutline.clipboard_tick,
               title: S.pages.home.drawer.tasks,
               isSelected: typeView == TypeView.tasks,
+              tasksLength: ref.watch(listTasksProvider(1)).pending.length,
               onTap: () {
                 notifier.onChangeView(TypeView.tasks);
                 notifier.scaffoldKey.currentState?.closeDrawer();
@@ -182,15 +186,18 @@ class _DrawerItem extends ConsumerWidget {
     required this.title,
     required this.icon,
     this.isSelected = false,
+    this.tasksLength = 0,
   });
 
   final VoidCallback onTap;
   final String title;
   final IconData icon;
   final bool isSelected;
+  final int tasksLength;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return ListTile(
@@ -199,6 +206,19 @@ class _DrawerItem extends ConsumerWidget {
       textColor: isSelected ? colorPrimary : null,
       title: Text(title),
       onTap: onTap,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: defaultPadding,
+      ),
+      trailing: (tasksLength > 0)
+          ? Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Text('$tasksLength', style: style.bodySmall),
+            )
+          : null,
     );
   }
 }
