@@ -97,30 +97,37 @@ class _StepsBuilder extends ConsumerWidget {
       return const SizedBox();
     }
 
+    final style = Theme.of(context).textTheme;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          return TextFormField(
-            initialValue: 'Step $index',
-            decoration: InputDecoration(
-              filled: false,
-              contentPadding: EdgeInsets.zero,
-              prefixIcon: IconButton(
-                onPressed: () {},
-                iconSize: 20,
-                icon: const Icon(IconsaxOutline.record),
-              ),
-              suffixIcon: IconButton(
-                onPressed: () {},
-                iconSize: 16,
-                icon: const Icon(IconsaxOutline.more),
-              ),
+        itemCount: steps.length,
+        itemBuilder: (_, i) => TextFormField(
+          initialValue: steps[i].title,
+          style: style.bodyLarge?.copyWith(
+            color: Colors.white70,
+          ),
+          decoration: InputDecoration(
+            filled: false,
+            contentPadding: EdgeInsets.zero,
+            prefixIcon: IconButton(
+              onPressed: () {
+                // TODO: Implement toggle step completed
+              },
+              iconSize: 20,
+              icon: const Icon(IconsaxOutline.record),
             ),
-          );
-        },
+            suffixIcon: IconButton(
+              onPressed: () {
+                // TODO: Implement more options for step
+              },
+              iconSize: 16,
+              icon: const Icon(IconsaxOutline.more),
+            ),
+          ),
+        ),
       ),
     );
   }

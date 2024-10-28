@@ -1,5 +1,5 @@
-class StepsTask {
-  StepsTask({
+class StepTask {
+  StepTask({
     required this.id,
     required this.taskId,
     required this.title,
@@ -7,8 +7,8 @@ class StepsTask {
     this.createdAt,
   });
 
-  factory StepsTask.fromMap(Map<String, dynamic> map) {
-    return StepsTask(
+  factory StepTask.fromMap(Map<String, dynamic> map) {
+    return StepTask(
       id: map['id'] as int,
       taskId: map['task_id'] as int,
       title: map['title'] as String,

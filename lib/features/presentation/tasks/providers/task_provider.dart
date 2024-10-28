@@ -23,11 +23,13 @@ class _Notifier extends StateNotifier<_State> {
 
   // final _notificationService = NotificationService();
   final _taskRepository = TaskRepositoryImpl();
+  final _stepRepository = StepRepositoryImpl();
   final _debounce = Debounce();
 
   Future<void> _initialize() async {
     try {
       final task = await _taskRepository.get(taskId);
+      final steps = await _stepRepository.getAll(taskId);
       state = state.copyWith(
         listId: task.listId,
         title: task.title,
@@ -35,6 +37,7 @@ class _Notifier extends StateNotifier<_State> {
         reminder: task.reminder,
         dateline: task.dateline,
         notes: task.notes,
+        steps: steps,
         updatedAt: task.updatedAt,
         isImportant: task.isImportant,
       );
@@ -110,7 +113,12 @@ class _Notifier extends StateNotifier<_State> {
   }
 
   Future<void> onAddStep(String value) async {
-    print(value);
+    await _stepRepository.add(taskId, value).then((_) {
+      _stepRepository.getAll(taskId).then((steps) {
+        state = state.copyWith(steps: steps);
+      });
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
   }
 }
 
@@ -130,7 +138,7 @@ class _State {
 
   final int listId;
   final String title;
-  final List<StepsTask> steps;
+  final List<StepTask> steps;
   final DateTime? completedAt;
   final DateTime? reminder;
   final DateTime? dateline;
@@ -157,7 +165,7 @@ class _State {
   _State copyWith({
     int? listId,
     String? title,
-    List<StepsTask>? steps,
+    List<StepTask>? steps,
     DateTime? completedAt,
     DateTime? reminder,
     DateTime? dateline,
