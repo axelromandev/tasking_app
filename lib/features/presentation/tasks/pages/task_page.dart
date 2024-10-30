@@ -101,52 +101,41 @@ class _StepsBuilder extends ConsumerWidget {
 
     final style = Theme.of(context).textTheme;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: steps.length,
-            itemBuilder: (_, i) => TextFormField(
-              initialValue: steps[i].title,
-              style: style.bodyLarge?.copyWith(
-                color: steps[i].completedAt != null
-                    ? Colors.white60
-                    : Colors.white,
-                decoration: steps[i].completedAt != null
-                    ? TextDecoration.lineThrough
-                    : null,
-                decorationColor: Colors.grey,
-              ),
-              decoration: InputDecoration(
-                filled: false,
-                contentPadding: EdgeInsets.zero,
-                prefixIcon: IconButton(
-                  onPressed: () {
-                    notifier.toggleStepCompleted(steps[i].id);
-                  },
-                  iconSize: 20,
-                  icon: steps[i].completedAt != null
-                      ? const Icon(IconsaxOutline.tick_circle)
-                      : const Icon(IconsaxOutline.record),
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () => showModalBottomSheet(
-                    context: context,
-                    builder: (_) => StepMoreBottomSheet(
-                      stepId: steps[i].id,
-                      taskId: taskId,
-                    ),
-                  ),
-                  icon: const Icon(IconsaxOutline.more),
-                ),
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: steps.length,
+      itemBuilder: (_, i) => TextFormField(
+        initialValue: steps[i].title,
+        style: style.bodyLarge?.copyWith(
+          color: (steps[i].completedAt != null) ? Colors.white60 : Colors.white,
+          decoration: (steps[i].completedAt != null)
+              ? TextDecoration.lineThrough
+              : null,
+          decorationColor: Colors.grey,
+        ),
+        decoration: InputDecoration(
+          filled: false,
+          contentPadding: EdgeInsets.zero,
+          prefixIcon: IconButton(
+            onPressed: () {
+              notifier.toggleStepCompleted(steps[i].id);
+            },
+            iconSize: 20,
+            icon: steps[i].completedAt != null
+                ? const Icon(IconsaxOutline.tick_circle)
+                : const Icon(IconsaxOutline.record),
+          ),
+          suffixIcon: IconButton(
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (_) => StepMoreBottomSheet(
+                stepId: steps[i].id,
+                taskId: taskId,
               ),
             ),
+            icon: const Icon(IconsaxOutline.more),
           ),
-          const Divider(),
-        ],
+        ),
       ),
     );
   }
@@ -308,37 +297,39 @@ class _AddStepsTaskState extends ConsumerState<_AddStepsTask> {
 
     final notifier = ref.read(taskProvider(widget.taskId).notifier);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: TextFormField(
-        controller: controller,
-        focusNode: focusNode,
-        decoration: InputDecoration(
-          filled: false,
-          contentPadding: EdgeInsets.zero,
-          prefixIcon: hasFocus
-              ? const Icon(
-                  IconsaxOutline.record,
-                  size: 20,
-                  color: Colors.white70,
-                )
-              : Icon(
-                  IconsaxOutline.add,
-                  color: colorPrimary,
-                ),
-          hintText: hasFocus ? null : 'Add steps',
-          hintStyle: hasFocus
-              ? null
-              : style.bodyLarge?.copyWith(
-                  color: colorPrimary,
-                ),
+    return Column(
+      children: [
+        TextFormField(
+          controller: controller,
+          focusNode: focusNode,
+          decoration: InputDecoration(
+            filled: false,
+            contentPadding: EdgeInsets.zero,
+            prefixIcon: hasFocus
+                ? const Icon(
+                    IconsaxOutline.record,
+                    size: 20,
+                    color: Colors.white70,
+                  )
+                : Icon(
+                    IconsaxOutline.add,
+                    color: colorPrimary,
+                  ),
+            hintText: hasFocus ? null : 'Add steps',
+            hintStyle: hasFocus
+                ? null
+                : style.bodyLarge?.copyWith(
+                    color: colorPrimary,
+                  ),
+          ),
+          onFieldSubmitted: (value) {
+            notifier.onAddStep(value).then((_) {
+              controller.clear();
+            });
+          },
         ),
-        onFieldSubmitted: (value) {
-          notifier.onAddStep(value).then((_) {
-            controller.clear();
-          });
-        },
-      ),
+        const Divider(),
+      ],
     );
   }
 }
@@ -358,49 +349,46 @@ class _TitleInputField extends ConsumerWidget {
 
     final bool isCompleted = provider.completedAt != null;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IconButton(
-            onPressed: notifier.onToggleCompleted,
-            color: isCompleted ? Colors.white60 : Colors.white,
-            icon: Icon(
-              isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconButton(
+          onPressed: notifier.onToggleCompleted,
+          color: isCompleted ? Colors.white60 : Colors.white,
+          icon: Icon(
+            isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
           ),
-          const Gap(8),
-          Flexible(
-            child: TextFormField(
-              initialValue: provider.title,
-              style: style.titleLarge?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: isCompleted ? Colors.grey : Colors.white,
-                decoration: isCompleted ? TextDecoration.lineThrough : null,
-                decorationColor: isCompleted ? Colors.grey : Colors.white,
-              ),
-              autocorrect: false,
-              maxLines: null,
-              cursorColor: colorPrimary,
-              textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                filled: false,
-                contentPadding: EdgeInsets.zero,
-                hintText: S.pages.task.placeholderTitle,
-              ),
-              onChanged: notifier.onTitleChanged,
+        ),
+        const Gap(8),
+        Flexible(
+          child: TextFormField(
+            initialValue: provider.title,
+            style: style.titleLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: isCompleted ? Colors.grey : Colors.white,
+              decoration: isCompleted ? TextDecoration.lineThrough : null,
+              decorationColor: isCompleted ? Colors.grey : Colors.white,
             ),
-          ),
-          IconButton(
-            onPressed: notifier.onToggleImportant,
-            color: isCompleted ? Colors.white60 : Colors.white,
-            icon: Icon(
-              (provider.isImportant) ? IconsaxBold.star_1 : IconsaxOutline.star,
+            autocorrect: false,
+            maxLines: null,
+            cursorColor: colorPrimary,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              filled: false,
+              contentPadding: EdgeInsets.zero,
+              hintText: S.pages.task.placeholderTitle,
             ),
+            onChanged: notifier.onTitleChanged,
           ),
-        ],
-      ),
+        ),
+        IconButton(
+          onPressed: notifier.onToggleImportant,
+          color: isCompleted ? Colors.white60 : Colors.white,
+          icon: Icon(
+            (provider.isImportant) ? IconsaxBold.star_1 : IconsaxOutline.star,
+          ),
+        ),
+      ],
     );
   }
 }

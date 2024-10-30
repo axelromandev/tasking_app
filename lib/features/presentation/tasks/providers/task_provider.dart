@@ -169,6 +169,7 @@ class _Notifier extends StateNotifier<_State> {
     _stepRepository.update(stepId, {'completed_at': completedAt}).then((_) {
       _stepRepository.getAll(taskId).then((steps) {
         state = state.copyWith(steps: steps);
+        ref.read(listTasksProvider(state.listId).notifier).refresh();
       });
     });
   }
