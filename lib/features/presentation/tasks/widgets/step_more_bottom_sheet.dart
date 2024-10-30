@@ -42,7 +42,7 @@ class StepMoreBottomSheet extends ConsumerWidget {
                 leading: const Icon(IconsaxOutline.trash),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
-                title: const Text('Eliminar'),
+                title: const Text('Eliminar paso'),
               ),
             ),
           ],

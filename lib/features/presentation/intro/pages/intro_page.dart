@@ -80,7 +80,6 @@ class IntroPage extends ConsumerWidget {
               const Spacer(),
               Text(S.pages.intro.disclaimer),
               CustomFilledButton(
-                height: 60,
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: defaultPadding),
                 onPressed: () => ref.read(introProvider).call(context),

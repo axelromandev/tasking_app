@@ -12,7 +12,7 @@ class CustomFilledButton extends ConsumerWidget {
     this.margin,
     this.padding,
     this.elevation,
-    this.height,
+    this.height = 56,
     this.width,
     this.textStyle,
     this.side,
@@ -47,7 +47,7 @@ class CustomFilledButton extends ConsumerWidget {
 
     if (icon != null) {
       return Container(
-        height: 56,
+        height: height,
         width: width,
         margin: margin,
         padding: padding,

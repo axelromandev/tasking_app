@@ -28,19 +28,12 @@ class TaskMoreBottomSheet extends ConsumerWidget {
           children: [
             Card(
               child: ListTile(
-                onTap: () {},
-                leading: const Icon(IconsaxOutline.shuffle),
-                title: const Text('Move to another list'),
-              ),
-            ),
-            Card(
-              child: ListTile(
                 onTap: () {
                   context.pop();
                   notifier.onDeleteTask(pageContext);
                 },
                 leading: const Icon(IconsaxOutline.trash),
-                title: const Text('Delete'),
+                title: const Text('Eliminar tarea'),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

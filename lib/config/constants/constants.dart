@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const double defaultPadding = 16.0;
-const double defaultRadius = 8.0;
+const double defaultRadius = 12.0;
 
 class AppColors {
   static const Color card = Color(0xFF292A2C);

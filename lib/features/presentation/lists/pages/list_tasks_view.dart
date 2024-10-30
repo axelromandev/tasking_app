@@ -61,9 +61,11 @@ class ListTasksView extends ConsumerWidget {
         ),
         child: SafeArea(
           child: Card(
-            margin: const EdgeInsets.all(defaultPadding),
+            margin: const EdgeInsets.symmetric(
+              horizontal: defaultPadding,
+              vertical: 8,
+            ),
             child: ListTile(
-              visualDensity: VisualDensity.compact,
               onTap: () => showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
