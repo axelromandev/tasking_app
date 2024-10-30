@@ -28,13 +28,6 @@ class StepMoreBottomSheet extends ConsumerWidget {
           children: [
             Card(
               child: ListTile(
-                onTap: () {},
-                leading: const Icon(IconsaxOutline.status_up),
-                title: const Text('Convertir en una tarea'),
-              ),
-            ),
-            Card(
-              child: ListTile(
                 onTap: () {
                   context.pop();
                   notifier.deleteStep(stepId);

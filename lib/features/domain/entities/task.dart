@@ -1,4 +1,5 @@
 import 'package:tasking/core/core.dart';
+import 'package:tasking/features/domain/domain.dart';
 
 class Task {
   Task({
@@ -54,6 +55,19 @@ class Task {
     );
   }
 
+  final int id;
+  final int listId;
+  final String title;
+  final DateTime? dateline;
+  final DateTime? reminder;
+  final String notes;
+  final DateTime? completedAt;
+  final bool isImportant;
+  final DateTime updatedAt;
+  final DateTime createdAt;
+
+  List<StepTask> steps = [];
+
   Map<String, dynamic> toMap() {
     return {
       'list_id': listId,
@@ -93,15 +107,4 @@ class Task {
       createdAt: createdAt ?? this.createdAt,
     );
   }
-
-  final int id;
-  final int listId;
-  final String title;
-  final DateTime? dateline;
-  final DateTime? reminder;
-  final String notes;
-  final DateTime? completedAt;
-  final bool isImportant;
-  final DateTime updatedAt;
-  final DateTime createdAt;
 }

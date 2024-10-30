@@ -31,19 +31,27 @@ class _Notifier extends StateNotifier<_State> {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   final _tasksRepository = TaskRepositoryImpl();
+  final _stepRepository = StepRepositoryImpl();
   final _listTasksRepository = ListTasksRepositoryImpl();
 
   Future<void> refresh() async {
     try {
       final ListTasks list = await _listTasksRepository.get(listId);
-      final tasks = await _tasksRepository.getByListId(list.id);
+      final List<Task> tasks = await _tasksRepository.getByListId(list.id);
+      final List<Task> pendingTasks = [];
+      final List<Task> completedTasks = [];
 
-      final pendingTasks =
-          tasks.where((task) => task.completedAt == null).toList();
+      for (final task in tasks) {
+        final steps = await _stepRepository.getAll(task.id);
+        task.steps = steps;
+        if (task.completedAt == null) {
+          pendingTasks.add(task);
+        } else {
+          completedTasks.add(task);
+        }
+      }
+
       pendingTasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
-
-      final completedTasks =
-          tasks.where((task) => task.completedAt != null).toList();
       completedTasks.sort((a, b) => a.completedAt!.compareTo(b.completedAt!));
 
       state = state.copyWith(

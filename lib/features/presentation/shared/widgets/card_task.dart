@@ -91,7 +91,8 @@ class TaskCard extends StatelessWidget {
                 )
               : style.bodyLarge,
         ),
-        subtitle: (task.dateline != null ||
+        subtitle: (task.steps.isNotEmpty ||
+                task.dateline != null ||
                 task.reminder != null ||
                 task.notes.isNotEmpty)
             ? _TaskDetails(
@@ -99,6 +100,7 @@ class TaskCard extends StatelessWidget {
                 reminder: task.reminder,
                 notes: task.notes,
                 isCompleted: isCompleted,
+                steps: task.steps,
               )
             : null,
       ),
@@ -112,90 +114,67 @@ class _TaskDetails extends StatelessWidget {
     required this.reminder,
     required this.notes,
     required this.isCompleted,
+    required this.steps,
   });
 
   final DateTime? dateline;
   final DateTime? reminder;
   final String notes;
   final bool isCompleted;
+  final List<StepTask> steps;
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
-    if (dateline == null && reminder == null && notes.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Column(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        if (steps.isNotEmpty)
+          Text(
+            '${steps.where((step) => step.completedAt != null).length} de ${steps.length}',
+            style: style.bodySmall,
+          ),
         if (dateline != null)
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                IconsaxOutline.calendar_1,
-                size: 12,
-                color: isCompleted ? Colors.grey : Colors.white,
+              const Text(' ・ '),
+              const Icon(
+                IconsaxOutline.calendar_2,
+                size: 14,
               ),
               const Gap(4.0),
-              Text(
-                DateFormat.yMMMMEEEEd().format(dateline!),
-                style: isCompleted
-                    ? style.bodySmall?.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.grey,
-                        color: Colors.grey,
-                      )
-                    : style.bodySmall,
-              ),
-            ],
-          ),
-        if (reminder != null)
-          Row(
-            children: [
-              Icon(
-                IconsaxOutline.notification,
-                size: 12,
-                color: isCompleted ? Colors.grey : Colors.white,
-              ),
-              const Gap(4.0),
-              Text(
-                DateFormat.yMMMMEEEEd().format(reminder!),
-                style: isCompleted
-                    ? style.bodySmall?.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.grey,
-                        color: Colors.grey,
-                      )
-                    : style.bodySmall,
-              ),
-            ],
-          ),
-        if (notes.isNotEmpty)
-          Row(
-            children: [
-              Icon(
-                IconsaxOutline.note_1,
-                size: 12,
-                color: isCompleted ? Colors.grey : Colors.white,
-              ),
-              const Gap(4.0),
-              SizedBox(
-                width: 200,
+              Flexible(
                 child: Text(
-                  notes,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  DateFormat('E, MMM d').format(dateline!),
                   style: isCompleted
                       ? style.bodySmall?.copyWith(
-                          color: Colors.grey,
                           decoration: TextDecoration.lineThrough,
                           decorationColor: Colors.grey,
+                          color: Colors.grey,
                         )
-                      : style.bodySmall?.copyWith(color: Colors.white),
+                      : style.bodySmall,
                 ),
               ),
+            ],
+          ),
+        if (reminder != null || notes.isNotEmpty)
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(' ・ '),
+              if (reminder != null)
+                const Icon(
+                  IconsaxOutline.notification,
+                  size: 14,
+                ),
+              const Gap(4.0),
+              if (notes.isNotEmpty)
+                const Icon(
+                  IconsaxOutline.note,
+                  size: 14,
+                ),
             ],
           ),
       ],
