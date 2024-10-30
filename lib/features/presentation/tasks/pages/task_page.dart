@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
@@ -249,9 +248,7 @@ class _AddDateline extends ConsumerWidget {
             textColor: hasDateline ? Colors.white : Colors.white70,
             leading: const Icon(IconsaxOutline.calendar_2),
             title: (provider.dateline != null)
-                ? Text(
-                    DateFormat('E, MMM d').format(provider.dateline!),
-                  )
+                ? Text(HumanFormat.datetime(provider.dateline))
                 : Text(S.modals.taskAdd.addDateline),
           ),
         ),

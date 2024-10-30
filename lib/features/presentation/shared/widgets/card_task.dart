@@ -1,8 +1,8 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -147,7 +147,7 @@ class _TaskDetails extends StatelessWidget {
               const Gap(4.0),
               Flexible(
                 child: Text(
-                  DateFormat('E, MMM d').format(dateline!),
+                  HumanFormat.datetime(dateline),
                   style: isCompleted
                       ? style.bodySmall?.copyWith(
                           decoration: TextDecoration.lineThrough,
