@@ -9,12 +9,12 @@ import 'package:tasking/i18n/i18n.dart';
 class TaskDatelineModal extends ConsumerStatefulWidget {
   const TaskDatelineModal({
     required this.value,
-    required this.onDelete,
+    this.onDelete,
     super.key,
   });
 
   final DateTime? value;
-  final VoidCallback onDelete;
+  final VoidCallback? onDelete;
 
   @override
   ConsumerState<TaskDatelineModal> createState() => _TaskDatelineModalState();
@@ -135,11 +135,11 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               title: Text(S.modals.taskDateline.pickDate),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 20),
             ),
-            if (widget.value != null) ...[
+            if (widget.onDelete != null && widget.value != null) ...[
               const Divider(),
               ListTile(
                 onTap: () {
-                  widget.onDelete();
+                  widget.onDelete!();
                   Navigator.pop(context);
                 },
                 visualDensity: VisualDensity.compact,

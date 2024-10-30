@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
@@ -245,6 +246,7 @@ class _AddDateline extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(taskProvider(taskId));
+    final notifier = ref.read(taskProvider(taskId).notifier);
 
     final bool hasDateline = provider.dateline != null;
 
@@ -252,17 +254,21 @@ class _AddDateline extends ConsumerWidget {
       children: [
         Flexible(
           child: ListTile(
-            onTap: () {},
+            onTap: () => notifier.onChangeDateline(context),
             shape: const RoundedRectangleBorder(),
             iconColor: hasDateline ? Colors.white : Colors.white70,
             textColor: hasDateline ? Colors.white : Colors.white70,
             leading: const Icon(IconsaxOutline.calendar_2),
-            title: Text(S.modals.taskAdd.addDateline),
+            title: (provider.dateline != null)
+                ? Text(
+                    DateFormat('E, MMM d').format(provider.dateline!),
+                  )
+                : Text(S.modals.taskAdd.addDateline),
           ),
         ),
-        if (provider.reminder != null)
+        if (provider.dateline != null)
           IconButton(
-            onPressed: () {},
+            onPressed: notifier.onRemoveDateline,
             iconSize: 20,
             icon: const Icon(Icons.close),
           ),

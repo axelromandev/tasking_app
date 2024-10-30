@@ -7,6 +7,7 @@ import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
+import 'package:tasking/features/presentation/tasks/tasks.dart';
 
 final taskProvider = StateNotifierProvider.family
     .autoDispose<_Notifier, _State, int>((ref, taskId) {
@@ -94,6 +95,36 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
+  // Dateline
+
+  void onChangeDateline(BuildContext context) {
+    showModalBottomSheet<DateTime?>(
+      context: context,
+      builder: (_) => TaskDatelineModal(value: state.dateline),
+    ).then((value) {
+      if (value == null) return;
+      _taskRepository.update(taskId, {
+        'dateline': value.toIso8601String(),
+        'updated_at': DateTime.now().toIso8601String(),
+      }).then((_) {
+        state = state.copyWith(dateline: value);
+        ref.read(listTasksProvider(state.listId).notifier).refresh();
+      });
+    });
+  }
+
+  void onRemoveDateline() {
+    _taskRepository.update(taskId, {
+      'dateline': null,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      state = state.removeDateline();
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
+  }
+
+  // Notes
+
   void onNoteChanged(String value) {
     _debounce.run(() async {
       final String note = value.trim();
@@ -176,6 +207,20 @@ class _State {
       completedAt: completedAt == null ? DateTime.now() : null,
       reminder: reminder,
       dateline: dateline,
+      notes: notes,
+      updatedAt: DateTime.now(),
+      isImportant: isImportant,
+      isLoading: isLoading,
+    );
+  }
+
+  _State removeDateline() {
+    return _State(
+      listId: listId,
+      title: title,
+      steps: steps,
+      completedAt: completedAt,
+      reminder: reminder,
       notes: notes,
       updatedAt: DateTime.now(),
       isImportant: isImportant,

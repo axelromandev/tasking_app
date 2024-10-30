@@ -139,7 +139,7 @@ class _TaskDetails extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(' ・ '),
+              if (steps.isNotEmpty) const Text(' ・ '),
               const Icon(
                 IconsaxOutline.calendar_2,
                 size: 14,
@@ -163,7 +163,7 @@ class _TaskDetails extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(' ・ '),
+              if (dateline != null) const Text(' ・ '),
               if (reminder != null)
                 const Icon(
                   IconsaxOutline.notification,
