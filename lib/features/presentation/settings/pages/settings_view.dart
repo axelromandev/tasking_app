@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -163,7 +164,9 @@ class SettingsView extends ConsumerWidget {
                     title: S.pages.settings.moreInformation.privacyPolicies,
                   ),
                   _ListTile(
-                    onTap: () {}, //TODO: share app with friends
+                    onTap: () => Share.shareUri(
+                      Uri.parse(Urls.appStoreUrl),
+                    ),
                     icon: IconsaxOutline.share,
                     title: S.pages.settings.moreInformation.share,
                     borderRadius: const BorderRadius.only(

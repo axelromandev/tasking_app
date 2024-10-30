@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 const double defaultPadding = 16.0;
@@ -27,4 +29,11 @@ class Urls {
   static String repo = 'https://github.com/ingedevs/tasking_app';
   static String privacyPolicy =
       'https://raw.githubusercontent.com/ingedevs/tasking_app/main/privacy-policy.md';
+
+  static String get appStoreUrl {
+    //TODO: Cambiar las url cuando las apps estén en las tiendas
+    return Platform.isIOS
+        ? 'https://apps.apple.com/us/app/tasking/id1581530737'
+        : 'https://play.google.com/store/apps/details?id=com.ingedevs.tasking';
+  }
 }

@@ -26,6 +26,7 @@ dependencies:
   package_info_plus: ^8.1.0
   path: ^1.9.0
   permission_handler: ^11.3.1
+  share_plus: ^10.1.1
   shared_preferences: ^2.3.2
   slang: ^4.1.0
   slang_flutter: ^4.1.0
