@@ -112,12 +112,33 @@ class _Notifier extends StateNotifier<_State> {
     });
   }
 
+  // Steps
+
   Future<void> onAddStep(String value) async {
     await _stepRepository.add(taskId, value).then((_) {
       _stepRepository.getAll(taskId).then((steps) {
         state = state.copyWith(steps: steps);
       });
       ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
+  }
+
+  void deleteStep(int stepId) {
+    _stepRepository.delete(stepId).then((_) {
+      final steps = state.steps.where((s) => s.id != stepId).toList();
+      state = state.copyWith(steps: steps);
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    });
+  }
+
+  void toggleStepCompleted(int stepId) {
+    final StepTask step = state.steps.firstWhere((s) => s.id == stepId);
+    final String? completedAt =
+        step.completedAt == null ? DateTime.now().toIso8601String() : null;
+    _stepRepository.update(stepId, {'completed_at': completedAt}).then((_) {
+      _stepRepository.getAll(taskId).then((steps) {
+        state = state.copyWith(steps: steps);
+      });
     });
   }
 }

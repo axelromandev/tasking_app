@@ -39,4 +39,33 @@ class StepDataSourceImpl implements StepDataSource {
       return [];
     }
   }
+
+  @override
+  Future<void> delete(int stepId) async {
+    try {
+      final db = await dbHelper.database;
+      await db.delete(
+        'steps',
+        where: 'id = ?',
+        whereArgs: [stepId],
+      );
+    } catch (e) {
+      log(e.toString(), name: 'StepDataSourceImpl.delete');
+    }
+  }
+
+  @override
+  Future<void> update(int stepId, Map<String, dynamic> data) async {
+    try {
+      final db = await dbHelper.database;
+      await db.update(
+        'steps',
+        data,
+        where: 'id = ?',
+        whereArgs: [stepId],
+      );
+    } catch (e) {
+      log(e.toString(), name: 'StepDataSourceImpl.update');
+    }
+  }
 }

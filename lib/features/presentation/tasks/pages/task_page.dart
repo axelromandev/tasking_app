@@ -92,6 +92,7 @@ class _StepsBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final steps = ref.watch(taskProvider(taskId)).steps;
+    final notifier = ref.read(taskProvider(taskId).notifier);
 
     if (steps.isEmpty) {
       return const SizedBox();
@@ -101,33 +102,50 @@ class _StepsBuilder extends ConsumerWidget {
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: steps.length,
-        itemBuilder: (_, i) => TextFormField(
-          initialValue: steps[i].title,
-          style: style.bodyLarge?.copyWith(
-            color: Colors.white70,
-          ),
-          decoration: InputDecoration(
-            filled: false,
-            contentPadding: EdgeInsets.zero,
-            prefixIcon: IconButton(
-              onPressed: () {
-                // TODO: Implement toggle step completed
-              },
-              iconSize: 20,
-              icon: const Icon(IconsaxOutline.record),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: steps.length,
+            itemBuilder: (_, i) => TextFormField(
+              initialValue: steps[i].title,
+              style: style.bodyLarge?.copyWith(
+                color: steps[i].completedAt != null
+                    ? Colors.white60
+                    : Colors.white,
+                decoration: steps[i].completedAt != null
+                    ? TextDecoration.lineThrough
+                    : null,
+                decorationColor: Colors.grey,
+              ),
+              decoration: InputDecoration(
+                filled: false,
+                contentPadding: EdgeInsets.zero,
+                prefixIcon: IconButton(
+                  onPressed: () {
+                    notifier.toggleStepCompleted(steps[i].id);
+                  },
+                  iconSize: 20,
+                  icon: steps[i].completedAt != null
+                      ? const Icon(IconsaxOutline.tick_circle)
+                      : const Icon(IconsaxOutline.record),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    builder: (_) => StepMoreBottomSheet(
+                      stepId: steps[i].id,
+                      taskId: taskId,
+                    ),
+                  ),
+                  icon: const Icon(IconsaxOutline.more),
+                ),
+              ),
             ),
-            suffixIcon: IconButton(
-              onPressed: () {
-                // TODO: Implement more options for step
-              },
-              iconSize: 16,
-              icon: const Icon(IconsaxOutline.more),
-            ),
           ),
-        ),
+          const Divider(),
+        ],
       ),
     );
   }

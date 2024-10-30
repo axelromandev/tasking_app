@@ -16,4 +16,14 @@ class StepRepositoryImpl implements StepRepository {
   Future<List<StepTask>> getAll(int taskId) {
     return _dataSource.getAll(taskId);
   }
+
+  @override
+  Future<void> delete(int stepId) {
+    return _dataSource.delete(stepId);
+  }
+
+  @override
+  Future<void> update(int stepId, Map<String, dynamic> data) {
+    return _dataSource.update(stepId, data);
+  }
 }

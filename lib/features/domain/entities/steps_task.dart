@@ -24,4 +24,14 @@ class StepTask {
   final String title;
   final DateTime? completedAt;
   final DateTime? createdAt;
+
+  StepTask toggleCompleted() {
+    return StepTask(
+      id: id,
+      taskId: taskId,
+      title: title,
+      completedAt: completedAt == null ? DateTime.now() : null,
+      createdAt: createdAt,
+    );
+  }
 }
