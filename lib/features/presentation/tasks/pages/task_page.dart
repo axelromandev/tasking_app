@@ -7,7 +7,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
-import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -28,8 +27,6 @@ class TaskPage extends ConsumerWidget {
       );
     }
 
-    final list = ref.watch(listTasksProvider(provider.listId)).list!;
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -38,7 +35,7 @@ class TaskPage extends ConsumerWidget {
             onPressed: () => context.pop(),
             icon: const Icon(IconsaxOutline.arrow_left_2),
           ),
-          title: Text(list.title, style: style.bodyLarge),
+          title: Text(provider.listTitle, style: style.bodyLarge),
           centerTitle: false,
           actions: [
             IconButton(

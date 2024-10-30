@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
+import 'package:tasking/features/presentation/shared/shared.dart';
 
 class MyDayView extends ConsumerWidget {
   const MyDayView({super.key});
@@ -44,7 +45,6 @@ class MyDayView extends ConsumerWidget {
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
           child: ListTile(
-            visualDensity: VisualDensity.compact,
             onTap: () {},
             leading: const Icon(IconsaxOutline.add),
             title: const Text('Add a task'),
@@ -64,6 +64,18 @@ class _TasksBuilder extends ConsumerWidget {
       return const EmptyTasksToday();
     }
 
-    return Container();
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(12),
+      itemCount: tasks.length,
+      itemBuilder: (_, i) {
+        return TaskCard(
+          onDismissed: () {},
+          onToggleCompleted: () {},
+          onToggleImportant: () {},
+          task: tasks[i],
+        );
+      },
+    );
   }
 }

@@ -23,6 +23,7 @@ class _Notifier extends StateNotifier<_State> {
   final int taskId;
 
   // final _notificationService = NotificationService();
+  final _listRepository = ListTasksRepositoryImpl();
   final _taskRepository = TaskRepositoryImpl();
   final _stepRepository = StepRepositoryImpl();
   final _debounce = Debounce();
@@ -31,8 +32,10 @@ class _Notifier extends StateNotifier<_State> {
     try {
       final task = await _taskRepository.get(taskId);
       final steps = await _stepRepository.getAll(taskId);
+      final list = await _listRepository.get(task.listId);
       state = state.copyWith(
         listId: task.listId,
+        listTitle: list.title,
         title: task.title,
         completedAt: task.completedAt,
         reminder: task.reminder,
@@ -178,6 +181,7 @@ class _Notifier extends StateNotifier<_State> {
 class _State {
   _State({
     this.listId = 0,
+    this.listTitle = '',
     this.title = '',
     this.steps = const [],
     this.completedAt,
@@ -190,6 +194,7 @@ class _State {
   });
 
   final int listId;
+  final String listTitle;
   final String title;
   final List<StepTask> steps;
   final DateTime? completedAt;
@@ -203,6 +208,7 @@ class _State {
   _State toggleCompleted() {
     return _State(
       listId: listId,
+      listTitle: listTitle,
       title: title,
       steps: steps,
       completedAt: completedAt == null ? DateTime.now() : null,
@@ -218,6 +224,7 @@ class _State {
   _State removeDateline() {
     return _State(
       listId: listId,
+      listTitle: listTitle,
       title: title,
       steps: steps,
       completedAt: completedAt,
@@ -231,6 +238,7 @@ class _State {
 
   _State copyWith({
     int? listId,
+    String? listTitle,
     String? title,
     List<StepTask>? steps,
     DateTime? completedAt,
@@ -243,6 +251,7 @@ class _State {
   }) {
     return _State(
       listId: listId ?? this.listId,
+      listTitle: listTitle ?? this.listTitle,
       title: title ?? this.title,
       steps: steps ?? this.steps,
       completedAt: completedAt ?? this.completedAt,
