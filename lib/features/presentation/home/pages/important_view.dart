@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
+import 'package:tasking/features/presentation/shared/shared.dart';
 
 class ImportantView extends ConsumerWidget {
   const ImportantView({super.key});
@@ -53,7 +55,22 @@ class ImportantView extends ConsumerWidget {
 class _TasksBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Column();
+    final tasks = ref.read(importantProvider).tasks;
+
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(12),
+      itemCount: tasks.length,
+      itemBuilder: (_, i) {
+        final Task task = tasks[i];
+        return TaskCard(
+          task: task,
+          onDismissed: () {},
+          onToggleCompleted: () {},
+          onToggleImportant: () {},
+        );
+      },
+    );
   }
 }
 
