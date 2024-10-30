@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -64,16 +65,25 @@ class _TasksBuilder extends ConsumerWidget {
       return const EmptyTasksToday();
     }
 
+    final notifier = ref.read(myDayProvider.notifier);
+
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.all(12),
       itemCount: tasks.length,
       itemBuilder: (_, i) {
+        final Task task = tasks[i];
         return TaskCard(
-          onDismissed: () {},
-          onToggleCompleted: () {},
-          onToggleImportant: () {},
-          task: tasks[i],
+          onDismissed: () {
+            notifier.onDeleteTask(task.id);
+          },
+          onToggleCompleted: () {
+            notifier.onToggleCompleted(task.id);
+          },
+          onToggleImportant: () {
+            notifier.onToggleImportant(task.id);
+          },
+          task: task,
         );
       },
     );

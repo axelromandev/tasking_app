@@ -28,6 +28,33 @@ class _Notifier extends StateNotifier<_State> {
       state = state.copyWith(isLoading: false);
     }
   }
+
+  void onDeleteTask(int taskId) {
+    _taskRepository.delete(taskId).then((_) {
+      _initialize();
+    });
+  }
+
+  void onToggleCompleted(int taskId) {
+    _taskRepository.get(taskId).then((task) {
+      final completedAt = task.completedAt == null ? DateTime.now() : null;
+      _taskRepository.update(taskId, {
+        'completed_at': completedAt?.toIso8601String(),
+      }).then((_) {
+        _initialize();
+      });
+    });
+  }
+
+  void onToggleImportant(int taskId) {
+    _taskRepository.get(taskId).then((task) {
+      _taskRepository.update(taskId, {
+        'is_important': task.isImportant ? 0 : 1,
+      }).then((_) {
+        _initialize();
+      });
+    });
+  }
 }
 
 class _State {

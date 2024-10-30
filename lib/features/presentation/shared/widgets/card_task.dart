@@ -84,7 +84,7 @@ class TaskCard extends StatelessWidget {
         title: Text(
           task.title,
           style: isCompleted
-              ? style.bodyMedium?.copyWith(
+              ? style.bodyLarge?.copyWith(
                   decoration: TextDecoration.lineThrough,
                   decorationColor: Colors.grey,
                   color: Colors.grey,
