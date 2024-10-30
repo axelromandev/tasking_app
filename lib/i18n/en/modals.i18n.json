@@ -45,5 +45,11 @@
   },
   "archivedLists": {
     "title": "Archived"
+  },
+  "stepsMore": {
+    "delete": "Delete step"
+  },
+  "taskMore": {
+    "delete": "Delete task"
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class TaskMoreBottomSheet extends ConsumerWidget {
   const TaskMoreBottomSheet({
@@ -16,8 +17,6 @@ class TaskMoreBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: TaskOptionsModal Implement onTa
-
     final notifier = ref.read(taskProvider(taskId).notifier);
 
     return SafeArea(
@@ -33,7 +32,7 @@ class TaskMoreBottomSheet extends ConsumerWidget {
                   notifier.onDeleteTask(pageContext);
                 },
                 leading: const Icon(IconsaxOutline.trash),
-                title: const Text('Eliminar tarea'),
+                title: Text(S.modals.taskMore.delete),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

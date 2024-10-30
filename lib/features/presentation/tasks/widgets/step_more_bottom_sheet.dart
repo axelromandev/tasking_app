@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class StepMoreBottomSheet extends ConsumerWidget {
   const StepMoreBottomSheet({
@@ -16,8 +17,6 @@ class StepMoreBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: StepMoreBottomSheet Implement build method.
-
     final notifier = ref.read(taskProvider(taskId).notifier);
 
     return SafeArea(
@@ -35,7 +34,7 @@ class StepMoreBottomSheet extends ConsumerWidget {
                 leading: const Icon(IconsaxOutline.trash),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
-                title: const Text('Eliminar paso'),
+                title: Text(S.modals.stepsMore.delete),
               ),
             ),
           ],
