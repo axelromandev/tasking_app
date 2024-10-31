@@ -4,3 +4,9 @@ input_file_pattern: .i18n.json
 output_directory: lib/i18n/generated
 translate_var: S
 output_file_name: translations.g.dart
+
+gpt:
+  model: gpt-3.5-turbo
+  description: |
+    "Tasking App" is a cross-platform task application where you can organize your tasks
+    in lists, create deadlines, reminders and manage tasks on the calendar in a simpler way.
