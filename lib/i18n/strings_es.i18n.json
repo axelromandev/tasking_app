@@ -67,20 +67,18 @@
   },
   "features": {
     "home": {
-      "title": "Inicio",
-      "drawer": {
-        "home": "Mi día",
-        "important": "Importante",
-        "calendar": "Calendario",
-        "tasks": "Tareas",
-        "add_lists": "Nueva lista",
-        "settings": "Ajustes"
-      },
       "myDay": {
         "title": "My Day",
         "empty": {
           "title": "¡Disfruta tu día!",
           "subtitle": "No tienes tareas para hoy"
+        }
+      },
+      "important": {
+        "title": "Importante",
+        "empty": {
+          "title": "¡Bien hecho!",
+          "subtitle": "No tienes tareas importantes por ahora."
         }
       }
     },

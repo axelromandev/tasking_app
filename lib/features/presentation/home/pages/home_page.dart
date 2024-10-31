@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/home/home.dart';
-import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -85,7 +84,7 @@ class _Drawer extends ConsumerWidget {
             const Gap(8),
             _DrawerItem(
               icon: IconsaxOutline.sun_1,
-              title: S.features.home.drawer.home,
+              title: S.features.home.myDay.title,
               isSelected: typeView == TypeView.home,
               tasksLength: ref.watch(myDayProvider).tasks.length,
               onTap: () {
@@ -95,7 +94,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.star,
-              title: S.features.home.drawer.important,
+              title: S.features.home.important.title,
               isSelected: typeView == TypeView.important,
               tasksLength: ref.watch(importantProvider).tasks.length,
               onTap: () {
@@ -105,7 +104,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.calendar_1,
-              title: S.features.home.drawer.calendar,
+              title: S.features.calendar.title,
               isSelected: typeView == TypeView.calendar,
               onTap: () {
                 notifier.onChangeView(TypeView.calendar);
@@ -114,7 +113,7 @@ class _Drawer extends ConsumerWidget {
             ),
             _DrawerItem(
               icon: IconsaxOutline.clipboard_tick,
-              title: S.features.home.drawer.tasks,
+              title: S.features.tasks.title,
               isSelected: typeView == TypeView.tasks,
               tasksLength: ref.watch(listTasksProvider(1)).pending.length,
               onTap: () {
@@ -126,7 +125,7 @@ class _Drawer extends ConsumerWidget {
             ListTile(
               leading: const Icon(IconsaxOutline.add),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 16),
-              title: Text(S.features.home.drawer.add_lists),
+              title: Text(S.features.lists.page.addButton),
               contentPadding: const EdgeInsets.only(
                 left: defaultPadding,
                 right: defaultPadding,
@@ -139,7 +138,7 @@ class _Drawer extends ConsumerWidget {
             const Divider(height: 0),
             _DrawerItem(
               icon: IconsaxOutline.setting,
-              title: S.features.home.drawer.settings,
+              title: S.features.settings.title,
               onTap: () => context.push('/settings'),
             ),
             const Gap(8),

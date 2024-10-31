@@ -6,13 +6,13 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class ImportantView extends ConsumerWidget {
   const ImportantView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // SLANG: Add translate labels here.
     // TODO: ImportantView Implement build method.
 
     final style = Theme.of(context).textTheme;
@@ -34,7 +34,7 @@ class ImportantView extends ConsumerWidget {
             Icon(IconsaxOutline.star, color: colorPrimary),
             const Gap(12),
             Text(
-              'Important',
+              S.features.home.important.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
@@ -100,7 +100,7 @@ class _EmptyTasks extends ConsumerWidget {
             ),
             const Gap(defaultPadding),
             Text(
-              '¡Buen trabajo!',
+              S.features.home.important.empty.title,
               textAlign: TextAlign.center,
               style: style.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class _EmptyTasks extends ConsumerWidget {
             ),
             const Gap(8.0),
             Text(
-              'No tienes tareas importantes por ahora.',
+              S.features.home.important.empty.subtitle,
               textAlign: TextAlign.center,
               style: style.bodyMedium?.copyWith(
                 color: Colors.white70,
