@@ -46,6 +46,7 @@
     },
     "buttons": {
       "add": "Agregar",
+      "addTask": "Agregar una tarea",
       "cancel": "Cancelar",
       "delete": "Eliminar",
       "update": "Actualizar",
@@ -74,6 +75,13 @@
         "tasks": "Tareas",
         "add_lists": "Nueva lista",
         "settings": "Ajustes"
+      },
+      "myDay": {
+        "title": "My Day",
+        "empty": {
+          "title": "¡Disfruta tu día!",
+          "subtitle": "No tienes tareas para hoy"
+        }
       }
     },
     "intro": {

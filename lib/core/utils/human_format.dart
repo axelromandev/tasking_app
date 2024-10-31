@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class HumanFormat {
   static String time(DateTime? dateTime) {
@@ -10,7 +11,6 @@ class HumanFormat {
     return '$hour:$minute $period';
   }
 
-  // SLANG: datetime Today, Tomorrow
   static String datetime(DateTime? dateTime) {
     if (dateTime == null) return '';
     final nowYear = DateTime.now().year;
@@ -18,13 +18,13 @@ class HumanFormat {
     if (dateTime.year == nowYear &&
         dateTime.month == DateTime.now().month &&
         dateTime.day == DateTime.now().day) {
-      return 'Today';
+      return S.features.tasks.datelineLabels.today;
     }
 
     if (dateTime.year == nowYear &&
         dateTime.month == DateTime.now().month &&
         dateTime.day == DateTime.now().day + 1) {
-      return 'Tomorrow';
+      return S.features.tasks.datelineLabels.tomorrow;
     }
 
     if (dateTime.year == nowYear) {

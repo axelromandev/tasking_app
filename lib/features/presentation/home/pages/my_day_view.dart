@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
-import 'package:tasking/features/presentation/home/providers/my_day_provider.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class MyDayView extends ConsumerWidget {
   const MyDayView({super.key});
@@ -16,17 +16,13 @@ class MyDayView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
 
-    // SLANG: Translate the labels
-
-    final provider = ref.watch(myDayProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'My Day',
+              S.features.home.myDay.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
             const Gap(6),
@@ -38,9 +34,7 @@ class MyDayView extends ConsumerWidget {
         ),
         centerTitle: false,
       ),
-      body: (provider.isLoading)
-          ? const Center(child: CircularProgressIndicator())
-          : _TasksBuilder(),
+      body: _TasksBuilder(),
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: SafeArea(
         child: Card(
@@ -59,9 +53,13 @@ class MyDayView extends ConsumerWidget {
 class _TasksBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(myDayProvider).tasks;
+    final provider = ref.watch(myDayProvider);
 
-    if (tasks.isEmpty) {
+    if (provider.isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (provider.tasks.isEmpty) {
       return const EmptyTasksToday();
     }
 
@@ -70,9 +68,9 @@ class _TasksBuilder extends ConsumerWidget {
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.all(12),
-      itemCount: tasks.length,
+      itemCount: provider.tasks.length,
       itemBuilder: (_, i) {
-        final Task task = tasks[i];
+        final Task task = provider.tasks[i];
         return TaskCard(
           onDismissed: () {
             notifier.onDeleteTask(task.id);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class EmptyTasksToday extends ConsumerWidget {
   const EmptyTasksToday({super.key});
@@ -22,12 +23,12 @@ class EmptyTasksToday extends ConsumerWidget {
           ),
           const Gap(8),
           Text(
-            '¡Disfruta tu día!',
+            S.features.home.myDay.empty.title,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const Gap(8),
           Text(
-            'No tienes tareas para hoy',
+            S.features.home.myDay.empty.subtitle,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],

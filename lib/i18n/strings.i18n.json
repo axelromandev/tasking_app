@@ -46,6 +46,7 @@
     },
     "buttons": {
       "add": "Add",
+      "addTask": "Add a task",
       "cancel": "Cancel",
       "delete": "Delete",
       "update": "Update",
@@ -74,6 +75,13 @@
         "tasks": "Tasks",
         "add_lists": "New list",
         "settings": "Settings"
+      },
+      "myDay": {
+        "title": "My Day",
+        "empty": {
+          "title": "Enjoy your day!",
+          "subtitle": "You have no tasks for today"
+        }
       }
     },
     "intro": {
