@@ -10,6 +10,7 @@ class EmptyTasksToday extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Center(
@@ -24,12 +25,14 @@ class EmptyTasksToday extends ConsumerWidget {
           const Gap(8),
           Text(
             S.features.home.myDay.empty.title,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: style.titleLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
           ),
           const Gap(8),
           Text(
             S.features.home.myDay.empty.subtitle,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: style.bodyLarge,
           ),
         ],
       ),

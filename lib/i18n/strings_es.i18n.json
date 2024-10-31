@@ -79,6 +79,10 @@
         "empty": {
           "title": "¡Bien hecho!",
           "subtitle": "No tienes tareas importantes por ahora."
+        },
+        "moreOptions": {
+          "showCompleted": "Mostrar tareas completadas",
+          "hideCompleted": "Ocultar tareas completadas"
         }
       }
     },

@@ -13,8 +13,6 @@ class ImportantView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: ImportantView Implement build method.
-
     final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
@@ -42,12 +40,48 @@ class ImportantView extends ConsumerWidget {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (_) => _MoreOptions(),
+            ),
             icon: const Icon(IconsaxOutline.more),
           ),
         ],
       ),
-      body: provider.tasks.isEmpty ? _EmptyTasks() : _TasksBuilder(),
+      body: _TasksBuilder(),
+    );
+  }
+}
+
+class _MoreOptions extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(importantProvider);
+    final notifier = ref.read(importantProvider.notifier);
+
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+          vertical: defaultPadding,
+          horizontal: 8,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Card(
+              child: ListTile(
+                onTap: notifier.toggleShowCompleted,
+                leading: provider.showCompleted
+                    ? const Icon(IconsaxOutline.tick_circle)
+                    : const Icon(IconsaxOutline.record),
+                title: provider.showCompleted
+                    ? Text(S.features.home.important.moreOptions.hideCompleted)
+                    : Text(S.features.home.important.moreOptions.showCompleted),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -57,66 +91,26 @@ class _TasksBuilder extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tasks = ref.read(importantProvider).tasks;
 
-    return ListView.builder(
+    if (tasks.isEmpty) {
+      return const EmptyImportantTasks();
+    }
+
+    final notifier = ref.read(importantProvider.notifier);
+
+    return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.all(12),
+      separatorBuilder: (_, __) => const Gap(8),
       itemCount: tasks.length,
       itemBuilder: (_, i) {
         final Task task = tasks[i];
         return TaskCard(
           task: task,
-          onDismissed: () {},
-          onToggleCompleted: () {},
-          onToggleImportant: () {},
+          onDismissed: () => notifier.delete(task.id),
+          onToggleCompleted: () => notifier.toggleCompleted(task),
+          onToggleImportant: () => notifier.uncheckImportant(task.id),
         );
       },
-    );
-  }
-}
-
-class _EmptyTasks extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-    final colorPrimary = ref.watch(colorThemeProvider);
-
-    return Center(
-      child: SizedBox(
-        width: 300,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(defaultPadding),
-              decoration: BoxDecoration(
-                color: colorPrimary.withOpacity(.06),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                IconsaxOutline.star,
-                size: 38.0,
-                color: colorPrimary,
-              ),
-            ),
-            const Gap(defaultPadding),
-            Text(
-              S.features.home.important.empty.title,
-              textAlign: TextAlign.center,
-              style: style.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const Gap(8.0),
-            Text(
-              S.features.home.important.empty.subtitle,
-              textAlign: TextAlign.center,
-              style: style.bodyMedium?.copyWith(
-                color: Colors.white70,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

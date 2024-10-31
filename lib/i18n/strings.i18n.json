@@ -79,6 +79,10 @@
         "empty": {
           "title": "Well done!",
           "subtitle": "You have no important tasks for now."
+        },
+        "moreOptions": {
+          "showCompleted": "Show completed tasks",
+          "hideCompleted": "Hide completed tasks"
         }
       }
     },
