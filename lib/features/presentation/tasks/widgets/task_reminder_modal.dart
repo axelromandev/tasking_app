@@ -77,7 +77,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               enabled: isEnabledLaterToday,
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: Text(S.modals.taskReminder.laterToday),
+              title: Text(S.features.tasks.reminderLabels.laterToday),
               trailing: isEnabledLaterToday
                   ? Text(
                       DateFormat.jm().format(laterToday),
@@ -91,7 +91,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: Text(S.modals.taskReminder.tomorrowMorning),
+              title: Text(S.features.tasks.reminderLabels.tomorrowMorning),
               trailing: Text(
                 '${S.common.labels.shortDays[tomorrow.weekday - 1]}, '
                 '${DateFormat.jm().format(tomorrow)}',
@@ -104,7 +104,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: Text(S.modals.taskReminder.nextWeek),
+              title: Text(S.features.tasks.reminderLabels.nextWeek),
               trailing: Text(
                 '${S.common.labels.shortDays[nextWeek.weekday - 1]}, '
                 '${DateFormat.jm().format(nextWeek)}',
@@ -144,7 +144,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.clock),
-              title: Text(S.modals.taskReminder.pickDateTime),
+              title: Text(S.features.tasks.reminderLabels.pickDateTime),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 20),
             ),
             if (widget.value != null) ...[
@@ -156,7 +156,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
                 },
                 visualDensity: VisualDensity.compact,
                 leading: const Icon(IconsaxOutline.trash),
-                title: Text(S.modals.taskReminder.remove),
+                title: Text(S.features.tasks.reminderLabels.remove),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

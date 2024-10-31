@@ -11,12 +11,12 @@ class TaskDeleteDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        S.dialogs.deleteTask.title,
+        S.features.tasks.deleteDialog.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
       content: Text(
-        S.dialogs.deleteTask.subtitle,
+        S.features.tasks.deleteDialog.subtitle,
         style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w300),
         textAlign: TextAlign.center,
       ),

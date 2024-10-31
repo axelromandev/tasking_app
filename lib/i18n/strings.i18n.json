@@ -1,0 +1,224 @@
+{
+  "common": {
+    "locale": "en",
+    "labels": {
+      "appName": "Tasking",
+      "language": "English",
+      "calendarDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      "shortDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      "shortMonths": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "longDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "longMonths": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "buttons": {
+      "add": "Add",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "update": "Update",
+      "confirm": "Confirm",
+      "restore": "Restore",
+      "save": "Save",
+      "accept": "Accept",
+      "select": "Select"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "Tomorrow morning",
+        "option2": "Tomorrow evening",
+        "option3": "Monday morning",
+        "option4": "Pick a date & time"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "title": "Home",
+      "drawer": {
+        "home": "My Day",
+        "important": "Important",
+        "calendar": "Calendar",
+        "tasks": "Tasks",
+        "add_lists": "New list",
+        "settings": "Settings"
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "A simple way to control your digital life",
+        "feature1": "Manage your time efficiently",
+        "feature2": "Local storage on the device",
+        "feature3": "Your data is private and secure",
+        "feature4": "Personalized reminders and notifications",
+        "disclaimer": "*This app still in beta, expect the unexpected behavior and UI changes*",
+        "button": "Get started"
+      },
+      "tutorial": {
+        "task1": "Tap the left checkbox to check",
+        "task2": "Tap the left checkbox to remove the check",
+        "task3": "Swipe left to delete this task",
+        "task4": "Tap the bottom right + to add a task",
+        "task5": "Tap to edit this task",
+        "task5note": "You can write notes here",
+        "task6": "Tap the upper right ⁝ to edit or delete this list",
+        "task7": "There are other easy-to-use features, so please try them out!",
+        "task8": "That´s it for the tutorial. I hope this app will be useful to you",
+        "task9": "Thank you for using this app!"
+      }
+    },
+    "calendar": {
+      "title": "Calendar"
+    },
+    "search": {},
+    "settings": {
+      "title": "Settings",
+      "page": {
+        "general": {
+          "title": "General",
+          "backup": "Backup / Restore"
+        },
+        "appearance": {
+          "title": "Appearance",
+          "theme": "Themes",
+          "language": "Language"
+        },
+        "moreInformation": {
+          "title": "More information",
+          "about": "About me",
+          "privacyPolicies": "Privacy policies",
+          "share": "Share"
+        }
+      },
+      "themes": {
+        "title": "Themes",
+        "description": "You can change the topic color here, this affects only things such as icons, buttons and other texts.",
+        "indicator": "selected"
+      },
+      "about": {
+        "title": "Tasking App",
+        "description": "This is a free open source application developed for the community, focused on the management of tasks/notes/reminders in a simple way and without many additional functions.",
+        "policyPrivacy": "Privacy Policies",
+        "repo": "GitHub repository"
+      }
+    },
+    "lists": {
+      "title": "Lists",
+      "page": {
+        "addButton": "New list",
+        "completed": "Completed  $length",
+        "emptyTasks": {
+          "title": "There is no tasks",
+          "subtitle": "Press + to add the task"
+        }
+      },
+      "emptyLists": {
+        "title": "There is no lists",
+        "subtitle": "Press + to add the list"
+      },
+      "addModal": {
+        "title": "Add a list"
+      },
+      "updateModal": {
+        "title": "Update list"
+      },
+      "deleteDialog": {
+        "title": "Delete list?",
+        "subtitle": "Are you sure you want to delete it?\nYou can't undo this action",
+        "warning": "You have $pendingTasks pending tasks"
+      },
+      "forms": {
+        "colorLabel": "Select a color",
+        "placeholder": "Enter list title",
+        "errorEmptyName": "Please enter a list title."
+      },
+      "moreOptions": {
+        "list": {
+          "title": "List",
+          "edit": "Edit list",
+          "delete": "Delete list"
+        },
+        "tasks": {
+          "incompleteAllTasks": "Incomplete all tasks",
+          "completeAllTasks": "Complete all tasks",
+          "deleteAllCompletedTasks": "Delete all completed task"
+        }
+      }
+    },
+    "tasks": {
+      "title": "Tasks",
+      "page": {
+        "placeholderTitle": "Title",
+        "placeholderNote": "Note",
+        "edited": "Edited $time",
+        "addSteps": "Add steps"
+      },
+      "addModal": {
+        "placeholder": "Add a task",
+        "errorEmptyName": "Please enter a task.",
+        "dateline": "Set dateline",
+        "reminder": "Reminder me",
+        "notes": "Notes"
+      },
+      "datelineLabels": {
+        "today": "Today",
+        "tomorrow": "Tomorrow",
+        "nextWeek": "Next week",
+        "pickDate": "Pick a date",
+        "remove": "Remove dateline"
+      },
+      "reminderLabels": {
+        "laterToday": "Later today",
+        "tomorrowMorning": "Tomorrow morning",
+        "nextWeek": "Next week",
+        "pickDateTime": "Pick a date and time",
+        "change": "Change reminder",
+        "remove": "Remove reminder"
+      },
+      "deleteDialog": {
+        "title": "Delete task?",
+        "subtitle": "Are you sure you want to delete it?\nYou can't undo this action"
+      },
+      "moreOptions": {
+        "delete": "Delete task"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "Eliminar paso"
+      }
+    }
+  }
+}

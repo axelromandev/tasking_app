@@ -29,7 +29,7 @@ class CalendarView extends ConsumerWidget {
                 Icon(IconsaxOutline.calendar_1, color: colorPrimary),
                 const Gap(12),
                 Text(
-                  S.pages.calendar.title,
+                  S.features.calendar.title,
                   style:
                       style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
                 ),

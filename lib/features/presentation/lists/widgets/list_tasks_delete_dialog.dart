@@ -19,7 +19,7 @@ class ListTaskDeleteDialog extends ConsumerWidget {
 
     return AlertDialog(
       title: Text(
-        S.dialogs.listTasksDelete.title,
+        S.features.lists.deleteDialog.title,
         style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         textAlign: TextAlign.center,
       ),
@@ -27,7 +27,7 @@ class ListTaskDeleteDialog extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            S.dialogs.listTasksDelete.subtitle,
+            S.features.lists.deleteDialog.subtitle,
             style: style.bodyLarge?.copyWith(fontWeight: FontWeight.w300),
             textAlign: TextAlign.center,
           ),
@@ -43,7 +43,7 @@ class ListTaskDeleteDialog extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                S.dialogs.listTasksDelete
+                S.features.lists.deleteDialog
                     .warning(pendingTasks: list.pendingTasksLength),
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w300,

@@ -34,7 +34,7 @@ class StepMoreBottomSheet extends ConsumerWidget {
                 leading: const Icon(IconsaxOutline.trash),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
-                title: Text(S.modals.stepsMore.delete),
+                title: Text(S.features.steps.moreOptions.delete),
               ),
             ),
           ],

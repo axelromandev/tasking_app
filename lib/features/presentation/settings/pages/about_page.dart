@@ -23,7 +23,7 @@ class AboutPage extends ConsumerWidget {
           icon: const Icon(IconsaxOutline.arrow_left_2),
         ),
         title: Text(
-          S.pages.settings.moreInformation.about,
+          S.features.settings.page.moreInformation.about,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,
@@ -44,10 +44,13 @@ class AboutPage extends ConsumerWidget {
             ),
           ),
           const Gap(defaultPadding),
-          Text(S.pages.about.title, style: style.headlineSmall),
+          Text(S.features.settings.about.title, style: style.headlineSmall),
           Padding(
             padding: const EdgeInsets.all(defaultPadding),
-            child: Text(S.pages.about.description, textAlign: TextAlign.center),
+            child: Text(
+              S.features.settings.about.description,
+              textAlign: TextAlign.center,
+            ),
           ),
           const Text.rich(
             TextSpan(
@@ -65,7 +68,7 @@ class AboutPage extends ConsumerWidget {
           const Gap(defaultPadding),
           TextButton(
             onPressed: () => launchUrlString(Urls.repo),
-            child: Text(S.pages.about.repo),
+            child: Text(S.features.settings.about.repo),
           ),
         ],
       ),

@@ -85,7 +85,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit() async {
     if (state.name.isEmpty) {
-      MyToast.show(S.modals.taskAdd.errorEmptyName);
+      MyToast.show(S.features.tasks.addModal.errorEmptyName);
       return;
     }
     try {

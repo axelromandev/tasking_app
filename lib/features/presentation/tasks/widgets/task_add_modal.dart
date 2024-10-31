@@ -48,7 +48,7 @@ class TaskAddModal extends ConsumerWidget {
               },
               decoration: InputDecoration(
                 filled: false,
-                hintText: S.modals.taskAdd.placeholder,
+                hintText: S.features.tasks.addModal.placeholder,
                 prefixIcon: const Icon(
                   IconsaxOutline.record,
                   color: Colors.white54,
@@ -77,7 +77,7 @@ class TaskAddModal extends ConsumerWidget {
                             DateFormat.yMMMd().format(provider.dateline!),
                             style: TextStyle(color: colorPrimary),
                           )
-                        : Text(S.modals.taskAdd.addDateline),
+                        : Text(S.features.tasks.addModal.dateline),
                   ),
                   TextButton.icon(
                     onPressed: () => notifier.openReminderModal(context),
@@ -89,7 +89,7 @@ class TaskAddModal extends ConsumerWidget {
                           : Colors.white,
                     ),
                     icon: const Icon(IconsaxOutline.notification, size: 20),
-                    label: Text(S.modals.taskAdd.addReminder),
+                    label: Text(S.features.tasks.addModal.reminder),
                   ),
                   TextButton.icon(
                     onPressed: () => notifier.openNotesModal(context),
@@ -101,7 +101,7 @@ class TaskAddModal extends ConsumerWidget {
                           : Colors.white,
                     ),
                     icon: const Icon(IconsaxOutline.note_1, size: 20),
-                    label: Text(S.modals.taskAdd.addNotes),
+                    label: Text(S.features.tasks.addModal.notes),
                   ),
                 ],
               ),

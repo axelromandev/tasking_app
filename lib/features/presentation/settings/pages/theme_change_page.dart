@@ -22,7 +22,7 @@ class ThemesChangePage extends ConsumerWidget {
           icon: const Icon(IconsaxOutline.arrow_left_2),
         ),
         title: Text(
-          S.pages.themes.title,
+          S.features.settings.themes.title,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         centerTitle: false,
@@ -32,7 +32,7 @@ class ThemesChangePage extends ConsumerWidget {
             padding: const EdgeInsets.only(bottom: 8),
             child: ListTile(
               title: Text(
-                S.pages.themes.description,
+                S.features.settings.themes.description,
                 style: const TextStyle(fontWeight: FontWeight.w300),
               ),
             ),
@@ -67,7 +67,7 @@ class ThemesChangePage extends ConsumerWidget {
               iconColor: color.value,
               title: Text(color.name),
               trailing: (selected.value == color.value.value)
-                  ? Text(S.pages.themes.indicator)
+                  ? Text(S.features.settings.themes.indicator)
                   : null,
             ),
           );

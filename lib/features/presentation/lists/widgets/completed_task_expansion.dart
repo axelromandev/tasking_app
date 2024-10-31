@@ -61,7 +61,7 @@ class _CompletedTaskExpansionState extends State<CompletedTaskExpansion> {
                     ),
                     const Gap(8),
                     Text(
-                      S.pages.listTasks.completed(
+                      S.features.lists.page.completed(
                         length: widget.length,
                       ),
                       style: style.bodySmall,

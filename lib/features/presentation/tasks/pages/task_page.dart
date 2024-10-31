@@ -69,7 +69,8 @@ class TaskPage extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                S.pages.task.edited(time: HumanFormat.time(provider.updatedAt)),
+                S.features.tasks.page
+                    .edited(time: HumanFormat.time(provider.updatedAt)),
                 style: style.bodySmall?.copyWith(color: Colors.white60),
               ),
               if (Platform.isAndroid) const Gap(defaultPadding),
@@ -177,7 +178,7 @@ class _Notes extends ConsumerWidget {
                   horizontal: 8,
                 ),
                 filled: false,
-                hintText: S.pages.task.placeholderNote,
+                hintText: S.features.tasks.page.placeholderNote,
                 hintStyle: style.bodyLarge?.copyWith(color: Colors.white70),
               ),
               onChanged: notifier.onNoteChanged,
@@ -209,7 +210,7 @@ class _AddReminder extends ConsumerWidget {
             iconColor: hasReminder ? Colors.white : Colors.white70,
             textColor: hasReminder ? Colors.white : Colors.white70,
             leading: const Icon(IconsaxOutline.notification),
-            title: Text(S.modals.taskAdd.addReminder),
+            title: Text(S.features.tasks.addModal.reminder),
           ),
         ),
         if (provider.reminder != null)
@@ -246,7 +247,7 @@ class _AddDateline extends ConsumerWidget {
             leading: const Icon(IconsaxOutline.calendar_2),
             title: (provider.dateline != null)
                 ? Text(HumanFormat.datetime(provider.dateline))
-                : Text(S.modals.taskAdd.addDateline),
+                : Text(S.features.tasks.addModal.dateline),
           ),
         ),
         if (provider.dateline != null)
@@ -370,7 +371,7 @@ class _TitleInputField extends ConsumerWidget {
             decoration: InputDecoration(
               filled: false,
               contentPadding: EdgeInsets.zero,
-              hintText: S.pages.task.placeholderTitle,
+              hintText: S.features.tasks.page.placeholderTitle,
             ),
             onChanged: notifier.onTitleChanged,
           ),

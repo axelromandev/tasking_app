@@ -5,7 +5,6 @@ export 'providers/list_tasks_add_provider.dart';
 export 'providers/list_tasks_provider.dart';
 export 'providers/list_tasks_update_provider.dart';
 export 'providers/lists_provider.dart';
-export 'widgets/archived_confirm_dialog.dart';
 export 'widgets/completed_task_expansion.dart';
 export 'widgets/icon_picker.dart';
 export 'widgets/list_tasks_delete_dialog.dart';

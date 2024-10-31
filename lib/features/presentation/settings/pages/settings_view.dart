@@ -30,7 +30,7 @@ class SettingsView extends ConsumerWidget {
             Icon(IconsaxOutline.setting, color: colorPrimary),
             const Gap(12),
             Text(
-              S.pages.settings.title,
+              S.features.settings.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
@@ -48,7 +48,7 @@ class SettingsView extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                S.pages.settings.general.title,
+                S.features.settings.page.general.title,
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w300,
                   color: Colors.grey,
@@ -64,7 +64,7 @@ class SettingsView extends ConsumerWidget {
                       // TODO: implement backup
                     },
                     icon: IconsaxOutline.refresh,
-                    title: S.pages.settings.general.backup,
+                    title: S.features.settings.page.general.backup,
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ],
@@ -77,7 +77,7 @@ class SettingsView extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                S.pages.settings.appearance.title,
+                S.features.settings.page.appearance.title,
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w300,
                   color: Colors.grey,
@@ -91,7 +91,7 @@ class SettingsView extends ConsumerWidget {
                   _ListTile(
                     onTap: () => context.push('/settings/themes'),
                     icon: IconsaxOutline.color_swatch,
-                    title: S.pages.settings.appearance.theme,
+                    title: S.features.settings.page.appearance.theme,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -102,7 +102,7 @@ class SettingsView extends ConsumerWidget {
                       //
                     },
                     icon: IconsaxOutline.translate,
-                    title: S.pages.settings.appearance.language,
+                    title: S.features.settings.page.appearance.language,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
@@ -118,7 +118,7 @@ class SettingsView extends ConsumerWidget {
                 left: 24.0,
               ),
               child: Text(
-                S.pages.settings.moreInformation.title,
+                S.features.settings.page.moreInformation.title,
                 style: style.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w300,
                   color: Colors.grey,
@@ -132,7 +132,7 @@ class SettingsView extends ConsumerWidget {
                   _ListTile(
                     onTap: () => context.push('/settings/about'),
                     icon: IconsaxOutline.info_circle,
-                    title: S.pages.settings.moreInformation.about,
+                    title: S.features.settings.page.moreInformation.about,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -161,14 +161,15 @@ class SettingsView extends ConsumerWidget {
                       );
                     },
                     icon: IconsaxOutline.shield,
-                    title: S.pages.settings.moreInformation.privacyPolicies,
+                    title: S
+                        .features.settings.page.moreInformation.privacyPolicies,
                   ),
                   _ListTile(
                     onTap: () => Share.shareUri(
                       Uri.parse(Urls.appStoreUrl),
                     ),
                     icon: IconsaxOutline.share,
-                    title: S.pages.settings.moreInformation.share,
+                    title: S.features.settings.page.moreInformation.share,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),

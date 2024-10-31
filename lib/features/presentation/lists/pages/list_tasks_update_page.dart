@@ -34,7 +34,7 @@ class ListTasksUpdatePage extends ConsumerWidget {
             ),
             const Gap(12),
             Text(
-              S.modals.listTasks.titleUpdate,
+              S.features.lists.updateModal.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
@@ -54,7 +54,7 @@ class ListTasksUpdatePage extends ConsumerWidget {
               cursorColor: colorPrimary,
               maxLines: null,
               decoration: InputDecoration(
-                hintText: S.modals.listTasks.placeholder,
+                hintText: S.features.lists.forms.placeholder,
                 hintStyle: style.bodyLarge?.copyWith(
                   color: Colors.white54,
                 ),

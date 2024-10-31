@@ -69,7 +69,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar),
-              title: Text(S.modals.taskDateline.today),
+              title: Text(S.features.tasks.datelineLabels.today),
               trailing: Text(
                 S.common.labels.longDays[now.weekday - 1],
                 style: const TextStyle(color: Colors.grey),
@@ -81,7 +81,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_2),
-              title: Text(S.modals.taskDateline.tomorrow),
+              title: Text(S.features.tasks.datelineLabels.tomorrow),
               trailing: Text(
                 S.common.labels.longDays[(now.weekday) % 7],
                 style: const TextStyle(color: Colors.grey),
@@ -93,7 +93,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_1),
-              title: Text(S.modals.taskDateline.nextWeek),
+              title: Text(S.features.tasks.datelineLabels.nextWeek),
               trailing: Text(
                 S.common.labels.longDays[nextWeek.weekday - 1],
                 style: const TextStyle(color: Colors.grey),
@@ -132,7 +132,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_search),
-              title: Text(S.modals.taskDateline.pickDate),
+              title: Text(S.features.tasks.datelineLabels.pickDate),
               trailing: const Icon(IconsaxOutline.arrow_right_3, size: 20),
             ),
             if (widget.onDelete != null && widget.value != null) ...[
@@ -144,7 +144,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
                 },
                 visualDensity: VisualDensity.compact,
                 leading: const Icon(IconsaxOutline.trash),
-                title: Text(S.modals.taskDateline.remove),
+                title: Text(S.features.tasks.datelineLabels.remove),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

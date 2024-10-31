@@ -35,7 +35,7 @@ class _Notifier extends StateNotifier<_State> {
 
   Future<void> onSubmit(BuildContext context) async {
     if (state.title.isEmpty) {
-      MyToast.show(S.modals.listTasks.errorEmptyName);
+      MyToast.show(S.features.lists.forms.errorEmptyName);
       return;
     }
     final newList = ListTasks.create(

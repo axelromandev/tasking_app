@@ -10,6 +10,7 @@ class HumanFormat {
     return '$hour:$minute $period';
   }
 
+  // SLANG: datetime Today, Tomorrow
   static String datetime(DateTime? dateTime) {
     if (dateTime == null) return '';
     final nowYear = DateTime.now().year;

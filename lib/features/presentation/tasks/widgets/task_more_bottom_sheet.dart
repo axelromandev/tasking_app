@@ -32,7 +32,7 @@ class TaskMoreBottomSheet extends ConsumerWidget {
                   notifier.onDeleteTask(pageContext);
                 },
                 leading: const Icon(IconsaxOutline.trash),
-                title: Text(S.modals.taskMore.delete),
+                title: Text(S.features.tasks.moreOptions.delete),
                 iconColor: Colors.redAccent,
                 textColor: Colors.redAccent,
               ),

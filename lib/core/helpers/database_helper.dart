@@ -68,7 +68,7 @@ class DatabaseHelper {
       await txn.insert(
         'lists',
         {
-          'title': S.pages.home.drawer.tasks,
+          'title': S.features.home.drawer.tasks,
           'is_default': 1,
           'icon_json':
               '{"codePoint":59843,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
@@ -89,40 +89,40 @@ class DatabaseHelper {
 
       final List<Map<String, dynamic>> tasksMap = [
         {
-          'title': S.pages.intro.tutorial.task1,
+          'title': S.features.intro.tutorial.task1,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task2,
+          'title': S.features.intro.tutorial.task2,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task3,
+          'title': S.features.intro.tutorial.task3,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task4,
+          'title': S.features.intro.tutorial.task4,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task5,
-          'notes': S.pages.intro.tutorial.task5note,
+          'title': S.features.intro.tutorial.task5,
+          'notes': S.features.intro.tutorial.task5note,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task6,
+          'title': S.features.intro.tutorial.task6,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task7,
+          'title': S.features.intro.tutorial.task7,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task8,
+          'title': S.features.intro.tutorial.task8,
           'list_id': listId,
         },
         {
-          'title': S.pages.intro.tutorial.task9,
+          'title': S.features.intro.tutorial.task9,
           'list_id': listId,
         },
       ];

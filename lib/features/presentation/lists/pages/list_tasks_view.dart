@@ -72,7 +72,7 @@ class ListTasksView extends ConsumerWidget {
                 builder: (_) => TaskAddModal(listId),
               ),
               leading: const Icon(IconsaxOutline.add),
-              title: Text(S.modals.taskAdd.placeholder),
+              title: Text(S.features.lists.forms.placeholder),
             ),
           ),
         ),
@@ -148,6 +148,7 @@ class _BuildTasks extends ConsumerWidget {
 class _EmptyTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final style = Theme.of(context).textTheme;
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Center(
@@ -168,17 +169,17 @@ class _EmptyTasks extends ConsumerWidget {
           ),
           const Gap(defaultPadding),
           Text(
-            S.pages.listTasks.emptyTasks.title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            S.features.lists.page.emptyTasks.title,
+            style: style.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const Gap(8.0),
           Text(
-            S.pages.listTasks.emptyTasks.subtitle,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white70,
-                ),
+            S.features.lists.page.emptyTasks.subtitle,
+            style: style.bodyMedium?.copyWith(
+              color: Colors.white70,
+            ),
           ),
         ],
       ),

@@ -47,7 +47,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                       },
                       leading: const Icon(IconsaxOutline.edit),
                       title: Text(
-                        S.modals.listTasksOptions.list.edit,
+                        S.features.lists.moreOptions.list.edit,
                       ),
                     ),
                   ListTile(
@@ -71,8 +71,9 @@ class ListTasksOptionsModal extends ConsumerWidget {
                     },
                     enabled: provider.pending.isNotEmpty,
                     leading: const Icon(IconsaxOutline.tick_circle),
-                    title:
-                        Text(S.modals.listTasksOptions.tasks.completeAllTasks),
+                    title: Text(
+                      S.features.lists.moreOptions.tasks.completeAllTasks,
+                    ),
                   ),
                   ListTile(
                     onTap: () {
@@ -82,7 +83,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                     enabled: provider.completed.isNotEmpty,
                     leading: const Icon(IconsaxOutline.record),
                     title: Text(
-                      S.modals.listTasksOptions.tasks.incompleteAllTasks,
+                      S.features.lists.moreOptions.tasks.incompleteAllTasks,
                     ),
                   ),
                   ListTile(
@@ -93,7 +94,8 @@ class ListTasksOptionsModal extends ConsumerWidget {
                     enabled: provider.completed.isNotEmpty,
                     leading: const Icon(IconsaxOutline.minus_cirlce),
                     title: Text(
-                      S.modals.listTasksOptions.tasks.deleteAllCompletedTasks,
+                      S.features.lists.moreOptions.tasks
+                          .deleteAllCompletedTasks,
                     ),
                   ),
                 ],
@@ -113,7 +115,7 @@ class ListTasksOptionsModal extends ConsumerWidget {
                     }
                   },
                   leading: const Icon(IconsaxOutline.trash),
-                  title: Text(S.modals.listTasksOptions.list.delete),
+                  title: Text(S.features.lists.moreOptions.list.delete),
                   iconColor: Colors.redAccent,
                   textColor: Colors.redAccent,
                 ),

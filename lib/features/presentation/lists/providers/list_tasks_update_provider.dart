@@ -35,7 +35,7 @@ class _Notifier extends StateNotifier<_State> {
 
   void onSubmit(BuildContext context) {
     if (state.title.isEmpty) {
-      MyToast.show(S.dialogs.listTasksUpdate.errorEmptyName);
+      MyToast.show(S.features.lists.forms.errorEmptyName);
       return;
     }
     final newList = list.copyWith(

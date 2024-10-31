@@ -39,7 +39,7 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
             ),
             const Gap(12),
             Text(
-              S.modals.listTasks.titleAdd,
+              S.features.lists.addModal.title,
               style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
             ),
           ],
@@ -62,7 +62,7 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: defaultPadding,
                 ),
-                hintText: S.modals.listTasks.placeholder,
+                hintText: S.features.lists.forms.placeholder,
                 hintStyle: style.bodyLarge?.copyWith(
                   color: Colors.white54,
                 ),
