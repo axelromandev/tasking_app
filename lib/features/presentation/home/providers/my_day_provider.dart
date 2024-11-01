@@ -29,6 +29,10 @@ class _Notifier extends StateNotifier<_State> {
     }
   }
 
+  void refresh() {
+    _initialize();
+  }
+
   void onDeleteTask(int taskId) {
     _taskRepository.delete(taskId).then((_) {
       _initialize();

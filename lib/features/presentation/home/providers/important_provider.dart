@@ -33,6 +33,11 @@ class _Notifier extends StateNotifier<_State> {
     }
   }
 
+  void refresh() {
+    state = state.copyWith(isLoading: true);
+    _initialize();
+  }
+
   void toggleShowCompleted() {
     state = state.copyWith(showCompleted: !state.showCompleted);
     _initialize();

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
@@ -89,6 +90,7 @@ class _BuildTasks extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(listTasksProvider(listId));
+    final notifier = ref.read(listTasksProvider(listId).notifier);
 
     return SingleChildScrollView(
       child: Column(
@@ -101,18 +103,24 @@ class _BuildTasks extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             separatorBuilder: (_, __) => const Gap(4),
             itemCount: provider.pending.length,
-            itemBuilder: (_, i) => TaskCard(
-              task: provider.pending[i],
-              onDismissed: () => ref
-                  .read(listTasksProvider(listId).notifier)
-                  .onDismissibleTask(provider.pending[i].id),
-              onToggleCompleted: () => ref
-                  .read(listTasksProvider(listId).notifier)
-                  .onToggleCompleted(provider.pending[i].id),
-              onToggleImportant: () => ref
-                  .read(listTasksProvider(listId).notifier)
-                  .onToggleImportant(provider.pending[i].id),
-            ),
+            itemBuilder: (_, i) {
+              final Task task = provider.pending[i];
+              return TaskCard(
+                task: provider.pending[i],
+                onTap: () {
+                  ref.read(taskAccessTypeProvider.notifier).setList();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => TaskPage(task.id),
+                      fullscreenDialog: true,
+                    ),
+                  );
+                },
+                onDismissed: () => notifier.onDismissibleTask(task.id),
+                onToggleCompleted: () => notifier.onToggleCompleted(task.id),
+                onToggleImportant: () => notifier.onToggleImportant(task.id),
+              );
+            },
           ),
           const Gap(defaultPadding),
           if (provider.completed.isNotEmpty)
@@ -125,18 +133,26 @@ class _BuildTasks extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 separatorBuilder: (_, __) => const Gap(4),
                 itemCount: provider.completed.length,
-                itemBuilder: (_, i) => TaskCard(
-                  task: provider.completed[i],
-                  onDismissed: () => ref
-                      .read(listTasksProvider(listId).notifier)
-                      .onDismissibleTask(provider.completed[i].id),
-                  onToggleCompleted: () => ref
-                      .read(listTasksProvider(listId).notifier)
-                      .onToggleCompleted(provider.completed[i].id),
-                  onToggleImportant: () => ref
-                      .read(listTasksProvider(listId).notifier)
-                      .onToggleImportant(provider.completed[i].id),
-                ),
+                itemBuilder: (_, i) {
+                  final Task task = provider.completed[i];
+                  return TaskCard(
+                    task: provider.completed[i],
+                    onTap: () {
+                      ref.read(taskAccessTypeProvider.notifier).setList();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => TaskPage(task.id),
+                          fullscreenDialog: true,
+                        ),
+                      );
+                    },
+                    onDismissed: () => notifier.onDismissibleTask(task.id),
+                    onToggleCompleted: () =>
+                        notifier.onToggleCompleted(task.id),
+                    onToggleImportant: () =>
+                        notifier.onToggleImportant(task.id),
+                  );
+                },
               ),
             ),
         ],

@@ -9,21 +9,25 @@ final calendarProvider =
 
 class _Notifier extends StateNotifier<_State> {
   _Notifier() : super(_State()) {
-    _init();
+    _initialize();
   }
 
   final _taskRepository = TaskRepositoryImpl();
 
-  void _init() {
+  void _initialize() {
     final DateTime date = state.selectedDate ?? DateTime.now();
     _taskRepository.getByDate(date).then((value) {
       state = state.copyWith(tasksDay: value);
     });
   }
 
+  void refresh() {
+    _initialize();
+  }
+
   void onSelectedDate(DateTime value) {
     state = state.copyWith(selectedDate: value);
-    _init();
+    _initialize();
   }
 }
 

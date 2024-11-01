@@ -7,6 +7,7 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class MyDayView extends ConsumerWidget {
@@ -72,6 +73,15 @@ class _TasksBuilder extends ConsumerWidget {
       itemBuilder: (_, i) {
         final Task task = provider.tasks[i];
         return TaskCard(
+          onTap: () {
+            ref.read(taskAccessTypeProvider.notifier).setToday();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TaskPage(task.id),
+                fullscreenDialog: true,
+              ),
+            );
+          },
           onDismissed: () {
             notifier.onDeleteTask(task.id);
           },

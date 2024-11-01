@@ -15,7 +15,7 @@ class _Notifier extends StateNotifier<_State> {
   final _taskRepository = TaskRepositoryImpl();
 
   void onChangeSearch(String value) {
-    state = state.copyWith(isSearching: true);
+    state = state.copyWith(isSearching: true, searchValue: value);
     _debounce.run(() {
       if (value.isEmpty) {
         state = state.copyWith(tasks: [], isSearching: false);
@@ -26,24 +26,32 @@ class _Notifier extends StateNotifier<_State> {
       });
     });
   }
+
+  void refresh() {
+    onChangeSearch(state.searchValue);
+  }
 }
 
 class _State {
   _State({
     this.isSearching = false,
     this.tasks = const [],
+    this.searchValue = '',
   });
 
   final bool isSearching;
   final List<Task> tasks;
+  final String searchValue;
 
   _State copyWith({
     bool? isSearching,
     List<Task>? tasks,
+    String? searchValue,
   }) {
     return _State(
       isSearching: isSearching ?? this.isSearching,
       tasks: tasks ?? this.tasks,
+      searchValue: searchValue ?? this.searchValue,
     );
   }
 }

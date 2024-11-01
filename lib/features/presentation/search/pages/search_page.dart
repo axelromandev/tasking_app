@@ -4,8 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/search/search.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
+import 'package:tasking/features/presentation/tasks/tasks.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -137,9 +139,18 @@ class _TaskBuilder extends ConsumerWidget {
       separatorBuilder: (_, __) => const Gap(8),
       itemCount: provider.tasks.length,
       itemBuilder: (_, i) {
-        final task = provider.tasks[i];
+        final Task task = provider.tasks[i];
         return TaskCard(
           task: task,
+          onTap: () {
+            ref.read(taskAccessTypeProvider.notifier).setSearch();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TaskPage(task.id),
+                fullscreenDialog: true,
+              ),
+            );
+          },
           onDismissed: () {},
           onToggleCompleted: () {},
           onToggleImportant: () {},

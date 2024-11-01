@@ -9,17 +9,21 @@ import 'package:tasking/i18n/i18n.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
+    required this.onTap,
     required this.onDismissed,
     required this.onToggleCompleted,
     required this.onToggleImportant,
     required this.task,
+    this.currentAccess = TaskAccessType.list,
     super.key,
   });
 
+  final VoidCallback onTap;
   final VoidCallback onDismissed;
   final VoidCallback onToggleCompleted;
   final VoidCallback onToggleImportant;
   final Task task;
+  final TaskAccessType currentAccess;
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +60,7 @@ class TaskCard extends StatelessWidget {
         builder: (_) => TaskDeleteDialog(),
       ),
       child: ListTile(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => TaskPage(task.id),
-              fullscreenDialog: true,
-            ),
-          );
-        },
+        onTap: onTap,
         contentPadding: EdgeInsets.zero,
         visualDensity: VisualDensity.compact,
         tileColor: AppColors.card,

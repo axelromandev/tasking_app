@@ -1,4 +1,5 @@
 export 'pages/task_page.dart';
+export 'providers/task_access_type.dart';
 export 'providers/task_add_modal_provider.dart';
 export 'providers/task_provider.dart';
 export 'widgets/step_more_bottom_sheet.dart';

@@ -6,7 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/calendar/calendar.dart';
+import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
+import 'package:tasking/features/presentation/search/search.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 
 final taskProvider = StateNotifierProvider.family
@@ -22,7 +25,6 @@ class _Notifier extends StateNotifier<_State> {
   final Ref ref;
   final int taskId;
 
-  // final _notificationService = NotificationService();
   final _listRepository = ListTasksRepositoryImpl();
   final _taskRepository = TaskRepositoryImpl();
   final _stepRepository = StepRepositoryImpl();
@@ -52,9 +54,24 @@ class _Notifier extends StateNotifier<_State> {
     }
   }
 
+  void _refresh() {
+    final type = ref.watch(taskAccessTypeProvider);
+    if (type == TaskAccessType.search) {
+      ref.read(searchProvider.notifier).refresh();
+    } else if (type == TaskAccessType.today) {
+      ref.read(myDayProvider.notifier).refresh();
+    } else if (type == TaskAccessType.important) {
+      ref.read(importantProvider.notifier).refresh();
+    } else if (type == TaskAccessType.calendar) {
+      ref.read(calendarProvider.notifier).refresh();
+    } else {
+      ref.read(listTasksProvider(state.listId).notifier).refresh();
+    }
+  }
+
   Future<void> onDeleteTask(BuildContext pageContext) async {
     await _taskRepository.delete(taskId).then((_) {
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
       pageContext.pop();
     });
   }
@@ -66,7 +83,7 @@ class _Notifier extends StateNotifier<_State> {
       'updated_at': DateTime.now().toIso8601String(),
     }).then((_) {
       state = state.toggleCompleted();
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
     });
   }
 
@@ -76,7 +93,7 @@ class _Notifier extends StateNotifier<_State> {
       'updated_at': DateTime.now().toIso8601String(),
     }).then((_) {
       state = state.copyWith(isImportant: !state.isImportant);
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
     });
   }
 
@@ -93,7 +110,7 @@ class _Notifier extends StateNotifier<_State> {
         },
       ).then((_) {
         state = state.copyWith(title: title, updatedAt: updatedAt);
-        ref.read(listTasksProvider(state.listId).notifier).refresh();
+        _refresh();
       });
     });
   }
@@ -111,7 +128,7 @@ class _Notifier extends StateNotifier<_State> {
         'updated_at': DateTime.now().toIso8601String(),
       }).then((_) {
         state = state.copyWith(dateline: value);
-        ref.read(listTasksProvider(state.listId).notifier).refresh();
+        _refresh();
       });
     });
   }
@@ -122,7 +139,7 @@ class _Notifier extends StateNotifier<_State> {
       'updated_at': DateTime.now().toIso8601String(),
     }).then((_) {
       state = state.removeDateline();
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
     });
   }
 
@@ -141,7 +158,7 @@ class _Notifier extends StateNotifier<_State> {
         },
       ).then((_) {
         state = state.copyWith(notes: note, updatedAt: updatedAt);
-        ref.read(listTasksProvider(state.listId).notifier).refresh();
+        _refresh();
       });
     });
   }
@@ -153,7 +170,7 @@ class _Notifier extends StateNotifier<_State> {
       _stepRepository.getAll(taskId).then((steps) {
         state = state.copyWith(steps: steps);
       });
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
     });
   }
 
@@ -161,7 +178,7 @@ class _Notifier extends StateNotifier<_State> {
     _stepRepository.delete(stepId).then((_) {
       final steps = state.steps.where((s) => s.id != stepId).toList();
       state = state.copyWith(steps: steps);
-      ref.read(listTasksProvider(state.listId).notifier).refresh();
+      _refresh();
     });
   }
 
@@ -172,7 +189,7 @@ class _Notifier extends StateNotifier<_State> {
     _stepRepository.update(stepId, {'completed_at': completedAt}).then((_) {
       _stepRepository.getAll(taskId).then((steps) {
         state = state.copyWith(steps: steps);
-        ref.read(listTasksProvider(state.listId).notifier).refresh();
+        _refresh();
       });
     });
   }
