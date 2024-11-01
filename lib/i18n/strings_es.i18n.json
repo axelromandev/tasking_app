@@ -112,7 +112,11 @@
     "calendar": {
       "title": "Calendario"
     },
-    "search": {},
+    "search": {
+      "title": "Buscar",
+      "searching": "Buscando...",
+      "empty": "No se encontraron tareas"
+    },
     "settings": {
       "title": "Ajustes",
       "page": {

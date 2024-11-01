@@ -55,7 +55,7 @@ class _Notifier extends StateNotifier<_State> {
 
   void uncheckImportant(int taskId) {
     _taskRepository.update(taskId, {
-      'is_important': false,
+      'is_important': 0,
       'updated_at': DateTime.now().toIso8601String(),
     }).then((_) {
       _initialize();

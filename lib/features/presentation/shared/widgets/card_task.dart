@@ -9,27 +9,35 @@ import 'package:tasking/i18n/i18n.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({
+    required this.task,
     required this.onTap,
-    required this.onDismissed,
     required this.onToggleCompleted,
     required this.onToggleImportant,
-    required this.task,
-    this.currentAccess = TaskAccessType.list,
+    this.onDismissed,
     super.key,
   });
 
+  final Task task;
   final VoidCallback onTap;
-  final VoidCallback onDismissed;
   final VoidCallback onToggleCompleted;
   final VoidCallback onToggleImportant;
-  final Task task;
-  final TaskAccessType currentAccess;
+  final VoidCallback? onDismissed;
 
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
     final bool isCompleted = (task.completedAt != null);
+
+    if (onDismissed == null) {
+      return _ListTileBuilder(
+        onTap: onTap,
+        isCompleted: isCompleted,
+        onToggleCompleted: onToggleCompleted,
+        onToggleImportant: onToggleImportant,
+        task: task,
+      );
+    }
 
     return Dismissible(
       key: ValueKey(task.id),
@@ -54,53 +62,82 @@ class TaskCard extends StatelessWidget {
           ],
         ),
       ),
-      onDismissed: (_) => onDismissed(),
+      onDismissed: (_) => onDismissed!(),
       confirmDismiss: (_) async => await showDialog(
         context: context,
         builder: (_) => TaskDeleteDialog(),
       ),
-      child: ListTile(
+      child: _ListTileBuilder(
         onTap: onTap,
-        contentPadding: EdgeInsets.zero,
-        visualDensity: VisualDensity.compact,
-        tileColor: AppColors.card,
-        iconColor: isCompleted ? Colors.white70 : Colors.white,
-        leading: IconButton(
-          onPressed: onToggleCompleted,
-          icon: Icon(
-            isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
-          ),
-        ),
-        trailing: IconButton(
-          onPressed: onToggleImportant,
-          iconSize: 20,
-          icon: Icon(
-            task.isImportant ? IconsaxBold.star_1 : IconsaxOutline.star,
-          ),
-        ),
-        title: Text(
-          task.title,
-          style: isCompleted
-              ? style.bodyLarge?.copyWith(
-                  decoration: TextDecoration.lineThrough,
-                  decorationColor: Colors.grey,
-                  color: Colors.grey,
-                )
-              : style.bodyLarge,
-        ),
-        subtitle: (task.steps.isNotEmpty ||
-                task.dateline != null ||
-                task.reminder != null ||
-                task.notes.isNotEmpty)
-            ? _TaskDetails(
-                dateline: task.dateline,
-                reminder: task.reminder,
-                notes: task.notes,
-                isCompleted: isCompleted,
-                steps: task.steps,
-              )
-            : null,
+        isCompleted: isCompleted,
+        onToggleCompleted: onToggleCompleted,
+        onToggleImportant: onToggleImportant,
+        task: task,
       ),
+    );
+  }
+}
+
+class _ListTileBuilder extends StatelessWidget {
+  const _ListTileBuilder({
+    required this.onTap,
+    required this.isCompleted,
+    required this.onToggleCompleted,
+    required this.onToggleImportant,
+    required this.task,
+  });
+
+  final VoidCallback onTap;
+  final bool isCompleted;
+  final VoidCallback onToggleCompleted;
+  final VoidCallback onToggleImportant;
+  final Task task;
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+
+    return ListTile(
+      onTap: onTap,
+      contentPadding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      tileColor: AppColors.card,
+      iconColor: isCompleted ? Colors.white70 : Colors.white,
+      leading: IconButton(
+        onPressed: onToggleCompleted,
+        icon: Icon(
+          isCompleted ? IconsaxOutline.tick_circle : IconsaxOutline.record,
+        ),
+      ),
+      trailing: IconButton(
+        onPressed: onToggleImportant,
+        iconSize: 20,
+        icon: Icon(
+          task.isImportant ? IconsaxBold.star_1 : IconsaxOutline.star,
+        ),
+      ),
+      title: Text(
+        task.title,
+        style: isCompleted
+            ? style.bodyLarge?.copyWith(
+                decoration: TextDecoration.lineThrough,
+                decorationColor: Colors.grey,
+                color: Colors.grey,
+              )
+            : style.bodyLarge,
+      ),
+      subtitle: (task.steps.isNotEmpty ||
+              task.dateline != null ||
+              task.reminder != null ||
+              task.notes.isNotEmpty)
+          ? _TaskDetails(
+              dateline: task.dateline,
+              reminder: task.reminder,
+              notes: task.notes,
+              isCompleted: isCompleted,
+              steps: task.steps,
+            )
+          : null,
     );
   }
 }

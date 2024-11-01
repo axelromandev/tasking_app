@@ -8,14 +8,13 @@ import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/search/search.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: SearchView Implement build method.
-
     return Scaffold(
       body: Column(
         children: [
@@ -68,7 +67,7 @@ class _SearchFieldState extends ConsumerState<_SearchField> {
       autocorrect: false,
       controller: _controller,
       decoration: InputDecoration(
-        hintText: 'Search',
+        hintText: S.features.search.title,
         filled: false,
         contentPadding: EdgeInsets.zero,
         suffixIcon: (_controller.text.isNotEmpty)
@@ -93,9 +92,10 @@ class _TaskBuilder extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
+    final colorPrimary = ref.watch(colorThemeProvider);
 
     final provider = ref.watch(searchProvider);
-    final colorPrimary = ref.watch(colorThemeProvider);
+    final notifier = ref.read(searchProvider.notifier);
 
     if (provider.isSearching) {
       return Center(
@@ -111,7 +111,7 @@ class _TaskBuilder extends ConsumerWidget {
               ),
             ),
             const Gap(8),
-            Text('Searching...', style: style.bodyLarge),
+            Text(S.features.search.searching, style: style.bodyLarge),
           ],
         ),
       );
@@ -128,7 +128,7 @@ class _TaskBuilder extends ConsumerWidget {
               size: 32,
             ),
             const Gap(8),
-            Text('No tasks found', style: style.bodyLarge),
+            Text(S.features.search.empty, style: style.bodyLarge),
           ],
         ),
       );
@@ -151,9 +151,8 @@ class _TaskBuilder extends ConsumerWidget {
               ),
             );
           },
-          onDismissed: () {},
-          onToggleCompleted: () {},
-          onToggleImportant: () {},
+          onToggleCompleted: () => notifier.toggleCompleted(task),
+          onToggleImportant: () => notifier.toggleImportant(task),
         );
       },
     );

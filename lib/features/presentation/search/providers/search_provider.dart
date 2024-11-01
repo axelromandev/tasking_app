@@ -30,6 +30,27 @@ class _Notifier extends StateNotifier<_State> {
   void refresh() {
     onChangeSearch(state.searchValue);
   }
+
+  void toggleCompleted(Task task) {
+    final completedAt = task.completedAt == null ? DateTime.now() : null;
+    _taskRepository.update(task.id, {
+      'completed_at': completedAt?.toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      refresh();
+    });
+  }
+
+  void toggleImportant(Task task) {
+    _taskRepository.update(task.id, {
+      'is_important': task.isImportant ? 0 : 1,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      refresh();
+    });
+  }
+
+  void delete(int id) {}
 }
 
 class _State {
