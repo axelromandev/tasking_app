@@ -61,6 +61,40 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
+  Future<List<Task>> getImportant() async {
+    try {
+      final Database db = await dbHelper.database;
+      final data = await db.query(
+        'tasks',
+        where: 'is_important = ?',
+        whereArgs: [1],
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      log('TaskDataSourceImpl.getImportant: $e');
+      return <Task>[];
+    }
+  }
+
+  @override
+  Future<List<Task>> search(String value) async {
+    try {
+      final Database db = await dbHelper.database;
+      final data = await db.query(
+        'tasks',
+        where: 'title LIKE ?',
+        whereArgs: ['%$value%'],
+      );
+      if (data.isEmpty) return <Task>[];
+      return data.map((e) => Task.fromMap(e)).toList();
+    } catch (e) {
+      log('TaskDataSourceImpl.search: $e');
+      return <Task>[];
+    }
+  }
+
+  @override
   Future<Task> add(Task task) async {
     try {
       final Database db = await dbHelper.database;
@@ -110,23 +144,6 @@ class TaskDataSourceImpl implements TaskDataSource {
     } catch (e) {
       log('TaskDataSourceImpl.update: $e');
       rethrow;
-    }
-  }
-
-  @override
-  Future<List<Task>> getImportant() async {
-    try {
-      final Database db = await dbHelper.database;
-      final data = await db.query(
-        'tasks',
-        where: 'is_important = ?',
-        whereArgs: [1],
-      );
-      if (data.isEmpty) return <Task>[];
-      return data.map((e) => Task.fromMap(e)).toList();
-    } catch (e) {
-      log('TaskDataSourceImpl.getImportant: $e');
-      return <Task>[];
     }
   }
 

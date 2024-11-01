@@ -28,6 +28,11 @@ class TaskRepositoryImpl extends TaskRepository {
   }
 
   @override
+  Future<List<Task>> search(String value) {
+    return _dataSource.search(value);
+  }
+
+  @override
   Future<Task> add(Task task) {
     return _dataSource.add(task);
   }
