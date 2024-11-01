@@ -18,11 +18,22 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(isSearching: true, searchValue: value);
     _debounce.run(() {
       if (value.isEmpty) {
-        state = state.copyWith(tasks: [], isSearching: false);
+        state = state.copyWith(groups: {}, isSearching: false);
         return;
       }
       _taskRepository.search(value).then((tasks) {
-        state = state.copyWith(tasks: tasks, isSearching: false);
+        final Map<String, List<Task>> groups = {};
+
+        for (final task in tasks) {
+          final String listaTitulo = task.listTitle ?? '';
+          if (groups.containsKey(listaTitulo)) {
+            groups[listaTitulo]!.add(task);
+          } else {
+            groups[listaTitulo] = [task];
+          }
+        }
+
+        state = state.copyWith(groups: groups, isSearching: false);
       });
     });
   }
@@ -56,22 +67,22 @@ class _Notifier extends StateNotifier<_State> {
 class _State {
   _State({
     this.isSearching = false,
-    this.tasks = const [],
+    this.groups = const {},
     this.searchValue = '',
   });
 
   final bool isSearching;
-  final List<Task> tasks;
+  final Map<String, List<Task>> groups;
   final String searchValue;
 
   _State copyWith({
     bool? isSearching,
-    List<Task>? tasks,
+    Map<String, List<Task>>? groups,
     String? searchValue,
   }) {
     return _State(
       isSearching: isSearching ?? this.isSearching,
-      tasks: tasks ?? this.tasks,
+      groups: groups ?? this.groups,
       searchValue: searchValue ?? this.searchValue,
     );
   }

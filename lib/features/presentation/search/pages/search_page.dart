@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/search/search.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
@@ -43,7 +42,7 @@ class SearchPage extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(child: _TaskBuilder()),
+          _TaskBuilder(),
         ],
       ),
     );
@@ -98,63 +97,86 @@ class _TaskBuilder extends ConsumerWidget {
     final notifier = ref.read(searchProvider.notifier);
 
     if (provider.isSearching) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 32,
-              height: 32,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
+      return Expanded(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 32,
+                height: 32,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: colorPrimary,
+                ),
+              ),
+              const Gap(8),
+              Text(S.features.search.searching, style: style.bodyLarge),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (provider.groups.isEmpty) {
+      return Expanded(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                IconsaxOutline.search_normal,
                 color: colorPrimary,
+                size: 32,
               ),
-            ),
-            const Gap(8),
-            Text(S.features.search.searching, style: style.bodyLarge),
-          ],
+              const Gap(8),
+              Text(S.features.search.empty, style: style.bodyLarge),
+            ],
+          ),
         ),
       );
     }
 
-    if (provider.tasks.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              IconsaxOutline.search_normal,
-              color: colorPrimary,
-              size: 32,
-            ),
-            const Gap(8),
-            Text(S.features.search.empty, style: style.bodyLarge),
-          ],
-        ),
-      );
-    }
-
-    return ListView.separated(
-      padding: const EdgeInsets.all(12),
-      separatorBuilder: (_, __) => const Gap(8),
-      itemCount: provider.tasks.length,
-      itemBuilder: (_, i) {
-        final Task task = provider.tasks[i];
-        return TaskCard(
-          task: task,
-          onTap: () {
-            ref.read(taskAccessTypeProvider.notifier).setSearch();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => TaskPage(task.id),
-                fullscreenDialog: true,
+    return Expanded(
+      child: ListView(
+        children: provider.groups.keys.map((listTitle) {
+          final tasks = provider.groups[listTitle]!;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 16),
+                child: Text(listTitle, style: style.bodyLarge),
               ),
-            );
-          },
-          onToggleCompleted: () => notifier.toggleCompleted(task),
-          onToggleImportant: () => notifier.toggleImportant(task),
-        );
-      },
+              ListView.separated(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(8),
+                separatorBuilder: (_, __) => const Gap(6),
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  final task = tasks[index];
+                  return TaskCard(
+                    task: task,
+                    onTap: () {
+                      ref.read(taskAccessTypeProvider.notifier).setSearch();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => TaskPage(task.id),
+                          fullscreenDialog: true,
+                        ),
+                      );
+                    },
+                    onToggleCompleted: () => notifier.toggleCompleted(task),
+                    onToggleImportant: () => notifier.toggleImportant(task),
+                  );
+                },
+              ),
+              const Gap(defaultPadding),
+            ],
+          );
+        }).toList(),
+      ),
     );
   }
 }

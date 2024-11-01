@@ -81,10 +81,19 @@ class TaskDataSourceImpl implements TaskDataSource {
   Future<List<Task>> search(String value) async {
     try {
       final Database db = await dbHelper.database;
-      final data = await db.query(
-        'tasks',
-        where: 'title LIKE ?',
-        whereArgs: ['%$value%'],
+      final data = await db.rawQuery(
+        '''
+          SELECT
+              tasks.*,
+              lists.title AS list_title
+          FROM
+              tasks
+          JOIN
+              lists ON tasks.list_id = lists.id
+          WHERE
+              tasks.title LIKE ? OR lists.title LIKE ?;
+        ''',
+        ['%$value%', '%$value%'],
       );
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();

@@ -5,6 +5,7 @@ class Task {
   Task({
     required this.id,
     required this.listId,
+    this.listTitle = '',
     required this.title,
     this.dateline,
     this.reminder,
@@ -38,6 +39,7 @@ class Task {
     return Task(
       id: map['id'] as int,
       listId: map['list_id'] as int,
+      listTitle: map['list_title'] as String? ?? '',
       title: map['title'] as String,
       dateline: map['dateline'] != null
           ? DateTime.parse(map['dateline'] as String)
@@ -57,6 +59,7 @@ class Task {
 
   final int id;
   final int listId;
+  final String? listTitle;
   final String title;
   final DateTime? dateline;
   final DateTime? reminder;
@@ -85,6 +88,7 @@ class Task {
   Task copyWith({
     int? id,
     int? listId,
+    String? listTitle,
     String? title,
     DateTime? dateline,
     DateTime? reminder,
@@ -97,6 +101,7 @@ class Task {
     return Task(
       id: id ?? this.id,
       listId: listId ?? this.listId,
+      listTitle: listTitle ?? this.listTitle,
       title: title ?? this.title,
       dateline: dateline ?? this.dateline,
       reminder: reminder ?? this.reminder,
