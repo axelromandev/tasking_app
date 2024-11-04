@@ -98,9 +98,7 @@ class SettingsView extends ConsumerWidget {
                     ),
                   ),
                   _ListTile(
-                    onTap: () {
-                      //
-                    },
+                    onTap: () => context.push('/settings/language'),
                     icon: IconsaxOutline.translate,
                     title: S.features.settings.page.appearance.language,
                     borderRadius: const BorderRadius.only(

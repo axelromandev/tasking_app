@@ -16,7 +16,15 @@
 		<string>6.0</string>
 		<key>CFBundleLocalizations</key>
 		<array>
+			<string>zh</string>
 			<string>en</string>
+			<string>fr</string>
+			<string>de</string>
+			<string>hi</string>
+			<string>id</string>
+			<string>ja</string>
+			<string>pt</string>
+			<string>ru</string>
 			<string>es</string>
 		</array>
 		<key>CFBundleName</key>

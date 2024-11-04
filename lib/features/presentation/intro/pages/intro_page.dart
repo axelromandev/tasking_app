@@ -31,7 +31,7 @@ class IntroPage extends ConsumerWidget {
                   ),
                   const Gap(defaultPadding / 2),
                   Text(
-                    S.common.labels.appName,
+                    'Tasking',
                     style: style.displaySmall?.copyWith(
                       fontWeight: FontWeight.w500,
                     ),

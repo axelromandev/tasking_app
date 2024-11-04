@@ -4,7 +4,7 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/presentation/home/pages/home_page.dart';
 import 'package:tasking/features/presentation/intro/intro.dart';
-import 'package:tasking/features/presentation/search/pages/search_page.dart';
+import 'package:tasking/features/presentation/search/search.dart';
 import 'package:tasking/features/presentation/settings/settings.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -30,12 +30,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const SettingsView(),
       ),
       GoRoute(
-        path: '/settings/about',
-        builder: (_, __) => const AboutPage(),
-      ),
-      GoRoute(
         path: '/settings/themes',
         builder: (_, __) => const ThemesChangePage(),
+      ),
+      GoRoute(
+        path: '/settings/language',
+        builder: (_, __) => const LanguagePage(),
+      ),
+      GoRoute(
+        path: '/settings/about',
+        builder: (_, __) => const AboutPage(),
       ),
     ],
     redirect: (context, state) {
