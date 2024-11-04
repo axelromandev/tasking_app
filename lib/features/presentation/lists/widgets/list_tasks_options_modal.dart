@@ -50,13 +50,6 @@ class ListTasksOptionsModal extends ConsumerWidget {
                         S.features.lists.moreOptions.list.edit,
                       ),
                     ),
-                  ListTile(
-                    onTap: () {
-                      // TODO: Implement sorting tasks modal
-                    },
-                    leading: const Icon(IconsaxOutline.sort),
-                    title: const Text('Ordenar por'), // SLANG: Sort by, button
-                  ),
                 ],
               ),
             ),

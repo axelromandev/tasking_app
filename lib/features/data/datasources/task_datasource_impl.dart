@@ -30,10 +30,19 @@ class TaskDataSourceImpl implements TaskDataSource {
     try {
       final Database db = await dbHelper.database;
       final formattedDate = DateFormat('yyyy-MM-dd').format(value);
-      final data = await db.query(
-        'tasks',
-        where: 'dateline LIKE ?',
-        whereArgs: ['$formattedDate%'],
+      final data = await db.rawQuery(
+        '''
+          SELECT
+              tasks.*,
+              lists.title AS list_title
+          FROM
+              tasks
+          JOIN
+              lists ON tasks.list_id = lists.id
+          WHERE
+              dateline LIKE ?;
+        ''',
+        ['$formattedDate%'],
       );
       if (data.isEmpty) return <Task>[];
       return data.map((e) => Task.fromMap(e)).toList();

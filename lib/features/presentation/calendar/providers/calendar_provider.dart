@@ -16,12 +16,24 @@ class _Notifier extends StateNotifier<_State> {
 
   void _initialize() {
     final DateTime date = state.selectedDate ?? DateTime.now();
-    _taskRepository.getByDate(date).then((value) {
-      state = state.copyWith(tasksDay: value);
+    _taskRepository.getByDate(date).then((tasks) {
+      final Map<String, List<Task>> groups = {};
+
+      for (final task in tasks) {
+        final String listaTitulo = task.listTitle ?? '';
+        if (groups.containsKey(listaTitulo)) {
+          groups[listaTitulo]!.add(task);
+        } else {
+          groups[listaTitulo] = [task];
+        }
+      }
+
+      state = state.copyWith(groups: groups, isLoading: false);
     });
   }
 
   void refresh() {
+    state = state.copyWith(isLoading: true);
     _initialize();
   }
 
@@ -29,24 +41,47 @@ class _Notifier extends StateNotifier<_State> {
     state = state.copyWith(selectedDate: value);
     _initialize();
   }
+
+  void toggleCompleted(Task task) {
+    final completedAt = task.completedAt == null ? DateTime.now() : null;
+    _taskRepository.update(task.id, {
+      'completed_at': completedAt?.toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      refresh();
+    });
+  }
+
+  void toggleImportant(Task task) {
+    _taskRepository.update(task.id, {
+      'is_important': task.isImportant ? 0 : 1,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).then((_) {
+      refresh();
+    });
+  }
 }
 
 class _State {
   _State({
+    this.isLoading = true,
     this.selectedDate,
-    this.tasksDay = const [],
+    this.groups = const {},
   });
 
+  final bool isLoading;
   final DateTime? selectedDate;
-  final List<Task> tasksDay;
+  final Map<String, List<Task>> groups;
 
   _State copyWith({
+    bool? isLoading,
     DateTime? selectedDate,
-    List<Task>? tasksDay,
+    Map<String, List<Task>>? groups,
   }) {
     return _State(
+      isLoading: isLoading ?? this.isLoading,
       selectedDate: selectedDate ?? this.selectedDate,
-      tasksDay: tasksDay ?? this.tasksDay,
+      groups: groups ?? this.groups,
     );
   }
 }

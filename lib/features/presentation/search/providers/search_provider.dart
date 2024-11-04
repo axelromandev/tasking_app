@@ -60,8 +60,6 @@ class _Notifier extends StateNotifier<_State> {
       refresh();
     });
   }
-
-  void delete(int id) {}
 }
 
 class _State {
