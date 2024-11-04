@@ -1,0 +1,255 @@
+{
+  "common": {
+    "locale": "ja",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "中国語（マンダリン）",
+      "英語",
+      "フランス語",
+      "ドイツ語",
+      "ヒンディー語",
+      "インドネシア語",
+      "日本語",
+      "ポルトガル語",
+      "ロシア語",
+      "スペイン語"
+    ],
+    "labels": {
+      "calendarDays": ["日", "月", "火", "水", "木", "金", "土"],
+      "shortDays": ["月", "火", "水", "木", "金", "土", "日"],
+      "shortMonths": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
+      ],
+      "longDays": [
+        "月曜日",
+        "火曜日",
+        "水曜日",
+        "木曜日",
+        "金曜日",
+        "土曜日",
+        "日曜日"
+      ],
+      "longMonths": [
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月"
+      ]
+    },
+    "buttons": {
+      "add": "追加",
+      "addTask": "タスクを追加",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "update": "更新",
+      "confirm": "確認",
+      "restore": "元に戻す",
+      "save": "保存",
+      "accept": "承諾",
+      "select": "選択"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "明日の朝",
+        "option2": "明日の夕方",
+        "option3": "月曜日の朝",
+        "option4": "日付と時刻を選択"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "myDay": {
+        "title": "マイデイ",
+        "empty": {
+          "title": "楽しい一日を！",
+          "subtitle": "今日のタスクはありません"
+        }
+      },
+      "important": {
+        "title": "重要",
+        "empty": {
+          "title": "よくできました！",
+          "subtitle": "現在、重要なタスクはありません"
+        },
+        "moreOptions": {
+          "showCompleted": "完了したタスクを表示",
+          "hideCompleted": "完了したタスクを非表示"
+        }
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "デジタルライフを簡単に制御する方法",
+        "feature1": "時間を効率的に管理",
+        "feature2": "デバイス上のローカルストレージ",
+        "feature3": "データはプライバシーが守られ安全",
+        "feature4": "個人に合わせたリマインダーと通知",
+        "disclaimer": "*このアプリはまだベータ版です。予期しない動作やUIの変更があります*",
+        "button": "開始する"
+      },
+      "tutorial": {
+        "task1": "左側のチェックボックスをタップしてチェックを入れる",
+        "task2": "左側のチェックボックスをタップしてチェックを外す",
+        "task3": "スワイプしてこのタスクを削除",
+        "task4": "右下の+をタップしてタスクを追加",
+        "task5": "このタスクを編集するにはタップ",
+        "task5note": "ここにメモを書くことができます",
+        "task6": "右上の⁝をタップしてリストを編集または削除",
+        "task7": "他にも使いやすい機能がありますので、お試しください",
+        "task8": "チュートリアルは以上です。このアプリが役立つことを願っています",
+        "task9": "このアプリをご利用いただき、ありがとうございます"
+      }
+    },
+    "calendar": {
+      "title": "カレンダー"
+    },
+    "search": {
+      "title": "検索",
+      "searching": "検索中...",
+      "empty": "タスクが見つかりません"
+    },
+    "settings": {
+      "title": "設定",
+      "page": {
+        "general": {
+          "title": "一般",
+          "backup": "バックアップ / リストア"
+        },
+        "appearance": {
+          "title": "外観",
+          "theme": "テーマ",
+          "language": "言語"
+        },
+        "moreInformation": {
+          "title": "詳細",
+          "about": "このアプリについて",
+          "privacyPolicies": "プライバシーポリシー",
+          "share": "シェア"
+        }
+      },
+      "themes": {
+        "title": "テーマ",
+        "description": "ここでトピックの色を変更できます。アイコン、ボタン、その他のテキストにのみ影響します",
+        "indicator": "選択中"
+      },
+      "about": {
+        "title": "Tasking App",
+        "description": "このアプリは、タスク/メモ/リマインダーの管理をシンプルに行うためにコミュニティ向けに開発された無料のオープンソースアプリケーションです",
+        "policyPrivacy": "プライバシーポリシー",
+        "repo": "GitHub リポジトリ"
+      },
+      "languages": {
+        "title": "言語",
+        "description": "アプリで使用する言語を選択してください。",
+        "gptInfoDialog": "このアプリはGPT-3 APIを使用してテキストを翻訳しています。そのため、翻訳が100%正確であるとは限りません。翻訳の改善にご協力いただける場合は、お知らせください。",
+        "changedLanguage": "言語が変更されました。アプリケーションを再起動して変更を適用してください。"
+      }
+    },
+    "lists": {
+      "title": "リスト",
+      "page": {
+        "addButton": "新しいリスト",
+        "completed": "完了した $length",
+        "emptyTasks": {
+          "title": "タスクがありません",
+          "subtitle": "+ を押してタスクを追加"
+        }
+      },
+      "emptyLists": {
+        "title": "リストがありません",
+        "subtitle": "+ を押してリストを追加"
+      },
+      "addModal": {
+        "title": "リストを追加"
+      },
+      "updateModal": {
+        "title": "リストを更新"
+      },
+      "deleteDialog": {
+        "title": "リストを削除しますか？",
+        "subtitle": "削除してもよろしいですか？\nこのアクションは取り消せません",
+        "warning": "未完了のタスクが $pendingTasks 個あります"
+      },
+      "forms": {
+        "colorLabel": "色を選択",
+        "placeholder": "リストのタイトルを入力",
+        "errorEmptyName": "リストのタイトルを入力してください"
+      },
+      "moreOptions": {
+        "list": {
+          "title": "リスト",
+          "edit": "リストを編集",
+          "delete": "リストを削除"
+        },
+        "tasks": {
+          "incompleteAllTasks": "すべてのタスクを未完了にする",
+          "completeAllTasks": "すべてのタスクを完了にする",
+          "deleteAllCompletedTasks": "すべての完了したタスクを削除"
+        }
+      }
+    },
+    "tasks": {
+      "title": "タスク",
+      "page": {
+        "placeholderTitle": "タイトル",
+        "placeholderNote": "メモ",
+        "edited": "$time に編集済み",
+        "addSteps": "ステップを追加"
+      },
+      "addModal": {
+        "placeholder": "タスクを追加",
+        "errorEmptyName": "タスクを入力してください",
+        "dateline": "期限を設定",
+        "reminder": "リマインダー",
+        "notes": "メモ"
+      },
+      "datelineLabels": {
+        "today": "今日",
+        "tomorrow": "明日",
+        "nextWeek": "来週",
+        "pickDate": "日付を選択",
+        "remove": "期限を解除"
+      },
+      "reminderLabels": {
+        "laterToday": "後で今日",
+        "tomorrowMorning": "明日の朝",
+        "nextWeek": "来週",
+        "pickDateTime": "日時を選択",
+        "change": "リマインダーを変更",
+        "remove": "リマインダーを解除"
+      },
+      "deleteDialog": {
+        "title": "タスクを削除しますか？",
+        "subtitle": "削除してもよろしいですか？\nこのアクションは取り消せません"
+      },
+      "moreOptions": {
+        "delete": "タスクを削除"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "ステップを削除"
+      }
+    }
+  }
+}

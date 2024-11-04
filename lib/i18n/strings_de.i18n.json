@@ -1,0 +1,255 @@
+{
+  "common": {
+    "locale": "de",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "Chinesisch (Mandarin)",
+      "Englisch",
+      "Französisch",
+      "Deutsch",
+      "Hindi",
+      "Indonesisch",
+      "Japanisch",
+      "Portugiesisch",
+      "Russisch",
+      "Spanisch"
+    ],
+    "labels": {
+      "calendarDays": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+      "shortDays": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+      "shortMonths": [
+        "Jan",
+        "Feb",
+        "Mär",
+        "Apr",
+        "Mai",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Okt",
+        "Nov",
+        "Dez"
+      ],
+      "longDays": [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag"
+      ],
+      "longMonths": [
+        "Januar",
+        "Februar",
+        "März",
+        "April",
+        "Mai",
+        "Juni",
+        "Juli",
+        "August",
+        "September",
+        "Oktober",
+        "November",
+        "Dezember"
+      ]
+    },
+    "buttons": {
+      "add": "Hinzufügen",
+      "addTask": "Eine Aufgabe hinzufügen",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "update": "Aktualisieren",
+      "confirm": "Bestätigen",
+      "restore": "Wiederherstellen",
+      "save": "Speichern",
+      "accept": "Akzeptieren",
+      "select": "Auswählen"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "Morgen früh",
+        "option2": "Morgen Abend",
+        "option3": "Montag früh",
+        "option4": "Datum & Uhrzeit auswählen"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "myDay": {
+        "title": "Mein Tag",
+        "empty": {
+          "title": "Genießen Sie Ihren Tag!",
+          "subtitle": "Sie haben keine Aufgaben für heute"
+        }
+      },
+      "important": {
+        "title": "Wichtig",
+        "empty": {
+          "title": "Gut gemacht!",
+          "subtitle": "Sie haben derzeit keine wichtigen Aufgaben."
+        },
+        "moreOptions": {
+          "showCompleted": "Abgeschlossene Aufgaben anzeigen",
+          "hideCompleted": "Abgeschlossene Aufgaben ausblenden"
+        }
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "Ein einfacher Weg, um Ihr digitales Leben zu kontrollieren",
+        "feature1": "Verwalten Sie Ihre Zeit effizient",
+        "feature2": "Lokale Speicherung auf dem Gerät",
+        "feature3": "Ihre Daten sind privat und sicher",
+        "feature4": "Individualisierte Erinnerungen und Benachrichtigungen",
+        "disclaimer": "*Diese App ist noch in der Beta-Version, erwarten Sie unerwartetes Verhalten und UI-Änderungen*",
+        "button": "Loslegen"
+      },
+      "tutorial": {
+        "task1": "Tippen Sie auf das linke Kontrollkästchen, um zu überprüfen",
+        "task2": "Tippen Sie auf das linke Kontrollkästchen, um den Haken zu entfernen",
+        "task3": "Nach links wischen, um diese Aufgabe zu löschen",
+        "task4": "Tippen Sie auf das untere rechte +, um eine Aufgabe hinzuzufügen",
+        "task5": "Tippen Sie zum Bearbeiten dieser Aufgabe",
+        "task5note": "Hier können Sie Notizen schreiben",
+        "task6": "Tippen Sie auf das obere rechte ⁝, um diese Liste zu bearbeiten oder zu löschen",
+        "task7": "Es gibt weitere benutzerfreundliche Funktionen, also probieren Sie sie bitte aus!",
+        "task8": "Das war es für das Tutorial. Ich hoffe, diese App wird nützlich für Sie sein",
+        "task9": "Danke, dass Sie diese App verwenden!"
+      }
+    },
+    "calendar": {
+      "title": "Kalender"
+    },
+    "search": {
+      "title": "Suche",
+      "searching": "Suchen...",
+      "empty": "Keine Aufgaben gefunden"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "page": {
+        "general": {
+          "title": "Allgemein",
+          "backup": "Backup / Wiederherstellen"
+        },
+        "appearance": {
+          "title": "Erscheinungsbild",
+          "theme": "Themen",
+          "language": "Sprache"
+        },
+        "moreInformation": {
+          "title": "Mehr Informationen",
+          "about": "Über mich",
+          "privacyPolicies": "Datenschutzbestimmungen",
+          "share": "Teilen"
+        }
+      },
+      "themes": {
+        "title": "Themen",
+        "description": "Sie können hier die Farbe des Themas ändern. Dies betrifft nur Dinge wie Icons, Schaltflächen und andere Texte.",
+        "indicator": "ausgewählt"
+      },
+      "about": {
+        "title": "Tasking App",
+        "description": "Dies ist eine kostenlose Open-Source-Anwendung, die für die Community entwickelt wurde und sich auf die Verwaltung von Aufgaben/Notizen/Erinnerungen auf einfache Weise und ohne viele zusätzliche Funktionen konzentriert.",
+        "policyPrivacy": "Datenschutzbestimmungen",
+        "repo": "GitHub-Repository"
+      },
+      "languages": {
+        "title": "Sprachen",
+        "description": "Wählen Sie die Sprache aus, die Sie in der Anwendung verwenden möchten.",
+        "gptInfoDialog": "Diese App verwendet die GPT-3-API zur Übersetzung der Texte. Die Übersetzungen sind daher möglicherweise nicht zu 100% genau. Wenn Sie helfen möchten, die Übersetzungen zu verbessern, kontaktieren Sie mich bitte.",
+        "changedLanguage": "De taal is gewijzigd, start de toepassing opnieuw om de wijzigingen toe te passen."
+      }
+    },
+    "lists": {
+      "title": "Listen",
+      "page": {
+        "addButton": "Neue Liste",
+        "completed": "Abgeschlossen $length",
+        "emptyTasks": {
+          "title": "Es gibt keine Aufgaben",
+          "subtitle": "Drücken Sie +, um die Aufgabe hinzuzufügen"
+        }
+      },
+      "emptyLists": {
+        "title": "Es gibt keine Listen",
+        "subtitle": "Drücken Sie +, um die Liste hinzuzufügen"
+      },
+      "addModal": {
+        "title": "Liste hinzufügen"
+      },
+      "updateModal": {
+        "title": "Liste aktualisieren"
+      },
+      "deleteDialog": {
+        "title": "Liste löschen?",
+        "subtitle": "Sind Sie sicher, dass Sie sie löschen möchten?\nDiese Aktion kann nicht rückgängig gemacht werden",
+        "warning": "Sie haben $pendingTasks ausstehende Aufgaben"
+      },
+      "forms": {
+        "colorLabel": "Farbe auswählen",
+        "placeholder": "Listentitel eingeben",
+        "errorEmptyName": "Bitte geben Sie einen Listentitel ein."
+      },
+      "moreOptions": {
+        "list": {
+          "title": "Liste",
+          "edit": "Liste bearbeiten",
+          "delete": "Liste löschen"
+        },
+        "tasks": {
+          "incompleteAllTasks": "Alle Aufgaben als unvollständig markieren",
+          "completeAllTasks": "Alle Aufgaben als abgeschlossen markieren",
+          "deleteAllCompletedTasks": "Alle abgeschlossenen Aufgaben löschen"
+        }
+      }
+    },
+    "tasks": {
+      "title": "Aufgaben",
+      "page": {
+        "placeholderTitle": "Titel",
+        "placeholderNote": "Notiz",
+        "edited": "Bearbeitet $time",
+        "addSteps": "Schritte hinzufügen"
+      },
+      "addModal": {
+        "placeholder": "Aufgabe hinzufügen",
+        "errorEmptyName": "Bitte geben Sie eine Aufgabe ein.",
+        "dateline": "Frist setzen",
+        "reminder": "Erinnern",
+        "notes": "Notizen"
+      },
+      "datelineLabels": {
+        "today": "Heute",
+        "tomorrow": "Morgen",
+        "nextWeek": "Nächste Woche",
+        "pickDate": "Datum auswählen",
+        "remove": "Frist entfernen"
+      },
+      "reminderLabels": {
+        "laterToday": "Später heute",
+        "tomorrowMorning": "Morgen früh",
+        "nextWeek": "Nächste Woche",
+        "pickDateTime": "Datum und Uhrzeit auswählen",
+        "change": "Erinnerung ändern",
+        "remove": "Erinnerung entfernen"
+      },
+      "deleteDialog": {
+        "title": "Aufgabe löschen?",
+        "subtitle": "Sind Sie sicher, dass Sie sie löschen möchten?\nDiese Aktion kann nicht rückgängig gemacht werden"
+      },
+      "moreOptions": {
+        "delete": "Aufgabe löschen"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "Schritt löschen"
+      }
+    }
+  }
+}

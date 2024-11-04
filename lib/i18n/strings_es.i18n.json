@@ -1,11 +1,22 @@
 {
   "common": {
     "locale": "es",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "Chino (mandarín)",
+      "Inglés",
+      "Francés",
+      "Alemán",
+      "Hindi",
+      "Indonesio",
+      "Japonés",
+      "Portugués",
+      "Ruso",
+      "Español"
+    ],
     "labels": {
-      "appName": "Tasking",
-      "language": "Español",
-      "calendarDays": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-      "shortDays": ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"],
+      "calendarDays": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+      "shortDays": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
       "shortMonths": [
         "Ene",
         "Feb",
@@ -58,17 +69,17 @@
     },
     "utils": {
       "dateTimePicker": {
-        "option1": "Mañana por la mañana",
-        "option2": "Mañana por la tarde",
+        "option1": "Mañana",
+        "option2": "Esta noche",
         "option3": "Lunes por la mañana",
-        "option4": "Elija una fecha y hora"
+        "option4": "Elegir una fecha y hora"
       }
     }
   },
   "features": {
     "home": {
       "myDay": {
-        "title": "My Day",
+        "title": "Mi día",
         "empty": {
           "title": "¡Disfruta tu día!",
           "subtitle": "No tienes tareas para hoy"
@@ -78,7 +89,7 @@
         "title": "Importante",
         "empty": {
           "title": "¡Bien hecho!",
-          "subtitle": "No tienes tareas importantes por ahora."
+          "subtitle": "No tienes tareas importantes por ahora"
         },
         "moreOptions": {
           "showCompleted": "Mostrar tareas completadas",
@@ -88,24 +99,24 @@
     },
     "intro": {
       "page": {
-        "title": "Una forma simple de controlar su vida digital",
-        "feature1": "Administre su tiempo de manera eficiente",
+        "title": "Una forma sencilla de controlar tu vida digital",
+        "feature1": "Administra tu tiempo eficientemente",
         "feature2": "Almacenamiento local en el dispositivo",
-        "feature3": "Sus datos son privados y seguros",
-        "feature4": "Recordatorios y notificaciones personalizados",
-        "disclaimer": "*Esta aplicación todavía está en beta, espere el comportamiento inesperado y los cambios de la interfaz de usuario.*",
+        "feature3": "Tus datos son privados y seguros",
+        "feature4": "Recordatorios y notificaciones personalizadas",
+        "disclaimer": "*Esta aplicación aún está en beta, espera un comportamiento inesperado y cambios en la interfaz de usuario*",
         "button": "Empezar"
       },
       "tutorial": {
-        "task1": "Toque la casilla de verificación izquierda para marcar",
-        "task2": "Toca la casilla de verificación de la izquierda para eliminar la marca.",
-        "task3": "Toca la × derecha para eliminar esta tarea",
-        "task4": "Toca la parte inferior derecha + para agregar una tarea",
+        "task1": "Toca la casilla izquierda para marcarla",
+        "task2": "Toca la casilla izquierda para quitar la marca",
+        "task3": "Desliza a la izquierda para eliminar esta tarea",
+        "task4": "Toca el + en la esquina inferior derecha para agregar una tarea",
         "task5": "Toca para editar esta tarea",
-        "task5note": "Puedes escribir notas aquí.",
-        "task6": "Toca la esquina superior derecha ⁝ para editar o eliminar esta lista",
-        "task7": "Hay otras funciones fáciles de usar, ¡pruébalas!",
-        "task8": "Eso es todo por el tutorial. Espero que esta aplicación te sea útil.",
+        "task5note": "Puedes escribir notas aquí",
+        "task6": "Toca en los tres puntos en la esquina superior derecha para editar o eliminar esta lista",
+        "task7": "Hay otras funciones fáciles de usar, ¡así que por favor pruébalas!",
+        "task8": "Eso es todo para el tutorial. ¡Espero que esta aplicación te sea útil!",
         "task9": "¡Gracias por usar esta aplicación!"
       }
     },
@@ -118,11 +129,11 @@
       "empty": "No se encontraron tareas"
     },
     "settings": {
-      "title": "Ajustes",
+      "title": "Configuración",
       "page": {
         "general": {
           "title": "General",
-          "backup": "Copia de seguridad"
+          "backup": "Copia de seguridad / Restaurar"
         },
         "appearance": {
           "title": "Apariencia",
@@ -131,52 +142,58 @@
         },
         "moreInformation": {
           "title": "Más información",
-          "about": "Acerca de",
+          "about": "Acerca de mí",
           "privacyPolicies": "Políticas de privacidad",
           "share": "Compartir"
         }
       },
       "themes": {
         "title": "Temas",
-        "description": "Puedes cambiar el color de tema aquí, esto afectara unicamente a cosas como, iconos, botones y otros textos resaltados.",
-        "indicator": "Seleccionado"
+        "description": "Puedes cambiar el color del tema aquí, esto afecta solo elementos como iconos, botones y otros textos.",
+        "indicator": "seleccionado"
       },
       "about": {
-        "title": "Tasking App",
-        "description": "Esta es una aplicación gratuita de código abierto desarrollada para la comunidad, centrada en la gestión de tareas/notas/recordatorios de manera simple y sin muchas funciones adicionales.",
+        "title": "Aplicación Tasking",
+        "description": "Esta es una aplicación de código abierto gratuita desarrollada para la comunidad, centrada en la gestión de tareas/notas/recordatorios de forma sencilla y sin muchas funciones adicionales.",
         "policyPrivacy": "Políticas de Privacidad",
-        "repo": "Github Repositorio"
+        "repo": "Repositorio en GitHub"
+      },
+      "languages": {
+        "title": "Idiomas",
+        "description": "Selecciona el idioma que deseas utilizar en la aplicación.",
+        "gptInfoDialog": "Esta aplicación utiliza la API de GPT-3 para traducir los textos, por lo que las traducciones pueden no ser 100% precisas. Si deseas ayudar a mejorar las traducciones, por favor contácteme.",
+        "changedLanguage": "El idioma se ha cambiado, reinicie la app para aplicar los cambios."
       }
     },
     "lists": {
       "title": "Listas",
       "page": {
         "addButton": "Nueva lista",
-        "completed": "Completados  $length",
+        "completed": "Completadas  $length",
         "emptyTasks": {
           "title": "No hay tareas",
-          "subtitle": "Presione + para agregar una tarea"
+          "subtitle": "Presiona + para añadir una tarea"
         }
       },
       "emptyLists": {
         "title": "No hay listas",
-        "subtitle": "Presione + para agregar una lista"
+        "subtitle": "Presiona + para añadir una lista"
       },
       "addModal": {
-        "title": "Agregar lista"
+        "title": "Añadir una lista"
       },
       "updateModal": {
         "title": "Actualizar lista"
       },
       "deleteDialog": {
         "title": "¿Eliminar lista?",
-        "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción",
+        "subtitle": "¿Estás seguro de que quieres eliminarla?\nEsta acción no se puede deshacer",
         "warning": "Tienes $pendingTasks tareas pendientes"
       },
       "forms": {
         "colorLabel": "Selecciona un color",
-        "placeholder": "Ingrese el título de la lista",
-        "errorEmptyName": "Ingrese un título de lista."
+        "placeholder": "Ingresa el título de la lista",
+        "errorEmptyName": "Por favor, ingresa un título de lista."
       },
       "moreOptions": {
         "list": {
@@ -201,29 +218,29 @@
       },
       "addModal": {
         "placeholder": "Agregar una tarea",
-        "errorEmptyName": "Ingrese una tarea.",
-        "dateline": "Fecha limite",
-        "reminder": "Recordatorio",
+        "errorEmptyName": "Por favor, ingresa una tarea.",
+        "dateline": "Establecer fecha límite",
+        "reminder": "Recordarme",
         "notes": "Notas"
       },
       "datelineLabels": {
         "today": "Hoy",
         "tomorrow": "Mañana",
-        "nextWeek": "La próxima semana",
-        "pickDate": "Elegir una fecha",
-        "remove": "Eliminar fecha limite"
+        "nextWeek": "Próxima semana",
+        "pickDate": "Selecciona una fecha",
+        "remove": "Eliminar fecha límite"
       },
       "reminderLabels": {
         "laterToday": "Más tarde hoy",
         "tomorrowMorning": "Mañana por la mañana",
-        "nextWeek": "La próxima semana",
-        "pickDateTime": "Elegir una fecha y hora",
+        "nextWeek": "Próxima semana",
+        "pickDateTime": "Selecciona una fecha y hora",
         "change": "Cambiar recordatorio",
         "remove": "Eliminar recordatorio"
       },
       "deleteDialog": {
         "title": "¿Eliminar tarea?",
-        "subtitle": "¿Estás seguro de que quieres eliminarlo?\nNo puedes deshacer esta acción"
+        "subtitle": "¿Estás seguro de que quieres eliminarla?\nEsta acción no se puede deshacer"
       },
       "moreOptions": {
         "delete": "Eliminar tarea"
@@ -231,7 +248,7 @@
     },
     "steps": {
       "moreOptions": {
-        "delete": "Delete step"
+        "delete": "Eliminar paso"
       }
     }
   }

@@ -1,9 +1,20 @@
 {
   "common": {
     "locale": "en",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "Chinese (Mandarin)",
+      "English",
+      "French",
+      "German",
+      "Hindi",
+      "Indonesian",
+      "Japanese",
+      "Portuguese",
+      "Russian",
+      "Spanish"
+    ],
     "labels": {
-      "appName": "Tasking",
-      "language": "English",
       "calendarDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       "shortDays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       "shortMonths": [
@@ -146,6 +157,12 @@
         "description": "This is a free open source application developed for the community, focused on the management of tasks/notes/reminders in a simple way and without many additional functions.",
         "policyPrivacy": "Privacy Policies",
         "repo": "GitHub repository"
+      },
+      "languages": {
+        "title": "Languages",
+        "description": "Select the language you want to use in the application.",
+        "gptInfoDialog": "This app uses the GPT-3 API to translate the texts, so the translations may not be 100% accurate. If you want to help improve the translations, please contact me.",
+        "changedLanguage": "The language has been changed, please restart the application to apply the changes."
       }
     },
     "lists": {

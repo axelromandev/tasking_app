@@ -1,0 +1,255 @@
+{
+  "common": {
+    "locale": "id",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "Cina (Mandarin)",
+      "Inggris",
+      "Perancis",
+      "Jerman",
+      "Hindi",
+      "Indonesia",
+      "Jepang",
+      "Portugis",
+      "Rusia",
+      "Spanyol"
+    ],
+    "labels": {
+      "calendarDays": ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+      "shortDays": ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
+      "shortMonths": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "Mei",
+        "Jun",
+        "Jul",
+        "Ags",
+        "Sep",
+        "Okt",
+        "Nov",
+        "Des"
+      ],
+      "longDays": [
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu",
+        "Minggu"
+      ],
+      "longMonths": [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+      ]
+    },
+    "buttons": {
+      "add": "Tambah",
+      "addTask": "Tambah tugas",
+      "cancel": "Batal",
+      "delete": "Hapus",
+      "update": "Perbarui",
+      "confirm": "Konfirmasi",
+      "restore": "Pulihkan",
+      "save": "Simpan",
+      "accept": "Terima",
+      "select": "Pilih"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "Besok pagi",
+        "option2": "Besok malam",
+        "option3": "Senin pagi",
+        "option4": "Pilih tanggal & waktu"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "myDay": {
+        "title": "Hari Saya",
+        "empty": {
+          "title": "Nikmati harimu!",
+          "subtitle": "Kamu tidak memiliki tugas untuk hari ini"
+        }
+      },
+      "important": {
+        "title": "Penting",
+        "empty": {
+          "title": "Bagus!",
+          "subtitle": "Kamu tidak memiliki tugas penting saat ini."
+        },
+        "moreOptions": {
+          "showCompleted": "Tampilkan tugas selesai",
+          "hideCompleted": "Sembunyikan tugas selesai"
+        }
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "Cara sederhana untuk mengontrol kehidupan digitalmu",
+        "feature1": "Kelola waktu dengan efisien",
+        "feature2": "Penyimpanan lokal di perangkat",
+        "feature3": "Data kamu pribadi dan aman",
+        "feature4": "Pengingat dan notifikasi yang dipersonalisasi",
+        "disclaimer": "*Aplikasi ini masih dalam versi beta, harap bersiap untuk perilaku dan perubahan antarmuka pengguna yang tidak terduga*",
+        "button": "Mulai"
+      },
+      "tutorial": {
+        "task1": "Ketuk kotak centang kiri untuk menandai",
+        "task2": "Ketuk kotak centang kiri untuk menghapus tanda",
+        "task3": "Geser ke kiri untuk menghapus tugas ini",
+        "task4": "Ketuk + di kanan bawah untuk menambahkan tugas",
+        "task5": "Ketuk untuk mengedit tugas ini",
+        "task5note": "Kamu bisa menulis catatan di sini",
+        "task6": "Ketuk ⁝ di kanan atas untuk mengedit atau menghapus daftar ini",
+        "task7": "Ada fitur lain yang mudah digunakan, jadi tolong coba!",
+        "task8": "Itu dia tutorialnya. Semoga aplikasi ini berguna bagi kamu",
+        "task9": "Terima kasih telah menggunakan aplikasi ini!"
+      }
+    },
+    "calendar": {
+      "title": "Kalender"
+    },
+    "search": {
+      "title": "Cari",
+      "searching": "Mencari...",
+      "empty": "Tidak ada tugas ditemukan"
+    },
+    "settings": {
+      "title": "Pengaturan",
+      "page": {
+        "general": {
+          "title": "Umum",
+          "backup": "Cadangkan / Pulihkan"
+        },
+        "appearance": {
+          "title": "Tampilan",
+          "theme": "Tema",
+          "language": "Bahasa"
+        },
+        "moreInformation": {
+          "title": "Informasi lebih lanjut",
+          "about": "Tentang saya",
+          "privacyPolicies": "Kebijakan privasi",
+          "share": "Bagikan"
+        }
+      },
+      "themes": {
+        "title": "Tema",
+        "description": "Kamu dapat mengubah warna topik di sini, ini hanya memengaruhi ikon, tombol, dan teks lainnya.",
+        "indicator": "terpilih"
+      },
+      "about": {
+        "title": "Aplikasi Tasking",
+        "description": "Ini adalah aplikasi sumber terbuka gratis yang dikembangkan untuk komunitas, berfokus pada manajemen tugas/catatan/pengingat dengan cara yang sederhana dan tanpa banyak fungsi tambahan.",
+        "policyPrivacy": "Kebijakan Privasi",
+        "repo": "Repositori GitHub"
+      },
+      "languages": {
+        "title": "Bahasa",
+        "description": "Pilih bahasa yang ingin Anda gunakan dalam aplikasi.",
+        "gptInfoDialog": "Aplikasi ini menggunakan API GPT-3 untuk menerjemahkan teks, sehingga terjemahan mungkin tidak 100% akurat. Jika Anda ingin membantu memperbaiki terjemahan, silakan hubungi saya.",
+        "changedLanguage": "Bahasa telah diubah, harap restart aplikasi untuk menerapkan perubahan."
+      }
+    },
+    "lists": {
+      "title": "Daftar",
+      "page": {
+        "addButton": "Daftar Baru",
+        "completed": "Selesai $length",
+        "emptyTasks": {
+          "title": "Tidak ada tugas",
+          "subtitle": "Tekan + untuk menambahkan tugas"
+        }
+      },
+      "emptyLists": {
+        "title": "Tidak ada daftar",
+        "subtitle": "Tekan + untuk menambah daftar"
+      },
+      "addModal": {
+        "title": "Tambahkan daftar"
+      },
+      "updateModal": {
+        "title": "Perbarui daftar"
+      },
+      "deleteDialog": {
+        "title": "Hapus daftar?",
+        "subtitle": "Apakah Anda yakin ingin menghapusnya?\nAnda tidak dapat mengembalikan tindakan ini",
+        "warning": "Anda memiliki $pendingTasks tugas tertunda"
+      },
+      "forms": {
+        "colorLabel": "Pilih warna",
+        "placeholder": "Masukkan judul daftar",
+        "errorEmptyName": "Harap masukkan judul daftar."
+      },
+      "moreOptions": {
+        "list": {
+          "title": "Daftar",
+          "edit": "Edit daftar",
+          "delete": "Hapus daftar"
+        },
+        "tasks": {
+          "incompleteAllTasks": "Tandai semua tugas sebagai belum selesai",
+          "completeAllTasks": "Tandai semua tugas sebagai selesai",
+          "deleteAllCompletedTasks": "Hapus semua tugas yang sudah selesai"
+        }
+      }
+    },
+    "tasks": {
+      "title": "Tugas",
+      "page": {
+        "placeholderTitle": "Judul",
+        "placeholderNote": "Catatan",
+        "edited": "Diedit $time",
+        "addSteps": "Tambahkan langkah"
+      },
+      "addModal": {
+        "placeholder": "Tambahkan tugas",
+        "errorEmptyName": "Silakan masukkan nama tugas.",
+        "dateline": "Atur batas waktu",
+        "reminder": "Ingatkan saya",
+        "notes": "Catatan"
+      },
+      "datelineLabels": {
+        "today": "Hari Ini",
+        "tomorrow": "Besok",
+        "nextWeek": "Minggu Depan",
+        "pickDate": "Pilih tanggal",
+        "remove": "Hapus batas waktu"
+      },
+      "reminderLabels": {
+        "laterToday": "Nanti hari ini",
+        "tomorrowMorning": "Besok pagi",
+        "nextWeek": "Minggu Depan",
+        "pickDateTime": "Pilih tanggal dan waktu",
+        "change": "Ubah pengingat",
+        "remove": "Hapus pengingat"
+      },
+      "deleteDialog": {
+        "title": "Hapus tugas?",
+        "subtitle": "Apakah Anda yakin ingin menghapusnya?\nAnda tidak dapat mengembalikan tindakan ini"
+      },
+      "moreOptions": {
+        "delete": "Hapus tugas"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "Hapus"
+      }
+    }
+  }
+}

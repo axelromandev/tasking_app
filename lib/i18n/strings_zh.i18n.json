@@ -1,0 +1,255 @@
+{
+  "common": {
+    "locale": "zh",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "中文（普通话）",
+      "英语",
+      "法语",
+      "德语",
+      "印地语",
+      "印度尼西亚语",
+      "日语",
+      "葡萄牙语",
+      "俄语",
+      "西班牙语"
+    ],
+    "labels": {
+      "calendarDays": ["日", "一", "二", "三", "四", "五", "六"],
+      "shortDays": ["一", "二", "三", "四", "五", "六", "日"],
+      "shortMonths": [
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月"
+      ],
+      "longDays": [
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+        "星期日"
+      ],
+      "longMonths": [
+        "一月",
+        "二月",
+        "三月",
+        "四月",
+        "五月",
+        "六月",
+        "七月",
+        "八月",
+        "九月",
+        "十月",
+        "十一月",
+        "十二月"
+      ]
+    },
+    "buttons": {
+      "add": "添加",
+      "addTask": "添加任务",
+      "cancel": "取消",
+      "delete": "删除",
+      "update": "更新",
+      "confirm": "确认",
+      "restore": "恢复",
+      "save": "保存",
+      "accept": "接受",
+      "select": "选择"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "明天早上",
+        "option2": "明天晚上",
+        "option3": "星期一早上",
+        "option4": "选择日期和时间"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "myDay": {
+        "title": "我的一天",
+        "empty": {
+          "title": "享受你的一天！",
+          "subtitle": "今天没有任务."
+        }
+      },
+      "important": {
+        "title": "重要",
+        "empty": {
+          "title": "做得好！",
+          "subtitle": "目前没有重要任务。"
+        },
+        "moreOptions": {
+          "showCompleted": "显示已完成任务",
+          "hideCompleted": "隐藏已完成任务"
+        }
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "简单控制你的数字生活",
+        "feature1": "高效管理你的时间",
+        "feature2": "设备本地存储",
+        "feature3": "你的数据是私密与安全的",
+        "feature4": "个性化提醒与通知",
+        "disclaimer": "*此应用仍处于测试版，可能出现意外行为和用户界面更改*",
+        "button": "开始使用"
+      },
+      "tutorial": {
+        "task1": "点击左侧复选框进行勾选",
+        "task2": "点击左侧复选框取消勾选",
+        "task3": "向左滑动以删除此任务",
+        "task4": "点击右下角的 + 号添加任务",
+        "task5": "点击以编辑此任务",
+        "task5note": "您可以在此处撰写备注",
+        "task6": "点击右上角的 ⁝ 来编辑或删除此列表",
+        "task7": "还有其他易于使用的功能，请尝试一下！",
+        "task8": "教程就到这里。希望这个应用对您有所帮助",
+        "task9": "感谢您使用此应用！"
+      }
+    },
+    "calendar": {
+      "title": "日历"
+    },
+    "search": {
+      "title": "搜索",
+      "searching": "搜索中...",
+      "empty": "未找到任务"
+    },
+    "settings": {
+      "title": "设置",
+      "page": {
+        "general": {
+          "title": "常规",
+          "backup": "备份 / 恢复"
+        },
+        "appearance": {
+          "title": "外观",
+          "theme": "主题",
+          "language": "语言"
+        },
+        "moreInformation": {
+          "title": "更多信息",
+          "about": "关于我",
+          "privacyPolicies": "隐私政策",
+          "share": "分享"
+        }
+      },
+      "themes": {
+        "title": "主题",
+        "description": "您可以在这里更改主题颜色，这仅影响图标、按钮和其他文本等内容。",
+        "indicator": "已选择"
+      },
+      "about": {
+        "title": "Tasking App",
+        "description": "这是一个为社区开发的免费开源应用，专注于以简单方式管理任务/备注/提醒事项，没有太多附加功能。",
+        "policyPrivacy": "隐私政策",
+        "repo": "GitHub知识库"
+      },
+      "languages": {
+        "title": "语言",
+        "description": "选择您想在应用程序中使用的语言。",
+        "gptInfoDialog": "此应用程序使用GPT-3 API来翻译文本，因此翻译可能不是100%准确。如果您想帮助改进翻译，请联系我。",
+        "changedLanguage": "語言已更改，請重新啟動應用程序以應用更改."
+      }
+    },
+    "lists": {
+      "title": "清单",
+      "page": {
+        "addButton": "新建清单",
+        "completed": "已完成 $length",
+        "emptyTasks": {
+          "title": "没有任务",
+          "subtitle": "按 + 添加任务"
+        }
+      },
+      "emptyLists": {
+        "title": "没有列表",
+        "subtitle": "按 + 添加列表"
+      },
+      "addModal": {
+        "title": "添加清单"
+      },
+      "updateModal": {
+        "title": "更新清单"
+      },
+      "deleteDialog": {
+        "title": "删除列表？",
+        "subtitle": "您确定要删除吗？\n此操作无法撤销",
+        "warning": "您有 $pendingTasks 个待办任务"
+      },
+      "forms": {
+        "colorLabel": "选择颜色",
+        "placeholder": "输入列表标题",
+        "errorEmptyName": "请输入列表标题。"
+      },
+      "moreOptions": {
+        "list": {
+          "title": "列表",
+          "edit": "编辑清单",
+          "delete": "删除清单"
+        },
+        "tasks": {
+          "incompleteAllTasks": "标记所有任务为未完成",
+          "completeAllTasks": "标记所有任务为已完成",
+          "deleteAllCompletedTasks": "删除所有已完成任务"
+        }
+      }
+    },
+    "tasks": {
+      "title": "任务",
+      "page": {
+        "placeholderTitle": "标题",
+        "placeholderNote": "备注",
+        "edited": "已编辑 $time",
+        "addSteps": "添加步骤"
+      },
+      "addModal": {
+        "placeholder": "添加任务",
+        "errorEmptyName": "请输入任务。",
+        "dateline": "设置截止日期",
+        "reminder": "提醒我",
+        "notes": "备注"
+      },
+      "datelineLabels": {
+        "today": "今天",
+        "tomorrow": "明天",
+        "nextWeek": "下周",
+        "pickDate": "选择日期",
+        "remove": "取消日期"
+      },
+      "reminderLabels": {
+        "laterToday": "今日稍后",
+        "tomorrowMorning": "明天上午",
+        "nextWeek": "下周",
+        "pickDateTime": "选择日期和时间",
+        "change": "更改提醒",
+        "remove": "取消提醒"
+      },
+      "deleteDialog": {
+        "title": "删除任务？",
+        "subtitle": "您确定要删除吗？\n此操作无法撤销"
+      },
+      "moreOptions": {
+        "delete": "删除任务"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "删除步骤"
+      }
+    }
+  }
+}

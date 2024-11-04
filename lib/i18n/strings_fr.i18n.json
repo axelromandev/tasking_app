@@ -1,0 +1,255 @@
+{
+  "common": {
+    "locale": "fr",
+    "locales": ["zh", "en", "fr", "de", "hi", "id", "ja", "pt", "ru", "es"],
+    "languages": [
+      "Chinois (mandarin)",
+      "Anglais",
+      "Français",
+      "Allemand",
+      "Hindi",
+      "Indonésien",
+      "Japonais",
+      "Portugais",
+      "Russe",
+      "Espagnol"
+    ],
+    "labels": {
+      "calendarDays": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+      "shortDays": ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+      "shortMonths": [
+        "janv",
+        "févr",
+        "mars",
+        "avr",
+        "mai",
+        "juin",
+        "juil",
+        "août",
+        "sept",
+        "oct",
+        "nov",
+        "déc"
+      ],
+      "longDays": [
+        "Lundi",
+        "Mardi",
+        "Mercredi",
+        "Jeudi",
+        "Vendredi",
+        "Samedi",
+        "Dimanche"
+      ],
+      "longMonths": [
+        "janvier",
+        "février",
+        "mars",
+        "avril",
+        "mai",
+        "juin",
+        "juillet",
+        "août",
+        "septembre",
+        "octobre",
+        "novembre",
+        "décembre"
+      ]
+    },
+    "buttons": {
+      "add": "Ajouter",
+      "addTask": "Ajouter une tâche",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "update": "Mettre à jour",
+      "confirm": "Confirmer",
+      "restore": "Restaurer",
+      "save": "Enregistrer",
+      "accept": "Accepter",
+      "select": "Sélectionner"
+    },
+    "utils": {
+      "dateTimePicker": {
+        "option1": "Demain matin",
+        "option2": "Demain soir",
+        "option3": "Lundi matin",
+        "option4": "Choisir une date et une heure"
+      }
+    }
+  },
+  "features": {
+    "home": {
+      "myDay": {
+        "title": "Ma journée",
+        "empty": {
+          "title": "Profitez de votre journée !",
+          "subtitle": "Vous n'avez aucune tâche pour aujourd'hui"
+        }
+      },
+      "important": {
+        "title": "Important",
+        "empty": {
+          "title": "Bien joué !",
+          "subtitle": "Vous n'avez pas de tâches importantes pour le moment."
+        },
+        "moreOptions": {
+          "showCompleted": "Afficher les tâches terminées",
+          "hideCompleted": "Masquer les tâches terminées"
+        }
+      }
+    },
+    "intro": {
+      "page": {
+        "title": "Un moyen simple de contrôler votre vie numérique",
+        "feature1": "Gérez votre temps efficacement",
+        "feature2": "Stockage local sur l'appareil",
+        "feature3": "Vos données sont privées et sécurisées",
+        "feature4": "Rappels personnalisés et notifications",
+        "disclaimer": "*Cette application est encore en version bêta, attendez-vous à des comportements inattendus et des changements d'interface utilisateur*",
+        "button": "Commencer"
+      },
+      "tutorial": {
+        "task1": "Appuyez sur la case de gauche pour cocher",
+        "task2": "Appuyez sur la case de gauche pour décocher",
+        "task3": "Balayez vers la gauche pour supprimer cette tâche",
+        "task4": "Appuyez sur le + en bas à droite pour ajouter une tâche",
+        "task5": "Appuyez pour éditer cette tâche",
+        "task5note": "Vous pouvez écrire des notes ici",
+        "task6": "Appuyez sur ⁝ en haut à droite pour éditer ou supprimer cette liste",
+        "task7": "Il y a d'autres fonctionnalités faciles à utiliser, alors veuillez les essayer !",
+        "task8": "C'est tout pour le tutoriel. J'espère que cette application vous sera utile",
+        "task9": "Merci d'utiliser cette application !"
+      }
+    },
+    "calendar": {
+      "title": "Calendrier"
+    },
+    "search": {
+      "title": "Recherche",
+      "searching": "Recherche en cours...",
+      "empty": "Aucune tâche trouvée"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "page": {
+        "general": {
+          "title": "Général",
+          "backup": "Sauvegarde / Restauration"
+        },
+        "appearance": {
+          "title": "Apparence",
+          "theme": "Thèmes",
+          "language": "Langue"
+        },
+        "moreInformation": {
+          "title": "Plus d'informations",
+          "about": "À propos de moi",
+          "privacyPolicies": "Politiques de confidentialité",
+          "share": "Partager"
+        }
+      },
+      "themes": {
+        "title": "Thèmes",
+        "description": "Vous pouvez changer la couleur du thème ici, cela affecte uniquement les icônes, les boutons et autres textes.",
+        "indicator": "sélectionné"
+      },
+      "about": {
+        "title": "Application de gestion de tâches",
+        "description": "Il s'agit d'une application gratuite et open source développée pour la communauté, axée sur la gestion des tâches/notes/rappels de manière simple et sans de nombreuses fonctions supplémentaires.",
+        "policyPrivacy": "Politiques de confidentialité",
+        "repo": "Dépôt GitHub"
+      },
+      "languages": {
+        "title": "Langues",
+        "description": "Sélectionnez la langue que vous souhaitez utiliser dans l'application.",
+        "gptInfoDialog": "Cette application utilise l'API GPT-3 pour traduire les textes, donc les traductions peuvent ne pas être 100 % précises. Si vous souhaitez aider à améliorer les traductions, veuillez me contacter.",
+        "changedLanguage": "La langue a été modifiée, veuillez redémarrer la demande pour appliquer les modifications."
+      }
+    },
+    "lists": {
+      "title": "Listes",
+      "page": {
+        "addButton": "Nouvelle liste",
+        "completed": "Completée $length",
+        "emptyTasks": {
+          "title": "Il n'y a pas de tâches",
+          "subtitle": "Appuyez sur + pour ajouter une tâche"
+        }
+      },
+      "emptyLists": {
+        "title": "Il n'y a pas de listes",
+        "subtitle": "Appuyez sur + pour ajouter une liste"
+      },
+      "addModal": {
+        "title": "Ajouter une liste"
+      },
+      "updateModal": {
+        "title": "Mettre à jour la liste"
+      },
+      "deleteDialog": {
+        "title": "Supprimer la liste ?",
+        "subtitle": "Êtes-vous sûr de vouloir le supprimer?\nCette action est irréversible",
+        "warning": "Vous avez $pendingTasks tâches en attente"
+      },
+      "forms": {
+        "colorLabel": "Sélectionner une couleur",
+        "placeholder": "Entrez le titre de la liste",
+        "errorEmptyName": "Veuillez saisir un titre de liste."
+      },
+      "moreOptions": {
+        "list": {
+          "title": "Liste",
+          "edit": "Modifier la liste",
+          "delete": "Supprimer la liste"
+        },
+        "tasks": {
+          "incompleteAllTasks": "Incompléter toutes les tâches",
+          "completeAllTasks": "Compléter toutes les tâches",
+          "deleteAllCompletedTasks": "Supprimer toutes les tâches terminées"
+        }
+      }
+    },
+    "tasks": {
+      "title": "Tâches",
+      "page": {
+        "placeholderTitle": "Titre",
+        "placeholderNote": "Note",
+        "edited": "Modifié $time",
+        "addSteps": "Ajouter des étapes"
+      },
+      "addModal": {
+        "placeholder": "Ajouter une tâche",
+        "errorEmptyName": "Veuillez saisir une tâche.",
+        "dateline": "Définir une échéance",
+        "reminder": "Me rappeler",
+        "notes": "Notes"
+      },
+      "datelineLabels": {
+        "today": "Aujourd'hui",
+        "tomorrow": "Demain",
+        "nextWeek": "Semaine prochaine",
+        "pickDate": "Choisir une date",
+        "remove": "Supprimer l'échéance"
+      },
+      "reminderLabels": {
+        "laterToday": "Plus tard aujourd'hui",
+        "tomorrowMorning": "Demain matin",
+        "nextWeek": "Semaine prochaine",
+        "pickDateTime": "Choisir une date et une heure",
+        "change": "Changer le rappel",
+        "remove": "Supprimer le rappel"
+      },
+      "deleteDialog": {
+        "title": "Supprimer la tâche ?",
+        "subtitle": "Êtes-vous sûr de vouloir le supprimer?\nCette action est irréversible"
+      },
+      "moreOptions": {
+        "delete": "Supprimer la tâche"
+      }
+    },
+    "steps": {
+      "moreOptions": {
+        "delete": "Supprimer l'étape"
+      }
+    }
+  }
+}
