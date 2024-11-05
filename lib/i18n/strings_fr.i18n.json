@@ -15,6 +15,7 @@
       "Espagnol"
     ],
     "labels": {
+      "selected": "sélectionné",
       "calendarDays": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
       "shortDays": ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
       "shortMonths": [
@@ -162,6 +163,10 @@
         "title": "Langues",
         "description": "Sélectionnez la langue que vous souhaitez utiliser dans l'application.",
         "gptInfoDialog": "Cette application utilise l'API GPT-3 pour traduire les textes, donc les traductions peuvent ne pas être 100 % précises. Si vous souhaitez aider à améliorer les traductions, veuillez me contacter.",
+        "confirmDialog": {
+          "title": "Change language?",
+          "subtitle": "Are you sure you want to change the language?\nYou need to restart the application to apply the changes."
+        },
         "changedLanguage": "La langue a été modifiée, veuillez redémarrer la demande pour appliquer les modifications."
       }
     },

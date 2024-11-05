@@ -15,6 +15,7 @@
       "Spanyol"
     ],
     "labels": {
+      "selected": "terpilih",
       "calendarDays": ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
       "shortDays": ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
       "shortMonths": [
@@ -162,6 +163,10 @@
         "title": "Bahasa",
         "description": "Pilih bahasa yang ingin Anda gunakan dalam aplikasi.",
         "gptInfoDialog": "Aplikasi ini menggunakan API GPT-3 untuk menerjemahkan teks, sehingga terjemahan mungkin tidak 100% akurat. Jika Anda ingin membantu memperbaiki terjemahan, silakan hubungi saya.",
+        "confirmDialog": {
+          "title": "Ubah bahasa?",
+          "subtitle": "Apakah Anda yakin ingin mengubah bahasa?\nAnda perlu memulai kembali aplikasi untuk menerapkan perubahan."
+        },
         "changedLanguage": "Bahasa telah diubah, harap restart aplikasi untuk menerapkan perubahan."
       }
     },

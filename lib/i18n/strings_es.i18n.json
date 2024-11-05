@@ -15,6 +15,7 @@
       "Español"
     ],
     "labels": {
+      "selected": "Seleccionado",
       "calendarDays": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
       "shortDays": ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
       "shortMonths": [
@@ -162,6 +163,10 @@
         "title": "Idiomas",
         "description": "Selecciona el idioma que deseas utilizar en la aplicación.",
         "gptInfoDialog": "Esta aplicación utiliza la API de GPT-3 para traducir los textos, por lo que las traducciones pueden no ser 100% precisas. Si deseas ayudar a mejorar las traducciones, por favor contácteme.",
+        "confirmDialog": {
+          "title": "Cambiar el idioma?",
+          "subtitle": "¿Estás seguro de que quieres cambiar el idioma?\nDebe reiniciar la aplicación para aplicar los cambios."
+        },
         "changedLanguage": "El idioma se ha cambiado, reinicie la app para aplicar los cambios."
       }
     },
