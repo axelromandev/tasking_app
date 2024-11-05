@@ -34,10 +34,6 @@ class SearchPage extends StatelessWidget {
                   ),
                 ),
                 Expanded(child: _SearchField()),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(IconsaxOutline.more),
-                ),
                 const Gap(8),
               ],
             ),
