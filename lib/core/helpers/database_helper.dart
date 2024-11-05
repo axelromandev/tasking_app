@@ -79,7 +79,7 @@ class DatabaseHelper {
       final int listId = await txn.insert(
         'lists',
         {
-          'title': 'Tutorial',
+          'title': S.features.intro.tutorial.title,
           'is_show_completed': 1,
           'icon_json':
               '{"codePoint":60094,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',

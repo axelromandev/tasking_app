@@ -110,6 +110,7 @@
         "button": "Empezar"
       },
       "tutorial": {
+        "title": "Tutorial",
         "task1": "Toca la casilla izquierda para marcarla",
         "task2": "Toca la casilla izquierda para quitar la marca",
         "task3": "Desliza a la izquierda para eliminar esta tarea",

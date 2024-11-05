@@ -110,6 +110,7 @@
         "button": "Mulai"
       },
       "tutorial": {
+        "title": "Tutorial",
         "task1": "Ketuk kotak centang kiri untuk menandai",
         "task2": "Ketuk kotak centang kiri untuk menghapus tanda",
         "task3": "Geser ke kiri untuk menghapus tugas ini",

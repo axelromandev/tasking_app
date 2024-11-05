@@ -110,6 +110,7 @@
         "button": "Começar"
       },
       "tutorial": {
+        "title": "Tutorial",
         "task1": "Toque na caixa de seleção à esquerda para marcar",
         "task2": "Toque na caixa de seleção à esquerda para remover a marcação",
         "task3": "Deslize para a esquerda para excluir esta tarefa",

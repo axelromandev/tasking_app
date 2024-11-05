@@ -110,6 +110,7 @@
         "button": "Get started"
       },
       "tutorial": {
+        "title": "Tutorial",
         "task1": "Tap the left checkbox to check",
         "task2": "Tap the left checkbox to remove the check",
         "task3": "Swipe left to delete this task",

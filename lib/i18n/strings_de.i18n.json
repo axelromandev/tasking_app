@@ -110,6 +110,7 @@
         "button": "Loslegen"
       },
       "tutorial": {
+        "title": "Tutorial",
         "task1": "Tippen Sie auf das linke Kontrollkästchen, um zu überprüfen",
         "task2": "Tippen Sie auf das linke Kontrollkästchen, um den Haken zu entfernen",
         "task3": "Nach links wischen, um diese Aufgabe zu löschen",

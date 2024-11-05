@@ -110,6 +110,7 @@
         "button": "Commencer"
       },
       "tutorial": {
+        "title": "Tutoriel",
         "task1": "Appuyez sur la case de gauche pour cocher",
         "task2": "Appuyez sur la case de gauche pour décocher",
         "task3": "Balayez vers la gauche pour supprimer cette tâche",
