@@ -59,9 +59,7 @@ class SettingsView extends ConsumerWidget {
               child: Column(
                 children: [
                   _ListTile(
-                    onTap: () {
-                      // TODO: implement backup
-                    },
+                    onTap: () => context.push('/settings/backup'),
                     icon: IconsaxOutline.refresh,
                     title: S.features.settings.page.general.backup,
                     borderRadius: BorderRadius.circular(16),

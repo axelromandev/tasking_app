@@ -30,6 +30,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const SettingsView(),
       ),
       GoRoute(
+        path: '/settings/backup',
+        builder: (_, __) => const BackupPage(),
+      ),
+      GoRoute(
         path: '/settings/themes',
         builder: (_, __) => const ThemesChangePage(),
       ),
