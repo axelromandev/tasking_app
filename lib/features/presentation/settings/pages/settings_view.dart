@@ -1,14 +1,13 @@
 import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/core/core.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -137,27 +136,7 @@ class SettingsView extends ConsumerWidget {
                     ),
                   ),
                   _ListTile(
-                    onTap: () async {
-                      final data = await MarkdownUtils.getFromUrl();
-                      showDialog(
-                        context: context,
-                        builder: (_) => Dialog(
-                          child: Column(
-                            children: [
-                              Expanded(child: Markdown(data: data)),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 55,
-                                child: TextButton(
-                                  onPressed: () => context.pop(),
-                                  child: Text(S.common.buttons.accept),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                    onTap: () => launchUrlString(Urls.privacyPolicy),
                     icon: IconsaxOutline.shield,
                     title: S
                         .features.settings.page.moreInformation.privacyPolicies,

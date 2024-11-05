@@ -15,7 +15,6 @@ dependencies:
   flutter_datetime_picker_plus: ^2.2.0
   flutter_localizations:
     sdk: flutter
-  flutter_markdown: ^0.7.4+1
   flutter_riverpod: ^2.6.1
   fluttertoast: ^8.2.8
   gap: ^3.0.1
