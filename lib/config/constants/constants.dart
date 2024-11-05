@@ -36,4 +36,7 @@ class Urls {
         ? 'https://apps.apple.com/us/app/tasking/id1581530737'
         : 'https://play.google.com/store/apps/details?id=com.ingedevs.tasking';
   }
+
+  // TODO: Add feedback link
+  static String languageFeedback = 'https://forms.gle/7Q6Q6Q6Q6Q6Q6Q6Q6';
 }

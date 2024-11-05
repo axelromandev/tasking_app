@@ -66,7 +66,8 @@
       "restore": "Restaurer",
       "save": "Enregistrer",
       "accept": "Accepter",
-      "select": "Sélectionner"
+      "select": "Sélectionner",
+      "sendFeedback": "Envoyer des commentaires"
     },
     "utils": {
       "dateTimePicker": {

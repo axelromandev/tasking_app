@@ -66,7 +66,8 @@
       "restore": "पुनर्स्थापित करें",
       "save": "सहेजें",
       "accept": "स्वीकार करें",
-      "select": "चयन करें"
+      "select": "चयन करें",
+      "sendFeedback": "प्रतिक्रिया भेजें"
     },
     "utils": {
       "dateTimePicker": {

@@ -6,6 +6,7 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/settings/settings.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LanguagePage extends ConsumerWidget {
   const LanguagePage({super.key});
@@ -46,9 +47,21 @@ class LanguagePage extends ConsumerWidget {
                   S.features.settings.languages.title,
                   style: style.titleLarge,
                 ),
-                content: Text(
-                  S.features.settings.languages.gptInfoDialog,
-                  style: style.bodyLarge,
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      S.features.settings.languages.gptInfoDialog,
+                      style: style.bodyLarge,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () => launchUrlString(Urls.languageFeedback),
+                        child: Text(S.common.buttons.sendFeedback),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
