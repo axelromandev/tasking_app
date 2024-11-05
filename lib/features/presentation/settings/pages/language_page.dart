@@ -37,7 +37,6 @@ class LanguagePage extends ConsumerWidget {
             ),
           ],
         ),
-        centerTitle: false,
         actions: [
           IconButton(
             onPressed: () => showDialog(

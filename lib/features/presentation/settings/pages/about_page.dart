@@ -26,7 +26,6 @@ class AboutPage extends ConsumerWidget {
           S.features.settings.page.moreInformation.about,
           style: style.titleLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
-        centerTitle: false,
       ),
       body: Column(
         children: [

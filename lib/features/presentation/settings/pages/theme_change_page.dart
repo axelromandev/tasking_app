@@ -36,7 +36,6 @@ class ThemesChangePage extends ConsumerWidget {
             ),
           ],
         ),
-        centerTitle: false,
         actions: [
           IconButton(
             onPressed: () => showDialog(
