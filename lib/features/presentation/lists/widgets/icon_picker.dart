@@ -66,8 +66,6 @@ class _IconPickerState extends State<IconPicker> {
       padding: widget.padding,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 8,
-        crossAxisSpacing: 10.0,
-        mainAxisSpacing: 10.0,
       ),
       itemBuilder: (_, index) {
         final icon = icons[index];
@@ -76,11 +74,15 @@ class _IconPickerState extends State<IconPicker> {
             setState(() => selected = icon);
             widget.onIconChanged(icon);
           },
-          child: Icon(
-            icon,
-            color: (selected.codePoint == icon.codePoint)
-                ? Colors.amber
-                : Colors.white60,
+          child: Container(
+            color: Colors.transparent,
+            alignment: Alignment.center,
+            child: Icon(
+              icon,
+              color: (selected.codePoint == icon.codePoint)
+                  ? Colors.amber
+                  : Colors.white60,
+            ),
           ),
         );
       },

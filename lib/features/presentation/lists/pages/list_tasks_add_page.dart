@@ -27,16 +27,14 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: const Icon(IconsaxOutline.arrow_left_2),
+        ),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            GestureDetector(
-              onTap: () => context.pop(),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(IconsaxOutline.arrow_left_2, size: 20),
-              ),
-            ),
+            Icon(IconsaxOutline.add, color: colorPrimary),
             const Gap(12),
             Text(
               S.features.lists.addModal.title,
@@ -44,7 +42,6 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
             ),
           ],
         ),
-        centerTitle: false,
       ),
       body: Container(
         padding: const EdgeInsets.all(defaultPadding),
@@ -71,27 +68,15 @@ class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
             const Gap(defaultPadding),
             Card(
               margin: EdgeInsets.zero,
-              child: ExpansionTile(
-                visualDensity: VisualDensity.compact,
-                title: Row(
-                  children: [
-                    Text('Seleccionar icono', style: style.bodyMedium),
-                    const Gap(defaultPadding),
-                    Icon(provider.icon, color: colorPrimary),
-                  ],
-                ),
-                shape: const RoundedRectangleBorder(),
-                textColor: Colors.white,
-                collapsedTextColor: Colors.white,
-                collapsedIconColor: Colors.white,
-                iconColor: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  ListTile(
+                    visualDensity: VisualDensity.compact,
+                    title: Text('Seleccionar icono', style: style.bodyMedium),
+                  ),
                   IconPicker(
-                    padding: const EdgeInsets.only(
-                      left: defaultPadding,
-                      right: defaultPadding,
-                      bottom: defaultPadding,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     icon: provider.icon,
                     onIconChanged: notifier.onIconChanged,
                   ),
