@@ -8,22 +8,15 @@ import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, _State, int>((ref, listId) {
-  final refreshAll = ref.read(listsProvider.notifier).refresh;
-  final refreshList = ref.read(listTasksProvider(listId).notifier).refresh;
-
-  return _Notifier(listId, refreshAll, refreshList);
+    .autoDispose<_Notifier, _State, (int listId, bool isMyDay)>((ref, config) {
+  return _Notifier(config, ref);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(
-    int listId,
-    this.refreshAll,
-    this.refreshList,
-  ) : super(_State(listId: listId));
+  _Notifier(this.config, this.ref) : super(_State());
 
-  final Future<void> Function() refreshAll;
-  final Future<void> Function() refreshList;
+  final (int listId, bool isMyDau) config;
+  final Ref ref;
 
   final controller = TextEditingController();
   final focusNode = FocusNode();
@@ -90,7 +83,7 @@ class _Notifier extends StateNotifier<_State> {
     }
     try {
       final newTask = Task.create(
-        listId: state.listId,
+        listId: config.$1,
         title: state.name,
         notes: state.notes,
         dateline: state.dateline,
@@ -100,8 +93,8 @@ class _Notifier extends StateNotifier<_State> {
       // TODO: implement reminder notification
 
       await _taskRepository.add(newTask).then((_) {
-        refreshList();
-        refreshAll();
+        ref.read(listTasksProvider(config.$1).notifier).refresh();
+        ref.read(listsProvider.notifier).refresh();
       });
     } catch (e) {
       MyToast.show(e.toString());
@@ -118,14 +111,12 @@ class _Notifier extends StateNotifier<_State> {
 
 class _State {
   _State({
-    required this.listId,
     this.name = '',
     this.notes = '',
     this.dateline,
     this.reminder,
   });
 
-  final int listId;
   final String name;
   final String notes;
   final DateTime? dateline;
@@ -138,7 +129,6 @@ class _State {
     DateTime? reminder,
   }) {
     return _State(
-      listId: listId,
       name: name ?? this.name,
       notes: notes ?? this.notes,
       dateline: dateline ?? this.dateline,
@@ -148,7 +138,6 @@ class _State {
 
   _State removeDateline() {
     return _State(
-      listId: listId,
       name: name,
       notes: notes,
       reminder: reminder,
@@ -157,7 +146,6 @@ class _State {
 
   _State removeReminder() {
     return _State(
-      listId: listId,
       name: name,
       notes: notes,
       dateline: dateline,

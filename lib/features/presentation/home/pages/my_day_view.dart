@@ -10,11 +10,11 @@ import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
-class MyDayView extends ConsumerWidget {
+class MyDayView extends StatelessWidget {
   const MyDayView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -41,7 +41,11 @@ class MyDayView extends ConsumerWidget {
         child: Card(
           margin: const EdgeInsets.all(defaultPadding),
           child: ListTile(
-            onTap: () {},
+            onTap: () => showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              builder: (_) => const TaskAddModal((1, true)),
+            ),
             leading: const Icon(IconsaxOutline.add),
             title: const Text('Add a task'),
           ),

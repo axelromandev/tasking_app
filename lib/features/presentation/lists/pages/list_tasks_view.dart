@@ -70,7 +70,7 @@ class ListTasksView extends ConsumerWidget {
               onTap: () => showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
-                builder: (_) => TaskAddModal(listId),
+                builder: (_) => TaskAddModal((listId, false)),
               ),
               leading: const Icon(IconsaxOutline.add),
               title: Text(S.features.lists.forms.placeholder),

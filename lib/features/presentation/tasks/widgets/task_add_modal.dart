@@ -9,16 +9,16 @@ import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class TaskAddModal extends ConsumerWidget {
-  const TaskAddModal(this.listId, {super.key});
+  const TaskAddModal(this.config, {super.key});
 
-  final int listId;
+  final (int listId, bool isMyDay) config;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorPrimary = ref.watch(colorThemeProvider);
 
-    final provider = ref.watch(taskAddModalProvider(listId));
-    final notifier = ref.read(taskAddModalProvider(listId).notifier);
+    final provider = ref.watch(taskAddModalProvider(config));
+    final notifier = ref.read(taskAddModalProvider(config).notifier);
 
     return SingleChildScrollView(
       child: Container(
