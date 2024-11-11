@@ -9,19 +9,14 @@ import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
 
-class ListTasksAddPage extends ConsumerStatefulWidget {
+class ListTasksAddPage extends ConsumerWidget {
   const ListTasksAddPage({super.key});
 
   @override
-  ConsumerState<ListTasksAddPage> createState() => _ListTasksAddModalState();
-}
-
-class _ListTasksAddModalState extends ConsumerState<ListTasksAddPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
+
     final provider = ref.watch(listTasksAddProvider);
     final notifier = ref.read(listTasksAddProvider.notifier);
 
