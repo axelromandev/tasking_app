@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/features/presentation/calendar/calendar.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
@@ -30,7 +31,13 @@ class HomePage extends ConsumerWidget {
           icon: const Icon(IconsaxOutline.menu),
         ),
       ),
-      body: provider.body ?? const MyDayView(),
+      body: switch (provider.typeView) {
+        TypeView.important => const ImportantView(),
+        TypeView.calendar => const CalendarView(),
+        TypeView.tasks => const ListTasksView(1),
+        TypeView.lists => ListTasksView(provider.listId!),
+        (_) => const MyDayView(),
+      },
       resizeToAvoidBottomInset: false,
       drawer: _Drawer(),
     );
