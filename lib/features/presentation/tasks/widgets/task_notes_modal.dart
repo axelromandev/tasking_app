@@ -25,6 +25,12 @@ class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colorPrimary = ref.watch(colorThemeProvider);
 
