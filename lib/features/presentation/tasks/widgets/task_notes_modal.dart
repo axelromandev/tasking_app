@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -54,45 +53,20 @@ class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
                 labelText: S.features.tasks.addModal.notes,
                 labelStyle: const TextStyle(color: Colors.grey),
                 helperStyle: const TextStyle(color: Colors.grey),
-                helper: (controller.text.isNotEmpty)
-                    ? _CleanButton(
-                        onTap: () {
-                          controller.clear();
-                          setState(() {});
-                        },
-                      )
-                    : null,
+                helper: TextButton(
+                  onPressed: controller.text.isNotEmpty
+                      ? () => Navigator.pop(context, '')
+                      : null,
+                  child: Text(S.common.buttons.clear),
+                ),
               ),
               onChanged: (_) => setState(() {}),
               onSubmitted: (value) {
-                context.pop(value);
+                Navigator.pop(context, value);
               },
             ),
             const Gap(8),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _CleanButton extends ConsumerWidget {
-  const _CleanButton({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final style = Theme.of(context).textTheme;
-
-    final colorPrimary = ref.watch(colorThemeProvider);
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Text(
-        S.common.buttons.clear,
-        style: style.bodySmall?.copyWith(
-          color: colorPrimary,
         ),
       ),
     );

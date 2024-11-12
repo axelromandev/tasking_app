@@ -31,7 +31,6 @@ class TaskAddModal extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              autofocus: true,
               maxLines: null,
               cursorColor: colorPrimary,
               onChanged: notifier.onNameChanged,

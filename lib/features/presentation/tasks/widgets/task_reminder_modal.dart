@@ -62,9 +62,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: defaultPadding,
-      ),
+      padding: const EdgeInsets.all(8),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,6 +132,7 @@ class _TaskReminderModalState extends ConsumerState<TaskReminderModal> {
                     itemStyle: style.bodyLarge!,
                     doneStyle: style.bodyLarge!.copyWith(color: colorPrimary),
                     cancelStyle: style.bodyLarge!.copyWith(color: Colors.white),
+                    containerHeight: 400,
                   ),
                   locale: switch (S.common.locale) {
                     'en' => pd.LocaleType.en,

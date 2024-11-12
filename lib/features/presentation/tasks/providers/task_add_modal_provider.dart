@@ -52,6 +52,7 @@ class _Notifier extends StateNotifier<_State> {
         },
       ),
     ).then((value) {
+      if (!mounted) return;
       if (value == null) return;
       state = state.copyWith(dateline: value);
     });
@@ -60,7 +61,7 @@ class _Notifier extends StateNotifier<_State> {
   void openReminderModal(BuildContext context) {
     showModalBottomSheet<DateTime?>(
       context: context,
-      builder: (context) => TaskReminderModal(
+      builder: (_) => TaskReminderModal(
         value: state.reminder,
         onDelete: () {
           state = state.removeReminder();
@@ -76,11 +77,8 @@ class _Notifier extends StateNotifier<_State> {
     showModalBottomSheet<String?>(
       context: context,
       isScrollControlled: true,
-      builder: (context) => TaskNotesModal(
-        value: state.notes,
-      ),
+      builder: (_) => TaskNotesModal(value: state.notes),
     ).then((value) {
-      focusNode.requestFocus();
       if (value == null) return;
       state = state.copyWith(notes: value);
     });
@@ -168,9 +166,9 @@ class _State {
 }
 
 class TaskAddConfig {
-  TaskAddConfig({
+  const TaskAddConfig({
     required this.listId,
-    required this.isMyDay,
+    this.isMyDay = false,
   });
 
   final int listId;

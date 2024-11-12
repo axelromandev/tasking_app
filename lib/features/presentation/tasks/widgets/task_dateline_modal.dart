@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
     as pd;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -53,11 +54,10 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(8),
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
           children: [
             ListTile(
               onTap: () {
-                Navigator.pop(context, today);
+                context.pop(today);
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar),
@@ -77,7 +77,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pop(context, tomorrow);
+                context.pop(tomorrow);
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_2),
@@ -89,7 +89,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
             ),
             ListTile(
               onTap: () {
-                Navigator.pop(context, nextWeek);
+                context.pop(nextWeek);
               },
               visualDensity: VisualDensity.compact,
               leading: const Icon(IconsaxOutline.calendar_1),
@@ -114,7 +114,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
                       23,
                       59,
                     );
-                    Navigator.pop(context, dateline);
+                    context.pop(dateline);
                   },
                   currentTime: widget.value ?? DateTime.now(),
                   theme: pd.DatePickerTheme(
@@ -140,7 +140,7 @@ class _TaskDatelineModalState extends ConsumerState<TaskDatelineModal> {
               ListTile(
                 onTap: () {
                   widget.onDelete!();
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 visualDensity: VisualDensity.compact,
                 leading: const Icon(IconsaxOutline.trash),
