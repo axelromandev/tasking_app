@@ -3,19 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/core/core.dart';
 import 'package:tasking/features/data/data.dart';
 import 'package:tasking/features/domain/domain.dart';
+import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 final taskAddModalProvider = StateNotifierProvider.family
-    .autoDispose<_Notifier, _State, (int listId, bool isMyDay)>((ref, config) {
+    .autoDispose<_Notifier, _State, TaskAddConfig>((ref, config) {
   return _Notifier(config, ref);
 });
 
 class _Notifier extends StateNotifier<_State> {
-  _Notifier(this.config, this.ref) : super(_State());
+  _Notifier(this.config, this.ref) : super(_State()) {
+    _initialize();
+  }
 
-  final (int listId, bool isMyDau) config;
+  final TaskAddConfig config;
   final Ref ref;
 
   final controller = TextEditingController();
@@ -27,6 +30,12 @@ class _Notifier extends StateNotifier<_State> {
     controller.dispose();
     focusNode.dispose();
     super.dispose();
+  }
+
+  void _initialize() {
+    if (config.isMyDay) {
+      state = state.copyWith(dateline: DateTime.now());
+    }
   }
 
   void onNameChanged(String value) {
@@ -71,6 +80,7 @@ class _Notifier extends StateNotifier<_State> {
         value: state.notes,
       ),
     ).then((value) {
+      focusNode.requestFocus();
       if (value == null) return;
       state = state.copyWith(notes: value);
     });
@@ -83,7 +93,7 @@ class _Notifier extends StateNotifier<_State> {
     }
     try {
       final newTask = Task.create(
-        listId: config.$1,
+        listId: config.listId,
         title: state.name,
         notes: state.notes,
         dateline: state.dateline,
@@ -93,7 +103,11 @@ class _Notifier extends StateNotifier<_State> {
       // TODO: implement reminder notification
 
       await _taskRepository.add(newTask).then((_) {
-        ref.read(listTasksProvider(config.$1).notifier).refresh();
+        if (config.isMyDay) {
+          ref.read(myDayProvider.notifier).refresh();
+        } else {
+          ref.read(listTasksProvider(config.listId).notifier).refresh();
+        }
         ref.read(listsProvider.notifier).refresh();
       });
     } catch (e) {
@@ -151,4 +165,14 @@ class _State {
       dateline: dateline,
     );
   }
+}
+
+class TaskAddConfig {
+  TaskAddConfig({
+    required this.listId,
+    required this.isMyDay,
+  });
+
+  final int listId;
+  final bool isMyDay;
 }

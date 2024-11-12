@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
 
 class TaskAddModal extends ConsumerWidget {
   const TaskAddModal(this.config, {super.key});
 
-  final (int listId, bool isMyDay) config;
+  final TaskAddConfig config;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,20 +63,21 @@ class TaskAddModal extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 children: [
                   TextButton.icon(
-                    onPressed: () => notifier.openDatelineModal(context),
+                    onPressed: notifier.config.isMyDay
+                        ? () {}
+                        : () => notifier.openDatelineModal(context),
                     style: TextButton.styleFrom(
                       visualDensity: VisualDensity.compact,
                       overlayColor: Colors.transparent,
                       foregroundColor: (provider.dateline != null)
-                          ? colorPrimary
+                          ? notifier.config.isMyDay
+                              ? colorPrimary.withOpacity(0.8)
+                              : colorPrimary
                           : Colors.white,
                     ),
                     icon: const Icon(IconsaxOutline.calendar_1, size: 20),
                     label: (provider.dateline != null)
-                        ? Text(
-                            DateFormat.yMMMd().format(provider.dateline!),
-                            style: TextStyle(color: colorPrimary),
-                          )
+                        ? Text(HumanFormat.datetime(provider.dateline))
                         : Text(S.features.tasks.addModal.dateline),
                   ),
                   TextButton.icon(

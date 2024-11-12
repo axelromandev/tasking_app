@@ -44,7 +44,9 @@ class MyDayView extends StatelessWidget {
             onTap: () => showModalBottomSheet(
               context: context,
               isScrollControlled: true,
-              builder: (_) => const TaskAddModal((1, true)),
+              builder: (_) => TaskAddModal(
+                TaskAddConfig(listId: 1, isMyDay: true),
+              ),
             ),
             leading: const Icon(IconsaxOutline.add),
             title: const Text('Add a task'),
