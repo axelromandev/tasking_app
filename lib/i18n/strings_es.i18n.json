@@ -67,7 +67,8 @@
       "save": "Guardar",
       "accept": "Aceptar",
       "select": "Seleccionar",
-      "sendFeedback": "Enviar comentarios"
+      "sendFeedback": "Enviar comentarios",
+      "clear": "Limpiar"
     },
     "utils": {
       "dateTimePicker": {

@@ -67,7 +67,8 @@
       "save": "保存",
       "accept": "承諾",
       "select": "選択",
-      "sendFeedback": "フィードバックを送信"
+      "sendFeedback": "フィードバックを送信",
+      "clear": "クリア"
     },
     "utils": {
       "dateTimePicker": {

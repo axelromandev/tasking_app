@@ -67,7 +67,8 @@
       "save": "Сохранить",
       "accept": "Принять",
       "select": "Выбрать",
-      "sendFeedback": "Отправить отзыв"
+      "sendFeedback": "Отправить отзыв",
+      "clear": "Очистить"
     },
     "utils": {
       "dateTimePicker": {

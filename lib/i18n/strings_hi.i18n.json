@@ -67,7 +67,8 @@
       "save": "सहेजें",
       "accept": "स्वीकार करें",
       "select": "चयन करें",
-      "sendFeedback": "प्रतिक्रिया भेजें"
+      "sendFeedback": "प्रतिक्रिया भेजें",
+      "clear": "साफ करें"
     },
     "utils": {
       "dateTimePicker": {

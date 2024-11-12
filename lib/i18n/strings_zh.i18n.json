@@ -67,7 +67,8 @@
       "save": "保存",
       "accept": "接受",
       "select": "选择",
-      "sendFeedback": "发送反馈"
+      "sendFeedback": "发送反馈",
+      "clear": "清除"
     },
     "utils": {
       "dateTimePicker": {

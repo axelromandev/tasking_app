@@ -67,7 +67,8 @@
       "save": "Simpan",
       "accept": "Terima",
       "select": "Pilih",
-      "sendFeedback": "Kirim umpan balik"
+      "sendFeedback": "Kirim umpan balik",
+      "clear": "Bersihkan"
     },
     "utils": {
       "dateTimePicker": {

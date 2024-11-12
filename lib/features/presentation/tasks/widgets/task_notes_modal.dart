@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/i18n/i18n.dart';
 
 class TaskNotesModal extends ConsumerStatefulWidget {
-  const TaskNotesModal({
-    this.value,
-    super.key,
-  });
+  const TaskNotesModal({this.value, super.key});
 
   final String? value;
 
@@ -26,8 +25,8 @@ class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
+    controller.dispose();
   }
 
   @override
@@ -52,7 +51,7 @@ class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
               decoration: InputDecoration(
                 filled: false,
                 border: InputBorder.none,
-                labelText: 'Notas',
+                labelText: S.features.tasks.addModal.notes,
                 labelStyle: const TextStyle(color: Colors.grey),
                 helperStyle: const TextStyle(color: Colors.grey),
                 helper: (controller.text.isNotEmpty)
@@ -66,7 +65,7 @@ class _TaskNotesModalState extends ConsumerState<TaskNotesModal> {
               ),
               onChanged: (_) => setState(() {}),
               onSubmitted: (value) {
-                Navigator.pop(context, value);
+                context.pop(value);
               },
             ),
             const Gap(8),
@@ -91,7 +90,7 @@ class _CleanButton extends ConsumerWidget {
     return GestureDetector(
       onTap: onTap,
       child: Text(
-        'Limpiar',
+        S.common.buttons.clear,
         style: style.bodySmall?.copyWith(
           color: colorPrimary,
         ),
