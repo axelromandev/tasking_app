@@ -62,9 +62,8 @@ class ListTasksView extends ConsumerWidget {
           child: ListTile(
             onTap: () => showModalBottomSheet(
               context: context,
-              isScrollControlled: true,
               builder: (_) => TaskAddModal(
-                TaskAddConfig(listId: 1, isMyDay: true),
+                TaskAddConfig(listId: listId),
               ),
             ),
             leading: const Icon(IconsaxOutline.add),
