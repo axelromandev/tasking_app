@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tasking/i18n/i18n.dart';
@@ -13,10 +15,16 @@ class DatabaseHelper {
     return _database!;
   }
 
+  Future<String> _getDatabasesPath() async {
+    final String databasePath = await getDatabasesPath();
+    final String path = join(databasePath, 'tasking.db');
+    log('Database 🚀: $path');
+    return path;
+  }
+
   Future<Database> initDatabase() async {
-    final String path = join(await getDatabasesPath(), 'tasking.db');
     return await openDatabase(
-      path,
+      await _getDatabasesPath(),
       version: 1,
       onCreate: (Database db, int version) async {
         await db.execute('''
@@ -54,6 +62,15 @@ class DatabaseHelper {
             FOREIGN KEY ("task_id") REFERENCES "tasks" ("id")
           );
         ''');
+        await db.insert(
+          'lists',
+          {
+            'title': S.features.tasks.title,
+            'is_default': 1,
+            'icon_json':
+                '{"codePoint":59843,"fontFamily":"IconsaxOutline","fontPackage":"ficonsax"}',
+          },
+        );
       },
     );
   }
@@ -135,29 +152,5 @@ class DatabaseHelper {
         );
       }
     });
-  }
-
-  Future<void> restore() async {
-    final Database db = await database;
-
-    // Desactivar claves foráneas temporalmente
-    await db.execute('PRAGMA foreign_keys = OFF;');
-
-    // Borrar datos de todas las tablas
-    await db.transaction((txn) async {
-      await txn.delete('steps');
-      await txn.delete('tasks');
-      await txn.delete('lists');
-    });
-
-    // Restablecer el contador AUTOINCREMENT para cada tabla
-    await db.execute("DELETE FROM sqlite_sequence WHERE name='steps';");
-    await db.execute("DELETE FROM sqlite_sequence WHERE name='tasks';");
-    await db.execute("DELETE FROM sqlite_sequence WHERE name='lists';");
-
-    // Reactivar claves foráneas
-    await db.execute('PRAGMA foreign_keys = ON;');
-
-    await _tutorialListQuery(db);
   }
 }
