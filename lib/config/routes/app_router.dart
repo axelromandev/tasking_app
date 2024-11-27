@@ -18,10 +18,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (_, __) => const IntroPage(),
       ),
       GoRoute(
-        path: '/tutorial',
-        builder: (_, __) => const TutorialPage(),
-      ),
-      GoRoute(
         path: '/',
         builder: (_, __) => const HomePage(),
       ),
@@ -52,7 +48,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
     redirect: (context, state) {
       if (pref.getValue<bool>(StorageKeys.isFirstTime) == null) {
-        if (state.matchedLocation == '/tutorial') return null;
         return '/intro';
       }
       return null;

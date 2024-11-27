@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
+import 'package:tasking/core/core.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -81,7 +82,11 @@ class IntroPage extends ConsumerWidget {
               CustomFilledButton(
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: defaultPadding),
-                onPressed: () => context.go('/tutorial'),
+                onPressed: () {
+                  final prefs = SharedPrefs();
+                  prefs.setKeyValue<bool>(StorageKeys.isFirstTime, true);
+                  context.go('/');
+                },
                 textStyle: style.titleLarge,
                 child: Text(S.features.intro.page.button),
               ),
