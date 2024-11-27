@@ -2,8 +2,8 @@ import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
-import 'package:tasking/features/presentation/intro/intro.dart';
 import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
 
@@ -13,7 +13,6 @@ class IntroPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme;
-
     final colorPrimary = ref.watch(colorThemeProvider);
 
     return Scaffold(
@@ -82,7 +81,7 @@ class IntroPage extends ConsumerWidget {
               CustomFilledButton(
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: defaultPadding),
-                onPressed: () => ref.read(introProvider).call(context),
+                onPressed: () => context.go('/tutorial'),
                 textStyle: style.titleLarge,
                 child: Text(S.features.intro.page.button),
               ),
@@ -105,7 +104,7 @@ class _Leading extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: colorPrimary.withOpacity(.06),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Icon(icon, color: colorPrimary),
