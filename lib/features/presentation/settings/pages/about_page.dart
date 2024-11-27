@@ -56,7 +56,7 @@ class AboutPage extends ConsumerWidget {
               text: 'Made by ',
               children: [
                 TextSpan(
-                  text: '@Ingedevs',
+                  text: '@AxelRomanDev',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),

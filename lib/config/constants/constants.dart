@@ -25,16 +25,16 @@ class Assets {
 }
 
 class Urls {
-  static String linkedin = 'https://www.linkedin.com/in/ingedevs';
-  static String repo = 'https://github.com/ingedevs/tasking_app';
+  static String linkedin = 'https://www.linkedin.com/in/axelroman-dev';
+  static String repo = 'https://github.com/axelroman-dev/tasking_app';
   static String privacyPolicy =
-      'https://raw.githubusercontent.com/ingedevs/tasking_app/main/privacy-policy.md';
+      'https://raw.githubusercontent.com/axelroman-dev/tasking_app/main/privacy-policy.md';
 
   static String get appStoreUrl {
     //TODO: Cambiar las url cuando las apps estén en las tiendas
     return Platform.isIOS
         ? 'https://apps.apple.com/us/app/tasking/id1581530737'
-        : 'https://play.google.com/store/apps/details?id=com.ingedevs.tasking';
+        : 'https://play.google.com/store/apps/details?id=dev.axelroman.tasking';
   }
 
   // TODO: Add feedback link

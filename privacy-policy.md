@@ -24,4 +24,4 @@ Tasking allows users to organize their tasks by creating task lists. These lists
 
 ## Contact
 
-If you have any questions or concerns about our Privacy Policy, please contact us at contact@ingedevs.com
+If you have any questions or concerns about our Privacy Policy, please contact us at axelroman.dev@proton.me
