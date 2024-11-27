@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:tasking/widgets/widgets.dart';
 
 class ListTaskDeleteDialog extends ConsumerWidget {
   const ListTaskDeleteDialog(this.listId);

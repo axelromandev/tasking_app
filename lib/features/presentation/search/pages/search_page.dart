@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/search/search.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:tasking/widgets/widgets.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});

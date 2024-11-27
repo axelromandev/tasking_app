@@ -5,9 +5,9 @@ import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/domain/domain.dart';
 import 'package:tasking/features/presentation/home/home.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/features/presentation/tasks/tasks.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:tasking/widgets/widgets.dart';
 
 class ImportantView extends ConsumerWidget {
   const ImportantView({super.key});

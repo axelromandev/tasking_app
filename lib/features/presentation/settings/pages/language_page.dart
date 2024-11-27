@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/settings/settings.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:tasking/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class LanguagePage extends ConsumerWidget {

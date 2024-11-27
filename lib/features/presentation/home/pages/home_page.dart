@@ -7,8 +7,8 @@ import 'package:tasking/config/config.dart';
 import 'package:tasking/features/presentation/calendar/calendar.dart';
 import 'package:tasking/features/presentation/home/home.dart';
 import 'package:tasking/features/presentation/lists/lists.dart';
-import 'package:tasking/features/presentation/shared/shared.dart';
 import 'package:tasking/i18n/i18n.dart';
+import 'package:tasking/widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
