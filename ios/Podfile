@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -46,7 +46,7 @@ post_install do |installer|
           '$(inherited)',
 
           ## dart: PermissionGroup.reminders
-          # 'PERMISSION_REMINDERS=1',
+          'PERMISSION_REMINDERS=1',
 
           ## dart: PermissionGroup.notification
           'PERMISSION_NOTIFICATIONS=1',
