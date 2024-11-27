@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ingedevs.tasking"
+    namespace = "dev.axelroman.tasking"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.ingedevs.tasking"
+        applicationId = "dev.axelroman.tasking"
         minSdk = 28
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
